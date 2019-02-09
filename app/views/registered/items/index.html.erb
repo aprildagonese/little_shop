@@ -1,0 +1,7 @@
+<h1>All Items</h1>
+
+
+<% @items.each do |item| %>
+  <h2><%= item.name %></h2>
+  <p>Cost: <%= item.cost %></p>
+<% end %>

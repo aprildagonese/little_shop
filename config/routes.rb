@@ -1,23 +1,23 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-root 'welcome'
+root 'welcome#index'
 
 namespace :admin do
-	resources :users
-	resources :items
+	resources :users, only: [:index]
+	resources :items, only: [:index, :edit]
 end
 namespace :merchant do
-	resources :users
-  resources :items
+	resources :users, only: [:index]
+  resources :items, only: [:index, :edit]
 end
 namespace :registered do
-	resources :users
-  resources :items
+	resources :users, only: [:index]
+  resources :items, only: [:index]
 
 end
 namespace :visitor do
-	resources :users
-  resources :items
+	resources :users, only: [:index, :show]
+  resources :items, only: [:index]
 end
 
 get '/login', to: 'sessions#new'
