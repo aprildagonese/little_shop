@@ -1,15 +1,15 @@
 require "rails_helper"
 
 RSpec.describe Item, type: :model do
-  describe "relationships" do
-    it {should have_many :}
-    it {should have_many(:).through(:)}
-    it {should belong_to(:)}
-  end
+  # describe "relationships" do
+  #   it {should have_many :}
+  #   it {should have_many(:).through(:)}
+  #   it {should belong_to(:)}
+  # end
 
   describe 'Validations' do
     describe 'Required Field(s)' do
-      it {should validate_presence_of(:name)}
+      xit {should validate_presence_of(:name)}
     end
   end
 

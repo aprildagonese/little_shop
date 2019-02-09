@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Registering user", type: :feature do
-  it 'shows a form' do
+  xit 'shows a form' do
     name = "funbucket13"
     email = "funbucket13@gmail.com"
     visit '/register'

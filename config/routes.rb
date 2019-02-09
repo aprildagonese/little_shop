@@ -16,7 +16,7 @@ namespace :registered do
 
 end
 namespace :visitor do
-	resources :users, only: [:index, :show]
+	resources :users, only: [:index, :show, :new]
   resources :items, only: [:index]
 end
 
