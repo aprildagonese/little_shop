@@ -1,13 +1,22 @@
 class Admin::UsersController < ApplicationController
   before_action :require_admin
 
+  def show
+  end
+
   def index
   end
+
   def edit
   end
 
-  private
-  def require_admin
-    render file: "/public/404" unless current_admin?
+  def update
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password)
+  end
+
 end
