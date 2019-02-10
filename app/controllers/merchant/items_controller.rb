@@ -1,4 +1,4 @@
-class Dashboard::ItemsController < ApplicationController
+class Merchant::ItemsController < ApplicationController
   before_action :require_merchant
 
   def new
