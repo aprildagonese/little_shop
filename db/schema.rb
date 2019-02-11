@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20190209224521) do
   enable_extension "plpgsql"
 
   create_table "items", force: :cascade do |t|
+    t.string "title"
     t.string "activation_status"
     t.text "description"
     t.string "image_url"
