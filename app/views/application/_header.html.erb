@@ -1,5 +1,5 @@
 <!---Nav Bar--->
-  <header class="nav-bar">
+  <nav>
     <div class="general-nav">
       <%= link_to "Home", root_path %>
       <% if !@current_user %>
@@ -18,4 +18,4 @@
         <%= link_to "Cart", carts_path %>
       <% end %>
     </div>
-  </header>
+  </nav>
