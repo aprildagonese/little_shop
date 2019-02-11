@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  # has_many :orders#, dependent: :destroy
+  has_many :orders#, dependent: :destroy
+  has_many :items
   # has_secure_password
 
   validates :name, presence: true, uniqueness: true
