@@ -8,10 +8,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    unless password_confirmed?
-      redirect_to register_path
-      return
-    end
+    # unless password_confirmed?
+    #   redirect_to register_path
+    #   return
+    # end
 
     @user = User.new(user_params)
     if @user.save
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :street_address, :city, :zip_code, :state)
+    params.require(:user).permit(:name, :email, :password, :street_address, :city, :zip_code, :state, :password_confirmation)
   end
 
   def require_login
@@ -57,10 +57,10 @@ class UsersController < ApplicationController
     end
   end
 
-  def password_confirmed?
-    match = params[:user][:password] == params[:user][:confirm_password]
-    flash[:notice] = "Your passwords didn't match!" unless match
-    match
-  end
+  # def password_confirmed?
+  #   match = params[:user][:password] == params[:user][:confirm_password]
+  #   flash[:notice] = "Your passwords didn't match!" unless match
+  #   match
+  # end
 
 end

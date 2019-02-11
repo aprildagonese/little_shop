@@ -52,7 +52,7 @@ RSpec.describe "visitor index page", type: :feature do
         fill_in :user_state, with: state
         fill_in :user_zip_code, with: zip_code
         fill_in :user_password, with: "test"
-        fill_in :user_confirm_password, with: "test"
+        fill_in :user_password_confirmation, with: "test"
 
         click_on "Create User"
 
