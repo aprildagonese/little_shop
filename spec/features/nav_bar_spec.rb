@@ -4,8 +4,7 @@ RSpec.describe "site nav bar", type: :feature do
 
   describe "on the items index page" do
     it "visitor sees a nav bar" do
-      visit visitor_items_path
-      save_and_open_page
+      visit items_path
 
       within ".general-nav" do
         expect(page).to have_link("Home")
