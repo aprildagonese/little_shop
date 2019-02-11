@@ -132,7 +132,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         click_on "Log Out"
 
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq(welcome_path)
 
         ##Add expect flash message
 
