@@ -2,19 +2,19 @@
   <nav>
     <div class="general-nav">
       <%= link_to "Home", root_path %>
-      <% if !@current_user %>
-        <%= link_to "Browse Dishes", visitor_items_path %>
+      <% if !current_user %>
+        <%= link_to "Browse Dishes", items_path %>
         <%= link_to "Restaurants", merchant_users_path %>
       <% end %>
     </div>
     <div class="auth-nav">
-      <% if !@current_user %>
+      <% if !current_user %>
         <%= link_to "Log In", login_path %>
-        <%= link_to "Register", new_visitor_user_path %>
+        <%= link_to "Register", new_user_path %>
       <% end %>
     </div>
     <div class="cart-nav">
-      <% if !@current_user %>
+      <% if !current_user %>
         <%= link_to "Cart", carts_path %>
       <% end %>
     </div>
