@@ -7,6 +7,7 @@ namespace :merchant do
 end
 
 namespace :admin do
+  resources :merchants, only: [:show]
 	resources :items, except: [:show]
 	resources :users, only: [:show, :index, :edit, :update]
 end
@@ -20,7 +21,9 @@ post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
 
 get '/dashboard', to: 'merchants#show'
+get '/dashboard/items', to: 'merchant/items#index'
 get '/profile', to: 'users#show'
+get '/profile/edit', to: 'users#edit'
 #get '/profile/orders', to: 'user/orders#index'
 #get '/profile/orders/:id', to: 'user/orders#show'
 
