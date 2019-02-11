@@ -7,7 +7,6 @@ class User < ApplicationRecord
   validates_presence_of :password, require: true
   #validates :password_confirmation, presence: true
 
-
   has_secure_password
 
   enum role: [:registered, :merchant, :admin]

@@ -2,10 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_user
-  helper_method :current_admin?
-  helper_method :current_merchant?
-  helper_method :current_registered?
-  # helper_method :current_visitor?
+
+  #Unhighlight if needed in view
+  #helper_method :current_admin?
+  #helper_method :current_merchant?
+  #helper_method :current_registered?
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -32,13 +33,9 @@ class ApplicationController < ActionController::Base
   end
 
   def require_current_user
-    unless current_user && current_user.registered?
+    unless current_registered?
       render file: "/public/404", status: :not_found
     end
   end
 
-  #
-  # def current_visitor?
-  #   current_user && current_user.visitor?
-  # end
 end

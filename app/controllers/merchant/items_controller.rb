@@ -1,6 +1,4 @@
-class Merchant::ItemsController < ApplicationController
-  before_action :require_merchant
-
+class Merchant::ItemsController < Admin::BaseController
   def new
     @item = Item.new
   end

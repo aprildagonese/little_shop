@@ -1,6 +1,4 @@
-class Admin::ItemsController < ApplicationController
-  before_action :require_admin
-
+class Admin::ItemsController < Admin::BaseController
   def new
     #add new item to a merchant
   end
@@ -11,6 +9,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def index
+    @items = Item.where(user: current_user)
   end
 
   def edit

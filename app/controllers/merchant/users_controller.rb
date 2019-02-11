@@ -1,5 +1,4 @@
-class Merchant::UsersController < ApplicationController
-  before_action :require_merchant
+class Merchant::UsersController < Admin::BaseController
 
   def show
   end

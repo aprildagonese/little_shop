@@ -25,6 +25,8 @@ RSpec.describe User, type: :model do
 
       expect(user.role).to eq("admin")
       expect(user.admin?).to be_truthy
+      expect(user.merchant?).to eq(false)
+      expect(user.registered?).to eq(false)
     end
 
     it "can be created as a merchant" do
@@ -34,6 +36,8 @@ RSpec.describe User, type: :model do
 
       expect(user.role).to eq("merchant")
       expect(user.merchant?).to be_truthy
+      expect(user.admin?).to eq(false)
+      expect(user.registered?).to eq(false)
     end
 
     it "can be created as a registered user" do
@@ -43,6 +47,8 @@ RSpec.describe User, type: :model do
 
       expect(user.role).to eq("registered")
       expect(user.registered?).to be_truthy
+      expect(user.merchant?).to eq(false)
+      expect(user.admin?).to eq(false)
     end
   end
 
