@@ -34,6 +34,10 @@ RSpec.describe "visitor index page", type: :feature do
       it 'can register new user' do
         name = "funbucket13"
         email = "funbucket13@gmail.com"
+        address = "1234 St."
+        city = "Denver"
+        state = "CO"
+        zip_code = 80304
 
         visit items_path
 
@@ -43,7 +47,12 @@ RSpec.describe "visitor index page", type: :feature do
 
         fill_in :user_name, with: name
         fill_in :user_email, with: email
+        fill_in :user_street_address, with: address
+        fill_in :user_city, with: city
+        fill_in :user_state, with: state
+        fill_in :user_zip_code, with: zip_code
         fill_in :user_password, with: "test"
+        fill_in :user_confirm_password, with: "test"
 
         click_on "Create User"
 

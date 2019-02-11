@@ -8,6 +8,11 @@ class UsersController < ApplicationController
   end
 
   def create
+    unless password_confirmed?
+      redirect_to register_path
+      return
+    end
+
     @user = User.new(user_params)
     if @user.save
       flash[:message] = "Thank you for registering! You are now logged in."
@@ -35,20 +40,27 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password)
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :street_address, :city, :zip_code, :state)
+  end
 
-    def require_login
-      unless logged_in?
-        flash[:error] = "You must be logged in to access this section"
-        redirect_to login_path
-      end
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to login_path
     end
+  end
 
-    def logged_in?
-      if session[:user_id]
-        true
-      end
+  def logged_in?
+    if session[:user_id]
+      true
     end
+  end
+
+  def password_confirmed?
+    match = params[:user][:password] == params[:user][:confirm_password]
+    flash[:notice] = "Your passwords didn't match!" unless match
+    match
+  end
+
 end
