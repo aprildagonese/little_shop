@@ -8,6 +8,6 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
     role { 0 }
-    activation_status { true }
+    activation_status { 0 }
   end
 end
