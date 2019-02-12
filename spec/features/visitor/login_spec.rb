@@ -20,7 +20,7 @@ RSpec.describe 'as a visitor' do
     expect(current_path).to eq(login_path)
 
     expect(page).to have_selector("input[type=submit][value='Log In']")
-    expect(page).to have_content("Failed to log you in, please check name and email.")
+    expect(page).to have_content("Login failed. Please check your email address and password.")
   end
 
   it 'errors and refreshes if log in attempt without both name and password' do
@@ -36,14 +36,14 @@ RSpec.describe 'as a visitor' do
     expect(current_path).to eq(login_path)
 
     expect(page).to have_selector("input[type=submit][value='Log In']")
-    expect(page).to have_content("Failed to log you in, please check name and email.")
+    expect(page).to have_content("Login failed. Please check your email address and password.")
 
     fill_in "password", with: password
 
     expect(current_path).to eq(login_path)
 
     expect(page).to have_selector("input[type=submit][value='Log In']")
-    expect(page).to have_content("Failed to log you in, please check name and email.")
+    expect(page).to have_content("Login failed. Please check your email address and password.")
   end
 
   it 'can log in as a merchant' do
