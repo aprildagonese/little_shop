@@ -4,13 +4,13 @@
   <% @users.each do |user| %>
   <div class="<%=user.name%>-row">
     <div class="user-name"><%= user.name %></div>
-    <address class="location-data">
-      <article>City:<%= user.city %></article>
-      <article>State:<%= user.state %></article>
-    </address>
+    <section class="location-data">
+      <p>City: <%= user.city %></p>
+      <p>State: <%= user.state %></p>
+    </section>
     <div class="activation-data">
-      <% unless @view=="Users" %><article>Date Registered: <%= user.created_at.to_date.to_s %></article>
-      <% if @type=="Admin" %><button>Activation Button</button>
+      <% unless @view=="Users" %><p>Date Registered: <%= user.created_at.to_date.to_s %></p><% end %>
+      <% if current_user.admin? %><button>Activation Button</button><% end %>
     </div>
   </div>
   <% end %>
