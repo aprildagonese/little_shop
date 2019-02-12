@@ -148,4 +148,13 @@ RSpec.describe "visitor index page", type: :feature do
       end
     end
   end
+  #
+  # describe 'As a visitor' do
+  #   xit 'displays all items' do
+  #
+  # 	visit '/items'
+  #
+  # 	expect..
+  #
+  #   end
 end

@@ -6,6 +6,8 @@ namespace :merchant do
   resources :items, except: [:show]
 end
 
+resources :carts, only: [:create]
+
 namespace :admin do
   resources :merchants, only: [:show]
 	resources :items, except: [:show]

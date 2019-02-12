@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LittleShop</title>
+    <title>Little Shop of Hors d'euvres</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
+  <%= render 'header' %>
 
+  <% flash.each do |type, message| %>
+    <%= content_tag :div, message, class: type %>
+  <% end %>
+
+<!---Body--->
   <body>
     <%= yield %>
   </body>
