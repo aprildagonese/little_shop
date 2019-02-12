@@ -1,13 +1,25 @@
-class Merchant::ItemsController < ApplicationController
-  before_action :require_merchant
+class Merchant::ItemsController < Admin::BaseController
+  def new
+    @item = Item.new
+  end
+
+  def create
+  end
 
   def index
+    @items = Item.where(user: current_user)
   end
+
   def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+  end
+
+  def destroy
   end
 
   private
-  def require_merchant
-    render file: "/public/404" unless current_merchant?
-  end
+
 end
