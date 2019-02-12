@@ -1,0 +1,11 @@
+<!---Title Block--->
+<section class="title-block">
+  <section class="title">
+    <h1>Little Shop of Hors d'euvres</h1>
+  </section>
+  <section class="login-status">
+    <% if current_user %>
+      <p>Logged in as <%= current_user.name %></p>
+    <% end %>
+  </section>
+</section>

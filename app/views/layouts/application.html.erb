@@ -7,7 +7,6 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
-  <%= render 'nav' %>
 
   <!---Flash--->
   <% flash.each do |type, message| %>
@@ -16,6 +15,9 @@
 
 <!---Body--->
   <body>
+    <%= render 'title' %>
+    <%= render 'nav' %>
+
     <%= yield %>
   </body>
 </html>
