@@ -1,3 +1,12 @@
+<% if @user.errors %>
+  <ul id="errors">
+    <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% binding.pry %>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for @user do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name, required: true %>
