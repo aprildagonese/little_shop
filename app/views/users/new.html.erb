@@ -2,7 +2,6 @@
   <ul id="errors">
     <% @user.errors.full_messages.each do |message| %>
     <li><%= message %></li>
-    <% binding.pry %>
     <% end %>
   </ul>
 <% end %>

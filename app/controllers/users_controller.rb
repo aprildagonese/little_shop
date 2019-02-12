@@ -15,6 +15,7 @@ class UsersController < ApplicationController
       redirect_to profile_path(@user)
     else
       flash[:alert] = "Your account could not be created with those credentials. Please try again or log in with an existing account."
+      @user.email = ""
       render :new
     end
   end
