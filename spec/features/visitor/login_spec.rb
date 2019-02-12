@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'when authenticating visitors' do
+RSpec.describe 'as a visitor' do
+
   it 'can log in as a merchant' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
 
@@ -20,6 +21,8 @@ RSpec.describe 'when authenticating visitors' do
     expect(page).to have_link("Log Out")
   end
 
+
+
   it 'can log in as an admin' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 2)
 
@@ -38,6 +41,7 @@ RSpec.describe 'when authenticating visitors' do
     expect(page).to have_content("You have been logged in as an #{user.role}")
     expect(page).to have_link("Log Out")
   end
+
 
 
   it 'can log in as a user' do
