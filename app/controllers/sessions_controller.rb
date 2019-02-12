@@ -8,10 +8,13 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       if user.registered?
         redirect_to profile_path
+        flash[:alert] = "You have been logged in as a #{user.role}"
       elsif user.merchant?
         redirect_to dashboard_path
+        flash[:alert] = "You have been logged in as a #{user.role}"
       elsif user.admin?
         redirect_to items_path
+        flash[:alert] = "You have been logged in as an #{user.role}"
       end
     else
       flash[:alert] = "Name and email already taken. Must be unique"

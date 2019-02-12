@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'as a visitor' do
+
   it 'can register new user' do
     name = "funbucket13"
     email = "funbucket13@gmail.com"
@@ -26,6 +27,7 @@ RSpec.describe 'as a visitor' do
 
     click_on "Create User"
 
+    #TODO flash message indicating you have been registered
     expect(page).to have_content("Welcome, #{name}!")
   end
 
@@ -67,6 +69,7 @@ RSpec.describe 'as a visitor' do
 
     expect(current_path).to eq(dashboard_path)
 
+    expect(page).to have_content("You have been logged in as a #{user.role}")
     expect(page).to have_link("Log Out")
   end
 
@@ -106,6 +109,7 @@ RSpec.describe 'as a visitor' do
     expect(current_path).to eq(profile_path)
 
     expect(page).to have_content("Welcome, #{user.name}!")
+    expect(page).to have_content("You have been logged in as a #{user.role}")
     expect(page).to have_link("Log Out")
   end
 
