@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to profile_path(@user)
     else
+      #TODO add helper method
       flash[:alert] = "Your account could not be created with those credentials. Please try again or log in with an existing account."
       @user.email = ""
       render :new
