@@ -7,6 +7,8 @@ RSpec.describe OrderItem, type: :model do
   end
 
   describe 'Validations' do
+    # it {should validate_presence_of(:quantity)}
+    it {should validate_presence_of(:sale_price)}
   end
 
   describe 'Class Methods' do
