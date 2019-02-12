@@ -72,13 +72,13 @@ RSpec.describe 'when authenticating visitors' do
       click_on "Create User"
 
       expect(page).to have_field(:user_name, with: 'Scott')
-      expect(page).to have_field(:user_email, with: '')
+      expect(page).to_not have_field(:user_email, with: "april@email.com")
       expect(page).to have_field(:user_street_address, with: '1 road street')
       expect(page).to have_field(:user_city, with: 'Denver')
       expect(page).to have_field(:user_state, with: 'CO')
       expect(page).to have_field(:user_zip_code, with: 80203)
-      expect(page).to have_field(:user_password, with: '')
-      expect(page).to have_field(:user_password_confirmation, with: '')
+      expect(page).to_not have_field(:user_password, with: 'test')
+      expect(page).to_not have_field(:user_password_confirmation, with: 'test')
     end
 
     it "can't register without providing email address" do
