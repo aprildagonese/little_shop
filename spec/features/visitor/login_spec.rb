@@ -23,7 +23,6 @@ RSpec.describe 'as a visitor' do
     expect(current_path).to eq(profile_path(user))
     expect(page).to have_content("Thank you for registering! You are now logged in.")
     expect(page).to have_content("Welcome, #{user.name}!")
-    expect(User.count).to eq(1)
   end
 
   it "prevents account creation for existing email address" do
@@ -51,12 +50,11 @@ RSpec.describe 'as a visitor' do
     fill_in :user_password_confirmation, with: "test"
 
     click_on "Create User"
-    user = User.last
 
     expect(current_path).to eq(register_path)
-    expect(page).to have_content("Your account could not be created with those credentials. Please try again.")
-    expect(User.count).to eq(1)
-  end 
+    expect(page).to have_content("Your account could not be created with those credentials. Please try again or log in with an existing account.")
+    expect(User.last).to eq(fae)
+  end
 
   it 'can log in as a merchant' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
