@@ -59,6 +59,8 @@ RSpec.describe "visitor index page", type: :feature do
         expect(page).to have_content("Welcome, #{name}!")
       end
 
+
+
       it 'errors and refreshes if credentials bad' do
         user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
 
@@ -82,6 +84,8 @@ RSpec.describe "visitor index page", type: :feature do
         ##Add expect error flash messages
       end
 
+
+
       it 'can log in' do
         user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
 
@@ -100,6 +104,8 @@ RSpec.describe "visitor index page", type: :feature do
         expect(page).to have_content("Welcome, #{user.name}!")
         expect(page).to have_link("Log Out")
       end
+
+
 
       it 'errors and refreshes if log in attempt with no account' do
         email = "funbucket13@gmail.com"
@@ -121,40 +127,6 @@ RSpec.describe "visitor index page", type: :feature do
 
         ##add expect error messages
       end
-
-      it 'can log out' do
-        user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
-
-        visit items_path
-
-        click_on "I already have an account"
-
-        fill_in "email", with: user.email
-        fill_in "password", with: user.password
-
-        click_button "Log In"
-
-        expect(current_path).to eq(profile_path)
-
-        expect(page).to have_content("Welcome, #{user.name}!")
-        expect(page).to have_link("Log Out")
-
-        click_on "Log Out"
-
-        expect(current_path).to eq(welcome_path)
-
-        ##Add expect flash message
-
-      end
     end
   end
-  #
-  # describe 'As a visitor' do
-  #   xit 'displays all items' do
-  #
-  # 	visit '/items'
-  #
-  # 	expect..
-  #
-  #   end
 end

@@ -35,6 +35,7 @@ RSpec.describe 'as a visitor' do
                          password: "faetest",
                          password_confirmation: "faetest")
     expect(User.count).to eq(1)
+
     visit items_path
     click_on "Sign Up to Be a User"
 
@@ -56,6 +57,8 @@ RSpec.describe 'as a visitor' do
     expect(User.last).to eq(fae)
   end
 
+
+
   it 'can log in as a merchant' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
 
@@ -75,6 +78,8 @@ RSpec.describe 'as a visitor' do
     expect(page).to have_link("Log Out")
   end
 
+
+
   it 'can log in as an admin' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 2)
 
@@ -93,6 +98,7 @@ RSpec.describe 'as a visitor' do
     expect(page).to have_content("You have been logged in as an #{user.role}")
     expect(page).to have_link("Log Out")
   end
+
 
 
   it 'can log in as a user' do
