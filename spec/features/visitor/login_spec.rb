@@ -56,8 +56,6 @@ RSpec.describe 'as a visitor' do
     ##Add expect error flash messages
   end
 
-
-
   it 'can log in as a merchant' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
 
@@ -120,6 +118,8 @@ RSpec.describe 'as a visitor' do
     expect(page).to have_link("Log Out")
   end
 
+
+
   it 'errors and refreshes if log in attempt with no account' do
     email = "funbucket13@gmail.com"
     password = "test"
@@ -137,7 +137,6 @@ RSpec.describe 'as a visitor' do
     expect(current_path).to eq(login_path)
 
     expect(page).to have_selector("input[type=submit][value='Log In']")
-
-    ##add expect error messages
+    expect(page).to have_content("Failed to log you in, please check name and email.")
   end
 end

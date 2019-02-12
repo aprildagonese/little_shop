@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
         flash[:alert] = "You have been logged in as an #{user.role}"
       end
     else
-      flash[:alert] = "Name and email already taken. Must be unique"
+      flash[:alert] = "Failed to log you in, please check name and email."
       render :new
     end
   end
