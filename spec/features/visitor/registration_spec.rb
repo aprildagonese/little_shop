@@ -71,8 +71,6 @@ RSpec.describe 'when authenticating visitors' do
 
       click_on "Create User"
 
-      save_and_open_page
-
       expect(page).to have_field(:user_name, with: 'Scott')
       expect(page).to have_field(:user_email, with: '')
       expect(page).to have_field(:user_street_address, with: '1 road street')
