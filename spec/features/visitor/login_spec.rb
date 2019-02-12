@@ -63,7 +63,7 @@ RSpec.describe 'as a visitor' do
     fill_in "email", with: user.email
     fill_in "password", with: user.password
 
-    click_on "Log In"
+    click_button "Log In"
 
     expect(current_path).to eq(dashboard_path)
 
@@ -81,11 +81,9 @@ RSpec.describe 'as a visitor' do
     fill_in "email", with: user.email
     fill_in "password", with: user.password
 
-    click_on "Log In"
+    click_button "Log In"
 
     expect(current_path).to eq(items_path)
-
-    save_and_open_page
 
     expect(page).to have_content("You have been logged in as an #{user.role}")
     expect(page).to have_link("Log Out")
@@ -103,7 +101,7 @@ RSpec.describe 'as a visitor' do
     fill_in "email", with: user.email
     fill_in "password", with: user.password
 
-    click_on "Log In"
+    click_button "Log In"
 
     expect(current_path).to eq(profile_path)
 
@@ -123,7 +121,7 @@ RSpec.describe 'as a visitor' do
     fill_in "email", with: email
     fill_in "password", with: password
 
-    click_on "Log In"
+    click_button "Log In"
 
     expect(current_path).to eq(login_path)
 

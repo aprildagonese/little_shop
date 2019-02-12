@@ -1,0 +1,21 @@
+<!---Nav Bar--->
+  <nav class="nav-bar">
+    <div class="general-nav">
+      <%= link_to "Home", welcome_path %>
+      <% if !current_user %>
+        <%= link_to "Browse Dishes", items_path %>
+        <%= link_to "Restaurants", merchants_path %>
+      <% end %>
+    </div>
+    <div class="auth-nav">
+      <% if !current_user %>
+        <%= link_to "Log In", login_path %>
+        <%= link_to "Register", register_path %>
+      <% end %>
+    </div>
+    <div class="cart-nav">
+      <% if !current_user %>
+        <%= link_to "Cart", carts_path %>
+      <% end %>
+    </div>
+  </nav>

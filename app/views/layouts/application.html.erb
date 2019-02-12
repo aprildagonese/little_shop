@@ -7,8 +7,9 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
-  <%= render 'header' %>
+  <%= render 'nav' %>
 
+  <!---Flash--->
   <% flash.each do |type, message| %>
     <%= content_tag :div, message, class: type %>
   <% end %>
