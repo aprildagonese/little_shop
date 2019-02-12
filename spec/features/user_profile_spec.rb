@@ -13,10 +13,7 @@ RSpec.describe 'as a registered user', type: :feature do
     fill_in "email", with: @user.email
     fill_in "password", with: @user.password
 
-    binding.pry
     click_button "Log In"
-    save_and_open_page
-
 
     expect(page).to have_content("Name: #{@user.name}")
     expect(page).to have_content("Address: #{@user.address}")
