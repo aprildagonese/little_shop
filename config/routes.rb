@@ -9,7 +9,7 @@ end
 resources :carts, only: [:create]
 
 namespace :admin do
-  resources :merchants, only: [:show]
+  resources :merchants, only: [:show, :index]
 	resources :items, except: [:show]
 	resources :users, only: [:show, :index, :edit, :update]
 end
