@@ -7,6 +7,9 @@
           <%= link_to "My Profile", profile_path %>
         <% elsif current_user.merchant? %>
           <%= link_to "My Dashboard", dashboard_path %>
+        <% elsif current_user.admin? %>
+          <%= link_to "Admin Dashboard", admin_dashboard_path %>
+          <%= link_to "Users", admin_users_path %>
         <% end %>
       <% end %>
       <%= link_to "Browse Dishes", items_path %>
