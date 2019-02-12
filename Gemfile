@@ -43,7 +43,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'simplecov'
-  #gem 'bcrypt'
+  gem 'factory_bot_rails'
 end
 
 group :development do
