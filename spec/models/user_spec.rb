@@ -2,9 +2,7 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "relationships" do
-    # it {should have_many :}
-    # it {should have_many(:).through(:)}
-    # it {should belong_to(:)}
+    it {should have_many :items}
   end
 
   describe 'Validations' do

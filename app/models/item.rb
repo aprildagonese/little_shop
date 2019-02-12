@@ -3,5 +3,8 @@ class Item < ApplicationRecord
   has_many :order_items#, dependent: :delete_all
   has_many :orders, through: :order_items#, dependent: :delete_all
 
-  validates_presence_of :name
+  validates :title, uniqueness: true, presence: true
+  validates :description, presence: true
+  validates :quantity, presence: true
+  validates :price, presence: true
 end

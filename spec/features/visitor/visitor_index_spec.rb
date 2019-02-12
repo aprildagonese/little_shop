@@ -93,7 +93,7 @@ RSpec.describe "visitor index page", type: :feature do
         fill_in "email", with: user.email
         fill_in "password", with: user.password
 
-        click_on "Log In"
+        click_button "Log In"
 
         expect(current_path).to eq(profile_path)
 
@@ -113,7 +113,7 @@ RSpec.describe "visitor index page", type: :feature do
         fill_in "email", with: email
         fill_in "password", with: password
 
-        click_on "Log In"
+        click_button "Log In"
 
         expect(current_path).to eq(login_path)
 
@@ -132,7 +132,7 @@ RSpec.describe "visitor index page", type: :feature do
         fill_in "email", with: user.email
         fill_in "password", with: user.password
 
-        click_on "Log In"
+        click_button "Log In"
 
         expect(current_path).to eq(profile_path)
 
