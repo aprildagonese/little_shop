@@ -1,0 +1,19 @@
+<body>
+
+<div class="user-list">
+  <% @users.each do |user| %>
+  <div class="<%=user.name%>-row">
+    <div class="user-name"><%= user.name %></div>
+    <section class="location-data">
+      <p>City: <%= user.city %></p>
+      <p>State: <%= user.state %></p>
+    </section>
+    <div class="activation-data">
+      <% unless @view=="Users" %><p>Date Registered: <%= user.created_at.to_date.to_s %></p><% end %>
+      <% if current_user.admin? %><button>Activation Button</button><% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+</body>
