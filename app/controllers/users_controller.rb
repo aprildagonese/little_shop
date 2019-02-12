@@ -8,11 +8,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    # unless password_confirmed?
-    #   redirect_to register_path
-    #   return
-    # end
-
     @user = User.new(user_params)
     if @user.save
       flash[:message] = "Thank you for registering! You are now logged in."
