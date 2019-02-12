@@ -14,8 +14,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to profile_path(@user)
     else
-      redirect_to register_path
       flash[:alert] = "Your account could not be created with those credentials. Please try again or log in with an existing account."
+      render :new
     end
   end
 
