@@ -2,9 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'as a visitor' do
 
+  it 'can log in as a merchant' do
+    user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
+  end
+  
   it 'errors and refreshes if log in attempt with no account' do
     email = "funbucket13@gmail.com"
     password = "test"
+
 
     visit items_path
 
