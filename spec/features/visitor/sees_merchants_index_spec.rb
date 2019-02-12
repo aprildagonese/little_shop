@@ -10,7 +10,7 @@ RSpec.describe "as a visitor" do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(april)
       visit merchants_path
-      save_and_open_page
+
       expect(page).to have_content("All Merchants")
       within ".Merch1-row" do
         expect(page).to have_content("#{merch_1.name}")

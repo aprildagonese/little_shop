@@ -10,5 +10,5 @@ class User < ApplicationRecord
   has_secure_password
 
   enum role: [:registered, :merchant, :admin]
-  enum activation_status [:active, :inactive]
+  enum activation_status: [:active, :inactive]
 end
