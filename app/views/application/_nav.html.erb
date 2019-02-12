@@ -2,8 +2,15 @@
   <nav class="nav-bar">
     <div class="general-nav">
       <%= link_to "Home", welcome_path %>
-        <%= link_to "Browse Dishes", items_path %>
-        <%= link_to "Restaurants", merchants_path %>
+      <% if current_user %>
+        <% if current_user.registered? %>
+          <%= link_to "My Profile", profile_path %>
+        <% elsif current_user.merchant? %>
+          <%= link_to "My Dashboard", dashboard_path %>
+        <% end %>
+      <% end %>
+      <%= link_to "Browse Dishes", items_path %>
+      <%= link_to "Restaurants", merchants_path %>
     </div>
     <div class="auth-nav">
       <% if !current_user %>

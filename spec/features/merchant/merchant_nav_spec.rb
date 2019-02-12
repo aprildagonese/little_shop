@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe "As a registered user", type: :feature do
+RSpec.describe "As a merchant", type: :feature do
   it 'user sees appropriate nav bar links' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test")
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-    visit profile_path
+    visit dashboard_path
 
     within ".general-nav" do
       expect(page).to have_link("Home")
-      expect(page).to have_link("My Profile")
+      expect(page).to have_link("My Dashboard")
       expect(page).to have_link("Browse Dishes")
       expect(page).to have_link("Restaurants")
     end
@@ -22,10 +22,9 @@ RSpec.describe "As a registered user", type: :feature do
     end
 
     within ".cart-nav" do
-      expect(page).to have_link("Cart")
+      expect(page).to_not have_link("Cart")
     end
 
     expect(page).to have_content("Logged in as #{user.name}")
-
   end
 end
