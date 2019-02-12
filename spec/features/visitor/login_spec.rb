@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'as a visitor' do
 
+<<<<<<< HEAD
   it 'can register new user' do
     visit items_path
     click_on "Sign Up to Be a User"
@@ -51,7 +52,6 @@ RSpec.describe 'as a visitor' do
 
     click_on "Create User"
 
-    expect(current_path).to eq(register_path)
     expect(page).to have_content("Your account could not be created with those credentials. Please try again or log in with an existing account.")
     expect(User.last).to eq(fae)
 
@@ -83,9 +83,6 @@ RSpec.describe 'as a visitor' do
 
     click_on "Create User"
 
-    save_and_open_page
-
-    expect(current_path).to eq(register_path)
     expect(page).to have_field(:user_name, with: 'April Dagonese')
     expect(page).to have_field(:user_street_address, with: '1111 Street Dr.')
     expect(page).to have_field(:user_city, with: 'Denver')
@@ -99,6 +96,8 @@ RSpec.describe 'as a visitor' do
 
 
 
+=======
+>>>>>>> f724bdd6765c98c58b2915056d3f60f1c596ccf5
   it 'can log in as a merchant' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
 
@@ -118,6 +117,8 @@ RSpec.describe 'as a visitor' do
     expect(page).to have_link("Log Out")
   end
 
+
+
   it 'can log in as an admin' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 2)
 
@@ -136,6 +137,7 @@ RSpec.describe 'as a visitor' do
     expect(page).to have_content("You have been logged in as an #{user.role}")
     expect(page).to have_link("Log Out")
   end
+
 
 
   it 'can log in as a user' do
