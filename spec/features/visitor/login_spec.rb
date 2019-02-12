@@ -3,55 +3,57 @@ require 'rails_helper'
 RSpec.describe 'as a visitor' do
 
   it 'can register new user' do
-    name = "funbucket13"
-    email = "funbucket13@gmail.com"
-    address = "1234 St."
-    city = "Denver"
-    state = "CO"
-    zip_code = 80304
-
     visit items_path
-
     click_on "Sign Up to Be a User"
 
     expect(current_path).to eq(register_path)
 
-    fill_in :user_name, with: name
-    fill_in :user_email, with: email
-    fill_in :user_street_address, with: address
-    fill_in :user_city, with: city
-    fill_in :user_state, with: state
-    fill_in :user_zip_code, with: zip_code
+    fill_in :user_name, with: "April Dagonese"
+    fill_in :user_email, with: "april@email.com"
+    fill_in :user_street_address, with: "1111 Street Dr."
+    fill_in :user_city, with: "Denver"
+    fill_in :user_state, with: "CO"
+    fill_in :user_zip_code, with: 80202
+    fill_in :user_password, with: "test"
+    fill_in :user_password_confirmation, with: "test"
+
+    click_on "Create User"
+    user = User.last
+
+    expect(current_path).to eq(profile_path(user))
+    expect(page).to have_content("Thank you for registering! You are now logged in.")
+    expect(page).to have_content("Welcome, #{user.name}!")
+  end
+
+  it "prevents account creation for existing email address" do
+    fae = User.create!(name: "Fae Dagonese",
+                         email: "april@email.com",
+                         street_address: "222 Street Dr.",
+                         city: "LA",
+                         state: "CA",
+                         zip_code: 90210,
+                         password: "faetest",
+                         password_confirmation: "faetest")
+    expect(User.count).to eq(1)
+    visit items_path
+    click_on "Sign Up to Be a User"
+
+    expect(current_path).to eq(register_path)
+
+    fill_in :user_name, with: "April Dagonese"
+    fill_in :user_email, with: "april@email.com"
+    fill_in :user_street_address, with: "1111 Street Dr."
+    fill_in :user_city, with: "Denver"
+    fill_in :user_state, with: "CO"
+    fill_in :user_zip_code, with: 80202
     fill_in :user_password, with: "test"
     fill_in :user_password_confirmation, with: "test"
 
     click_on "Create User"
 
-    #TODO flash message indicating you have been registered
-    expect(page).to have_content("Welcome, #{name}!")
-  end
-
-  it 'errors and refreshes if credentials bad' do
-    user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
-
-    name = "funbucket13"
-    email = "funbucket13@gmail.com"
-
-    visit items_path
-
-    click_on "Sign Up to Be a User"
-
     expect(current_path).to eq(register_path)
-
-    fill_in :user_name, with: name
-    fill_in :user_email, with: email
-    fill_in :user_password, with: "test"
-
-    click_on "Create User"
-
-    expect(page).to have_selector("input[type=submit][value='Create User']")
-
-    ##Add expect error flash messages
+    expect(page).to have_content("Your account could not be created with those credentials. Please try again or log in with an existing account.")
+    expect(User.last).to eq(fae)
   end
 
   it 'can log in as a merchant' do
