@@ -7,8 +7,8 @@ RSpec.describe "Once already logged in", type: :feature do
 
       visit login_path
 
-      fill_in "email", with: 'user@email.com'
-      fill_in "password", with: 'test'
+      fill_in "email", with: user.email
+      fill_in "password", with: user.password
 
       click_button "Log In"
 
@@ -48,7 +48,7 @@ RSpec.describe "Once already logged in", type: :feature do
 
       visit login_path
 
-      expect(current_path).to eq(items_path)
+      expect(current_path).to eq(admin_dashboard_path)
     end
   end
 end
