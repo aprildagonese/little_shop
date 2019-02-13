@@ -1,0 +1,22 @@
+<div class="item-list">
+  <% @items.each do |item| %>
+  <div class="id-<%=item.id%>-row">
+    <div class="left-column">
+      <p> <%= item.image_url %></p>
+    </div>
+    <div class="middle-column">
+      <p><%= item.title %></p>
+      <p>Current Price: $<%= item.price %></p>
+      <p>Qty: <%= item.quantity %></p>
+    </div>
+    <div class="right-column">
+      <% if @view=="Cart" %>
+        <p><%= item.description %></p>
+        <p><%= item.subtotal %></p>
+      <% else %>
+        <p>Sold By: <%= item.user.name %></p>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
