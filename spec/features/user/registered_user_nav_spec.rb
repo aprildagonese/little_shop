@@ -89,7 +89,7 @@ RSpec.describe "As a registered user", type: :feature do
     click_link "Cart"
 
     expect(current_path).to eq(cart_path)
-    expect(page).to have_content("My cart")
+    expect(page).to have_content("My Cart")
   end
-  
+
 end

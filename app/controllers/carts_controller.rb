@@ -7,7 +7,7 @@ class CartsController < ApplicationController
 
   def show
     #
-    # @items =
+    #@items = session[:cart]
     # @view = "Cart"
   end
 
