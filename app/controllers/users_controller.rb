@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   #These potenitally do the same thing?
   #before_action :require_login, only: [:show]
-  before_action :require_current_user, only: [:show]
+  before_action :require_current_user, only: [:show, :edit, :update]
 
   def new
     @user = User.new

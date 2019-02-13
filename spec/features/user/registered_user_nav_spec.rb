@@ -92,4 +92,21 @@ RSpec.describe "As a registered user", type: :feature do
     expect(page).to have_content("My Cart")
   end
 
+  it "user cannot see pages without permission" do
+    user = User.create(name: "tester", email: "test@email.com", password: "test")
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+    visit dashboard_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit admin_dashboard_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit admin_items_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit admin_merchants_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+  end
+
 end

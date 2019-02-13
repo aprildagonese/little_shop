@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  before_action :require_cart_access
+
   def create
     item = Item.find(params[:item_id])
     @cart.add_item(item.id)
