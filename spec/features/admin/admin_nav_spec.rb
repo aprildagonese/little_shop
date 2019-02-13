@@ -47,7 +47,7 @@ RSpec.describe "As an admin", type: :feature do
     click_link "Admin Dashboard"
 
     expect(current_path).to eq(admin_dashboard_path)
-    expect(page).to have_content("All Items")
+    expect(page).to have_content("Administrator Information")
   end
 
   it 'user can visit users list' do
