@@ -4,4 +4,7 @@ class MerchantsController < ApplicationController
     @users = User.where(role: 1).where(activation_status: 0)
   end
 
+  def show
+  end
+
 end

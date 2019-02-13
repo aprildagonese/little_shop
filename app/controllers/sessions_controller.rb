@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       if user.registered?
         redirect_to profile_path
-        flash[:alert] = "You have been logged in as a #{user.role}"
+        flash[:alert] = "You have been logged in"
       elsif user.merchant?
         redirect_to dashboard_path
         flash[:alert] = "You have been logged in as a #{user.role}"

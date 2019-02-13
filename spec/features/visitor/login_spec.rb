@@ -5,7 +5,7 @@ RSpec.describe 'as a visitor' do
   it 'can log in as a merchant' do
     user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
   end
-  
+
   it 'errors and refreshes if log in attempt with no account' do
     email = "funbucket13@gmail.com"
     password = "test"
@@ -96,7 +96,7 @@ RSpec.describe 'as a visitor' do
     expect(current_path).to eq(profile_path)
 
     expect(page).to have_content("Welcome, #{user.name}!")
-    expect(page).to have_content("You have been logged in as a #{user.role}")
+    expect(page).to have_content("You have been logged in")
     expect(page).to have_link("Log Out")
   end
 
