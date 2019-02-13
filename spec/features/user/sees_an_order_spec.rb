@@ -15,14 +15,48 @@ RSpec.describe "as a registered user" do
 
   context "when I visit an order show page" do
     it "I see all items on my order" do
-      within ".#{@oi1.title}-row" do
-        expect(page).to have_content("#{@oi1.image_url}")
-        expect(page).to have_content("#{@oi1.title}")
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      visit user_order_path(@user, @order)
+
+      within ".id-#{@oi1.id}-row" do
+        expect(page).to have_content("#{@oi1.item.image_url}")
+        expect(page).to have_content("#{@oi1.item.title}")
         expect(page).to have_content("#{@oi1.sale_price}")
         expect(page).to have_content("#{@oi1.quantity}")
-        expect(page).to have_content("#{@oi1.description}")
-        expect(page).to have_content("#{@oi1.description}")
-        expect(page).to have_content("Subtotal Placeholder")
+        expect(page).to have_content("#{@oi1.item.description}")
+        expect(page).to have_content("#{@oi1.subtotal}")
+      end
+      within ".id-#{@oi2.id}-row" do
+        expect(page).to have_content("#{@oi2.item.image_url}")
+        expect(page).to have_content("#{@oi2.item.title}")
+        expect(page).to have_content("#{@oi2.sale_price}")
+        expect(page).to have_content("#{@oi2.quantity}")
+        expect(page).to have_content("#{@oi2.item.description}")
+        expect(page).to have_content("#{@oi2.subtotal}")
+      end
+      within ".id-#{@oi3.id}-row" do
+        expect(page).to have_content("#{@oi3.item.image_url}")
+        expect(page).to have_content("#{@oi3.item.title}")
+        expect(page).to have_content("#{@oi3.sale_price}")
+        expect(page).to have_content("#{@oi3.quantity}")
+        expect(page).to have_content("#{@oi3.item.description}")
+        expect(page).to have_content("#{@oi3.subtotal}")
+      end
+      within ".id-#{@oi4.id}-row" do
+        expect(page).to have_content("#{@oi4.item.image_url}")
+        expect(page).to have_content("#{@oi4.item.title}")
+        expect(page).to have_content("#{@oi4.sale_price}")
+        expect(page).to have_content("#{@oi4.quantity}")
+        expect(page).to have_content("#{@oi4.item.description}")
+        expect(page).to have_content("#{@oi4.subtotal}")
+      end
+      within ".id-#{@oi5.id}-row" do
+        expect(page).to have_content("#{@oi5.item.image_url}")
+        expect(page).to have_content("#{@oi5.item.title}")
+        expect(page).to have_content("#{@oi5.sale_price}")
+        expect(page).to have_content("#{@oi5.quantity}")
+        expect(page).to have_content("#{@oi5.item.description}")
+        expect(page).to have_content("#{@oi5.subtotal}")
       end
     end
   end
