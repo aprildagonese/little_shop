@@ -9,11 +9,14 @@ namespace :merchant do
   resources :items, except: [:show]
 end
 
+
+get '/cart', to: 'carts#show'
+post '/cart', to: 'carts#create', as: 'carts'
+
 resources :users, only: [:index, :create] do
   resources :orders, only: [:show]
 end
 
-resources :carts, only: [:create]
 
 
 namespace :admin do
