@@ -29,11 +29,9 @@ Rails.application.routes.draw do
   get '/dashboard/items', to: 'merchant/items#index'
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
-  #get '/profile/orders', to: 'user/orders#index'
-  #get '/profile/orders/:id', to: 'user/orders#show'
+  get '/profile/orders', to: 'user/orders#index'
+  get '/profile/orders/:id', to: 'user/orders#show'
 
   resources :items, only: [:show, :index, :edit, :new, :destroy]
-  resources :users, only: [:index, :create, :edit] do
-    resources :orders, only: [:index, :show]
-  end
+  resources :users, only: [:index, :create]
 end
