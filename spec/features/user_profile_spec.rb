@@ -15,12 +15,14 @@ RSpec.describe 'as a registered user', type: :feature do
 
     click_button "Log In"
 
-    expect(page).to have_content("Name: #{@user.name}")
-    expect(page).to have_content("Address: #{@user.address}")
-    expect(page).to have_content("City: #{@user.city}")
-    expect(page).to have_content("State: #{@user.state}")
-    expect(page).to have_content("Zip Code: #{@user.zip_code}")
-    expect(page).to have_content("Email: #{@user.email}")
+    within ".profile" do
+      expect(page).to have_content("Name: #{@user.name}")
+      expect(page).to have_content("Address: #{@user.street_address}")
+      expect(page).to have_content("City: #{@user.city}")
+      expect(page).to have_content("State: #{@user.state}")
+      expect(page).to have_content("Zip Code: #{@user.zip_code}")
+      expect(page).to have_content("Email: #{@user.email}")
+    end
   end
 
 end
