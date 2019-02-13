@@ -25,7 +25,7 @@
     </div>
     <div class="cart-nav">
       <% if !current_user || current_user.registered? %>
-        <%= link_to "Cart", carts_path %>
+        <%= link_to "Cart", cart_path %>
       <% end %>
     </div>
   </nav>

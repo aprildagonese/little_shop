@@ -76,4 +76,15 @@ RSpec.describe "As a registered user", type: :feature do
     expect(page).to have_content("All Restaurants")
   end
 
+  it 'user can visit their cart' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test")
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Cart"
+
+    expect(current_path).to eq(cart_path)
+    expect(page).to have_content("My cart")
+  end
+  
 end

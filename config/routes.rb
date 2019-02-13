@@ -8,7 +8,8 @@ namespace :merchant do
   resources :items, except: [:show]
 end
 
-resources :carts, only: [:create]
+get '/cart', to: 'carts#show'
+post '/cart', to: 'carts#create', as: 'carts'
 
 namespace :admin do
   resources :merchants, only: [:show, :index]
