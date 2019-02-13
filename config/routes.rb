@@ -1,25 +1,25 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 root 'welcome#index', as: "welcome"
 
 resources :merchants, only: [:index]
+resources :items, only: [:show, :index, :edit, :new, :destroy]
 
 namespace :merchant do
   resources :items, except: [:show]
 end
 
-resources :items, only: [:show, :index, :edit, :new, :destroy]
-
-resources :users, only: [:index, :create, :edit] do
+resources :users, only: [:index, :create] do
   resources :orders, only: [:show]
 end
 
 resources :carts, only: [:create]
 
+
 namespace :admin do
   resources :merchants, only: [:show, :index]
-	resources :items, except: [:show]
-	resources :users, only: [:show, :index, :edit, :update]
+  resources :items, except: [:show]
+  resources :users, only: [:show, :index, :edit, :update]
 end
 
 get '/register', to: 'users#new'
@@ -35,7 +35,7 @@ get '/admin/dashboard', to: 'items#index'
 get '/dashboard/items', to: 'merchant/items#index'
 get '/profile', to: 'users#show'
 get '/profile/edit', to: 'users#edit'
-#get '/profile/orders', to: 'user/orders#index'
-#get '/profile/orders/:id', to: 'user/orders#show'
+get '/profile/orders', to: 'user/orders#index'
+get '/profile/orders/:id', to: 'user/orders#show'
 
 end
