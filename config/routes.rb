@@ -8,6 +8,12 @@ namespace :merchant do
   resources :items, except: [:show]
 end
 
+resources :items, only: [:show, :index, :edit, :new, :destroy]
+
+resources :users, only: [:index, :create, :edit] do
+  resources :orders, only: [:show]
+end
+
 resources :carts, only: [:create]
 
 namespace :admin do
@@ -31,8 +37,5 @@ get '/profile', to: 'users#show'
 get '/profile/edit', to: 'users#edit'
 #get '/profile/orders', to: 'user/orders#index'
 #get '/profile/orders/:id', to: 'user/orders#show'
-
-resources :items, only: [:show, :index, :edit, :new, :destroy]
-resources :users, only: [:index, :create, :edit]
 
 end
