@@ -4,6 +4,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def index
+    @users = User.all
   end
 
   def edit

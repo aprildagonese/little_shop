@@ -27,4 +27,48 @@ RSpec.describe "As a merchant", type: :feature do
 
     expect(page).to have_content("Logged in as #{user.name}")
   end
+
+  it 'user can visit Home' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Home"
+
+    expect(current_path).to eq(welcome_path)
+  end
+
+  it 'user can visit dashboard' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "My Dashboard"
+
+    expect(current_path).to eq(dashboard_path)
+    expect(page).to have_content("Welcome, #{user.name}!")
+  end
+
+  it 'user can see dishes' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Browse Dishes"
+
+    expect(current_path).to eq(items_path)
+    expect(page).to have_content("All Items")
+
+  end
+
+  it 'user can see restaraunts' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Restaurants"
+
+    expect(current_path).to eq(merchants_path)
+    expect(page).to have_content("All Restaurants")
+  end
 end
