@@ -2,13 +2,32 @@ require 'rails_helper'
 
 RSpec.describe "visitor index page", type: :feature do
 
-  # before :each do
-  #   @item_1 = Item.create(name: )
-  # end
-  #
+  before :each do
+    @visitor = create(:user)
+    @merch1, @merch2, @merch3 = create_list(:user, 3, role: 1)
+    @i1, @i2, @i3, @i4, @i5, @i6 = create_list(:item, 6)
+    @i1.update(user: @merch1)
+    @i2.update(user: @merch2)
+    @i3.update(user: @merch2)
+    @i4.update(user: @merch3)
+    @i5.update(user: @merch3)
+    @i6.update(user: @merch3)
+  end
+
   describe 'as a visitor' do
     context 'after entering site' do
+
       it 'can see list of items' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@visitor)
+        visit items_path
+
+        within ".id-#{@i1.id}-row" do
+          expect(page).to have_content("#{@i1.image_url}")
+          expect(page).to have_content("#{@i1.title}")
+          expect(page).to have_content("Current Price: $#{@i1.price}")
+          expect(page).to have_content("Qty: #{@i1.quantity}")
+          expect(page).to have_content("Sold By: #{@i1.user.name}")
+        end
       end
 
       it 'can see link to register new user' do

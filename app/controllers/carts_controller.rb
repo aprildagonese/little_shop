@@ -6,7 +6,8 @@ class CartsController < ApplicationController
   end
 
   def show
-    #@cart_items =
+    #@items =
+    #@view = "Cart"
   end
-  
+
 end

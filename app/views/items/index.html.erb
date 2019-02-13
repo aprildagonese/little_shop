@@ -1,6 +1,6 @@
 <h1>All Items</h1>
 
-<% @items.each do |item| %>
-  <h2><%= item.title %></h2>
-  <p>Cost: <%= item.price %></p>
-<% end %>
+<%= render 'itemlist' %>
+
+<%= link_to "Sign Up to Be a User", register_path %>
+<%= link_to "I already have an account", login_path %>
