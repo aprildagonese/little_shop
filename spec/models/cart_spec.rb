@@ -25,5 +25,5 @@ RSpec.describe Cart do
       expect(cart.contents).to eq({1 => 3, 2 => 4})
     end
   end
-  
+
 end
