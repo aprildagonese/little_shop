@@ -34,7 +34,7 @@ post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
 
 get '/dashboard', to: 'merchants#show'
-get '/admin/dashboard', to: 'items#index'
+get '/admin/dashboard', to: 'admin/dashboard#show'
 get '/dashboard/items', to: 'merchant/items#index'
 get '/profile', to: 'users#show'
 get '/profile/edit', to: 'users#edit'
