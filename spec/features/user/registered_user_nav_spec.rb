@@ -9,8 +9,13 @@ RSpec.describe "As a registered user", type: :feature do
 
   it 'user sees appropriate nav bar links' do
     user = User.create(name: "tester", email: "test@email.com", password: "test")
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    visit profile_path
+
+    visit login_path
+
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+
+    click_button "Log In"
 
     within ".general-nav" do
       expect(page).to have_link("Home")
