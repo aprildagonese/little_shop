@@ -23,6 +23,10 @@ RSpec.describe 'as a registered user', type: :feature do
       expect(page).to have_content("Zip Code: #{@user.zip_code}")
       expect(page).to have_content("Email: #{@user.email}")
     end
+
+    expect(page).to have_button("View Orders")
+    expect(page).to have_button("Edit Profile")
+
   end
 
 end
