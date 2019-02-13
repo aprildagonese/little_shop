@@ -91,5 +91,5 @@ RSpec.describe "As a registered user", type: :feature do
     expect(current_path).to eq(cart_path)
     expect(page).to have_content("My cart")
   end
-  
+
 end

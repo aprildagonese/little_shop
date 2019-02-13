@@ -27,5 +27,6 @@
       <% if !current_user || current_user.registered? %>
         <%= link_to "Cart", cart_path %>
       <% end %>
+      <p>Cart: <%= @cart.total_count %> </p>
     </div>
   </nav>
