@@ -6,7 +6,7 @@ RSpec.describe 'as a registered user', type: :feature do
     @user = create(:user)
   end
 
-  it 'logs in and sees a profile with account info' do
+  xit 'logs in and sees a profile with account info' do
 
     visit login_path
 
