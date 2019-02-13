@@ -1,3 +1,7 @@
 <h1>My Cart</h1>
 
-<%= render 'itemlist' %>
+<% if @items.nil? %>
+  <p>Shopping cart is currently empty.</p>
+<% else %>
+  <%= render 'itemlist' %>
+<% end %>
