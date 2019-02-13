@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   #These potenitally do the same thing?
-  before_action :require_login, only: [:show]
-  before_action :require_current_user, only: [:show]
+  before_action :require_login, only: [:show, :edit]
+  before_action :require_current_user, only: [:show, :edit]
 
   def new
     @user = User.new
@@ -31,9 +31,13 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(session[:user_id])
   end
 
   def update
+    @user = User.find(session[:user_id])
+    @user.update(user_params)
+    redirect_to profile_path
   end
 
   private
