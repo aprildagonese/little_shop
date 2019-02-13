@@ -2,6 +2,7 @@
 Waffle.io: https://waffle.io/aprildagonese/little_shop
 Github: https://github.com/aprildagonese/little_shop
 Heroku:
+https://little-shop-hors-doeuvres.herokuapp.com/
 
 #DTR: Define the Relationship
 Group Member Names: Scott Thomas, Peregrine Balas, Zach Nager, April Dagonese
