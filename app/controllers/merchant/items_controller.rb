@@ -1,4 +1,4 @@
-class Merchant::ItemsController < Admin::BaseController
+class Merchant::ItemsController < Merchant::BaseController
   def new
     @item = Item.new
   end

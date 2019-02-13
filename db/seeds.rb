@@ -39,6 +39,26 @@ all_merchants = []
   end
 end
 
+name = 'test merchant'
+street_address = Faker::Address.street_address
+city = Faker::Address.city
+state = Faker::Address.state
+zip_code = Faker::Address.zip
+email = 'merchant@test.com'
+password = 'password'
+role = 1
+activation_status = 0
+user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+all_merchants << user
+6.times do
+  title = Faker::Food.unique.dish
+  description = Faker::Food.description
+  quantity = Faker::Number.number(4)
+  price = Faker::Commerce.price
+  activation_status = 0
+  user.items.create(title: title, description: description, quantity: quantity, price: price, activation_status: activation_status)
+end
+
 10.times do |user|
   name = Faker::Name.name
   street_address = Faker::Address.street_address
@@ -63,12 +83,34 @@ end
   end
 end
 
-name = Faker::Name.name
+name = 'test user'
 street_address = Faker::Address.street_address
 city = Faker::Address.city
 state = Faker::Address.state
 zip_code = Faker::Address.zip
-email = Faker::Internet.unique.email
+email = 'user@test.com'
+password = 'password'
+role = 0
+activation_status = 0
+User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+rand(1..8).times do
+  status = 0
+  created_at = rand(500).days.ago
+
+  order = user.orders.create!(activation_status: status, created_at: created_at)
+  rand(1..5).times do
+    item = all_merchants.sample.items.sample
+    #order_activation_status = 0
+    OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10))
+  end
+end
+
+name = 'test admin'
+street_address = Faker::Address.street_address
+city = Faker::Address.city
+state = Faker::Address.state
+zip_code = Faker::Address.zip
+email = 'admin@test.com'
 password = 'password'
 role = 2
 activation_status = 0

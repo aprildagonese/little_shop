@@ -1,20 +1,2 @@
 
 <%= render 'infopage' %>
-
-  <h1>Welcome, <%= current_user.name %>!</h1>
-
-  <h2><%= current_user.email %></h2>
-
-  <section class='profile'>
-    <p>Name: <%= current_user.name %></p>
-    <p>Address: <%= current_user.street_address %></p>
-    <p>City: <%= current_user.city %></p>
-    <p>State: <%= current_user.state %></p>
-    <p>Zip Code: <%= current_user.zip_code %></p>
-    <p>Email: <%= current_user.email %></p>
-  </section>
-
-  <aside class="user-profile-buttons">
-    <%= button_to "View Orders", profile_orders_path, method: :get %>
-    <%= button_to "Edit Profile", profile_edit_path, method: :get %>
-  </aside>

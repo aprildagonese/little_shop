@@ -18,7 +18,12 @@ RSpec.describe 'From an items show page' do
 
   context 'as a registered user' do
     it 'can add an item to their cart' do
-      user = create(:user, password: 'test', username: '')
+      user = create(:user, password: 'test', email: 'email@email.com', role: 0)
+      visit login_path
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+      click_button "Log In"
+
       visit item_path(@item)
 
       click_button "Add Item To Cart"
