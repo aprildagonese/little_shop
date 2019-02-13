@@ -10,3 +10,8 @@
     <p>Zip Code: <%= current_user.zip_code %></p>
     <p>Email: <%= current_user.email %></p>
   </section>
+
+  <aside class="user-profile-buttons">
+    <%= button_to "View Orders", user_orders_path(current_user) %>
+    <%= button_to "Edit Profile", edit_user_path(current_user) %>
+  </aside>
