@@ -12,6 +12,6 @@
   </section>
 
   <aside class="user-profile-buttons">
-    <%= button_to "View Orders", user_orders_path(current_user) %>
-    <%= button_to "Edit Profile", edit_user_path(current_user) %>
+    <%= button_to "View Orders", profile_orders_path, method: :get %>
+    <%= button_to "Edit Profile", profile_edit_path, method: :get %>
   </aside>
