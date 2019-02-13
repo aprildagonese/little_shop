@@ -8,7 +8,7 @@
     </section>
     <div class="activation-data">
       <% unless @view=="Users" %><p>Date Registered: <%= user.created_at.to_date.to_s %></p><% end %>
-      <% if current_user && current_user.admin? %><button>Activation Button</button><% end %>
+      <% if current_user && current_user.admin? %><button>Activation Toggle</button><% end %>
     </div>
   </div>
   <% end %>
