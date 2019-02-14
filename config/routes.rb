@@ -13,11 +13,9 @@ end
 get '/cart', to: 'carts#show'
 post '/cart', to: 'carts#create', as: 'carts'
 
-resources :users, only: [:index, :create] do
+resources :users, only: [:show, :index, :create, :update] do
   resources :orders, only: [:show]
 end
-
-
 
 namespace :admin do
   resources :merchants, only: [:show, :index]
@@ -33,11 +31,13 @@ get '/login', to: 'sessions#new'
 post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
 
+
 get '/dashboard', to: 'merchants#show'
 get '/admin/dashboard', to: 'admin/dashboard#show'
 get '/dashboard/items', to: 'merchant/items#index'
 get '/profile', to: 'users#show'
 get '/profile/edit', to: 'users#edit'
+put '/profile', to: 'users#update'
 get '/profile/orders', to: 'user/orders#index'
 get '/profile/orders/:id', to: 'user/orders#show'
 
