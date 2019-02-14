@@ -1,21 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "As a registered user", type: :feature do
-  # before :each do
-  #   @user = User.create(name: "tester", email: "test@email.com", password: "test")
-  #   allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-  #   visit profile_path
-  # end
+
+  before :each do
+    @user = User.create(name: "tester", email: "test@email.com", password: "test")
+
+    login_as(@user)
+
+    visit profile_path
+  end
 
   it 'user sees appropriate nav bar links' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test")
 
-    visit login_path
-
-    fill_in 'email', with: user.email
-    fill_in 'password', with: user.password
-
-    click_button "Log In"
 
     within ".general-nav" do
       expect(page).to have_link("Home")
@@ -34,13 +30,10 @@ RSpec.describe "As a registered user", type: :feature do
       expect(page).to have_link("Cart")
     end
 
-    expect(page).to have_content("Logged in as #{user.name}")
+    expect(page).to have_content("Logged in as #{@user.name}")
   end
 
   it 'user can visit Home' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test")
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    visit profile_path
 
     click_link "Home"
 
@@ -48,20 +41,14 @@ RSpec.describe "As a registered user", type: :feature do
   end
 
   it 'user can visit profile' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test")
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    visit profile_path
 
     click_link "My Profile"
 
     expect(current_path).to eq(profile_path)
-    expect(page).to have_content("Welcome, #{user.name}!")
+    expect(page).to have_content("Welcome, #{@user.name}!")
   end
 
   it 'user can see dishes' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test")
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    visit profile_path
 
     click_link "Browse Dishes"
 
@@ -71,9 +58,6 @@ RSpec.describe "As a registered user", type: :feature do
   end
 
   it 'user can see restaraunts' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test")
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    visit profile_path
 
     click_link "Restaurants"
 
@@ -82,31 +66,11 @@ RSpec.describe "As a registered user", type: :feature do
   end
 
   it 'user can visit their cart' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test")
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    visit profile_path
 
     click_link "Cart"
 
     expect(current_path).to eq(cart_path)
     expect(page).to have_content("My Cart")
-  end
-
-  it "user cannot see pages without permission" do
-    user = User.create(name: "tester", email: "test@email.com", password: "test")
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-
-    visit dashboard_path
-    expect(page).to have_content("The page you were looking for doesn't exist.")
-
-    visit admin_dashboard_path
-    expect(page).to have_content("The page you were looking for doesn't exist.")
-
-    visit admin_items_path
-    expect(page).to have_content("The page you were looking for doesn't exist.")
-
-    visit admin_merchants_path
-    expect(page).to have_content("The page you were looking for doesn't exist.")
   end
 
 end
