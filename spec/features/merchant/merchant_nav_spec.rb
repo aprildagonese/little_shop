@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "As a merchant", type: :feature do
-  it 'user sees appropriate nav bar links' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  before :each do
+    @merchant = create(:user, role: 1)
+    login_as(@merchant)
+  end
+
+  it 'user sees appropriate nav bar links' do
 
     visit dashboard_path
 
@@ -25,12 +28,11 @@ RSpec.describe "As a merchant", type: :feature do
       expect(page).to_not have_link("Cart")
     end
 
-    expect(page).to have_content("Logged in as #{user.name}")
+    expect(page).to have_content("Logged in as #{@merchant.name}")
   end
 
   it 'user can visit Home' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "Home"
@@ -39,19 +41,17 @@ RSpec.describe "As a merchant", type: :feature do
   end
 
   it 'user can visit dashboard' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "My Dashboard"
 
     expect(current_path).to eq(dashboard_path)
-    expect(page).to have_content("Welcome, #{user.name}!")
+    expect(page).to have_content("Welcome, #{@merchant.name}!")
   end
 
   it 'user can see dishes' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "Browse Dishes"
@@ -62,8 +62,7 @@ RSpec.describe "As a merchant", type: :feature do
   end
 
   it 'user can see restaraunts' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "Restaurants"
@@ -73,8 +72,7 @@ RSpec.describe "As a merchant", type: :feature do
   end
 
   it "merchant cannot see pages without permission" do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
 
     visit profile_path
     expect(page).to have_content("The page you were looking for doesn't exist.")
@@ -99,6 +97,7 @@ RSpec.describe "As a merchant", type: :feature do
 
     visit cart_path
     expect(page).to have_content("The page you were looking for doesn't exist.")
+
   end
 
 end
