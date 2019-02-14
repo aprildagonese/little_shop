@@ -12,10 +12,10 @@ RSpec.describe "As a registered user", type: :feature do
 
   it 'user sees appropriate nav bar links' do
 
-
     within ".general-nav" do
       expect(page).to have_link("Home")
       expect(page).to have_link("My Profile")
+      expect(page).to have_link("My Orders")
       expect(page).to have_link("Browse Dishes")
       expect(page).to have_link("Restaurants")
     end
@@ -46,6 +46,14 @@ RSpec.describe "As a registered user", type: :feature do
 
     expect(current_path).to eq(profile_path)
     expect(page).to have_content("Welcome, #{@user.name}!")
+  end
+
+  it 'user can see thier orders' do
+
+    click_link "My Orders"
+
+    expect(current_path).to eq(profile_orders_path)
+    expect(page).to have_content("Past Orders")
   end
 
   it 'user can see dishes' do
