@@ -1,11 +1,14 @@
 <!---Title Block--->
-<section class="title-block">
-  <section class="title">
-    <h1>Little Shop of Hors d'Oeuvres</h1>
-  </section>
-  <section class="login-status">
+<section class="title-block full">
+  <h1 class="title full">Little Shop of Hors d'Oeuvres</h1>
+  <section class="login-status full">
     <% if current_user %>
       <p>Logged in as <%= current_user.name %></p>
     <% end %>
   </section>
+  <div class="cart-nav full">
+    <% if !current_user || current_user.registered? %>
+      <h3><%= link_to "Cart (#{@cart.total_count})", cart_path %></h3>
+    <% end %>
+  </div>
 </section>

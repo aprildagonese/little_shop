@@ -11,4 +11,12 @@ class User < ApplicationRecord
 
   enum role: [:registered, :merchant, :admin]
   enum activation_status: [:active, :inactive]
+
+  def change_status
+    if activation_status == "active"
+      update_attribute(:activation_status, 1)
+    else
+      update_attribute(:activation_status, 0)
+    end
+  end
 end

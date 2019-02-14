@@ -1,15 +1,59 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+.nav-bar {
+  display: inline-grid;
+  width: 100%;
+  grid-template-columns: auto auto;
+  grid-column-gap: 50px;
+}
+
+.general-nav {
+  display: inline-grid;
+  width: 100%;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-column-gap: 10px;
+}
+.auth-column {
+  display: inline-grid;
+  width: 100%;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-column-gap: 10px;
+}
+
+.line1 {
+  grid-column: 1 / 4;
+}
+
+.title-block {
+  display: inline-grid;
+  width: 100%;
+  grid-template-columns: auto auto auto;
+}
+
+.full {
+  display: inline-grid;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.cart-nav {
+  display: inline-grid;
+}
+
+/* .title-block {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: 100px;
+  grid-template-areas:
+    "a a b b c c d d"
+    "e e f f g g h h";
+  align-items: start;
+}
+.title {
+  grid-area: a;
+}
+.login-status {
+  grid-area: d;
+}
+.cart-nav {
+  grid-area: h;
+} */
