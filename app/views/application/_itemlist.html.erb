@@ -2,7 +2,7 @@
   <% @items.each do |item| %>
   <div class="id-<%=item.id%>-row">
     <div class="left-column">
-      <p> <%= image_tag item.image_url %></p>
+      <p> <%= link_to (item.image_url), item_path(item) %></p>
     </div>
     <div class="middle-column">
       <p><%= item.title %></p>

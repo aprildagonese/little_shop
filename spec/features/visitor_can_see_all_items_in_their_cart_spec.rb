@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Cart show page' do
   before :each do
-    @item_1 = create(:item, image_url: 'https://www.fillmurray.com/200/400')
-    @item_2 = create(:item, image_url: 'https://www.fillmurray.com/200/300')
+    @item_1 = create(:item, price: 20, quantity: 5, image_url: 'https://www.fillmurray.com/200/400')
+    @item_2 = create(:item, price: 1, quantity: 10, image_url: 'https://www.fillmurray.com/200/300')
     @item_3 = create(:item, image_url: 'https://www.fillmurray.com/200/100')
   end
   context 'as a visitor' do
@@ -12,11 +12,10 @@ RSpec.describe 'Cart show page' do
       click_button "Add Item To Cart"
       visit item_path(@item_2)
       click_button "Add Item To Cart"
-      binding.pry
 
       visit cart_path
 
-      expect(page).to have_content(@cart.grand_total)
+      expect(page).to have_content("Grand Total: 110")
 
       within ".id-#{@item_1.id}-row" do
         expect(page).to have_content(@item_1.title)
