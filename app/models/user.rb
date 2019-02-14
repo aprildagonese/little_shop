@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :orders#, dependent: :destroy
+  has_many :orders
+  #as a merchant
   has_many :items
 
   validates :name, presence: true, uniqueness: true
