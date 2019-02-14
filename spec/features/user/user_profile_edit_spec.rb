@@ -11,9 +11,7 @@ RSpec.describe 'as a registered user' do
 
     visit profile_edit_path
 
-    expect(current_path).to eq(login_path)
-    expect(page).to have_content("You must be logged in to access this section")
-
+    expect(current_path).to eq('/404')
   end
 
   it 'sees a form to edit profile info' do
