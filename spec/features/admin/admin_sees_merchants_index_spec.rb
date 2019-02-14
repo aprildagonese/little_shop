@@ -57,17 +57,31 @@ RSpec.describe "As an admin" do
 
     within ".Merch1-row" do
       expect(page).to have_button("Deactivate")
-      click_button("Deactivate")
-      expect(page).to have_button("Activate")
     end
     within ".Merch2-row" do
       expect(page).to have_button("Deactivate")
-      click_button("Deactivate")
-      expect(page).to have_button("Activate")
     end
     within ".Merch3-row" do
       expect(page).to have_button("Activate")
+    end
+
+    within ".Merch1-row" do
+      click_button("Deactivate")
+    end
+    within ".Merch2-row" do
+      click_button("Deactivate")
+    end
+    within ".Merch3-row" do
       click_button("Activate")
+    end
+
+    within ".Merch1-row" do
+      expect(page).to have_button("Activate")
+    end
+    within ".Merch2-row" do
+      expect(page).to have_button("Activate")
+    end
+    within ".Merch3-row" do
       expect(page).to have_button("Deactivate")
     end
   end
