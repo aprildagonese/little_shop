@@ -23,7 +23,7 @@ namespace :admin do
 end
 
 get '/register', to: 'users#new'
-get '/merchants', to: 'users#index'
+# get '/merchants', to: 'users#index'
 get '/merchants/:id', to: 'users#show'
 
 get '/login', to: 'sessions#new'
