@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "As an admin", type: :feature do
+
+  before :each do
+    @admin = create(:user, role: 2)
+    login_as(@admin)
+  end
+
   it 'user sees appropriate nav bar links' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
-
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-
-    visit admin_dashboard_path
 
     within ".general-nav" do
       expect(page).to have_link("Home")
@@ -26,12 +27,11 @@ RSpec.describe "As an admin", type: :feature do
       expect(page).to_not have_link("Cart")
     end
 
-    expect(page).to have_content("Logged in as #{user.name}")
+    expect(page).to have_content("You have been logged in.")
   end
 
   it 'user can visit Home' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "Home"
@@ -40,8 +40,7 @@ RSpec.describe "As an admin", type: :feature do
   end
 
   it 'user can visit dashboard' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "Admin Dashboard"
@@ -51,8 +50,7 @@ RSpec.describe "As an admin", type: :feature do
   end
 
   it 'user can visit users list' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "Users"
@@ -62,8 +60,7 @@ RSpec.describe "As an admin", type: :feature do
   end
 
   it 'user can see dishes' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "Browse Dishes"
@@ -74,8 +71,7 @@ RSpec.describe "As an admin", type: :feature do
   end
 
   it 'user can see restaraunts' do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
     visit profile_path
 
     click_link "Restaurants"
@@ -85,8 +81,6 @@ RSpec.describe "As an admin", type: :feature do
   end
 
   it "cannot see pages without permission" do
-    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit profile_path
     expect(page).to have_content("The page you were looking for doesn't exist.")

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'As any user' do
   context 'when it visits the index page' do
-    
+
     it 'can see all enabled items' do
       user = create(:user)
       user.update(role: 1)
@@ -68,7 +68,6 @@ RSpec.describe 'As any user' do
 
       visit items_path
 
-      save_and_open_page
       click_link "#{i1.image_url}"
 
       expect(current_path).to eq(item_path(i1))
