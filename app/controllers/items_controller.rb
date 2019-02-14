@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all.where(activation_status: "active")
+    @items = Item.where(activation_status: "active")
   end
 
   def show
