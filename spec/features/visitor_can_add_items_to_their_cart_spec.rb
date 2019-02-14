@@ -12,7 +12,7 @@ RSpec.describe 'From an items show page' do
 
       expect(current_path).to eq(items_path)
       expect(page).to have_content("1 #{@item.title} has been added to your cart.")
-      expect(page).to have_content("Cart: 1")
+      expect(page).to have_content("Cart (1)")
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe 'From an items show page' do
 
       expect(current_path).to eq(items_path)
       expect(page).to have_content("1 #{@item.title} has been added to your cart.")
-      expect(page).to have_content("Cart: 1")
+      expect(page).to have_content("Cart (1)")
     end
   end
 end
