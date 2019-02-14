@@ -6,14 +6,9 @@ RSpec.describe 'As any user' do
     it 'can see all enabled items' do
       user = create(:user)
       user.update(role: 1)
-      i1, i2, i3, i4, i5 = create_list(:item, 5)
-      i4.update(activation_status: "inactive")
-      i5.update(activation_status: "inactive")
-      i1.update(user: user)
-      i2.update(user: user)
-      i3.update(user: user)
-      i4.update(user: user)
-      i5.update(user: user)
+      i1, i2, i3, i4, i5 = create_list(:item, 5, user: user)
+      i4.update(activation_status: 1)
+      i5.update(activation_status: 1)
 
       active_items = [i1, i2, i3]
       inactive_items = [i4, i5]
@@ -36,14 +31,7 @@ RSpec.describe 'As any user' do
     it 'items name is a link' do
       user = create(:user)
       user.update(role: 1)
-      i1, i2, i3, i4, i5 = create_list(:item, 5)
-      i4.update(activation_status: "inactive")
-      i5.update(activation_status: "inactive")
-      i1.update(user: user)
-      i2.update(user: user)
-      i3.update(user: user)
-      i4.update(user: user)
-      i5.update(user: user)
+      i1, i2 = create_list(:item, 2, user: user)
 
       visit items_path
 
