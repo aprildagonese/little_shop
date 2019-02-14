@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
       redirect_to dashboard_path
       flash[:alert] = "You are aleady logged in."
     elsif current_user.role == "admin"
-      redirect_to admin_dashboard_path
+      redirect_to welcome_path
       flash[:alert] = "You are aleady logged in."
     end
   end
