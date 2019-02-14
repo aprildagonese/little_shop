@@ -14,18 +14,18 @@ RSpec.describe "As an admin" do
     expect(page).to have_content("All Merchants")
 
     within ".Merch1-row" do
-      expect(page).to have_content("#{merch_1.name}")
+      expect(page).to have_link("#{merch_1.name}", href: admin_merchant_path(merch_1))
       expect(page).to have_content("#{merch_1.city}")
       expect(page).to have_content("#{merch_1.state}")
       expect(page).to have_content("#{merch_1.created_at.to_date.to_s}")
-      expect(page).to have_button("Deactivate")
+      expect(page).to have_button("Disable")
       expect(page).to_not have_content("#{merch_2.name}")
       expect(page).to_not have_content("#{merch_2.city}")
       expect(page).to_not have_content("#{merch_3.name}")
       expect(page).to_not have_content("#{merch_3.city}")
     end
     within ".Merch2-row" do
-      expect(page).to have_content("#{merch_2.name}")
+      expect(page).to have_link("#{merch_2.name}", href: admin_merchant_path(merch_2))
       expect(page).to have_content("#{merch_2.city}")
       expect(page).to have_content("#{merch_2.state}")
       expect(page).to have_content("#{merch_2.created_at.to_date.to_s}")
@@ -35,7 +35,7 @@ RSpec.describe "As an admin" do
       expect(page).to_not have_content("#{merch_3.city}")
     end
     within ".Merch3-row" do
-      expect(page).to have_content("#{merch_3.name}")
+      expect(page).to have_link("#{merch_3.name}", href: admin_merchant_path(merch_3))
       expect(page).to have_content("#{merch_3.city}")
       expect(page).to have_content("#{merch_3.state}")
       expect(page).to have_content("#{merch_3.created_at.to_date.to_s}")
@@ -56,33 +56,33 @@ RSpec.describe "As an admin" do
     visit admin_merchants_path
 
     within ".Merch1-row" do
-      expect(page).to have_button("Deactivate")
+      expect(page).to have_button("Disable")
     end
     within ".Merch2-row" do
-      expect(page).to have_button("Deactivate")
+      expect(page).to have_button("Disable")
     end
     within ".Merch3-row" do
-      expect(page).to have_button("Activate")
+      expect(page).to have_button("Enable")
     end
 
     within ".Merch1-row" do
-      click_button("Deactivate")
+      click_button("Disable")
     end
     within ".Merch2-row" do
-      click_button("Deactivate")
+      click_button("Disable")
     end
     within ".Merch3-row" do
-      click_button("Activate")
+      click_button("Enable")
     end
 
     within ".Merch1-row" do
-      expect(page).to have_button("Activate")
+      expect(page).to have_button("Enable")
     end
     within ".Merch2-row" do
-      expect(page).to have_button("Activate")
+      expect(page).to have_button("Enable")
     end
     within ".Merch3-row" do
-      expect(page).to have_button("Deactivate")
+      expect(page).to have_button("Disable")
     end
   end
 end
