@@ -52,8 +52,8 @@ class UsersController < ApplicationController
 
   def require_login
     unless logged_in?
-      flash[:error] = "You must be logged in to access this section" #remove - just render 404
-      redirect_to login_path #render file: '/public/404' unless current_user
+      flash[:error] = "The page you were looking for doesn't exist." #remove - just render 404
+      redirect_to 'public/404' #render file: '/public/404' unless current_user
     end
   end
 
