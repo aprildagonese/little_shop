@@ -11,10 +11,13 @@ RSpec.describe "As an admin", type: :feature do
 
     within ".general-nav" do
       expect(page).to have_link("Home")
-      expect(page).to have_link("Admin Dashboard")
-      expect(page).to have_link("Users")
       expect(page).to have_link("Browse Dishes")
       expect(page).to have_link("Restaurants")
+    end
+
+    within ".personal-nav" do
+      expect(page).to have_link("Admin Dashboard")
+      expect(page).to have_link("Users")
     end
 
     within ".auth-nav" do

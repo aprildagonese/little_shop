@@ -14,10 +14,13 @@ RSpec.describe "As a registered user", type: :feature do
 
     within ".general-nav" do
       expect(page).to have_link("Home")
-      expect(page).to have_link("My Profile")
-      expect(page).to have_link("My Orders")
       expect(page).to have_link("Browse Dishes")
       expect(page).to have_link("Restaurants")
+    end
+
+    within ".personal-nav" do
+      expect(page).to have_link("My Profile")
+      expect(page).to have_link("My Orders")
     end
 
     within ".auth-nav" do
