@@ -1,7 +1,11 @@
 <div class="user-list">
   <% @users.each do |user| %>
     <div class="<%=user.name%>-row">
-      <div class="user-name"><%= user.name %></div>
+      <% if current_user && current_user.admin? %>
+        <div class="user-name"><%= link_to user.name, admin_merchant_path(user) %></div>
+      <% else %>
+        <div class="user-name"><%= user.name %></div>
+      <% end %>
       <section class="location-data">
         <p>City: <%= user.city %></p>
         <p>State: <%= user.state %></p>
@@ -10,9 +14,9 @@
         <% unless @view=="Users" %><p>Date Registered: <%= user.created_at.to_date.to_s %></p><% end %>
         <% if current_user && current_user.admin? %>
           <% if user.activation_status == "active" %>
-            <%= button_to "Deactivate", merchant_path(user), method: :patch %>
+            <%= button_to "Disable", merchant_path(user), method: :patch %>
           <% else %>
-            <%= button_to "Activate", merchant_path(user), method: :patch %>
+            <%= button_to "Enable", merchant_path(user), method: :patch %>
           <% end %>
         <% end %>
       </div>
