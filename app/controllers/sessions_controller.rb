@@ -11,14 +11,14 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      flash[:alert] = "You have been logged in."
       if user.registered?
         redirect_to profile_path
       elsif user.merchant?
         redirect_to dashboard_path
       elsif user.admin?
-        redirect_to items_path
+        redirect_to welcome_path
       end
-      flash[:alert] = "You have been logged in."
     else
       flash[:alert] = "Login failed. Please check your email address and password."
       render :new
