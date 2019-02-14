@@ -9,7 +9,6 @@ namespace :merchant do
   resources :items, except: [:show]
 end
 
-
 get '/cart', to: 'carts#show'
 post '/cart', to: 'carts#create', as: 'carts'
 
@@ -30,7 +29,6 @@ get '/merchants/:id', to: 'users#show'
 get '/login', to: 'sessions#new'
 post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
-
 
 get '/dashboard', to: 'merchants#show'
 get '/admin/dashboard', to: 'admin/dashboard#show'

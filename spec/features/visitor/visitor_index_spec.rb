@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "visitor index page", type: :feature do
 
   before :each do
+    Faker::UniqueGenerator.clear
+
     @visitor = create(:user)
     @merch1, @merch2, @merch3 = create_list(:user, 3, role: 1)
     @i1, @i2, @i3, @i4, @i5, @i6 = create_list(:item, 6)
