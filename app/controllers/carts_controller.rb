@@ -10,9 +10,12 @@ class CartsController < ApplicationController
   end
 
   def show
-    #
-    #@items = session[:cart]
-    # @view = "Cart"
+    @items = []
+    @cart.contents.keys.each do |item_id|
+      @items << Item.find(item_id)
+    end
+    @items
+    @view = "Cart"
   end
 
 end
