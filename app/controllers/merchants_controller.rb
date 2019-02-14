@@ -8,4 +8,10 @@ class MerchantsController < ApplicationController
   def show
   end
 
+  def update
+    @user = User.find(params[:id])
+    @user.change_status
+    redirect_to admin_merchants_path
+  end
+
 end

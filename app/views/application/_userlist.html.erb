@@ -10,9 +10,10 @@
       <% unless @view=="Users" %><p>Date Registered: <%= user.created_at.to_date.to_s %></p><% end %>
       <% if current_user && current_user.admin? %>
         <% if user.activation_status == "active" %>
-          <%= button_to "Deactivate", users_path %>
+
+          <%= button_to "Deactivate", merchant_path(user), method: :update %>
         <% else %>
-          <%= button_to "Activate", users_path %>
+          <%= button_to "Activate", merchant_path(user), method: :update %>
         <% end %>
       <% end %>
     </div>
