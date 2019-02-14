@@ -71,4 +71,33 @@ RSpec.describe "As a merchant", type: :feature do
     expect(current_path).to eq(merchants_path)
     expect(page).to have_content("All Restaurants")
   end
+
+  it "merchant cannot see pages without permission" do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 1)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+    visit profile_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit profile_edit_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit profile_orders_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit admin_dashboard_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit admin_items_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit admin_merchants_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit carts_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit cart_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+  end
 end
