@@ -5,6 +5,6 @@ FactoryBot.define do
     description { Faker::Food.description }
     quantity { Faker::Number.number(4) }
     price { Faker::Number.decimal(2, 2) }
-    activation_status { 0 }
+    activation_status { "active" }
   end
 end

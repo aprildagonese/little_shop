@@ -7,7 +7,7 @@ describe 'as a logged in user' do
 
     visit items_path
 
-    click_on "I already have an account"
+    click_on "Log In"
 
     fill_in "email", with: user.email
     fill_in "password", with: user.password
