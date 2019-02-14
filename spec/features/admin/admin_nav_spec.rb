@@ -6,7 +6,7 @@ RSpec.describe "As an admin", type: :feature do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-    visit dashboard_path
+    visit admin_dashboard_path
 
     within ".general-nav" do
       expect(page).to have_link("Home")
@@ -27,5 +27,83 @@ RSpec.describe "As an admin", type: :feature do
     end
 
     expect(page).to have_content("Logged in as #{user.name}")
+  end
+
+  it 'user can visit Home' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Home"
+
+    expect(current_path).to eq(welcome_path)
+  end
+
+  it 'user can visit dashboard' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Admin Dashboard"
+
+    expect(current_path).to eq(admin_dashboard_path)
+    expect(page).to have_content("Administrator Information")
+  end
+
+  it 'user can visit users list' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Users"
+
+    expect(current_path).to eq(admin_users_path)
+    expect(page).to have_content("All Users")
+  end
+
+  it 'user can see dishes' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Browse Dishes"
+
+    expect(current_path).to eq(items_path)
+    expect(page).to have_content("All Items")
+
+  end
+
+  it 'user can see restaraunts' do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit profile_path
+
+    click_link "Restaurants"
+
+    expect(current_path).to eq(merchants_path)
+    expect(page).to have_content("All Restaurants")
+  end
+
+  it "cannot see pages without permission" do
+    user = User.create(name: "tester", email: "test@email.com", password: "test", role: 2)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+    visit profile_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit profile_edit_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit profile_orders_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit dashboard_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit carts_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit cart_path
+    expect(page).to have_content("The page you were looking for doesn't exist.")
   end
 end

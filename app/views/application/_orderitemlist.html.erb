@@ -1,0 +1,18 @@
+<div class="item-list">
+  <% @order.order_items.each do |order_item| %>
+  <div class="id-<%=order_item.id%>-row">
+    <div class="left-column">
+      <p> <%= order_item.item.image_url %></p>
+    </div>
+    <div class="middle-column">
+      <p><%= order_item.item.title %></p>
+      <p><%= order_item.sale_price %></p>
+      <button><%= order_item.quantity %></button>
+    </div>
+    <div class="right-column">
+      <p><%= order_item.item.description %></p>
+      <p>$<%= order_item.subtotal %></p>
+    </div>
+  </div>
+  <% end %>
+</div>

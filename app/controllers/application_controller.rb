@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
+  before_action :set_cart
   helper_method :current_user
 
   #Unhighlight if needed in view
@@ -32,10 +32,18 @@ class ApplicationController < ActionController::Base
     render file: "/public/404" unless current_merchant?
   end
 
+  def require_cart_access
+    render file: "/public/404" unless current_user.nil? || current_user.registered?
+  end
+
   def require_current_user
     unless current_registered?
       render file: "/public/404", status: :not_found
     end
+  end
+
+  def set_cart
+    @cart ||= Cart.new(session[:cart])
   end
 
 end

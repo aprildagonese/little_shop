@@ -1,2 +1,4 @@
-<h2><%= @item.name %></h2>
-<p>Cost: <%= @item.cost %></p>
+<h2><%= @item.title %></h2>
+<p>Cost: <%= @item.price %></p>
+
+<%= button_to "Add Item To Cart", carts_path(item_id: @item.id) %>
