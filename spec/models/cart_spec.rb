@@ -26,4 +26,21 @@ RSpec.describe Cart do
     end
   end
 
+<<<<<<< HEAD
+=======
+  describe '.grand_total' do
+    it 'should add up all subtotals in the cart' do
+      item_1 = create(:item, price: 20, quantity: 5)
+      item_2 = create(:item, price: 1, quantity: 10)
+
+      cart = Cart.new({
+        1 => 20,
+        2 => 10
+        })
+
+        expect(cart.grand_total).to eq(110)
+    end
+  end
+
+>>>>>>> 996ce9d829e6c1ad36d201a5c501dbb0a4d946e9
 end

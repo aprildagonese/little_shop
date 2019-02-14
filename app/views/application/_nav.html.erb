@@ -13,7 +13,11 @@
         <% end %>
       <% end %>
       <%= link_to "Browse Dishes", items_path %>
-      <%= link_to "Restaurants", merchants_path %>
+      <% if current_user && current_user.admin? %>
+        <%= link_to "Restaurants", admin_merchants_path %>
+      <% else %>
+        <%= link_to "Restaurants", merchants_path %>
+      <% end %>
     </div>
     <div class="auth-nav">
       <% if !current_user %>
@@ -22,11 +26,5 @@
       <% else %>
         <%= link_to "Log Out", logout_path, method: :delete %>
       <% end %>
-    </div>
-    <div class="cart-nav">
-      <% if !current_user || current_user.registered? %>
-        <%= link_to "Cart", cart_path %>
-      <% end %>
-      <p>Cart: <%= @cart.total_count %> </p>
     </div>
   </nav>

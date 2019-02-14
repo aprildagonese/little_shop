@@ -80,8 +80,8 @@ RSpec.describe "As an admin", type: :feature do
 
     click_link "Restaurants"
 
-    expect(current_path).to eq(merchants_path)
-    expect(page).to have_content("All Restaurants")
+    expect(current_path).to eq(admin_merchants_path)
+    expect(page).to have_content("All Merchants")
   end
 
   it "cannot see pages without permission" do

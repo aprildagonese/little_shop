@@ -1,15 +1,21 @@
 <div class="user-list">
   <% @users.each do |user| %>
-  <div class="<%=user.name%>-row">
-    <div class="user-name"><%= user.name %></div>
-    <section class="location-data">
-      <p>City: <%= user.city %></p>
-      <p>State: <%= user.state %></p>
-    </section>
-    <div class="activation-data">
-      <% unless @view=="Users" %><p>Date Registered: <%= user.created_at.to_date.to_s %></p><% end %>
-      <% if current_user && current_user.admin? %><button>Activation Toggle</button><% end %>
+    <div class="<%=user.name%>-row">
+      <div class="user-name"><%= user.name %></div>
+      <section class="location-data">
+        <p>City: <%= user.city %></p>
+        <p>State: <%= user.state %></p>
+      </section>
+      <div class="activation-data">
+        <% unless @view=="Users" %><p>Date Registered: <%= user.created_at.to_date.to_s %></p><% end %>
+        <% if current_user && current_user.admin? %>
+          <% if user.activation_status == "active" %>
+            <%= button_to "Deactivate", merchant_path(user), method: :patch %>
+          <% else %>
+            <%= button_to "Activate", merchant_path(user), method: :patch %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
   <% end %>
 </div>
