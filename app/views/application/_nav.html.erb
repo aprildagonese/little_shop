@@ -28,10 +28,4 @@
       <% end %>
     </div>
 
-    <div class="cart-nav">
-      <% if !current_user || current_user.registered? %>
-        <%= link_to "Cart: (#{@cart.total_count})", cart_path %>
-      <% end %>
-    </div>
-
   </nav>
