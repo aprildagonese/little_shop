@@ -55,6 +55,16 @@ RSpec.describe User, type: :model do
   end
 
   describe "Instance Methods" do
+    it "#change_status" do
+      user = User.create!(name: "April",
+                          email: "adag@email.com",
+                          password: "password",
+                          activation_status: 0)
+      user.change_status
+      expect(user.activation_status).to eq("inactive")
+      user.change_status
+      expect(user.activation_status).to eq("active")
+    end
   end
 
 end
