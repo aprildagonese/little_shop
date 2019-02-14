@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   #These potenitally do the same thing?
-  #before_action :require_login, only: [:show]
-  before_action :require_current_user, only: [:show]
+  before_action :require_login, only: [:show, :edit]
+  before_action :require_current_user, only: [:show, :edit]
 
   def new
     @user = User.new
@@ -31,9 +31,17 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(session[:user_id])
   end
 
   def update
+    @user = User.find(session[:user_id])
+    if @user.update(user_params)
+      redirect_to profile_path
+    else
+      flash[:error] = "That email has already been taken."
+      redirect_to profile_edit_path
+    end
   end
 
   private
@@ -44,11 +52,12 @@ class UsersController < ApplicationController
 
   def require_login
     unless logged_in?
-      flash[:error] = "You must be logged in to access this section"
-      redirect_to login_path
+      flash[:error] = "You must be logged in to access this section" #remove - just render 404
+      redirect_to login_path #render file: '/public/404' unless current_user
     end
   end
 
+  # remove - same as current_user
   def logged_in?
     if session[:user_id]
       true
