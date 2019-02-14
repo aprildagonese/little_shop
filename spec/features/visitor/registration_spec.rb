@@ -4,7 +4,7 @@ RSpec.describe 'when authenticating visitors' do
   context 'a user trying to register' do
     it 'can register by providing all required info' do
       visit items_path
-      click_on "Sign Up to Be a User"
+      click_on "Register"
 
       expect(current_path).to eq(register_path)
 
@@ -36,7 +36,7 @@ RSpec.describe 'when authenticating visitors' do
                            password_confirmation: "faetest")
       expect(User.count).to eq(1)
       visit items_path
-      click_on "Sign Up to Be a User"
+      click_on "Register"
 
       expect(current_path).to eq(register_path)
 
@@ -83,7 +83,7 @@ RSpec.describe 'when authenticating visitors' do
 
     it "can't register without providing email address" do
       visit items_path
-      click_on "Sign Up to Be a User"
+      click_on "Register"
 
       expect(current_path).to eq(register_path)
 

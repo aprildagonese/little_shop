@@ -13,7 +13,7 @@ RSpec.describe 'as a visitor' do
 
     visit items_path
 
-    click_on "I already have an account"
+    click_on "Log In"
 
     expect(current_path).to eq(login_path)
 

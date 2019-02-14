@@ -35,9 +35,9 @@ RSpec.describe "visitor index page", type: :feature do
       it 'can see link to register new user' do
         visit items_path
 
-        expect(page).to have_link("Sign Up to Be a User")
+        expect(page).to have_link("Register")
 
-        click_on "Sign Up to Be a User"
+        click_on "Register"
 
         expect(current_path).to eq(register_path)
       end
@@ -45,9 +45,9 @@ RSpec.describe "visitor index page", type: :feature do
       it 'can see link to sign in' do
         visit items_path
 
-        expect(page).to have_link("I already have an account")
+        expect(page).to have_link("Log In")
 
-        click_on "I already have an account"
+        click_on "Log In"
 
         expect(current_path).to eq(login_path)
       end
@@ -62,7 +62,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         visit items_path
 
-        click_on "Sign Up to Be a User"
+        click_on "Register"
 
         expect(current_path).to eq(register_path)
 
@@ -90,7 +90,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         visit items_path
 
-        click_on "Sign Up to Be a User"
+        click_on "Register"
 
         expect(current_path).to eq(register_path)
 
@@ -112,7 +112,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         visit items_path
 
-        click_on "I already have an account"
+        click_on "Log In"
 
         expect(current_path).to eq(login_path)
         fill_in "email", with: user.email
@@ -134,7 +134,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         visit items_path
 
-        click_on "I already have an account"
+        click_on "Log In"
 
         expect(current_path).to eq(login_path)
         fill_in "email", with: email
