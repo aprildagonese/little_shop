@@ -2,8 +2,9 @@
 
 <p>Grand Total: $<%= @cart.grand_total %> </p>
 
-<% if @items.nil? %>
+<% if @items.count == 0 %>
   <p>Your cart is currently empty.</p>
 <% else %>
   <%= render 'itemlist' %>
+  <%= link_to "Empty Cart", cart_path %>
 <% end %>
