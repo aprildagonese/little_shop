@@ -79,4 +79,38 @@ RSpec.describe 'as a registered user' do
 
   end
 
+  it 'gets redirected if attempting to update to an email that\'s already take by another user' do
+
+    login_as(@user_1)
+
+    visit profile_edit_path
+
+    fill_in :user_name, with: "April Dagonese"
+    fill_in :user_email, with: @user_2.email
+    fill_in :user_street_address, with: "1111 Street Dr."
+    fill_in :user_city, with: "Denver"
+    fill_in :user_state, with: "CO"
+    fill_in :user_zip_code, with: 80202
+    fill_in :user_password, with: "testing"
+    fill_in :user_password_confirmation, with: "testing"
+
+    click_button "Update Profile"
+
+    expect(current_path).to eq(profile_edit_path)
+
+    expect(page).to have_content("That email has already been taken")
+
+    expect(page).to have_content("Name")
+    expect(page).to have_content("Street address")
+    expect(page).to have_content("City")
+    expect(page).to have_content("State")
+    expect(page).to have_content("Zip code")
+    expect(page).to have_content("Email")
+    expect(page).to have_content("Password")
+    expect(page).to have_content("Password confirmation")
+
+    expect(page).to have_button("Update Profile")
+
+  end
+
 end
