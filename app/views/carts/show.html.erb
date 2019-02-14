@@ -1,5 +1,6 @@
 <h1>My Cart</h1>
 
+<p> <%= @cart.grand_total %> </p>
 <% if @items.nil? %>
   <p>Shopping cart is currently empty.</p>
 <% else %>
