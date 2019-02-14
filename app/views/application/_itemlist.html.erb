@@ -2,10 +2,13 @@
   <% @items.each do |item| %>
   <div class="id-<%=item.id%>-row">
     <div class="left-column">
-      <p> <%= link_to (item.image_url), item_path(item) %></p>
+      <%= link_to item_path(item) do%>
+      <%= image_tag(item.image_url, width: '100') %>
+      <% end %>
+
     </div>
     <div class="middle-column">
-      <p><%= item.title %></p>
+      <%= link_to item.title, item_path(item) %>
       <p>Current Price: $<%= item.price %></p>
       <p>Qty: <%= item.quantity %></p>
     </div>
