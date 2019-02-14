@@ -10,15 +10,17 @@
     <div class="middle-column">
       <%= link_to item.title, item_path(item) %>
       <p>Current Price: $<%= item.price %></p>
-      <p>Qty: <%= item.quantity %></p>
+      <% if @view!="Cart" %>
+        <p>Qty: <%= item.quantity %></p>
+      <% end %>
     </div>
     <div class="right-column">
+      <p>Sold By: <%= item.user.name %></p>
       <% if @view=="Cart" %>
+        <p>Desired Quantity: <%= item.quantity  %></p>
         <p>Subtotal: $<%= item.subtotal %></p>
       <% end %>
-        <p>Sold By: <%= item.user.name %></p>
     </div>
   </div>
   <% end %>
-  <%= link_to "Empty Cart", cart_path %>
 </div>
