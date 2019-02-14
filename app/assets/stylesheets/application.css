@@ -1,4 +1,4 @@
-/* .nav-bar {
+.nav-bar {
   display: inline-grid;
   width: 100%;
   grid-template-columns: auto auto;
@@ -36,9 +36,9 @@
 
 .cart-nav {
   display: inline-grid;
-} */
+}
 
-.title-block {
+/* .title-block {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 10px;
@@ -56,4 +56,4 @@
 }
 .cart-nav {
   grid-area: h;
-}
+} */
