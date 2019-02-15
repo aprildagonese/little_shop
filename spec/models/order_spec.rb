@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Order, type: :model do
+RSpec.describe Order, type: :model do
 
   before :each do
     Faker::UniqueGenerator.clear
@@ -50,6 +50,16 @@ describe Order, type: :model do
 
       expected = OrderItem.sum(:sale_price)
       actual = @order.total_cost
+
+      expect(actual).to eq(expected)
+
+    end
+
+    it '#change_status' do
+
+      @order.change_status
+      expected = true
+      actual = @order.cancelled?
 
       expect(actual).to eq(expected)
 
