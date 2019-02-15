@@ -8,4 +8,10 @@ class User::OrdersController < ApplicationController
   def show
   end
 
+  def update
+    @order = Order.find(params[:order_id])
+    @order.change_status
+    redirect_to profile_orders_path
+  end
+
 end
