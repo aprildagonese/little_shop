@@ -2,16 +2,6 @@
   <nav class="nav-bar">
     <div class="general-nav">
       <%= link_to "Home", welcome_path %>
-      <% if current_user %>
-        <% if current_user.registered? %>
-          <%= link_to "My Profile", profile_path %>
-        <% elsif current_user.merchant? %>
-          <%= link_to "My Dashboard", dashboard_path %>
-        <% elsif current_user.admin? %>
-          <%= link_to "Admin Dashboard", admin_dashboard_path %>
-          <%= link_to "Users", admin_users_path %>
-        <% end %>
-      <% end %>
       <%= link_to "Browse Dishes", items_path %>
       <% if current_user && current_user.admin? %>
         <%= link_to "Restaurants", admin_merchants_path %>
@@ -19,6 +9,21 @@
         <%= link_to "Restaurants", merchants_path %>
       <% end %>
     </div>
+    
+    <div class="personal-nav">
+      <% if current_user %>
+        <% if current_user.registered? %>
+          <%= link_to "My Profile", profile_path %>
+          <%= link_to "My Orders", profile_orders_path %>
+        <% elsif current_user.merchant? %>
+          <%= link_to "My Dashboard", dashboard_path %>
+        <% elsif current_user.admin? %>
+          <%= link_to "Admin Dashboard", admin_dashboard_path %>
+          <%= link_to "Users", admin_users_path %>
+        <% end %>
+      <% end %>
+    </div>
+
     <div class="auth-nav">
       <% if !current_user %>
         <%= link_to "Log In", login_path %>
