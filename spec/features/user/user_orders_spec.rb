@@ -4,7 +4,7 @@ RSpec.describe 'as a user', type: :feature do
 
   before :each do
     Faker::UniqueGenerator.clear
-    
+
     @user = create(:user)
 
     @merchant_1 = create(:user, role: 1)
@@ -102,6 +102,9 @@ RSpec.describe 'as a user', type: :feature do
 
       within "#order-#{@order_1.id}" do
         click_button "Cancel Order"
+      end
+
+      within "#order-#{@order_1.id}" do
         expect(page).to have_content("Order Status: cancelled")
       end
 
