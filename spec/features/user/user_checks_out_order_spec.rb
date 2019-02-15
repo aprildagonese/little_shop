@@ -21,6 +21,7 @@ RSpec.describe "as a registered user with items in my cart" do
 
     click_button("Check Out")
     expect(Order.count).to eq(1)
+    expect(Order.last.status).to eq("pending")
     expect(current_path).to eq(profile_path(@user))
     expect(page).to have_content("Thank you! Your order has been placed.")
     expect(page).to have_content("Orders: 1")
