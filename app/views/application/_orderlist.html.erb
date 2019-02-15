@@ -3,6 +3,9 @@
   <li id=<%= "order-#{order.id}" %>>
     <%= link_to  "Order ID: #{order.id}", profile_orders_path(order) %>
     <a>Order Status: <%= order.status %></a>
+    <% if order.pending? %>
+      <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: order.id} %>
+    <% end %>
     <a>Started on: <%= order.created_at %></a>
     <a>Last Updated on: <%= order.updated_at %></a>
     <a>Item Count: <%= order.item_count %></a>
