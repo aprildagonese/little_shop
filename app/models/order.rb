@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   enum status: [:pending, :fulfilled, :cancelled]
 
   def item_count
-    items.count
+    order_items.sum(:quantity)
   end
 
   def total_cost
