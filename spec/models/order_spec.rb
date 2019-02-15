@@ -44,6 +44,15 @@ describe Order, type: :model do
       expect(actual).to eq(expected)
     end
 
+    it '#total_cost' do
+
+      expected = OrderItem.sum(:sale_price)
+      actual = @order.total_cost
+
+      expect(actual).to eq(expected)
+
+    end
+
   end
 
 end
