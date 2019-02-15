@@ -40,7 +40,7 @@ RSpec.describe Order, type: :model do
 
     it '#item_count' do
 
-      expected = 10
+      expected = OrderItem.sum(:quantity)
       actual = @order.item_count
 
       expect(actual).to eq(expected)
