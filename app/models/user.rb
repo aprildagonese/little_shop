@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :orders#, dependent: :destroy
+  has_many :orders
+  #as a merchant
   has_many :items
 
   validates :name, presence: true, uniqueness: true
@@ -11,4 +12,12 @@ class User < ApplicationRecord
 
   enum role: [:registered, :merchant, :admin]
   enum activation_status: [:active, :inactive]
+
+  def change_status
+    if activation_status == "active"
+      update_attribute(:activation_status, 1)
+    else
+      update_attribute(:activation_status, 0)
+    end
+  end
 end

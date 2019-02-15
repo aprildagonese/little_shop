@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  before_action :require_cart_access
+
   def create
     item = Item.find(params[:item_id])
     @cart.add_item(item.id)
@@ -8,9 +10,12 @@ class CartsController < ApplicationController
   end
 
   def show
-    #
-    #@items = session[:cart]
-    # @view = "Cart"
+    @items = []
+    @cart.contents.keys.each do |item_id|
+      @items << Item.find(item_id)
+    end
+    @items
+    @view = "Cart"
   end
 
 end

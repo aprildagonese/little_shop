@@ -2,19 +2,23 @@
   <% @items.each do |item| %>
   <div class="id-<%=item.id%>-row">
     <div class="left-column">
-      <p> <%= item.image_url %></p>
+      <%= link_to item_path(item) do%>
+        <%= image_tag(item.image_url, width: '100') if item.image_url %>
+      <% end %>
+
     </div>
     <div class="middle-column">
-      <p><%= item.title %></p>
+      <%= link_to item.title, item_path(item) %>
       <p>Current Price: $<%= item.price %></p>
-      <p>Qty: <%= item.quantity %></p>
+      <% if @view!="Cart" %>
+        <p>Qty: <%= item.quantity %></p>
+      <% end %>
     </div>
     <div class="right-column">
+      <p>Sold By: <%= item.user.name %></p>
       <% if @view=="Cart" %>
-        <p><%= item.description %></p>
-        <p><%= item.subtotal %></p>
-      <% else %>
-        <p>Sold By: <%= item.user.name %></p>
+        <p>Desired Quantity: <%= item.quantity  %></p>
+        <p>Subtotal: $<%= item.subtotal %></p>
       <% end %>
     </div>
   </div>

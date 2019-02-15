@@ -16,7 +16,7 @@ RSpec.describe "Once already logged in", type: :feature do
 
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("You are aleady logged in.")
-      
+
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe "Once already logged in", type: :feature do
 
       visit login_path
 
-      expect(current_path).to eq(admin_dashboard_path)
+      expect(current_path).to eq(welcome_path)
       expect(page).to have_content("You are aleady logged in.")
     end
   end

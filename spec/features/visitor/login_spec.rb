@@ -13,7 +13,7 @@ RSpec.describe 'as a visitor' do
 
     visit items_path
 
-    click_on "I already have an account"
+    click_on "Log In"
 
     expect(current_path).to eq(login_path)
 
@@ -77,7 +77,7 @@ RSpec.describe 'as a visitor' do
 
     click_button "Log In"
 
-    expect(current_path).to eq(items_path)
+    expect(current_path).to eq(welcome_path)
 
     expect(page).to have_content("You have been logged in.")
     expect(page).to have_link("Log Out")

@@ -4,7 +4,7 @@ RSpec.describe "visitor index page", type: :feature do
 
   before :each do
     Faker::UniqueGenerator.clear
-    
+
     @visitor = create(:user)
     @merch1, @merch2, @merch3 = create_list(:user, 3, role: 1)
     @i1, @i2, @i3, @i4, @i5, @i6 = create_list(:item, 6)
@@ -24,7 +24,7 @@ RSpec.describe "visitor index page", type: :feature do
         visit items_path
 
         within ".id-#{@i1.id}-row" do
-          expect(page).to have_content("#{@i1.image_url}")
+          expect(page).to have_css("img[src*='#{@i1.image_url}']")
           expect(page).to have_content("#{@i1.title}")
           expect(page).to have_content("Current Price: $#{@i1.price}")
           expect(page).to have_content("Qty: #{@i1.quantity}")
@@ -35,9 +35,9 @@ RSpec.describe "visitor index page", type: :feature do
       it 'can see link to register new user' do
         visit items_path
 
-        expect(page).to have_link("Sign Up to Be a User")
+        expect(page).to have_link("Register")
 
-        click_on "Sign Up to Be a User"
+        click_on "Register"
 
         expect(current_path).to eq(register_path)
       end
@@ -45,9 +45,9 @@ RSpec.describe "visitor index page", type: :feature do
       it 'can see link to sign in' do
         visit items_path
 
-        expect(page).to have_link("I already have an account")
+        expect(page).to have_link("Log In")
 
-        click_on "I already have an account"
+        click_on "Log In"
 
         expect(current_path).to eq(login_path)
       end
@@ -62,7 +62,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         visit items_path
 
-        click_on "Sign Up to Be a User"
+        click_on "Register"
 
         expect(current_path).to eq(register_path)
 
@@ -90,7 +90,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         visit items_path
 
-        click_on "Sign Up to Be a User"
+        click_on "Register"
 
         expect(current_path).to eq(register_path)
 
@@ -112,7 +112,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         visit items_path
 
-        click_on "I already have an account"
+        click_on "Log In"
 
         expect(current_path).to eq(login_path)
         fill_in "email", with: user.email
@@ -134,7 +134,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         visit items_path
 
-        click_on "I already have an account"
+        click_on "Log In"
 
         expect(current_path).to eq(login_path)
         fill_in "email", with: email

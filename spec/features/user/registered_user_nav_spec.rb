@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "As a registered user", type: :feature do
+
   before :each do
     @user = User.create(name: "tester", email: "test@email.com", password: "test")
 
@@ -13,9 +14,13 @@ RSpec.describe "As a registered user", type: :feature do
 
     within ".general-nav" do
       expect(page).to have_link("Home")
-      expect(page).to have_link("My Profile")
       expect(page).to have_link("Browse Dishes")
       expect(page).to have_link("Restaurants")
+    end
+
+    within ".personal-nav" do
+      expect(page).to have_link("My Profile")
+      expect(page).to have_link("My Orders")
     end
 
     within ".auth-nav" do
@@ -44,6 +49,14 @@ RSpec.describe "As a registered user", type: :feature do
 
     expect(current_path).to eq(profile_path)
     expect(page).to have_content("Welcome, #{@user.name}!")
+  end
+
+  it 'user can see thier orders' do
+
+    click_link "My Orders"
+
+    expect(current_path).to eq(profile_orders_path)
+    expect(page).to have_content("Past Orders")
   end
 
   it 'user can see dishes' do
