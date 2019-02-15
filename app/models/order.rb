@@ -4,4 +4,9 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items#, dependent: :delete_all
 
   enum status: [:pending, :fulfilled, :cancelled]
+
+  def item_count
+    items.count
+  end
+
 end
