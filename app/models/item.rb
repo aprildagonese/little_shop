@@ -11,4 +11,11 @@ class Item < ApplicationRecord
   def subtotal
     price * quantity
   end
+
+  def fulfillment_time
+    Item.joins(:order_items)
+      .select("items.*, avg(order_items.updated_at - order_items.created_at) as avg_time")
+      .where(id: id)
+      #.group(:id)
+  end
 end

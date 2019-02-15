@@ -1,4 +1,17 @@
-<h2><%= @item.title %></h2>
-<p>Cost: <%= @item.price %></p>
+<section class="item-main-info">
+  <section class="item-image">
+    <%= image_tag(@item.image_url, width: '250') %>
+  </section>
+  <section class="item-info">
+    <h2><%= @item.title %></h2>
+    <p><%= @item.description %></p>
+    <p>Sold By: <%= @item.user.name %></p>
+    <p>Qty In Stock: <%= @item.quantity %></p>
+    <p>Current Price: $<%= @item.price %></p>
+    <p>Average fulfillemnt time: <%= @item.fulfillment_time %></p>
+  </section>
 
-<%= button_to "Add Item To Cart", carts_path(item_id: @item.id) %>
+
+<% if current_user.nil? || current_user.registered? %>
+  <%= button_to "Add Item To Cart", carts_path(item_id: @item.id) %>
+<% end %>

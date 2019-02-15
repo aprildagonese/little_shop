@@ -80,6 +80,7 @@ RSpec.describe 'when it visits an items show page' do
       expect(page).to have_content("Sold By: #{item.user.name}")
       expect(page).to have_content("Qty In Stock: #{item.quantity}")
       expect(page).to have_content("Current Price: $#{item.price}")
+      binding.pry
       expect(page).to have_content("Average fulfillemnt time: #{item.fulfillment_time}")
     end
 
@@ -87,7 +88,6 @@ RSpec.describe 'when it visits an items show page' do
       user = create(:user, role: 1)
       login_as(user)
 
-      binding.pry
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
 
