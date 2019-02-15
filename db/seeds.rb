@@ -125,13 +125,13 @@ end
   email = Faker::Internet.unique.email
   password = 'password'
   role = 0
-  activation_status = 0
+  status = 0
   user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
   rand(1..8).times do
     status = 0
     created_at = rand(500).days.ago
 
-    order = user.orders.create!(activation_status: status, created_at: created_at)
+    order = user.orders.create!(status: status, created_at: created_at)
     rand(1..5).times do
       item = all_merchants.sample.items.sample
       #order_activation_status = 0
@@ -154,7 +154,7 @@ rand(1..8).times do
   status = 0
   created_at = rand(500).days.ago
 
-  order = user.orders.create!(activation_status: status, created_at: created_at)
+  order = user.orders.create!(status: status, created_at: created_at)
   rand(1..5).times do
     item = all_merchants.sample.items.sample
     #order_activation_status = 0
