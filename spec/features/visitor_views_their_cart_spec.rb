@@ -15,7 +15,8 @@ RSpec.describe 'Cart show page' do
 
       visit cart_path
 
-      expect(page).to have_content("Grand Total: 110")
+      expect(page).to have_content("Grand Total: $110")
+      expect(page).to have_link("Empty Cart")
 
       within ".id-#{@item_1.id}-row" do
         expect(page).to have_content(@item_1.title)
@@ -41,7 +42,6 @@ RSpec.describe 'Cart show page' do
         expect(page).to_not have_content("Current Price: $#{@item_3.price}")
         expect(page).to_not have_content("Qty: #{@item_3.quantity}")
         expect(page).to_not have_content("Subtotal: $#{@item_3.subtotal}")
-        expect(page).to have_link("Empty Cart")
       end
     end
   end
@@ -49,6 +49,15 @@ RSpec.describe 'Cart show page' do
   context 'as a registered user' do
     it 'shows me all items in my cart' do
 
+    end
+  end
+
+  context "when I haven't added items to my cart" do
+    it "my cart contains no items" do
+      visit cart_path
+
+      expect(page).to have_content("Your cart is currently empty.")
+      expect(page).to_not have_content("Empty Cart")
     end
   end
 end

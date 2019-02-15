@@ -2,8 +2,8 @@
   <% @items.each do |item| %>
   <div class="id-<%=item.id%>-row">
     <div class="left-column">
-      <%= link_to item_path(item) do %>
-        <%= image_tag(item.image_url, width: '100') %>
+      <%= link_to item_path(item) do%>
+        <%= image_tag(item.image_url, width: '100') if item.image_url %>
       <% end %>
 
     </div>
@@ -20,5 +20,4 @@
     </div>
   </div>
   <% end %>
-  <%= link_to "Empty Cart", cart_path %>
 </div>
