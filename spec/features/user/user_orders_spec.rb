@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'as a user', type: :feature do
 
   before :each do
+    Faker::UniqueGenerator.clear
+    
     @user = create(:user)
 
     @merchant_1 = create(:user, role: 1)
@@ -13,7 +15,8 @@ RSpec.describe 'as a user', type: :feature do
     @item_4, @item_5, @item_6 = create_list(:item, 3, user: @merchant_2)
     @item_7, @item_8, @item_9, @item_10 = create_list(:item, 4, user: @merchant_3)
 
-    @order_1, @order_2, @order_3, @order_4 = create_list(:order, 4, user: @user)
+    @order_1, @order_2, @order_3 =  create_list(:order, 3, user: @user)
+    @order_4 = create(:order, user: @user, status: :fulfilled)
 
     @order_item_1 = create(:order_item, item: @item_1, order: @order_1)
     @order_item_2 = create(:order_item, item: @item_2, order: @order_1)
@@ -44,6 +47,7 @@ RSpec.describe 'as a user', type: :feature do
       within "#order-#{@order_1.id}" do
         expect(page).to have_link("Order ID: #{@order_1.id}")
         expect(page).to have_content("Order Status: #{@order_1.status}")
+        expect(page).to have_button("Cancel Order")
         expect(page).to have_content("Started on: #{@order_1.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_1.updated_at}")
         expect(page).to have_content("Item Count: #{@order_1.item_count}")
@@ -53,6 +57,7 @@ RSpec.describe 'as a user', type: :feature do
       within "#order-#{@order_2.id}" do
         expect(page).to have_link("Order ID: #{@order_2.id}")
         expect(page).to have_content("Order Status: #{@order_2.status}")
+        expect(page).to have_button("Cancel Order")
         expect(page).to have_content("Started on: #{@order_2.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_2.updated_at}")
         expect(page).to have_content("Item Count: #{@order_2.item_count}")
@@ -62,6 +67,7 @@ RSpec.describe 'as a user', type: :feature do
       within "#order-#{@order_3.id}" do
         expect(page).to have_link("Order ID: #{@order_3.id}")
         expect(page).to have_content("Order Status: #{@order_3.status}")
+        expect(page).to have_button("Cancel Order")
         expect(page).to have_content("Started on: #{@order_3.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_3.updated_at}")
         expect(page).to have_content("Item Count: #{@order_3.item_count}")
@@ -71,10 +77,32 @@ RSpec.describe 'as a user', type: :feature do
       within "#order-#{@order_4.id}" do
         expect(page).to have_link("Order ID: #{@order_4.id}")
         expect(page).to have_content("Order Status: #{@order_4.status}")
+        expect(page).to_not have_button("Cancel Order")
         expect(page).to have_content("Started on: #{@order_4.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_4.updated_at}")
         expect(page).to have_content("Item Count: #{@order_4.item_count}")
         expect(page).to have_content("Order Total: #{@order_4.total_cost}")
+      end
+
+    end
+
+    it 'can visit order show page by clicking id' do
+
+      visit profile_orders_path
+
+      click_link "Order ID: #{@order_1.id}"
+
+      expect(current_path).to eq(profile_orders_path(@order_1))
+
+    end
+
+    it 'can cancel a pending order' do
+
+      visit profile_orders_path
+
+      within "#order-#{@order_1.id}" do
+        click_button "Cancel Order"
+        expect(page).to have_content("Order Status: cancelled")
       end
 
     end
