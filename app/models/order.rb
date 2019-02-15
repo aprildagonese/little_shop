@@ -13,4 +13,8 @@ class Order < ApplicationRecord
     order_items.sum(:sale_price)
   end
 
+  def change_status
+    update_attribute(:status, 2) if pending?
+  end
+
 end
