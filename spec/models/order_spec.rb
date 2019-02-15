@@ -3,6 +3,8 @@ require 'rails_helper'
 describe Order, type: :model do
 
   before :each do
+    Faker::UniqueGenerator.clear
+
     @user = create(:user)
     @merchant = create(:user, role: 1)
 
