@@ -47,7 +47,7 @@ RSpec.describe 'as a user', type: :feature do
         expect(page).to have_content("Started on: #{@order_1.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_1.updated_at}")
         expect(page).to have_content("Item Count: #{@order_1.item_count}")
-        expect(page).to have_content("Order Total: #{@order_1.item_total}")
+        expect(page).to have_content("Order Total: #{@order_1.total_cost}")
       end
 
       within "#order-#{@order_2.id}" do
@@ -56,7 +56,7 @@ RSpec.describe 'as a user', type: :feature do
         expect(page).to have_content("Started on: #{@order_2.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_2.updated_at}")
         expect(page).to have_content("Item Count: #{@order_2.item_count}")
-        expect(page).to have_content("Order Total: #{@order_2.item_total}")
+        expect(page).to have_content("Order Total: #{@order_2.total_cost}")
       end
 
       within "#order-#{@order_3.id}" do
@@ -65,7 +65,7 @@ RSpec.describe 'as a user', type: :feature do
         expect(page).to have_content("Started on: #{@order_3.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_3.updated_at}")
         expect(page).to have_content("Item Count: #{@order_3.item_count}")
-        expect(page).to have_content("Order Total: #{@order_3.item_total}")
+        expect(page).to have_content("Order Total: #{@order_3.total_cost}")
       end
 
       within "#order-#{@order_4.id}" do
@@ -74,7 +74,7 @@ RSpec.describe 'as a user', type: :feature do
         expect(page).to have_content("Started on: #{@order_4.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_4.updated_at}")
         expect(page).to have_content("Item Count: #{@order_4.item_count}")
-        expect(page).to have_content("Order Total: #{@order_4.item_total}")
+        expect(page).to have_content("Order Total: #{@order_4.total_cost}")
       end
 
     end
