@@ -24,7 +24,7 @@ RSpec.describe "visitor index page", type: :feature do
         visit items_path
 
         within ".id-#{@i1.id}-row" do
-          expect(page).to have_content("#{@i1.image_url}")
+          expect(page).to have_css("img[src*='#{@i1.image_url}']")
           expect(page).to have_content("#{@i1.title}")
           expect(page).to have_content("Current Price: $#{@i1.price}")
           expect(page).to have_content("Qty: #{@i1.quantity}")
