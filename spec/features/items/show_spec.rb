@@ -8,9 +8,9 @@ RSpec.describe 'when it visits an items show page' do
       order_1 = create(:order, status: 1)
       order_2 = create(:order, status: 1)
       order_3 = create(:order, status: 1)
-      create(:order_item, item: item, order: order_1, sale_price: 5, created_at: 2.days.ago, updated_at: 1.day.ago)
-      create(:order_item, item: item, order: order_2, sale_price: 5, created_at: 3.days.ago, updated_at: 1.day.ago)
-      create(:order_item, item: item, order: order_3, sale_price: 5, created_at: 4.days.ago, updated_at: 1.day.ago)
+      create(:order_item, item: item, order: order_1, sale_price: 5, created_at: 10000.minutes.ago, updated_at: 1.day.ago)
+      create(:order_item, item: item, order: order_2, sale_price: 5, created_at: 20000.minutes.ago, updated_at: 1.day.ago)
+      create(:order_item, item: item, order: order_3, sale_price: 5, created_at: 30000.minutes.ago, updated_at: 1.day.ago)
 
       visit item_path(item)
 
@@ -21,7 +21,7 @@ RSpec.describe 'when it visits an items show page' do
       expect(page).to have_content("Sold By: #{item.user.name}")
       expect(page).to have_content("Qty In Stock: #{item.quantity}")
       expect(page).to have_content("Current Price: $#{item.price}")
-      expect(page).to have_content("Average fulfillemnt time: #{item.fulfillment_time}")
+      expect(page).to have_content("Average fulfillment time: 12 days, 21 hours")
     end
 
     it 'can see a link to add item to cart' do
@@ -52,7 +52,7 @@ RSpec.describe 'when it visits an items show page' do
       expect(page).to have_content("Sold By: #{item.user.name}")
       expect(page).to have_content("Qty In Stock: #{item.quantity}")
       expect(page).to have_content("Current Price: $#{item.price}")
-      expect(page).to have_content("Average fulfillemnt time: #{item.fulfillment_time}")
+      expect(page).to have_content("Average fulfillment time: n/a")
     end
 
     it 'can see a link to add item to cart' do
@@ -86,7 +86,7 @@ RSpec.describe 'when it visits an items show page' do
       expect(page).to have_content("Sold By: #{item.user.name}")
       expect(page).to have_content("Qty In Stock: #{item.quantity}")
       expect(page).to have_content("Current Price: $#{item.price}")
-      expect(page).to have_content("Average fulfillemnt time: #{item.fulfillment_time}")
+      expect(page).to have_content("Average fulfillment time: n/a")
     end
 
     it 'cant see a link to add item to cart' do
@@ -120,7 +120,7 @@ RSpec.describe 'when it visits an items show page' do
       expect(page).to have_content("Sold By: #{item.user.name}")
       expect(page).to have_content("Qty In Stock: #{item.quantity}")
       expect(page).to have_content("Current Price: $#{item.price}")
-      expect(page).to have_content("Average fulfillemnt time: #{item.fulfillment_time}")
+      expect(page).to have_content("Average fulfillment time: n/a")
     end
 
     it 'cant see a link to add item to cart' do

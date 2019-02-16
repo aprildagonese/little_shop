@@ -19,9 +19,10 @@ class Item < ApplicationRecord
       .select("avg(order_items.updated_at - order_items.created_at) as avg_time").first
 
     if !time.nil?
-      time.avg_time
+      time = time.avg_time
+      time.split("days").first + "days, " + time.split("days").last.split(":").first.strip.to_i.round(0).to_s +  " hours"
     else
-      "N/A"
+      nil
     end
   end
 end
