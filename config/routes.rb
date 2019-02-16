@@ -12,6 +12,7 @@ end
 
 get '/cart', to: 'carts#show'
 post '/cart', to: 'carts#create', as: 'carts'
+delete '/cart', to: 'carts#destroy'
 
 resources :users, only: [:show, :index, :create, :update] do
   resources :orders, only: [:show, :create]

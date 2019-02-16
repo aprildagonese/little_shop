@@ -18,4 +18,9 @@ class CartsController < ApplicationController
     @view = "Cart"
   end
 
+  def destroy
+    session.delete(:cart)
+    redirect_to cart_path
+  end
+
 end
