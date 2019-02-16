@@ -16,7 +16,6 @@ describe 'as a logged in user' do
 
     expect(current_path).to eq(profile_path)
 
-    expect(page).to have_content("Welcome, #{user.name}!")
     expect(page).to have_link("Log Out")
 
     click_on "Log Out"

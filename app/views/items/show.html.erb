@@ -8,7 +8,15 @@
     <p>Sold By: <%= @item.user.name %></p>
     <p>Qty In Stock: <%= @item.quantity %></p>
     <p>Current Price: $<%= @item.price %></p>
-    <p>Average fulfillemnt time: <%= @item.fulfillment_time %></p>
+
+
+    <p>Average fulfillment time:
+      <% if @item.fulfillment_time == nil %>
+        n/a
+      <% else %>
+        <%= @item.fulfillment_time %>
+      <% end %>
+    </p>
   </section>
 
 

@@ -22,7 +22,6 @@ RSpec.describe 'when authenticating visitors' do
 
       expect(current_path).to eq(profile_path(user))
       expect(page).to have_content("Thank you for registering! You are now logged in.")
-      expect(page).to have_content("Welcome, #{user.name}!")
     end
 
     it "can't register with an existing email address" do

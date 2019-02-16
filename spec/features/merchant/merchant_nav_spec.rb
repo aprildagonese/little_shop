@@ -50,7 +50,6 @@ RSpec.describe "As a merchant", type: :feature do
     click_link "My Dashboard"
 
     expect(current_path).to eq(dashboard_path)
-    expect(page).to have_content("Welcome, #{@merchant.name}!")
   end
 
   it 'user can see dishes' do
