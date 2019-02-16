@@ -14,7 +14,7 @@ get '/cart', to: 'carts#show'
 post '/cart', to: 'carts#create', as: 'carts'
 
 resources :users, only: [:show, :index, :create, :update] do
-  resources :orders, only: [:show]
+  resources :orders, only: [:show, :create]
 end
 
 namespace :admin do

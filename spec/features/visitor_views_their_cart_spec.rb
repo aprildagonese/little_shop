@@ -7,7 +7,7 @@ RSpec.describe 'Cart show page' do
     @item_3 = create(:item)
   end
   context 'as a visitor' do
-    it 'shows me all items in my cart' do
+    it 'I see all items in my cart' do
       visit item_path(@item_1)
       click_button "Add Item To Cart"
       visit item_path(@item_2)
@@ -46,7 +46,7 @@ RSpec.describe 'Cart show page' do
   end
 
   context 'as a registered user' do
-    it 'shows me all items in my cart' do
+    it 'I see all items in my cart' do
       user = create(:user, role: 0)
       login_as(user)
       visit item_path(@item_1)
