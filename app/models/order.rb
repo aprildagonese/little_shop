@@ -8,11 +8,11 @@ class Order < ApplicationRecord
   def self.generate_order(cart, current_user)
     order = Order.create(user: current_user)
     cart.each do |item_id, qty|
-      item = Item.find(item_id.to_i)
+      item = Item.find(item_id)
       order.order_items.create(item: item, quantity: qty, sale_price: item.price)
     end
   end
-  
+
   def item_count
     order_items.sum(:quantity)
   end

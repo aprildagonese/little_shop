@@ -31,7 +31,7 @@ RSpec.describe "As an admin", type: :feature do
     it "can update a user's info through the form" do
 
       visit edit_admin_user_path(@user)
-  
+
       fill_in :user_name, with: "April Dagonese"
       fill_in :user_email, with: "april23@email.com"
       fill_in :user_street_address, with: "1111 Street Dr."
@@ -42,7 +42,7 @@ RSpec.describe "As an admin", type: :feature do
       fill_in :user_password_confirmation, with: "testing"
 
       expect(@user.id).to eq(100)
-  
+
       click_button("Update Profile")
 
       updated_user = User.find(100)
@@ -65,7 +65,7 @@ RSpec.describe "As an admin", type: :feature do
         expect(page).to have_content("Zip Code: #{updated_user.zip_code}")
         expect(page).to have_content("Email: #{updated_user.email}")
       end
-  
+
     end
   end
 end
