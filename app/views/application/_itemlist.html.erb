@@ -23,7 +23,8 @@
             <% if id.to_i == item.id %>
               <p>Desired Quantity: <%= qty %>
               <%= button_to '-', cart_path, method: :patch, params: {item_id: item.id, qty: qty - 1} %>
-              <%= button_to '+', cart_path, method: :patch, params: {item_id: item.id, qty: qty + 1} %></p>
+              <%= button_to '+', cart_path, method: :patch, params: {item_id: item.id, qty: qty + 1} %>
+              <%= button_to 'Remove From Cart', cart_path(item: item), method: :delete %></p>
             <% end %>
           <% end %>
           <p>Subtotal: $<%= @cart.subtotal(item.id) %></p>
