@@ -18,7 +18,6 @@
     <div class="right-column">
       <p>Sold By: <%= item.user.name %></p>
       <% if @view=="Cart" %>
-        <p>Qty: <%= item.quantity %></p>
           <% @cart.contents.each do |id, qty| %>
             <% if id.to_i == item.id %>
               <p>Desired Quantity: <%= qty %>
