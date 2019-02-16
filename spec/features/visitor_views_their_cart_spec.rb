@@ -33,7 +33,7 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_content("Desired Quantity: 1")
         expect(page).to have_button("-")
         expect(page).to have_button("+")
-        expect(page).to have_content("Subtotal: $#{@item_1.subtotal}")
+        expect(page).to have_content("Subtotal: $21")
       end
       within ".id-#{@item_2.id}-row" do
         expect(page).to have_content(@item_2.title)
@@ -43,7 +43,7 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_content("Desired Quantity: 1")
         expect(page).to have_button("-")
         expect(page).to have_button("+")
-        expect(page).to have_content("Subtotal: $#{@item_2.subtotal}")
+        expect(page).to have_content("Subtotal: $3")
       end
 
       within '.item-list' do
@@ -53,7 +53,7 @@ RSpec.describe 'Cart show page' do
         expect(page).to_not have_content("Desired Quantity: 0")
         expect(page).to have_button("-")
         expect(page).to have_button("+")
-        expect(page).to_not have_content("Subtotal: $#{@item_3.subtotal}")
+        expect(page).to_not have_content("Subtotal: $0")
       end
     end
   end
@@ -84,7 +84,7 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_content("Desired Quantity: 1")
         expect(page).to have_button("-")
         expect(page).to have_button("+")
-        expect(page).to have_content("Subtotal: $#{@item_1.subtotal}")
+        expect(page).to have_content("Subtotal: $21")
       end
       within ".id-#{@item_2.id}-row" do
         expect(page).to have_content(@item_2.title)
@@ -94,7 +94,7 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_content("Desired Quantity: 1")
         expect(page).to have_button("-")
         expect(page).to have_button("+")
-        expect(page).to have_content("Subtotal: $#{@item_2.subtotal}")
+        expect(page).to have_content("Subtotal: $3")
       end
 
       within '.item-list' do
@@ -102,7 +102,7 @@ RSpec.describe 'Cart show page' do
         expect(page).to_not have_content("Sold By: #{@item_3.user.name}")
         expect(page).to_not have_content("Current Price: $#{@item_3.price}")
         expect(page).to_not have_content("Desired Quantity: 0")
-        expect(page).to_not have_content("Subtotal: $#{@item_3.subtotal}")
+        expect(page).to_not have_content("Subtotal: $0")
       end
     end
 
@@ -114,6 +114,7 @@ RSpec.describe 'Cart show page' do
 
       within ".id-#{@item_1.id}-row" do
         expect(page).to have_content("Desired Quantity: 2")
+        expect(page).to have_content("Subtotal: $42")
       end
 
       within ".id-#{@item_1.id}-row" do
@@ -122,6 +123,7 @@ RSpec.describe 'Cart show page' do
 
       within ".id-#{@item_1.id}-row" do
         expect(page).to have_content("Desired Quantity: 1")
+          expect(page).to have_content("Subtotal: $21")
       end
 
     end
@@ -136,7 +138,7 @@ RSpec.describe 'Cart show page' do
       expect(page).to_not have_content("Sold By: #{@item_2.user.name}")
       expect(page).to_not have_content("Current Price: $#{@item_2.price}")
       expect(page).to_not have_content("Desired Quantity: 0")
-      expect(page).to_not have_content("Subtotal: $#{@item_2.subtotal}")
+      expect(page).to_not have_content("Subtotal: $0")
 
     end
 
