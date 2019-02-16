@@ -14,9 +14,9 @@ RSpec.describe Order, type: :model do
   describe 'class methods' do
     it ".generate_order" do
       user = create(:user)
-      item1 = create(:item)
-      item2 = create(:item)
-      item3 = create(:item)
+      item1 = create(:item, id: 1)
+      item2 = create(:item, id: 2)
+      item3 = create(:item, id: 3)
       cart = {"1"=>1, "2"=>1, "3"=>1}
 
       expect(Order.count).to eq(0)
