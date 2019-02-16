@@ -12,4 +12,17 @@ class Order < ApplicationRecord
       order.order_items.create(item: item, quantity: qty, sale_price: item.price)
     end
   end
+  
+  def item_count
+    order_items.sum(:quantity)
+  end
+
+  def total_cost
+    order_items.sum(:sale_price)
+  end
+
+  def change_status
+    update_attribute(:status, 2) if pending?
+  end
+
 end

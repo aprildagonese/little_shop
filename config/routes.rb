@@ -38,6 +38,7 @@ get '/profile', to: 'users#show'
 get '/profile/edit', to: 'users#edit'
 put '/profile', to: 'users#update'
 get '/profile/orders', to: 'user/orders#index'
+patch '/profile/orders', to: 'user/orders#update'
 get '/profile/orders/:id', to: 'user/orders#show'
 
 end
