@@ -12,7 +12,7 @@ describe Order, type: :model do
   end
 
   describe 'class methods' do
-    it "::generate_order" do
+    it ".generate_order" do
       user = create(:user)
       item1 = create(:item)
       item2 = create(:item)
