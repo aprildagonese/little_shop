@@ -77,7 +77,7 @@ RSpec.describe "visitor index page", type: :feature do
 
         click_on "Create User"
 
-        expect(page).to have_content("Welcome, #{name}!")
+        expect(page).to have_content("Thank you for registering! You are now logged in.")
       end
 
 
@@ -122,7 +122,6 @@ RSpec.describe "visitor index page", type: :feature do
 
         expect(current_path).to eq(profile_path)
 
-        expect(page).to have_content("Welcome, #{user.name}!")
         expect(page).to have_link("Log Out")
       end
 

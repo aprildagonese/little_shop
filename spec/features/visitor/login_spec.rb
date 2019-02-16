@@ -95,7 +95,6 @@ RSpec.describe 'as a visitor' do
 
     expect(current_path).to eq(profile_path)
 
-    expect(page).to have_content("Welcome, #{user.name}!")
     expect(page).to have_content("You have been logged in.")
     expect(page).to have_link("Log Out")
   end
