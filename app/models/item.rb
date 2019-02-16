@@ -13,17 +13,16 @@ class Item < ApplicationRecord
   end
 
   def fulfillment_time
-    # Item.joins(:order_items)
-    #     .select("items.*, avg(order_items.updated_at - order_items.created_at) as avg_time")
-    #     .where(id: self.id)
-    #     .where(order_item.order.activation_status = 0)
-    #     .group(:id)
-    #     .first.avg_time
-    #
-    # order_items
-    #     .select("avg(updated_at - created_at) as avg_time")
-    #     .where(item_id: self.id)
-    #     .group(:item_id)
-    #     .first.avg_time
+    time = Item.joins(:orders)
+      .where(id: self, orders: {status: 1})
+      .group(:id)
+      .select("avg(order_items.updated_at - order_items.created_at) as avg_time").first
+
+    if !time.nil?
+      time = time.avg_time
+      time.split("days").first + "days, " + time.split("days").last.split(":").first.strip.to_i.round(0).to_s +  " hours"
+    else
+      nil
+    end
   end
 end
