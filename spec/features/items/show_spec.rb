@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'when it visits an items show page' do
+
+  before :each do
+    Faker::UniqueGenerator.clear
+  end
+  
   context 'As a visitor' do
     it 'can see all enabled items' do
       merchant = create(:user, role: 1)

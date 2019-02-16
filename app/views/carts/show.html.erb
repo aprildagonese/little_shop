@@ -5,6 +5,14 @@
 <% else %>
   <%= render 'itemlist' %>
   <p>Grand Total: $<%= @cart.grand_total %> </p>
+
   <%= link_to "Empty Cart", cart_path, method: :delete %>
-  <%= button_to "Check Out", user_orders_path(current_user) if current_user %>
+
+  <section id='checkout'>
+    <% if !current_user %>
+      <h3>You must <%= link_to "register", register_path %> or <%= link_to "log in", login_path %> before checking out. </h3>
+    <% else %>
+      <%= button_to "Check Out", user_orders_path(current_user) %>
+    <% end %>
+  </section>
 <% end %>

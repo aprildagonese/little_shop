@@ -110,4 +110,8 @@ RSpec.describe Item, type: :model do
       end
     end
   end
+
+  describe "Instance Methods" do
+  end
+
 end

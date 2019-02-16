@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "as a registered user" do
   before :each do
+    Faker::UniqueGenerator.clear
+    
     @user = create(:user)
     @order = create(:order, user: @user)
     @i1, @i2, @i3, @i4, @i5 = create_list(:item, 5)

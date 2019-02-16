@@ -6,6 +6,7 @@ RSpec.describe 'As any user' do
   context 'when it visits the index page' do
 
     it 'can see all enabled items' do
+      Faker::UniqueGenerator.clear
       user = create(:user)
       user.update(role: 1)
       i1, i2, i3, i4, i5 = create_list(:item, 5, user: user)
@@ -31,6 +32,9 @@ RSpec.describe 'As any user' do
     end
 
     it 'items name is a link' do
+      
+      Faker::UniqueGenerator.clear
+
       user = create(:user)
       user.update(role: 1)
       i1, i2 = create_list(:item, 2, user: user)

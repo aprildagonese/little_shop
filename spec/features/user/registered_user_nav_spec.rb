@@ -48,7 +48,6 @@ RSpec.describe "As a registered user", type: :feature do
     click_link "My Profile"
 
     expect(current_path).to eq(profile_path)
-    expect(page).to have_content("Welcome, #{@user.name}!")
   end
 
   it 'user can see their orders' do
