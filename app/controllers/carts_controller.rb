@@ -26,4 +26,9 @@ class CartsController < ApplicationController
     redirect_to cart_path
   end
 
+  def destroy
+    @cart.contents.delete(params[:item])
+    redirect_to cart_path
+  end
+
 end
