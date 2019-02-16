@@ -25,4 +25,20 @@ class Item < ApplicationRecord
       nil
     end
   end
+
+  def self.most_popular
+    Item.joins(:orders)
+    .select("items.*, sum(order_items.quantity) as total_quantity")
+    .where(orders: {status: 1})
+    .group(:id)
+    .order("total_quantity desc")
+  end
+
+  def self.least_popular
+    Item.joins(:orders)
+    .select("items.*, sum(order_items.quantity) as total_quantity")
+    .where(orders: {status: 1})
+    .group(:id)
+    .order("total_quantity asc")
+  end
 end

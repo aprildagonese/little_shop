@@ -1,3 +1,18 @@
 <h1>All Items</h1>
 
+<section class="item-statistics">
+  <section class="most-popular">
+    <h2>Most popular dishes:</h2>
+    <% @top_items.each do |dish| %>
+      <p><%= dish.title %> (<%= dish.total_quantity %>)</p>
+    <% end %>
+  </section>
+  <section class="least-popular">
+    <h2>Least popular dishes:</h2>
+    <% @bottom_items.each do |dish| %>
+      <p><%= dish.title %> (<%= dish.total_quantity %>)</p>
+    <% end %>
+  </section>
+</section>
+
 <%= render 'itemlist' %>
