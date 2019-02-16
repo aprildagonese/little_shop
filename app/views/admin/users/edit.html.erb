@@ -1,0 +1,39 @@
+<% if @user.errors %>
+  <ul id="errors">
+    <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h1>Edit Profile</h1>
+
+<%= form_for @user, :url => admin_user_path(@user) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, required: true %>
+
+  <%= f.label :street_address %>
+  <%= f.text_field :street_address, required: true %>
+
+  <%= f.label :city %>
+  <%= f.text_field :city, required: true %>
+
+  <%= f.label :state %>
+  <%= f.text_field :state, required: true %>
+
+  <%= f.label :zip_code %>
+  <%= f.text_field :zip_code, required: true %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email, required: true %>
+
+<h2>Reset Password</h2>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, required: true %>
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation, required: true %>
+
+  <%= f.submit "Update Profile" %>
+<% end %>
