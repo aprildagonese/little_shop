@@ -6,10 +6,11 @@ class MerchantsController < ApplicationController
       @users = User.where(role: 1).order(:name)
     else
       @users = User.where(role: 1).where(activation_status: 0).order(:name)
-    end 
+    end
   end
 
   def show
+    @user = current_user
   end
 
   def update
