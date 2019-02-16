@@ -18,4 +18,7 @@ class CartsController < ApplicationController
     @view = "Cart"
   end
 
+  def delete
+  end 
+
 end

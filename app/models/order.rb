@@ -5,8 +5,8 @@ class Order < ApplicationRecord
 
   enum status: [:pending, :fulfilled, :cancelled]
 
-  def self.generate_order(cart)
-    order = Order.create
+  def self.generate_order(cart, current_user)
+    order = Order.create(user: current_user)
     cart.each do |item_id, qty|
       item = Item.find(item_id.to_i)
       order.order_items.create(item: item, quantity: qty, sale_price: item.price)

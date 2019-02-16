@@ -13,6 +13,7 @@ describe Order, type: :model do
 
   describe 'class methods' do
     it "::generate_order" do
+      user = create(:user)
       item1 = create(:item)
       item2 = create(:item)
       item3 = create(:item)
@@ -21,7 +22,7 @@ describe Order, type: :model do
       expect(Order.count).to eq(0)
       expect(OrderItem.count).to eq(0)
 
-      Order.generate_order(cart)
+      Order.generate_order(cart, user)
       order = Order.last
 
       expect(Order.count).to eq(1)
