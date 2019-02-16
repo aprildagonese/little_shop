@@ -12,7 +12,7 @@
 
     <% if current_user && current_user.admin? %>
       <%= button_to "Edit Profile", edit_admin_user_path(@user), method: :get %>
-    <% else %>
+    <% elsif current_user && current_user.registered? %>
       <%= button_to "Edit Profile", profile_edit_path, method: :get %>
     <% end %>
   </aside>
