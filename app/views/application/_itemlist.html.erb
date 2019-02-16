@@ -5,8 +5,8 @@
       <%= link_to item_path(item) do%>
         <%= image_tag(item.image_url, width: '100') if item.image_url %>
       <% end %>
-
     </div>
+
     <div class="middle-column">
       <%= link_to item.title, item_path(item) %>
       <p>Current Price: $<%= item.price %></p>
@@ -14,12 +14,20 @@
         <p>Qty: <%= item.quantity %></p>
       <% end %>
     </div>
+
     <div class="right-column">
       <p>Sold By: <%= item.user.name %></p>
       <% if @view=="Cart" %>
-        <p>Desired Quantity: <%= item.quantity  %></p>
-        <p>Subtotal: $<%= item.subtotal %></p>
-      <% end %>
+        <p>Qty: <%= item.quantity %></p>
+          <% @cart.contents.each do |id, qty| %>
+            <% if id.to_i == item.id %>
+              <p>Desired Quantity: <%= qty %>
+              <%= button_to '-', cart_path, method: :patch, params: {item_id: item.id, qty: qty - 1} %>
+              <%= button_to '+', cart_path, method: :patch, params: {item_id: item.id, qty: qty + 1} %></p>
+            <% end %>
+          <% end %>
+          <p>Subtotal: $<%= @cart.subtotal(item.id) %></p>
+        <% end %>
     </div>
   </div>
   <% end %>
