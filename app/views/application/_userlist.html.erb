@@ -1,6 +1,6 @@
 <div class="user-list">
   <% @users.each do |user| %>
-    <div class="<%=user.name%>-row">
+    <div class="user-<%=user.id%>-row">
       <% if current_user && current_user.admin? %>
         <div class="user-name"><%= link_to user.name, admin_merchant_path(user) %></div>
       <% else %>
