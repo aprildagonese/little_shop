@@ -9,6 +9,7 @@ resources :items, only: [:show, :index, :edit, :new, :destroy]
 get '/cart', to: 'carts#show'
 post '/cart', to: 'carts#create', as: 'carts'
 patch '/cart', to: 'carts#update'
+delete '/cart', to: 'carts#destroy'
 
 #------------User---------------
 get '/profile', to: 'users#show'
