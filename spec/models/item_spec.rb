@@ -18,7 +18,7 @@ RSpec.describe Item, type: :model do
 
   describe 'Class Methods' do
     describe '#avg_fulfillment_time' do
-      xit 'should get the average fulfillment time for an item' do
+      it 'should get the average fulfillment time for an item' do
         merchant = create(:user, role: 1)
         item_1 = create(:item, user: merchant)
         item_2 = create(:item, user: merchant)
