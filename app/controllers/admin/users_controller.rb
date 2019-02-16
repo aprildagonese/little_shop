@@ -9,7 +9,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
-    @admin = current_user
     @user = User.find(params[:id])
   end
 
