@@ -9,5 +9,10 @@
 
   <aside class="user-profile-buttons">
     <%= button_to "View Orders", profile_orders_path, method: :get %>
-    <%= button_to "Edit Profile", profile_edit_path, method: :get %>
+
+    <% if current_user && current_user.admin? %>
+      <%= button_to "Edit Profile", edit_admin_user_path(@user), method: :get %>
+    <% else %>
+      <%= button_to "Edit Profile", profile_edit_path, method: :get %>
+    <% end %>
   </aside>
