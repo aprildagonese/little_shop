@@ -4,6 +4,7 @@ RSpec.describe "as a merchant" do
   context "when I visit my /dashboard" do
     it "I see my profile data" do
       merchant = create(:user, role: 1)
+      login_as(merchant)
 
       visit dashboard_path(merchant)
 
@@ -13,7 +14,7 @@ RSpec.describe "as a merchant" do
       expect(page).to have_content("State: #{merchant.state}")
       expect(page).to have_content("Zip Code: #{merchant.zip_code}")
       expect(page).to have_content("Email: #{merchant.email}")
-      expect(page).to_not have_content("Edit")
+      expect(page).to_not have_button("Edit Profile")
     end
   end
 end

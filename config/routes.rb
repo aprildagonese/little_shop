@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
 root 'welcome#index', as: "welcome"
 get '/register', to: 'users#new'
 get '/login', to: 'sessions#new'
@@ -41,6 +42,5 @@ namespace :admin do
   resources :items, except: [:show]
   resources :users, only: [:show, :index, :edit, :update]
 end
-
 
 end
