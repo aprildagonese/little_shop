@@ -2,20 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'Cart show page' do
   before :each do
-    @item_1 = create(:item, price: 20, quantity: 5)
-    @item_2 = create(:item, price: 1, quantity: 10)
+    @item_1 = create(:item, price: 21, quantity: 5)
+    @item_2 = create(:item, price: 3, quantity: 10)
     @item_3 = create(:item)
   end
+
   context 'as a visitor' do
-    it 'shows me all items in my cart' do
+
+    before :each do
+      @user = create(:user, role: 0)
+      login_as(@user)
       visit item_path(@item_1)
       click_button "Add Item To Cart"
       visit item_path(@item_2)
       click_button "Add Item To Cart"
 
       visit cart_path
+    end
 
-      expect(page).to have_content("Grand Total: $110")
+    it 'shows me all items in my cart' do
+
+      expect(page).to have_content("Grand Total: $24")
       expect(page).to have_link("Empty Cart")
 
       within ".id-#{@item_1.id}-row" do
@@ -23,7 +30,9 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_css("img[src*='#{@item_1.image_url}']")
         expect(page).to have_content("Sold By: #{@item_1.user.name}")
         expect(page).to have_content("Current Price: $#{@item_1.price}")
-        expect(page).to have_content("Desired Quantity: #{@item_1.quantity}")
+        expect(page).to have_content("Desired Quantity: 1")
+        expect(page).to have_button("-")
+        expect(page).to have_button("+")
         expect(page).to have_content("Subtotal: $#{@item_1.subtotal}")
       end
       within ".id-#{@item_2.id}-row" do
@@ -31,7 +40,9 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_css("img[src*='#{@item_2.image_url}']")
         expect(page).to have_content("Sold By: #{@item_2.user.name}")
         expect(page).to have_content("Current Price: $#{@item_2.price}")
-        expect(page).to have_content("Desired Quantity: #{@item_2.quantity}")
+        expect(page).to have_content("Desired Quantity: 1")
+        expect(page).to have_button("-")
+        expect(page).to have_button("+")
         expect(page).to have_content("Subtotal: $#{@item_2.subtotal}")
       end
 
@@ -39,24 +50,30 @@ RSpec.describe 'Cart show page' do
         expect(page).to_not have_content(@item_3.title)
         expect(page).to_not have_content("Sold By: #{@item_3.user.name}")
         expect(page).to_not have_content("Current Price: $#{@item_3.price}")
-        expect(page).to_not have_content("Desired Quantity: #{@item_3.quantity}")
+        expect(page).to_not have_content("Desired Quantity: 0")
+        expect(page).to have_button("-")
+        expect(page).to have_button("+")
         expect(page).to_not have_content("Subtotal: $#{@item_3.subtotal}")
       end
     end
   end
 
   context 'as a registered user' do
-    it 'shows me all items in my cart' do
-      user = create(:user, role: 0)
-      login_as(user)
+
+    before :each do
+      @user = create(:user, role: 0)
+      login_as(@user)
       visit item_path(@item_1)
       click_button "Add Item To Cart"
       visit item_path(@item_2)
       click_button "Add Item To Cart"
 
       visit cart_path
+    end
 
-      expect(page).to have_content("Grand Total: $110")
+    it 'shows me all items in my cart' do
+
+      expect(page).to have_content("Grand Total: $24")
       expect(page).to have_link("Empty Cart")
 
       within ".id-#{@item_1.id}-row" do
@@ -64,7 +81,9 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_css("img[src*='#{@item_1.image_url}']")
         expect(page).to have_content("Sold By: #{@item_1.user.name}")
         expect(page).to have_content("Current Price: $#{@item_1.price}")
-        expect(page).to have_content("Desired Quantity: #{@item_1.quantity}")
+        expect(page).to have_content("Desired Quantity: 1")
+        expect(page).to have_button("-")
+        expect(page).to have_button("+")
         expect(page).to have_content("Subtotal: $#{@item_1.subtotal}")
       end
       within ".id-#{@item_2.id}-row" do
@@ -72,7 +91,9 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_css("img[src*='#{@item_2.image_url}']")
         expect(page).to have_content("Sold By: #{@item_2.user.name}")
         expect(page).to have_content("Current Price: $#{@item_2.price}")
-        expect(page).to have_content("Desired Quantity: #{@item_2.quantity}")
+        expect(page).to have_content("Desired Quantity: 1")
+        expect(page).to have_button("-")
+        expect(page).to have_button("+")
         expect(page).to have_content("Subtotal: $#{@item_2.subtotal}")
       end
 
@@ -80,10 +101,45 @@ RSpec.describe 'Cart show page' do
         expect(page).to_not have_content(@item_3.title)
         expect(page).to_not have_content("Sold By: #{@item_3.user.name}")
         expect(page).to_not have_content("Current Price: $#{@item_3.price}")
-        expect(page).to_not have_content("Desired Quantity: #{@item_3.quantity}")
+        expect(page).to_not have_content("Desired Quantity: 0")
         expect(page).to_not have_content("Subtotal: $#{@item_3.subtotal}")
       end
     end
+
+    it 'can increase/decrease desired amount of items' do
+
+      within ".id-#{@item_1.id}-row" do
+        click_button('+')
+      end
+
+      within ".id-#{@item_1.id}-row" do
+        expect(page).to have_content("Desired Quantity: 2")
+      end
+
+      within ".id-#{@item_1.id}-row" do
+        click_button('-')
+      end
+
+      within ".id-#{@item_1.id}-row" do
+        expect(page).to have_content("Desired Quantity: 1")
+      end
+
+    end
+
+    it 'removes items with 0 desired quantity' do
+
+      within ".id-#{@item_2.id}-row" do
+        click_button('-')
+      end
+
+      expect(page).to_not have_content(@item_2.title)
+      expect(page).to_not have_content("Sold By: #{@item_2.user.name}")
+      expect(page).to_not have_content("Current Price: $#{@item_2.price}")
+      expect(page).to_not have_content("Desired Quantity: 0")
+      expect(page).to_not have_content("Subtotal: $#{@item_2.subtotal}")
+
+    end
+
   end
 
   context "when I haven't added items to my cart" do
