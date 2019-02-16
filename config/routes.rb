@@ -6,10 +6,12 @@ post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
 
 resources :items, only: [:show, :index, :edit, :new, :destroy]
+
 get '/cart', to: 'carts#show'
 post '/cart', to: 'carts#create', as: 'carts'
 patch '/cart', to: 'carts#update'
 delete '/cart', to: 'carts#destroy'
+post '/cart/delete_item', to: 'carts#delete_item'
 
 #------------User---------------
 get '/profile', to: 'users#show'
@@ -19,7 +21,7 @@ get '/profile/orders', to: 'user/orders#index'
 patch '/profile/orders', to: 'user/orders#update'
 get '/profile/orders/:id', to: 'user/orders#show'
 resources :users, only: [:show, :index, :create, :update] do
-  resources :orders, only: [:show]
+  resources :orders, only: [:show, :create]
 end
 
 #------------Merchant-------------

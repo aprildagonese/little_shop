@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Cart show page' do
+
   before :each do
     @item_1 = create(:item, price: 21, quantity: 5)
     @item_2 = create(:item, price: 3, quantity: 10)
@@ -239,6 +240,22 @@ RSpec.describe 'Cart show page' do
   context "when I haven't added items to my cart" do
     it "my cart contains no items" do
       visit cart_path
+
+      expect(page).to have_content("Your cart is currently empty.")
+      expect(page).to_not have_content("Empty Cart")
+    end
+  end
+
+  context "after adding items to my cart" do
+    it "I can empty it" do
+      visit item_path(@item_1)
+      click_button "Add Item To Cart"
+      visit item_path(@item_2)
+      click_button "Add Item To Cart"
+      expect(page).to have_link("Cart (2)")
+      visit cart_path
+
+      click_link("Empty Cart")
 
       expect(page).to have_content("Your cart is currently empty.")
       expect(page).to_not have_content("Empty Cart")

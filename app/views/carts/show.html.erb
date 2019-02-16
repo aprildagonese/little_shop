@@ -5,5 +5,6 @@
 <% else %>
   <%= render 'itemlist' %>
   <p>Grand Total: $<%= @cart.grand_total %> </p>
-  <%= link_to "Empty Cart", cart_path %>
+  <%= link_to "Empty Cart", cart_path, method: :delete %>
+  <%= button_to "Check Out", user_orders_path(current_user) if current_user %>
 <% end %>
