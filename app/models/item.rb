@@ -25,6 +25,5 @@ class Item < ApplicationRecord
     #     .where(item_id: self.id)
     #     .group(:item_id)
     #     .first.avg_time
-    5
   end
 end

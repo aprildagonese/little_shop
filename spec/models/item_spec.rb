@@ -24,9 +24,9 @@ RSpec.describe Item, type: :model do
         item_2 = create(:item, user: merchant)
         inactive_item = create(:item, user: merchant, activation_status: "inactive")
 
-        order_1 = create(:order)
-        order_2 = create(:order)
-        unfulfilled_order = create(:order, activation_status: 1)
+        order_1 = create(:order, status: 1)
+        order_2 = create(:order, status: 1)
+        unfulfilled_order = create(:order, status: 0)
 
         oi_1 = create(:order_item, item: item_1, order: order_1, sale_price: 5, created_at: 2.days.ago, updated_at: 1.day.ago)
         oi_2 = create(:order_item, item: item_2, order: order_1, sale_price: 5, created_at: 3.days.ago, updated_at: 1.day.ago)
@@ -34,8 +34,7 @@ RSpec.describe Item, type: :model do
         oi_4 = create(:order_item, item: item_1, order: order_2, sale_price: 5, created_at: 6.days.ago, updated_at: 1.day.ago)
         oi_5 = create(:order_item, item: item_1, order: unfulfilled_order, sale_price: 5, created_at: 7.days.ago, updated_at: 1.day.ago)
 
-        #expect(item_1.fulfillment_time).to eq(3.days)
-        expect(item_1.fulfillment_time).to eq(5)
+        expect(item_1.fulfillment_time).to eq(3.days)
       end
     end
   end
