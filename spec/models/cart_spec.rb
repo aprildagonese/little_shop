@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Cart do
+
   describe '#total_count' do
     it 'can calculate the total number of items it holds' do
     cart = Cart.new({
@@ -26,17 +27,31 @@ RSpec.describe Cart do
     end
   end
 
-  describe '.grand_total' do
+  describe '#grand_total' do
     it 'should add up all subtotals in the cart' do
-      item_1 = create(:item, price: 20, quantity: 5)
+      item_1 = create(:item, price: 20, quantity: 50)
       item_2 = create(:item, price: 1, quantity: 10)
 
       cart = Cart.new({
-        1 => 20,
-        2 => 10
+        item_1.id.to_s => 20,
+        item_2.id.to_s => 10
         })
 
-        expect(cart.grand_total).to eq(110)
+      expect(cart.grand_total).to eq(410)
+    end
+  end
+
+  describe '#subtotal' do
+    it 'finds and item\'s price and multiplies by cart\'s quantity for that item\'s id' do
+      item_1 = create(:item, price: 20, quantity: 50)
+      item_2 = create(:item, price: 1, quantity: 10)
+
+      cart = Cart.new({
+        item_1.id.to_s => 20,
+        item_2.id.to_s => 10
+        })
+
+      expect(cart.subtotal(item_1.id)).to eq(400)
     end
   end
 

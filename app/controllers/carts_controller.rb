@@ -10,12 +10,22 @@ class CartsController < ApplicationController
   end
 
   def show
-    @items = []
-    @cart.contents.keys.each do |item_id|
-      @items << Item.find(item_id)
-    end
-    @items
+    @items = Item.where(id: @cart.contents.keys)
     @view = "Cart"
+  end
+
+
+  def update
+    @cart.contents[params[:item_id]] = params[:qty].to_i
+    if @cart.contents[params[:item_id]] == 0
+      @cart.contents.delete(params[:item_id])
+    end
+    redirect_to cart_path
+  end
+
+  def delete_item
+    @cart.contents.delete(params[:item])
+    redirect_to cart_path
   end
 
   def destroy
