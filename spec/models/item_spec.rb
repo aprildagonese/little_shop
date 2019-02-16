@@ -19,7 +19,7 @@ RSpec.describe Item, type: :model do
   describe 'Class Methods' do
     before :each do
       Faker::UniqueGenerator.clear
-      
+
       user_1 = create(:user, role: 1)
       user_2 = create(:user, role: 1)
       @i1, @i2, @i3, @i4 = create_list(:item, 4, user: user_1)
@@ -56,13 +56,6 @@ RSpec.describe Item, type: :model do
 
   describe "Instance Methods" do
     describe '.subtotal' do
-      it 'should get the total price for an item' do
-        item_1 = create(:item, price: 20, quantity: 5)
-        item_2 = create(:item, price: 1, quantity: 10)
-
-        expect(item_1.subtotal).to eq(100)
-        expect(item_2.subtotal).to eq(10)
-      end
     end
 
     describe '#avg_fulfillment_time' do
