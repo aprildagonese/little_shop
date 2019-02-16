@@ -5,6 +5,12 @@ RSpec.describe 'when it visits an items show page' do
     it 'can see all enabled items' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
+      order_1 = create(:order, status: 1)
+      order_2 = create(:order, status: 1)
+      order_3 = create(:order, status: 1)
+      create(:order_item, item: item, order: order_1, sale_price: 5, created_at: 2.days.ago, updated_at: 1.day.ago)
+      create(:order_item, item: item, order: order_2, sale_price: 5, created_at: 3.days.ago, updated_at: 1.day.ago)
+      create(:order_item, item: item, order: order_3, sale_price: 5, created_at: 4.days.ago, updated_at: 1.day.ago)
 
       visit item_path(item)
 
