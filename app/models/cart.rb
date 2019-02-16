@@ -21,8 +21,13 @@ class Cart
     grand_total = 0
     @contents.each do |item_id, quantity|
       item = Item.find(item_id)
-      grand_total += item.subtotal
+      grand_total += subtotal(item_id)
     end
     grand_total
   end
+
+  def subtotal(item_id)
+    Item.find(item_id).price * @contents[item_id.to_s]
+  end
+
 end
