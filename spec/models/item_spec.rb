@@ -63,7 +63,7 @@ RSpec.describe Item, type: :model do
         merchant = create(:user, role: 1)
         item_1 = create(:item, user: merchant)
         item_2 = create(:item, user: merchant)
-        inactive_item = create(:item, user: merchant, activation_status: "inactive")
+        inactive_item = create(:item, user: merchant, active: false)
 
         order_1 = create(:order, status: 1)
         order_2 = create(:order, status: 1)
@@ -85,7 +85,7 @@ RSpec.describe Item, type: :model do
         item_1 = create(:item, user: merchant)
         item_2 = create(:item, user: merchant)
         item_3 = create(:item, user: merchant)
-        inactive_item = create(:item, user: merchant, activation_status: "inactive")
+        inactive_item = create(:item, user: merchant, active: false)
 
         order_1 = create(:order, status: 1)
         order_2 = create(:order, status: 1)
