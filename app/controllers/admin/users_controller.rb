@@ -5,7 +5,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def index
-    @users = User.all
+      @users = User.where(role: 0).order(:name)
   end
 
   def edit
