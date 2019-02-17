@@ -28,7 +28,6 @@ RSpec.describe "Path Authorizations", type: :feature do
 
       visit admin_merchant_path(@merchant)
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
-
     end
   end
 end
