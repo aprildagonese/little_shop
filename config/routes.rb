@@ -38,7 +38,7 @@ get '/merchants/:id', to: 'users#show' #???
 #--------------Admin---------------
 get '/admin/dashboard', to: 'admin/dashboard#show'
 namespace :admin do
-  resources :merchants, only: [:show, :index]
+  resources :merchants, only: [:show, :index, :update]
   resources :items, except: [:show]
   resources :users, only: [:show, :index, :edit, :update]
 end

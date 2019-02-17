@@ -20,4 +20,8 @@ class User < ApplicationRecord
       update_attribute(:activation_status, 0)
     end
   end
+
+  def downgrade
+    update_attribute(:role, 0)
+  end
 end
