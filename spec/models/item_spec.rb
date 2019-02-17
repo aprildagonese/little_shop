@@ -55,7 +55,8 @@ RSpec.describe Item, type: :model do
     end
 
     context "sorting by quantity sold" do
-      it "should sort by highest item sold first" do
+      it ".top_items_sold should sort by highest item sold first" do
+        Faker::UniqueGenerator.clear
         @merchant = create(:user, role: 1)
         @user1, @user2, @user3, @user4, @user5, @user6, @user7 = create_list(:user, 7, role: 0)
         @item1, @item2, @item3, @item4, @item5, @item6, @item7 = create_list(:item, 7, user: @merchant, quantity: 10)
@@ -66,15 +67,15 @@ RSpec.describe Item, type: :model do
         @order5 = create(:order, user: @user5)
         @order6 = create(:order, user: @user6)
         @order7 = create(:order, user: @user7)
-        @oi1 = create(:order_item, order: @order1, item: @item1, quantity: 1)
-        @oi2 = create(:order_item, order: @order2, item: @item2, quantity: 2)
-        @oi3 = create(:order_item, order: @order3, item: @item3, quantity: 3)
-        @oi4 = create(:order_item, order: @order4, item: @item4, quantity: 4)
+        @oi1 = create(:order_item, order: @order1, item: @item1, quantity: 2)
+        @oi2 = create(:order_item, order: @order2, item: @item2, quantity: 4)
+        @oi3 = create(:order_item, order: @order3, item: @item3, quantity: 6)
+        @oi4 = create(:order_item, order: @order4, item: @item4, quantity: 7)
         @oi5 = create(:order_item, order: @order5, item: @item5, quantity: 5)
-        @oi6 = create(:order_item, order: @order6, item: @item6, quantity: 6)
-        @oi7 = create(:order_item, order: @order7, item: @item7, quantity: 7)
+        @oi6 = create(:order_item, order: @order6, item: @item6, quantity: 3)
+        @oi7 = create(:order_item, order: @order7, item: @item7, quantity: 1)
 
-        expected = [@item7, @item6, @item5, @item4, @item3m, @item2, @item1]
+        expected = [@item4, @item3, @item5, @item2, @item6, @item1, @item7]
 
         expect(Item.top_items_sold(@merchant)).to eq(expected)
       end
@@ -83,8 +84,6 @@ RSpec.describe Item, type: :model do
   end
 
   describe "Instance Methods" do
-    describe '#subtotal' do
-    end
 
     describe '#avg_fulfillment_time' do
       it 'should get the average fulfillment time for an item' do
@@ -129,10 +128,27 @@ RSpec.describe Item, type: :model do
 
         expect(item_3.fulfillment_time).to eq(nil)
       end
-    end
-  end
 
-  describe "Instance Methods" do
+      it "#units_sold should return quantity sold for an item" do 
+        Faker::UniqueGenerator.clear
+        merch = create(:user, role: 1)
+        user1, user2 = create_list(:user, 2)
+        item1, item2 = create_list(:item, 2, user: merch)
+        order1, order2 = create_list(:order, 2, user: user1)
+        order3, order4 = create_list(:order, 2, user: user2)
+        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
+        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
+        oi3 = create(:order_item, order: order2, item: item1, quantity: 3)
+        oi4 = create(:order_item, order: order2, item: item2, quantity: 4)
+        oi5 = create(:order_item, order: order3, item: item1, quantity: 5)
+        oi6 = create(:order_item, order: order3, item: item2, quantity: 6)
+        oi7 = create(:order_item, order: order4, item: item1, quantity: 7)
+        oi8 = create(:order_item, order: order4, item: item2, quantity: 8)
+
+        expect(item1.units_sold).to eq(16)
+        expect(item2.units_sold).to eq(20)
+      end
+    end
   end
 
 end
