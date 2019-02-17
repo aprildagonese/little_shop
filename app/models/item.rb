@@ -60,4 +60,10 @@ class Item < ApplicationRecord
         .sum("order_items.quantity")
   end
 
+  def self.total_inventory(merchant)
+  end
+
+  def percent_sold
+  end
+
 end

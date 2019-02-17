@@ -78,8 +78,7 @@ RSpec.describe "as a merchant" do
       visit dashboard_path(@merchant)
     end
 
-    xit "top 5 items sold by quantity" do
-
+    it "top 5 items sold by quantity" do
       expect(page).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
       expect(page).to have_content("#{@item6.title}: #{@item6.units_sold} units sold")
       expect(page).to have_content("#{@item5.title}: #{@item5.units_sold} units sold")
@@ -87,8 +86,8 @@ RSpec.describe "as a merchant" do
       expect(page).to have_content("#{@item3.title}: #{@item3.units_sold} units sold")
     end
 
-    xit "total quantity of items sold" do
-      expect(page).to have_content("Sold #{@merchant.total_sold_quantity} items, which is #{@merchant.percent_sold}% of your total inventory")
+    it "total quantity of items sold" do
+      expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{@merchant.percent_sold}% of your total inventory")
     end
   end
 end
