@@ -18,16 +18,16 @@ post '/cart/delete_item', to: 'carts#delete_item'
 get '/profile', to: 'users#show'
 get '/profile/edit', to: 'users#edit'
 put '/profile', to: 'users#update'
-get '/profile/orders/:id', to: 'user/orders#show', as: 'profile_order'
-get '/profile/orders', to: 'user/orders#index'
-patch '/profile/orders', to: 'user/orders#update'
+get '/profile/orders/:id', to: 'users/orders#show', as: 'profile_order'
+get '/profile/orders', to: 'users/orders#index'
+patch '/profile/orders', to: 'users/orders#update'
 resources :users, only: [:show, :index, :create, :update] do
   resources :orders, only: [:show, :create]
 end
 
 #------------Merchant-------------
 get '/dashboard', to: 'merchants#show'
-get '/dashboard/items', to: 'merchant/items#index'
+get '/dashboard/items', to: 'merchants/items#index'
 # get '/merchants', to: 'users#index'
 resources :merchants, only: [:index, :update]
 namespace :merchant do
