@@ -68,10 +68,22 @@ RSpec.describe User, type: :model do
 
     it '#downgrade' do
       merchant = create(:user, role: 1)
+      item_1 = create(:item, active: true)
+      item_2 = create(:item, active: true)
+      item_3 = create(:item, active: true)
+      merchant.items << item_1
+      merchant.items << item_2
+      merchant.items << item_3
 
       expect(merchant.role).to eq("merchant")
+      expect(item_1.active).to eq(true)
+      expect(item_2.active).to eq(true)
+      expect(item_3.active).to eq(true)
       merchant.downgrade
       expect(merchant.role).to eq("registered")
+      expect(item_1.active).to eq(false)
+      expect(item_2.active).to eq(false)
+      expect(item_3.active).to eq(false)
     end
   end
 

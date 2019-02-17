@@ -22,6 +22,10 @@ class User < ApplicationRecord
   end
 
   def downgrade
+    items.each do |item|
+      item.update_attribute(:active, false)
+    end
     update_attribute(:role, 0)
+    binding.pry
   end
 end
