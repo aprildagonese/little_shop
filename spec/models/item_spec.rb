@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Item, type: :model do
+
+  before :each do
+    Faker::UniqueGenerator.clear
+  end
+
   describe "relationships" do
     it {should have_many :order_items}
     it {should have_many(:orders).through :order_items}
@@ -85,12 +90,34 @@ RSpec.describe Item, type: :model do
 
   describe "Instance Methods" do
 
+    describe '#ordered?' do
+      it 'should return true if that item has been ordered' do
+        item = create(:item)
+        order = create(:order)
+        order_item = create(:order_item, order: order, item: item)
+
+        expected = true
+        actual = item.ordered?
+
+        expect(actual).to eq(expected)
+      end
+
+      it 'should return false if that item has not been ordered' do
+        item = create(:item)
+
+        expected = false
+        actual = item.ordered?
+
+        expect(actual).to eq(expected)
+      end
+    end
+
     describe '#avg_fulfillment_time' do
       it 'should get the average fulfillment time for an item' do
         merchant = create(:user, role: 1)
         item_1 = create(:item, user: merchant)
         item_2 = create(:item, user: merchant)
-        inactive_item = create(:item, user: merchant, activation_status: "inactive")
+        inactive_item = create(:item, user: merchant, active: false)
 
         order_1 = create(:order, status: 1)
         order_2 = create(:order, status: 1)
@@ -112,7 +139,7 @@ RSpec.describe Item, type: :model do
         item_1 = create(:item, user: merchant)
         item_2 = create(:item, user: merchant)
         item_3 = create(:item, user: merchant)
-        inactive_item = create(:item, user: merchant, activation_status: "inactive")
+        inactive_item = create(:item, user: merchant, active: false)
 
         order_1 = create(:order, status: 1)
         order_2 = create(:order, status: 1)

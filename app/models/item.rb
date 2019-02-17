@@ -38,6 +38,11 @@ class Item < ApplicationRecord
     .order("total_quantity asc")
   end
 
+
+  def ordered?
+    OrderItem.pluck(:item_id).include?(self.id)
+  end
+
   def self.top_items_sold(merchant)
     Item.joins(:orders)
         .select("items.*, sum(order_items.quantity) as total_quantity")
