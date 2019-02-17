@@ -92,7 +92,7 @@ RSpec.describe 'as a user', type: :feature do
 
       click_link "Order ID: #{@order_1.id}"
 
-      expect(current_path).to eq(profile_orders_path(@order_1))
+      expect(current_path).to eq(profile_order_path(@order_1))
 
     end
 
