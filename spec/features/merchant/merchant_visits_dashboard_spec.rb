@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "as a merchant" do
-  context "when I visit my /dashboard" do
+  context "when I visit my Dashboard" do
     it "I see my profile data" do
       merchant = create(:user, role: 1)
       login_as(merchant)
@@ -17,7 +17,7 @@ RSpec.describe "as a merchant" do
       expect(page).to_not have_button("Edit Profile")
     end
 
-    it "it shows me unfulfilled orders" do
+    it "it shows me orders with unfulfilled items" do
       Faker::UniqueGenerator.clear
       merchant1, merchant2 = create_list(:user, 2, role: 1)
       user1, user2 = create_list(:user, 2, role: 0)
@@ -25,10 +25,13 @@ RSpec.describe "as a merchant" do
       item3, item4 = create_list(:item, 2, user: merchant2)
       order1 = create(:order, user: user1)
       order2 = create(:order, user: user2)
+      order3 = create(:order, user: user1)
       oi1 = create(:order_item, order: order1, item: item1)
       oi2 = create(:order_item, order: order1, item: item3)
-      oi3 = create(:order_item, order: order2, item: item2)
+      oi3 = create(:order_item, order: order2, item: item2, status: 1)
       oi4 = create(:order_item, order: order2, item: item4)
+      oi5 = create(:order_item, order: order3, item: item1)
+      oi6 = create(:order_item, order: order3, item: item2, status: 1)
 
       login_as(merchant1)
       visit dashboard_path(merchant1)
@@ -39,13 +42,14 @@ RSpec.describe "as a merchant" do
         expect(page).to have_content("Item Count: #{order1.item_count}")
         expect(page).to have_content("Order Total: #{order1.total_cost}")
       end
-      within "#order-#{order2.id}" do
-        expect(page).to have_link("#{order2.id}", href: profile_order_path(order2))
-        expect(page).to have_content("Placed on: #{order2.created_at.to_date.to_s}")
-        expect(page).to have_content("Item Count: #{order2.item_count}")
-        expect(page).to have_content("Order Total: #{order2.total_cost}")
+      within "#order-#{order3.id}" do
+        expect(page).to have_link("#{order3.id}", href: profile_order_path(order3))
+        expect(page).to have_content("Placed on: #{order3.created_at.to_date.to_s}")
+        expect(page).to have_content("Item Count: #{order3.item_count}")
+        expect(page).to have_content("Order Total: #{order3.total_cost}")
       end
       expect(page).to_not have_button("Cancel Order")
+      expect(page).to_not have_link("#{order2.id}", href: profile_order_path(order2))
     end
   end
 
