@@ -48,4 +48,43 @@ RSpec.describe "as a merchant" do
       expect(page).to_not have_button("Cancel Order")
     end
   end
+
+  context "my Dashboard shows me statistics on" do
+    before :each do
+      Faker::UniqueGenerator.clear
+      @merchant = create(:user, role: 1)
+      @user1, @user2, @user3, @user4, @user5, @user6, @user7 = create_list(:user, 7, role: 0)
+      @item1, @item2, @item3, @item4, @item5, @item6, @item7 = create_list(:item, 7, user: @merchant1, quantity: 10)
+      @order1 = create(:order, user: @user1)
+      @order2 = create(:order, user: @user2)
+      @order3 = create(:order, user: @user3)
+      @order4 = create(:order, user: @user4)
+      @order5 = create(:order, user: @user5)
+      @order6 = create(:order, user: @user6)
+      @order7 = create(:order, user: @user7)
+      @oi1 = create(:order_item, order: @order1, item: @item1, quantity: 1)
+      @oi2 = create(:order_item, order: @order2, item: @item2, quantity: 2)
+      @oi3 = create(:order_item, order: @order3, item: @item3, quantity: 3)
+      @oi4 = create(:order_item, order: @order4, item: @item4, quantity: 4)
+      @oi5 = create(:order_item, order: @order5, item: @item5, quantity: 5)
+      @oi6 = create(:order_item, order: @order6, item: @item6, quantity: 6)
+      @oi7 = create(:order_item, order: @order7, item: @item7, quantity: 7)
+
+      login_as(@merchant)
+      visit dashboard_path(@merchant)
+    end
+
+    it "top 5 items sold by quantity" do
+
+      expect(page).to have_content("#{@item7.title}: #{@item7.quantity} units sold")
+      expect(page).to have_content("#{@item6.title}: #{@item6.quantity} units sold")
+      expect(page).to have_content("#{@item5.title}: #{@item5.quantity} units sold")
+      expect(page).to have_content("#{@item4.title}: #{@item4.quantity} units sold")
+      expect(page).to have_content("#{@item3.title}: #{@item3.quantity} units sold")
+    end
+
+    it "total quantity of items sold" do
+      expect(page).to have_content("Sold #{@merchant.total_sold_quantity} items, which is #{@merchant.percent_sold}% of your total inventory")
+    end
+  end
 end
