@@ -54,7 +54,7 @@ RSpec.describe "as a merchant" do
       Faker::UniqueGenerator.clear
       @merchant = create(:user, role: 1)
       @user1, @user2, @user3, @user4, @user5, @user6, @user7 = create_list(:user, 7, role: 0)
-      @item1, @item2, @item3, @item4, @item5, @item6, @item7 = create_list(:item, 7, user: @merchant1, quantity: 10)
+      @item1, @item2, @item3, @item4, @item5, @item6, @item7 = create_list(:item, 7, user: @merchant, quantity: 10)
       @order1 = create(:order, user: @user1)
       @order2 = create(:order, user: @user2)
       @order3 = create(:order, user: @user3)
