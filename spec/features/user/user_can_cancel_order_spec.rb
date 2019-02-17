@@ -10,7 +10,7 @@ RSpec.describe "As a registered user", type: :feature do
   context "when it visits a pending order's show page" do
     it 'sees a button to cancel the order' do
       visit profile_order_path(@order_1)
-      save_and_open_page
+  
     end
   end
 

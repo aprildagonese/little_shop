@@ -47,10 +47,16 @@ RSpec.describe "As an admin", type: :feature do
       end
 
       it 'disables all items that were for sale by that merchant' do
+        visit items_path
+        expect(page).to have_content(@item_1.title)
+        expect(page).to have_content(@item_2.title)
+
         visit admin_merchant_path(@merchant)
         click_button "Downgrade Merchant"
 
-
+        visit items_path
+        expect(page).to_not have_content(@item_1.title)
+        expect(page).to_not have_content(@item_2.title)
       end
     end
   end
