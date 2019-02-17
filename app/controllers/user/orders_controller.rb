@@ -3,10 +3,13 @@ class User::OrdersController < ApplicationController
 
   def index
     @user = User.find(session[:user_id])
+    @orders = Order.where(user: @user)
   end
 
-  def show
-  end
+  # def show
+  #   # @user = current_user
+  #   # @orders = Order.find_by(user: current_user)
+  # end
 
   def update
     @order = Order.find(params[:order_id])

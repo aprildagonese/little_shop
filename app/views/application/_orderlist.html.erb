@@ -1,15 +1,19 @@
 <ul class='orders-list'>
-  <% @orders.each do |order| %>
-  <li id=<%= "order-#{order.id}" %>>
-    <%= link_to  "Order ID: #{order.id}", profile_orders_path(order) %>
-    <a>Order Status: <%= order.status %></a>
-    <% if order.pending? && !@user.merchant? %>
-      <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: order.id} %>
+  <% unless @orders == nil %>
+    <% @orders.each do |order| %>
+      <li id=<%= "order-#{order.id}" %>>
+        <%= link_to  "Order ID: #{order.id}", profile_orders_path(order) %>
+        <a>Order Status: <%= order.status %></a>
+        <% if order.pending? && !@user.merchant? %>
+          <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: order.id} %>
+        <% end %>
+        <a>Placed on: <%= order.created_at.to_date.to_s %></a>
+        <a>Last Updated on: <%= order.updated_at.to_date.to_s %></a>
+        <a>Item Count: <%= order.item_count %></a>
+        <a>Order Total: <%= order.total_cost %></a>
+      </li>
     <% end %>
-    <a>Created on: <%= order.created_at.to_date.to_s %></a>
-    <a>Last Updated on: <%= order.updated_at.to_date.to_s %></a>
-    <a>Item Count: <%= order.item_count %></a>
-    <a>Order Total: <%= order.total_cost %></a>
-  </li>
+  <% else %>
+    <li>No orders have been placed yet</li>
   <% end %>
 </ul>

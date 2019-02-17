@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "as a merchant" do
   context "when I visit my /dashboard" do
-    xit "I see my profile data" do
+    it "I see my profile data" do
       merchant = create(:user, role: 1)
       login_as(merchant)
 
@@ -32,14 +32,14 @@ RSpec.describe "as a merchant" do
 
       login_as(merchant1)
       visit dashboard_path(merchant1)
-      save_and_open_page
-      within ".order-#{order1.id}" do
+
+      within "#order-#{order1.id}" do
         expect(page).to have_content("Order ID: #{order1.id}")
         expect(page).to have_content("Placed on: #{order1.created_at.to_date.to_s}")
         expect(page).to have_content("Item Count: #{order1.item_count}")
         expect(page).to have_content("Order Total: #{order1.total_cost}")
       end
-      within ".order-#{order2.id}" do
+      within "#order-#{order2.id}" do
         expect(page).to have_content("Order ID: #{order2.id}")
         expect(page).to have_content("Placed on: #{order2.created_at.to_date.to_s}")
         expect(page).to have_content("Item Count: #{order2.item_count}")

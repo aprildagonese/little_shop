@@ -30,6 +30,6 @@ class Order < ApplicationRecord
     #     on orders.id = order_items.order_id
     #     join items on order_items.item_id = items.id
     #     where items.user_id = 1;
-    Order.joins(:items).where(items: {user_id: user.id})
+    Order.joins(:items).where(items: {user_id: user.id}, status: "pending").distinct
   end
 end

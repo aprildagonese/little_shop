@@ -21,17 +21,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    @users = User.all
-  end
-
   def show
-    if current_user.merchant?
-      @user = current_user
-      @orders = @user.find_orders
-    else
-      @user = current_user
-    end
+    @user = current_user
+    @orders = Order.where(user: current_user)
   end
 
   def edit
