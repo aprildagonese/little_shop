@@ -21,6 +21,10 @@ class User < ApplicationRecord
     end
   end
 
-  def total_sold_quantity
+  def downgrade
+    items.each do |item|
+      item.update_attribute(:active, false)
+    end
+    update_attribute(:role, 0)
   end
 end
