@@ -26,7 +26,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    if current_user.merchant?
+      @user = current_user
+      @orders = @user.find_orders
+    else
+      @user = current_user
+    end
   end
 
   def edit

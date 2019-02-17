@@ -31,6 +31,29 @@ RSpec.describe Order, type: :model do
       expect(order.order_items[1].item).to eq(item2)
       expect(order.order_items[2].item).to eq(item3)
     end
+
+    it ".find_orders" do
+      Faker::UniqueGenerator.clear
+      merchant1, merchant2 = create_list(:user, 2, role: 1)
+      user1, user2, user3 = create_list(:user, 3, role: 0)
+      item1, item2 = create_list(:item, 2, user: merchant1)
+      item3, item4 = create_list(:item, 2, user: merchant2)
+      order1 = create(:order, user: user1)
+      order2 = create(:order, user: user2)
+      order3 = create(:order, user: user2)
+      oi1 = create(:order_item, order: order1, item: item1)
+      oi2 = create(:order_item, order: order1, item: item3)
+      oi3 = create(:order_item, order: order2, item: item2)
+      oi4 = create(:order_item, order: order2, item: item4)
+      oi5 = create(:order_item, order: order3, item: item1)
+      oi6 = create(:order_item, order: order3, item: item2)
+
+      expected1 = [order1, order2, order3]
+      expected2 = [order1, order2]
+
+      expect(merchant1.find_orders).to eq(expected1)
+      expect(merchant2.find_orders).to eq(expected2)
+    end
   end
 
   describe 'instance methods' do

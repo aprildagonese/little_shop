@@ -31,7 +31,7 @@ RSpec.describe 'as a user', type: :feature do
     @order_item_9 = create(:order_item, item: @item_9, order: @order_3)
 
     @order_item_10 = create(:order_item, item: @item_10, order: @order_4)
-
+    binding.pry
     login_as(@user)
 
   end

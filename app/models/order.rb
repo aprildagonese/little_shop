@@ -25,4 +25,7 @@ class Order < ApplicationRecord
     update_attribute(:status, 2) if pending?
   end
 
+  def self.find_orders
+    binding.pry
+  end
 end
