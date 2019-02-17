@@ -15,6 +15,7 @@ RSpec.describe "as a merchant" do
       expect(page).to have_content("Zip Code: #{merchant.zip_code}")
       expect(page).to have_content("Email: #{merchant.email}")
       expect(page).to_not have_button("Edit Profile")
+      expect(page).to_not have_button("Downgrade Merchant")
     end
 
     it "it shows me orders with unfulfilled items" do
