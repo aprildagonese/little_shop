@@ -31,37 +31,31 @@ RSpec.describe "As an admin", type: :feature do
         expect(page).to have_content(@user_1.name)
         expect(page).to have_content(@user_1.city)
         expect(page).to have_content(@user_1.state)
-        expect(page).to have_button("Disable")
       end
       within ".user-#{@user_2.id}-row" do
         expect(page).to have_content(@user_2.name)
         expect(page).to have_content(@user_2.city)
         expect(page).to have_content(@user_2.state)
-        expect(page).to have_button("Disable")
       end
       within ".user-#{@user_3.id}-row" do
         expect(page).to have_content(@user_3.name)
         expect(page).to have_content(@user_3.city)
         expect(page).to have_content(@user_3.state)
-        expect(page).to have_button("Disable")
       end
       within ".user-#{@user_4.id}-row" do
         expect(page).to have_content(@user_4.name)
         expect(page).to have_content(@user_4.city)
         expect(page).to have_content(@user_4.state)
-        expect(page).to have_button("Enable")
       end
       within ".user-#{@user_5.id}-row" do
         expect(page).to have_content(@user_5.name)
         expect(page).to have_content(@user_5.city)
         expect(page).to have_content(@user_5.state)
-        expect(page).to have_button("Enable")
       end
       within ".user-#{@user_6.id}-row" do
         expect(page).to have_content(@user_6.name)
         expect(page).to have_content(@user_6.city)
         expect(page).to have_content(@user_6.state)
-        expect(page).to have_button("Enable")
       end
 
       expect(page).to_not have_content(@admin_2.name)
@@ -70,12 +64,40 @@ RSpec.describe "As an admin", type: :feature do
     end
 
     it "all user's names are links to their show pages" do
+      visit admin_users_path
+
+      click_link @user_1.name
+
+      expect(current_path).to eq(admin_user_path(@user_1))
     end
 
-    it "next to each user's name is the date they registered" do
-    end
-
-    it "next to each user's name is a button that says 'enable' or 'disable' based on their current status" do
+    it "next to each user's name is the date they registered and a button to enable or disable based on current activation status" do
+      visit admin_users_path
+      
+      within ".user-#{@user_1.id}-row" do
+        expect(page).to have_content(@user_1.created_at.to_date.to_s)
+        expect(page).to have_button("Disable")
+      end
+      within ".user-#{@user_2.id}-row" do
+        expect(page).to have_content(@user_2.created_at.to_date.to_s)
+        expect(page).to have_button("Disable")
+      end
+      within ".user-#{@user_3.id}-row" do
+        expect(page).to have_content(@user_3.created_at.to_date.to_s)
+        expect(page).to have_button("Disable")
+      end
+      within ".user-#{@user_4.id}-row" do
+        expect(page).to have_content(@user_4.created_at.to_date.to_s)
+        expect(page).to have_button("Enable")
+      end
+      within ".user-#{@user_5.id}-row" do
+        expect(page).to have_content(@user_5.created_at.to_date.to_s)
+        expect(page).to have_button("Enable")
+      end
+      within ".user-#{@user_6.id}-row" do
+        expect(page).to have_content(@user_6.created_at.to_date.to_s)
+        expect(page).to have_button("Enable")
+      end
     end
   end
 end
