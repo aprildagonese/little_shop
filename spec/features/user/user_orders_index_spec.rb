@@ -43,7 +43,7 @@ RSpec.describe 'as a user', type: :feature do
       visit profile_orders_path
 
       expect(page).to have_content("Your Orders")
-      save_and_open_page
+      
       within "#order-#{@order_1.id}" do
         expect(page).to have_link("Order ID: #{@order_1.id}")
         expect(page).to have_content("Order Status: #{@order_1.status}")
