@@ -34,13 +34,13 @@ RSpec.describe "as a merchant" do
       visit dashboard_path(merchant1)
 
       within "#order-#{order1.id}" do
-        expect(page).to have_content("Order ID: #{order1.id}")
+        expect(page).to have_link("#{order1.id}", href: profile_order_path(order1))
         expect(page).to have_content("Placed on: #{order1.created_at.to_date.to_s}")
         expect(page).to have_content("Item Count: #{order1.item_count}")
         expect(page).to have_content("Order Total: #{order1.total_cost}")
       end
       within "#order-#{order2.id}" do
-        expect(page).to have_content("Order ID: #{order2.id}")
+        expect(page).to have_link("#{order2.id}", href: profile_order_path(order2))
         expect(page).to have_content("Placed on: #{order2.created_at.to_date.to_s}")
         expect(page).to have_content("Item Count: #{order2.item_count}")
         expect(page).to have_content("Order Total: #{order2.total_cost}")

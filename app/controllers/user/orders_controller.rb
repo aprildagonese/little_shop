@@ -6,10 +6,10 @@ class User::OrdersController < ApplicationController
     @orders = Order.where(user: @user)
   end
 
-  # def show
-  #   # @user = current_user
-  #   # @orders = Order.find_by(user: current_user)
-  # end
+  def show
+    @user = current_user
+    @orders = Order.where(id: params[:id])
+  end
 
   def update
     @order = Order.find(params[:order_id])
