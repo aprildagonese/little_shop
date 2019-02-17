@@ -65,8 +65,6 @@ RSpec.describe 'as a merchant' do
 
       visit dashboard_items_path
 
-            save_and_open_page
-
       within "#item-#{@item_1.id}" do
         expect(page).to have_button("Enable")
         expect(page).to_not have_button("Disable")

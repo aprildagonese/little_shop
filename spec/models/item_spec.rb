@@ -22,36 +22,67 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'Class Methods' do
-    before :each do
-      user_1 = create(:user, role: 1)
-      user_2 = create(:user, role: 1)
-      @i1, @i2, @i3, @i4 = create_list(:item, 4, user: user_1)
-      @i5, @i6, @i7, @i8 = create_list(:item, 4, user: user_2)
-      order_1 = create(:order, status: 1)
-      order_2 = create(:order, status: 1)
-      order_3 = create(:order, status: 0)
+    context "sorting by quantity fulfilled" do
+      before :each do
+        Faker::UniqueGenerator.clear
 
-      create(:order_item, item: @i1, order: order_1, quantity: 8, sale_price: 5)
-      create(:order_item, item: @i2, order: order_2, quantity: 7, sale_price: 5)
-      create(:order_item, item: @i3, order: order_1, quantity: 6, sale_price: 5)
-      create(:order_item, item: @i4, order: order_2, quantity: 5, sale_price: 5)
-      create(:order_item, item: @i5, order: order_1, quantity: 4, sale_price: 5)
-      create(:order_item, item: @i6, order: order_2, quantity: 3, sale_price: 5)
-      create(:order_item, item: @i7, order: order_1, quantity: 2, sale_price: 5)
-      create(:order_item, item: @i8, order: order_3, quantity: 100, sale_price: 5)
-      create(:order_item, item: @i4, order: order_1, quantity: 10, sale_price: 5)
-      create(:order_item, item: @i5, order: order_2, quantity: 10, sale_price: 5)
-    end
+        user_1 = create(:user, role: 1)
+        user_2 = create(:user, role: 1)
+        @i1, @i2, @i3, @i4 = create_list(:item, 4, user: user_1)
+        @i5, @i6, @i7, @i8 = create_list(:item, 4, user: user_2)
+        order_1 = create(:order, status: 1)
+        order_2 = create(:order, status: 1)
+        order_3 = create(:order, status: 0)
 
-    describe '.most_popular' do
-      it 'should order items by quanitity fulfilled' do
-        expect(Item.most_popular).to eq([@i4, @i5, @i1, @i2, @i3, @i6, @i7])
+        create(:order_item, item: @i1, order: order_1, quantity: 8, sale_price: 5)
+        create(:order_item, item: @i2, order: order_2, quantity: 7, sale_price: 5)
+        create(:order_item, item: @i3, order: order_1, quantity: 6, sale_price: 5)
+        create(:order_item, item: @i4, order: order_2, quantity: 5, sale_price: 5)
+        create(:order_item, item: @i5, order: order_1, quantity: 4, sale_price: 5)
+        create(:order_item, item: @i6, order: order_2, quantity: 3, sale_price: 5)
+        create(:order_item, item: @i7, order: order_1, quantity: 2, sale_price: 5)
+        create(:order_item, item: @i8, order: order_3, quantity: 100, sale_price: 5)
+        create(:order_item, item: @i4, order: order_1, quantity: 10, sale_price: 5)
+        create(:order_item, item: @i5, order: order_2, quantity: 10, sale_price: 5)
+      end
+
+      describe '.most_popular' do
+        it 'should order items by quanitity fulfilled' do
+          expect(Item.most_popular).to eq([@i4, @i5, @i1, @i2, @i3, @i6, @i7])
+        end
+      end
+
+      describe '.least_popular' do
+        it 'should order items by quanitity fulfilled' do
+          expect(Item.least_popular).to eq([@i7, @i6, @i3, @i2, @i1, @i5, @i4])
+        end
       end
     end
 
-    describe '.least_popular' do
-      it 'should order items by quanitity fulfilled' do
-        expect(Item.least_popular).to eq([@i7, @i6, @i3, @i2, @i1, @i5, @i4])
+    context "sorting by quantity sold" do
+      it ".top_items_sold should sort by highest item sold first" do
+        Faker::UniqueGenerator.clear
+        @merchant = create(:user, role: 1)
+        @user1, @user2, @user3, @user4, @user5, @user6, @user7 = create_list(:user, 7, role: 0)
+        @item1, @item2, @item3, @item4, @item5, @item6, @item7 = create_list(:item, 7, user: @merchant, quantity: 10)
+        @order1 = create(:order, user: @user1)
+        @order2 = create(:order, user: @user2)
+        @order3 = create(:order, user: @user3)
+        @order4 = create(:order, user: @user4)
+        @order5 = create(:order, user: @user5)
+        @order6 = create(:order, user: @user6)
+        @order7 = create(:order, user: @user7)
+        @oi1 = create(:order_item, order: @order1, item: @item1, quantity: 2)
+        @oi2 = create(:order_item, order: @order2, item: @item2, quantity: 4)
+        @oi3 = create(:order_item, order: @order3, item: @item3, quantity: 6)
+        @oi4 = create(:order_item, order: @order4, item: @item4, quantity: 7)
+        @oi5 = create(:order_item, order: @order5, item: @item5, quantity: 5)
+        @oi6 = create(:order_item, order: @order6, item: @item6, quantity: 3)
+        @oi7 = create(:order_item, order: @order7, item: @item7, quantity: 1)
+
+        expected = [@item4, @item3, @item5, @item2, @item6, @item1, @item7]
+
+        expect(Item.top_items_sold(@merchant)).to eq(expected)
       end
     end
 
@@ -123,6 +154,26 @@ RSpec.describe Item, type: :model do
         create(:order_item, item: item_1, order: canceled_order, sale_price: 5, created_at: 8.days.ago, updated_at: 1.day.ago)
 
         expect(item_3.fulfillment_time).to eq(nil)
+      end
+
+      it "#units_sold should return quantity sold for an item" do
+        Faker::UniqueGenerator.clear
+        merch = create(:user, role: 1)
+        user1, user2 = create_list(:user, 2)
+        item1, item2 = create_list(:item, 2, user: merch)
+        order1, order2 = create_list(:order, 2, user: user1)
+        order3, order4 = create_list(:order, 2, user: user2)
+        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
+        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
+        oi3 = create(:order_item, order: order2, item: item1, quantity: 3)
+        oi4 = create(:order_item, order: order2, item: item2, quantity: 4)
+        oi5 = create(:order_item, order: order3, item: item1, quantity: 5)
+        oi6 = create(:order_item, order: order3, item: item2, quantity: 6)
+        oi7 = create(:order_item, order: order4, item: item1, quantity: 7)
+        oi8 = create(:order_item, order: order4, item: item2, quantity: 8)
+
+        expect(item1.units_sold).to eq(16)
+        expect(item2.units_sold).to eq(20)
       end
     end
   end

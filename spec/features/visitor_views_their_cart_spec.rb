@@ -5,7 +5,7 @@ RSpec.describe 'Cart show page' do
   before :each do
     @item_1 = create(:item, price: 21, quantity: 5)
     @item_2 = create(:item, price: 3, quantity: 10)
-    @item_3 = create(:item)
+    @item_3 = create(:item, price: 5)
   end
 
   context 'as a visitor' do

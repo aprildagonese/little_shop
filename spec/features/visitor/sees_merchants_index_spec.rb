@@ -19,7 +19,7 @@ RSpec.describe "as a visitor" do
       visit merchants_path
 
       expect(page).to have_content("All Restaurants")
-      within ".Merch1-row" do
+      within ".user-#{@merch_1.id}-row" do
         expect(page).to have_content("#{@merch_1.name}")
         expect(page).to have_content("#{@merch_1.city}")
         expect(page).to have_content("#{@merch_1.state}")
@@ -29,7 +29,7 @@ RSpec.describe "as a visitor" do
         expect(page).to_not have_content("#{@merch_3.name}")
         expect(page).to_not have_content("#{@merch_3.city}")
       end
-      within ".Merch2-row" do
+      within ".user-#{@merch_2.id}-row" do
         expect(page).to have_content("#{@merch_2.name}")
         expect(page).to have_content("#{@merch_2.city}")
         expect(page).to have_content("#{@merch_2.state}")
@@ -39,7 +39,7 @@ RSpec.describe "as a visitor" do
         expect(page).to_not have_content("#{@merch_3.name}")
         expect(page).to_not have_content("#{@merch_3.city}")
       end
-      within ".Merch3-row" do
+      within ".user-#{@merch_3.id}-row" do
         expect(page).to have_content("#{@merch_3.name}")
         expect(page).to have_content("#{@merch_3.city}")
         expect(page).to have_content("#{@merch_3.state}")
