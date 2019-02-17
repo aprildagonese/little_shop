@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Item, type: :model do
+
+  before :each do
+    Faker::UniqueGenerator.clear
+  end
+
   describe "relationships" do
     it {should have_many :order_items}
     it {should have_many(:orders).through :order_items}
@@ -18,8 +23,6 @@ RSpec.describe Item, type: :model do
 
   describe 'Class Methods' do
     before :each do
-      Faker::UniqueGenerator.clear
-
       user_1 = create(:user, role: 1)
       user_2 = create(:user, role: 1)
       @i1, @i2, @i3, @i4 = create_list(:item, 4, user: user_1)
@@ -55,7 +58,27 @@ RSpec.describe Item, type: :model do
   end
 
   describe "Instance Methods" do
-    describe '.subtotal' do
+
+    describe '#ordered?' do
+      it 'should return true if that item has been ordered' do
+        item = create(:item)
+        order = create(:order)
+        order_item = create(:order_item, order: order, item: item)
+
+        expected = true
+        actual = item.ordered?
+
+        expect(actual).to eq(expected)
+      end
+
+      it 'should return false if that item has not been ordered' do
+        item = create(:item)
+
+        expected = false
+        actual = item.ordered?
+
+        expect(actual).to eq(expected)
+      end
     end
 
     describe '#avg_fulfillment_time' do
@@ -102,9 +125,6 @@ RSpec.describe Item, type: :model do
         expect(item_3.fulfillment_time).to eq(nil)
       end
     end
-  end
-
-  describe "Instance Methods" do
   end
 
 end
