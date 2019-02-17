@@ -51,9 +51,8 @@ class Item < ApplicationRecord
 
   def self.total_sold_quantity(merchant)
     Item.joins(:order_items)
-       .select("items.user_id, sum(order_items.quantity) as total_quantity")
-       .group("items.user_id")
-       .where("items.user_id = ?", merchant.id)
+        .where(items: {user_id: merchant.id})
+        .sum("order_items.quantity")
   end
 
 end

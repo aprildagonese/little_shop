@@ -90,11 +90,8 @@ RSpec.describe User, type: :model do
       oi14 = create(:order_item, order: order5, item: item2, quantity: 14)
       oi15 = create(:order_item, order: order5, item: item3, quantity: 15)
 
-      expected1 = (oi1.quantity + oi2.quantity + oi4.quantity + oi5.quantity
-                  + oi7.quantity + oi8.quantity + oi10.quantity + oi11.quantity
-                   + oi13.quantity + oi14.quantity)
-      expected2 = (oi3.quantity + oi6.quantity + oi9.quantity + oi12.quantity
-                  + oi15.quantity)
+      expected1 = (oi1.quantity + oi2.quantity + oi4.quantity + oi5.quantity + oi7.quantity + oi8.quantity + oi10.quantity + oi11.quantity + oi13.quantity + oi14.quantity)
+      expected2 = (oi3.quantity + oi6.quantity + oi9.quantity + oi12.quantity + oi15.quantity)
 
       expect(Item.total_sold_quantity(merch1)).to eq(expected1)
       expect(Item.total_sold_quantity(merch2)).to eq(expected2)
