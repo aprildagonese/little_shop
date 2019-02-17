@@ -76,11 +76,11 @@ RSpec.describe "as a merchant" do
 
     it "top 5 items sold by quantity" do
 
-      expect(page).to have_content("#{@item7.title}: #{@item7.quantity} units sold")
-      expect(page).to have_content("#{@item6.title}: #{@item6.quantity} units sold")
-      expect(page).to have_content("#{@item5.title}: #{@item5.quantity} units sold")
-      expect(page).to have_content("#{@item4.title}: #{@item4.quantity} units sold")
-      expect(page).to have_content("#{@item3.title}: #{@item3.quantity} units sold")
+      expect(page).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
+      expect(page).to have_content("#{@item6.title}: #{@item6.units_sold} units sold")
+      expect(page).to have_content("#{@item5.title}: #{@item5.units_sold} units sold")
+      expect(page).to have_content("#{@item4.title}: #{@item4.units_sold} units sold")
+      expect(page).to have_content("#{@item3.title}: #{@item3.units_sold} units sold")
     end
 
     it "total quantity of items sold" do

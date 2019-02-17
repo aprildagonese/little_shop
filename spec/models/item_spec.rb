@@ -129,7 +129,7 @@ RSpec.describe Item, type: :model do
         expect(item_3.fulfillment_time).to eq(nil)
       end
 
-      it "#units_sold should return quantity sold for an item" do 
+      it "#units_sold should return quantity sold for an item" do
         Faker::UniqueGenerator.clear
         merch = create(:user, role: 1)
         user1, user2 = create_list(:user, 2)

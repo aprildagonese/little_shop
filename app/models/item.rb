@@ -46,9 +46,7 @@ class Item < ApplicationRecord
   end
 
   def units_sold
-    self.joins(:orders)
-        .select("units_sold, sum(order_items.quantity) as units_sold")
-        .group(:id)
+    order_items.sum("order_items.quantity")
   end
 
 end
