@@ -29,7 +29,7 @@ RSpec.describe "as a registered user" do
 
       within ".orders-list" do
         expect(page).to have_content("Order ID: #{@order.id}")
-        expect(page).to have_content("Started on: #{@order.created_at}")
+        expect(page).to have_content("Placed on: #{@order.created_at}")
         expect(page).to have_content("Last Updated on: #{@order.updated_at}")
         expect(page).to have_content("Item Count: #{@order.item_count}")
         expect(page).to have_content("Order Total: #{@order.total_cost}")
