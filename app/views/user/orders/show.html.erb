@@ -1,0 +1,19 @@
+<%= render 'orderslist' %>
+
+<section class="order-items">
+  <p>Order Items:</p>
+  <!--render 'orderitemlist' %> -->
+</section>
+
+<% @order.order_items.each do |order_item| %>
+  <section class="id-<%= item.id %>-row">
+    <section class="item-image">
+      <%= image_tag(order_item.item.image_url, width: '250') %>
+    </section>
+    <section class="item-info">
+      <h2><%= order_item.item.title %></h2>
+      <p><%= order_item.item.description %></p>
+      <p>Qty: <%= order_item.quantity %></p>
+      <p>Sale Price: $<%= order_item.sale_price %></p>
+      <p>Item Subtotal: $<%= order_item.subtotal %></p>
+  </section>

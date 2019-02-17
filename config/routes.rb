@@ -21,8 +21,9 @@ put '/profile', to: 'users#update'
 get '/profile/orders', to: 'user/orders#index'
 patch '/profile/orders', to: 'user/orders#update'
 get '/profile/orders/:id', to: 'user/orders#show'
+
 resources :users, only: [:show, :index, :create, :update] do
-  resources :orders, only: [:show, :create]
+  #resources :orders, only: [:show, :create]
 end
 
 #------------Merchant-------------
