@@ -1,17 +1,3 @@
 <h1>Your Orders</h1>
 
-<ul class='orders-list'>
-  <% if !@orders.nil? %>
-    <% @orders.each do |order| %>
-      <% @order = order %>
-      <li id=<%= "order-#{@order.id}" %>>
-        <section class="order-item-header">
-          <%= link_to  "Order ID: #{@order.id}", profile_order_path(@order) %>
-        </section>
-        <section class="order-item-info">
-          <%= render 'orderslist' %>
-        </section>
-      </li>
-    <% end %>
-  <% end %>
-</ul>
+<%= render 'orderslist' %>

@@ -1,10 +1,17 @@
 <ul class='orders-list'>
-  <li id=<%= "order-#{@order.id}" %>>
+  <li id="order-<%= @order.id %>">
     <section class="order-item-header">
       <a>Order ID: <%= @order.id %></a>
     </section>
     <section class="order-item-info">
-      <%= render 'orderslist' %>
+      <a>Started on: <%= @order.created_at %></a>
+      <a>Last Updated on: <%= @order.updated_at %></a>
+      <a>Item Count: <%= @order.item_count %></a>
+      <a>Order Total: <%= @order.total_cost %></a>
+      <a>Order Status: <%= @order.status %></a>
+      <% if @order.pending? %>
+        <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: @order.id} %>
+      <% end %>
     </section>
   </li>
 </ul>
