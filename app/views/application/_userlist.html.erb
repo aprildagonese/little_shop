@@ -2,8 +2,8 @@
   <% @users.each do |user| %>
     <div class="user-<%=user.id%>-row">
       <% if current_user && current_user.admin? %>
-          <div class="user-name"><%= link_to user.name, admin_merchant_path(user) if user.role == 'merchant' %></div>
-          <div class="user-name"><%= link_to user.name, admin_user_path(user) if user.role == 'registered' %></div>
+          <div class="user-name"><%= link_to user.name, admin_merchant_path(user) if user.merchant? %></div>
+          <div class="user-name"><%= link_to user.name, admin_user_path(user) if user.registered? %></div>
       <% else %>
         <div class="user-name"><%= user.name %></div>
       <% end %>
