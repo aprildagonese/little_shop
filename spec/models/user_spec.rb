@@ -66,6 +66,27 @@ RSpec.describe User, type: :model do
       expect(user.activation_status).to eq("active")
     end
 
+
+    it '#downgrade' do
+      merchant = create(:user, role: 1)
+      item_1 = create(:item, active: true)
+      item_2 = create(:item, active: true)
+      item_3 = create(:item, active: true)
+      merchant.items << item_1
+      merchant.items << item_2
+      merchant.items << item_3
+
+      expect(merchant.role).to eq("merchant")
+      expect(item_1.active).to eq(true)
+      expect(item_2.active).to eq(true)
+      expect(item_3.active).to eq(true)
+      merchant.downgrade
+      expect(merchant.role).to eq("registered")
+      expect(item_1.active).to eq(false)
+      expect(item_2.active).to eq(false)
+      expect(item_3.active).to eq(false)
+    end
+
     it "#total_sold_quantity should get merchant's sum of all quantities sold for all items" do
       merch1, merch2 = create_list(:user, 2, role: 1)
       user1, user2, user3 = create_list(:user, 3)
@@ -95,7 +116,7 @@ RSpec.describe User, type: :model do
 
       expect(Item.total_sold_quantity(merch1)).to eq(expected1)
       expect(Item.total_sold_quantity(merch2)).to eq(expected2)
+  
     end
   end
-
 end
