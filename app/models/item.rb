@@ -38,4 +38,8 @@ class Item < ApplicationRecord
     .order("total_quantity asc")
   end
 
+  def ordered?
+    OrderItem.pluck(:item_id).include?(self.id)
+  end
+
 end
