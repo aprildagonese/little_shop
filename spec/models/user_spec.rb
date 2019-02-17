@@ -96,8 +96,8 @@ RSpec.describe User, type: :model do
       expected2 = (oi3.quantity + oi6.quantity + oi9.quantity + oi12.quantity
                   + oi15.quantity)
 
-      expect(merch1.total_sold_quantity).to eq(expected1)
-      expect(merch2.total_sold_quantity).to eq(expected2)
+      expect(Item.total_sold_quantity(merch1)).to eq(expected1)
+      expect(Item.total_sold_quantity(merch2)).to eq(expected2)
     end
   end
 
