@@ -20,7 +20,4 @@ class User < ApplicationRecord
       update_attribute(:activation_status, 0)
     end
   end
-
-  def total_sold_quantity
-  end
 end
