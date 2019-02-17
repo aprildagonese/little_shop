@@ -25,7 +25,11 @@ class Order < ApplicationRecord
     update_attribute(:status, 2) if pending?
   end
 
-  def self.find_orders
-    binding.pry
+  def self.find_orders(user)
+    # select orders. * from orders inner join order_items
+    #     on orders.id = order_items.order_id
+    #     join items on order_items.item_id = items.id
+    #     where items.user_id = 1;
+    Order.joins(:items).where(items: {user_id: user.id})
   end
 end

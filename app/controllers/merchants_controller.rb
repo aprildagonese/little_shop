@@ -11,6 +11,7 @@ class MerchantsController < ApplicationController
 
   def show
     @user = current_user
+    @orders = Order.find_orders(@user)
   end
 
   def update
