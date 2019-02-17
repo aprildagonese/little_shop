@@ -26,6 +26,5 @@ class User < ApplicationRecord
       item.update_attribute(:active, false)
     end
     update_attribute(:role, 0)
-    binding.pry
   end
 end
