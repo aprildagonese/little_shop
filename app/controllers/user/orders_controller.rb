@@ -2,6 +2,7 @@ class User::OrdersController < ApplicationController
   before_action :require_current_user
 
   def show
+    binding.pry
     @order = Order.find(params[:id])
   end
 
