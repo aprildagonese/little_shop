@@ -11,11 +11,11 @@ RSpec.describe 'as a merchant' do
     @merchant = create(:merchant)
     @other_merchant = create(:merchant)
 
-    @item_1 = create(:disabled_item)
+    @item_1 = create(:disabled_item, user: @merchant)
 
     @item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10, @item_11, @item_12, @item_13, @item_14, @item_15, @item_16, @item_17, @item_18 = create_list(:item, 17, user: @merchant)
 
-    @enabled_items = [@item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10, @item_11, @item_12, @item_13, @item_14, @item_15, @item_16, @item_17, @item_18]
+    @ordered_items = [@item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10, @item_11, @item_12, @item_13, @item_14, @item_15, @item_16]
 
     @item_19 = create(:item, user: @other_merchant)
 
@@ -57,7 +57,7 @@ RSpec.describe 'as a merchant' do
       end
 
       expect(page).to_not have_content("Item ID: #{@item_19.id}")
-      expect(page).to_not have_content(@item_19.name)
+      expect(page).to_not have_content(@item_19.title)
 
     end
 
@@ -65,28 +65,30 @@ RSpec.describe 'as a merchant' do
 
       visit dashboard_items_path
 
-      within "#item-#{@item_1}" do
+            save_and_open_page
+
+      within "#item-#{@item_1.id}" do
         expect(page).to have_button("Enable")
         expect(page).to_not have_button("Disable")
         expect(page).to_not have_button("Delete")
       end
 
-      @enabled_items.each do |item|
-        within "#item-#{@item}" do
+      @ordered_items.each do |item|
+        within "#item-#{item.id}" do
           expect(page).to have_button("Disable")
           expect(page).to_not have_button("Enable")
           expect(page).to_not have_button("Delete")
         end
       end
 
-      within "#item-#{@item_17}" do
-        expect(page).to have_button("Enable")
+      within "#item-#{@item_17.id}" do
+        expect(page).to_not have_button("Enable")
         expect(page).to have_button("Disable")
         expect(page).to have_button("Delete")
       end
 
-      within "#item-#{@item_18}" do
-        expect(page).to have_button("Enable")
+      within "#item-#{@item_18.id}" do
+        expect(page).to_not have_button("Enable")
         expect(page).to have_button("Disable")
         expect(page).to have_button("Delete")
       end
