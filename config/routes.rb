@@ -20,7 +20,7 @@ get '/profile/edit', to: 'users#edit'
 put '/profile', to: 'users#update'
 get '/profile/orders', to: 'user/orders#index'
 patch '/profile/orders', to: 'user/orders#update'
-get '/profile/orders/:id', to: 'user/orders#show', as: 'profile/order'
+get '/profile/orders/:id', to: 'user/orders#show', as: 'profile_order'
 resources :users, only: [:show, :index, :create, :update] do
   resources :orders, only: [:show, :create]
 end
