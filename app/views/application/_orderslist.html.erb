@@ -3,15 +3,17 @@
     <% @orders.each do |order| %>
       <li id="order-<%= order.id %>">
         <%= link_to  "Order ID: #{order.id}", profile_order_path(order) %>
-        <a>Started on: <%= order.created_at %></a>
+        <a>Placed on: <%= order.created_at %></a>
         <a>Last Updated on: <%= order.updated_at %></a>
         <a>Item Count: <%= order.item_count %></a>
         <a>Order Total: <%= order.total_cost %></a>
         <a>Order Status: <%= order.status %></a>
-        <% if order.pending? %>
+        <% if order.pending? && !@user.merchant? %>
           <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: order.id} %>
         <% end %>
       </li>
     <% end %>
+  <% else %>
+    <h3>There are no orders yet</h3>
   <% end %>
 </ul>

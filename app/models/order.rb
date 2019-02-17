@@ -25,4 +25,9 @@ class Order < ApplicationRecord
     update_attribute(:status, 2) if pending?
   end
 
+  def self.find_orders(user)
+    Order.joins(:items)
+    .where(order_items: {status: "pending"}, items: {user_id: user.id})
+    .distinct
+  end
 end

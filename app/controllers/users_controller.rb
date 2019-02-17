@@ -21,12 +21,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    @users = User.all
-  end
-
   def show
     @user = current_user
+    @orders = Order.where(user: current_user)
   end
 
   def edit
