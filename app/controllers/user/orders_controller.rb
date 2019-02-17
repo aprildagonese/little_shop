@@ -1,11 +1,13 @@
 class User::OrdersController < ApplicationController
   before_action :require_current_user
 
-  def index
-    @user = User.find(session[:user_id])
+  def show
+    @order = Order.find(params[:id])
   end
 
-  def show
+  def index
+    @user = User.find(session[:user_id])
+    @orders = Order.where(user_id: @user)
   end
 
   def update

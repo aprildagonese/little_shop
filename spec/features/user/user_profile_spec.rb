@@ -24,7 +24,6 @@ RSpec.describe 'as a registered user', type: :feature do
       expect(page).to have_content("Email: #{@user.email}")
     end
 
-    expect(page).to have_button("View Orders")
     expect(page).to have_button("Edit Profile")
 
   end
@@ -38,7 +37,7 @@ RSpec.describe 'as a registered user', type: :feature do
 
     click_button "Log In"
 
-    click_button 'View Orders'
+    click_link 'My Orders'
 
     expect(current_path).to eq(profile_orders_path)
   end
