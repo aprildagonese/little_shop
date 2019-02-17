@@ -73,7 +73,7 @@ item_images = ["https://www.sprinklesandsprouts.com/wp-content/uploads/2018/05/P
               ]
 
 all_merchants = []
-8.times do |merchant|
+8.times do
   name = Faker::Name.name
   street_address = Faker::Address.street_address
   city = Faker::Address.city
@@ -90,9 +90,9 @@ all_merchants = []
     description = Faker::Food.description
     quantity = Faker::Number.number(4)
     price = Faker::Commerce.price
-    activation_status = "active"
+    active = true
     image_url = item_images.sample
-    user.items.create(title: title, description: description, quantity: quantity, price: price, image_url: image_url, activation_status: activation_status)
+    user.items.create(title: title, description: description, quantity: quantity, price: price, image_url: image_url, active: active)
   end
 end
 
@@ -112,11 +112,11 @@ all_merchants << user
   description = Faker::Food.description
   quantity = Faker::Number.number(4)
   price = Faker::Commerce.price
-  activation_status = 0
-  user.items.create(title: title, description: description, quantity: quantity, price: price, activation_status: activation_status)
+  active = true
+  user.items.create(title: title, description: description, quantity: quantity, price: price, active: active)
 end
 
-10.times do |user|
+10.times do
   name = Faker::Name.name
   street_address = Faker::Address.street_address
   city = Faker::Address.city
@@ -128,13 +128,14 @@ end
   status = 0
   user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
   rand(1..8).times do
-    status = 0
-    created_at = rand(500).days.ago
+    status = [0, 1].sample
+    created_at = rand(300..500).days.ago
+    updated_at = rand(100..299).days.ago
 
-    order = user.orders.create!(status: status, created_at: created_at)
+    order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
     rand(1..5).times do
       item = all_merchants.sample.items.sample
-      #order_activation_status = 0
+      activation_status = 0
       OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10))
     end
   end
@@ -151,13 +152,14 @@ role = 0
 activation_status = 0
 User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
 rand(1..8).times do
-  status = 0
-  created_at = rand(500).days.ago
+  status = [0, 1].sample
+  created_at = rand(300..500).days.ago
+  updated_at = rand(100..299).days.ago
 
-  order = user.orders.create!(status: status, created_at: created_at)
+  order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
   rand(1..5).times do
     item = all_merchants.sample.items.sample
-    #order_activation_status = 0
+    activation_status = 0
     OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10))
   end
 end
@@ -174,8 +176,9 @@ activation_status = 0
 User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
 
 user_names = "List of user logins\n\n"
-User.all.each do |user|
-  user_names += "User: Role: #{user.role}, Email: #{user.email}, password: 'password'\n"
+User.all.each do |any_user|
+  user_names += "User: Role: #{any_user.role}, Email: #{any_user.email}, password: 'password'\n"
 end
+
 file_path = './db/user_login_credentials.txt'
 File.open(file_path, 'w') { |file| file.write(user_names) }
