@@ -114,7 +114,7 @@ RSpec.describe "as a visitor" do
         expect(page).to have_content("2. #{@merch_7.name}, Avg. Delivery Time: #{@merch_7.avg_delivery}")
         expect(page).to have_content("3. #{@merch_8.name}, Avg. Delivery Time: #{@merch_8.avg_delivery}")
 
-        expect(page).to_not have_content(@merch_9.name})
+        expect(page).to_not have_content(@merch_9.name)
         expect(page).to_not have_content("Avg. Delivery Time: #{@merch_9.avg_delivery}")
       end
 
