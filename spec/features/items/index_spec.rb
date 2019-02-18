@@ -10,8 +10,8 @@ RSpec.describe 'As any user' do
       user = create(:user)
       user.update(role: 1)
       i1, i2, i3, i4, i5 = create_list(:item, 5, user: user)
-      i4.update(activation_status: 1)
-      i5.update(activation_status: 1)
+      i4.update(active: false)
+      i5.update(active: false)
 
       active_items = [i1, i2, i3]
       inactive_items = [i4, i5]
@@ -32,7 +32,7 @@ RSpec.describe 'As any user' do
     end
 
     it 'items name is a link' do
-      
+
       Faker::UniqueGenerator.clear
 
       user = create(:user)

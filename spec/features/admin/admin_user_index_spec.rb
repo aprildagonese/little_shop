@@ -17,6 +17,7 @@ RSpec.describe "As an admin", type: :feature do
     @user_6 = create(:user, role: 0, activation_status: 1)
   end
 
+
   context "when it clicks on the Users link in the nav" do
     it 'shows all users in the system who are not merchants nor admins' do
       visit welcome_path
@@ -60,7 +61,6 @@ RSpec.describe "As an admin", type: :feature do
 
       expect(page).to_not have_content(@admin_2.name)
       expect(page).to_not have_content(@merchant.name)
-
     end
 
     it "all user's names are links to their show pages" do
@@ -73,7 +73,7 @@ RSpec.describe "As an admin", type: :feature do
 
     it "next to each user's name is the date they registered and a button to enable or disable based on current activation status" do
       visit admin_users_path
-      
+
       within ".user-#{@user_1.id}-row" do
         expect(page).to have_content(@user_1.created_at.to_date.to_s)
         expect(page).to have_button("Disable")

@@ -7,7 +7,7 @@
         <% elsif current_user.admin? %>
           <%= link_to  "Order ID: #{order.id}", admin_order_path(order) %>
         <% end %>
-        <a>Started on: <%= order.created_at %></a>
+        <a>Placed on: <%= order.created_at %></a>
         <a>Last Updated on: <%= order.updated_at %></a>
         <a>Item Count: <%= order.item_count %></a>
         <a>Order Total: <%= order.total_cost %></a>
@@ -21,5 +21,7 @@
         <% end %>
       </li>
     <% end %>
+  <% else %>
+    <h3>There are no orders yet</h3>
   <% end %>
 </ul>

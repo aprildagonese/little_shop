@@ -90,9 +90,9 @@ all_merchants = []
     description = Faker::Food.description
     quantity = Faker::Number.number(4)
     price = Faker::Commerce.price
-    activation_status = "active"
+    active = true
     image_url = item_images.sample
-    user.items.create(title: title, description: description, quantity: quantity, price: price, image_url: image_url, activation_status: activation_status)
+    user.items.create(title: title, description: description, quantity: quantity, price: price, image_url: image_url, active: active)
   end
 end
 
@@ -112,8 +112,8 @@ all_merchants << user
   description = Faker::Food.description
   quantity = Faker::Number.number(4)
   price = Faker::Commerce.price
-  activation_status = 0
-  user.items.create(title: title, description: description, quantity: quantity, price: price, activation_status: activation_status)
+  active = true
+  user.items.create(title: title, description: description, quantity: quantity, price: price, active: active)
 end
 
 10.times do

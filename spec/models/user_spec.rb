@@ -55,6 +55,10 @@ RSpec.describe User, type: :model do
   end
 
   describe "Instance Methods" do
+    before :each do
+      Faker::UniqueGenerator.clear
+    end
+
     it "#change_status" do
       user = User.create!(name: "April",
                           email: "adag@email.com",
@@ -65,6 +69,57 @@ RSpec.describe User, type: :model do
       user.change_status
       expect(user.activation_status).to eq("active")
     end
-  end
 
+    it '#downgrade' do
+      merchant = create(:user, role: 1)
+      item_1 = create(:item, active: true)
+      item_2 = create(:item, active: true)
+      item_3 = create(:item, active: true)
+      merchant.items << item_1
+      merchant.items << item_2
+      merchant.items << item_3
+
+      expect(merchant.role).to eq("merchant")
+      expect(item_1.active).to eq(true)
+      expect(item_2.active).to eq(true)
+      expect(item_3.active).to eq(true)
+      merchant.downgrade
+      expect(merchant.role).to eq("registered")
+      expect(item_1.active).to eq(false)
+      expect(item_2.active).to eq(false)
+      expect(item_3.active).to eq(false)
+    end
+
+    it "#total_sold_quantity should get merchant's sum of all quantities sold for all items" do
+      merch1, merch2 = create_list(:user, 2, role: 1)
+      user1, user2, user3 = create_list(:user, 3)
+      item1, item2 = create_list(:item, 2, user: merch1)
+      item3 = create(:item, user: merch2)
+      order1, order2 = create_list(:order, 2, user: user1)
+      order3, order4 = create_list(:order, 2, user: user2)
+      order5 = create(:order, user: user3)
+      oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
+      oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
+      oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
+      oi4 = create(:order_item, order: order2, item: item1, quantity: 4)
+      oi5 = create(:order_item, order: order2, item: item2, quantity: 5)
+      oi6 = create(:order_item, order: order2, item: item3, quantity: 6)
+      oi7 = create(:order_item, order: order3, item: item1, quantity: 7)
+      oi8 = create(:order_item, order: order3, item: item2, quantity: 8)
+      oi9 = create(:order_item, order: order3, item: item3, quantity: 9)
+      oi10 = create(:order_item, order: order4, item: item1, quantity: 10)
+      oi11 = create(:order_item, order: order4, item: item2, quantity: 11)
+      oi12 = create(:order_item, order: order4, item: item3, quantity: 12)
+      oi13 = create(:order_item, order: order5, item: item1, quantity: 13)
+      oi14 = create(:order_item, order: order5, item: item2, quantity: 14)
+      oi15 = create(:order_item, order: order5, item: item3, quantity: 15)
+
+      expected1 = (oi1.quantity + oi2.quantity + oi4.quantity + oi5.quantity + oi7.quantity + oi8.quantity + oi10.quantity + oi11.quantity + oi13.quantity + oi14.quantity)
+      expected2 = (oi3.quantity + oi6.quantity + oi9.quantity + oi12.quantity + oi15.quantity)
+
+      expect(Item.total_sold_quantity(merch1)).to eq(expected1)
+      expect(Item.total_sold_quantity(merch2)).to eq(expected2)
+
+    end
+  end
 end
