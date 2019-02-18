@@ -11,6 +11,10 @@ class Admin::MerchantsController < Admin::BaseController
   end
 
   def update
+  end
+
+  def downgrade
+    binding.pry
     @user = User.find(params[:id])
     @user.downgrade
     flash[:downgraded] = "Merchant has been downgraded to a user"
