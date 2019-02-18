@@ -98,6 +98,7 @@ RSpec.describe "as a visitor" do
       end
 
     end
+
     it "shows merchant statistics" do
       # As a visitor
       # When I visit the merchants index page, I see an area with statistics:
@@ -105,9 +106,9 @@ RSpec.describe "as a visitor" do
       within "#peoples-choice" do
         expect(page).to have_content("People's Choice")
       # - top 3 merchants who have sold the most by price and quantity, and their revenue
-        expect(page).to have_content("1. #{@merch_9.name}, Revenue: #{@merch_9.revenue}")
-        expect(page).to have_content("2. #{@merch_1.name}, Revenue: #{@merch_1.revenue}")
-        expect(page).to have_content("3. #{@merch_7.name}, Revenue: #{@merch_7.revenue}")
+        expect(page).to have_content("1. #{@merch_9.name}, Revenue: #{@merch_9.total_revenue}")
+        expect(page).to have_content("2. #{@merch_1.name}, Revenue: #{@merch_1.total_revenue}")
+        expect(page).to have_content("3. #{@merch_7.name}, Revenue: #{@merch_7.total_revenue}")
       end
       within "#fast-food" do
         expect(page).to have_content("Fast Food")
