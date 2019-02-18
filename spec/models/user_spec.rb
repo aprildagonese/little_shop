@@ -55,6 +55,10 @@ RSpec.describe User, type: :model do
   end
 
   describe "Instance Methods" do
+    before :each do
+      Faker::UniqueGenerator.clear
+    end
+
     it "#change_status" do
       user = User.create!(name: "April",
                           email: "adag@email.com",
@@ -116,7 +120,7 @@ RSpec.describe User, type: :model do
 
       expect(Item.total_sold_quantity(merch1)).to eq(expected1)
       expect(Item.total_sold_quantity(merch2)).to eq(expected2)
-  
+
     end
   end
 end
