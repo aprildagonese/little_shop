@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'as an admin', type: :feature do
 
   before :each do
+    Faker::UniqueGenerator.clear
+
     @user = create(:user)
     @merchant = create(:user, role: 1)
     @admin = create(:user, role: 2)

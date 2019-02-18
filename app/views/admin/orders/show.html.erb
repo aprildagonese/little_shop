@@ -10,7 +10,7 @@
       <a>Order Total: <%= @order.total_cost %></a>
       <a>Order Status: <%= @order.status %></a>
       <% if @order.pending? %>
-        <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: @order.id} %>
+        <%= button_to "Cancel Order", admin_order_path(@order), method: :delete %>
       <% end %>
     </section>
   </li>

@@ -25,4 +25,11 @@ class Order < ApplicationRecord
     update_attribute(:status, 2) if pending?
   end
 
+  def cancel
+    order_items.each do |order_item|
+      order_item.cancel_item
+    end
+    update(status: 2)
+  end
+
 end

@@ -17,6 +17,6 @@
 
   <aside class="user-order-buttons">
     <% if current_user && current_user.admin? %>
-      <%= button_to "User Orders", admin_orders_path(user_id: @user), method: :get %>
+      <%= button_to "User Orders", admin_orders_path(user_id: @user.id), method: :get %>
     <% end %>
   </aside>
