@@ -61,7 +61,7 @@ RSpec.describe Order, type: :model do
     it ".user_by_most_orders" do
       Faker::UniqueGenerator.clear
       merchant1, merchant2 = create_list(:user, 2, role: 1)
-      user1, user2, user3, user4 = create_list(:user, 4, role: 0)
+      user1, user2 = create_list(:user, 2, role: 0)
       item1, item2, item3 = create_list(:item, 3, user: merchant1)
       item4, item5 = create_list(:item, 2, user: merchant2)
 

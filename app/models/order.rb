@@ -32,5 +32,14 @@ class Order < ApplicationRecord
   end
 
   def self.user_by_most_orders(merchant)
+    User.joins(orders: :items)
+        .select("users.*, count(orders.id) as user_orders")
+        .where(items: {user_id: 1}, order_items: {status: "fulfilled"})
+        .group(:id)
+        .order("user_orders desc")
+    Order.joins(:items)
+         .select("order.users.*, sum(users.orders) as user_orders")
+         .where(items: {user_id: merchant.id})
+         .distinct
   end
 end
