@@ -65,9 +65,6 @@ RSpec.describe User, type: :model do
       user.change_status
       expect(user.activation_status).to eq("active")
     end
-<<<<<<< HEAD
-=======
-
 
     it '#downgrade' do
       merchant = create(:user, role: 1)
@@ -118,8 +115,7 @@ RSpec.describe User, type: :model do
 
       expect(Item.total_sold_quantity(merch1)).to eq(expected1)
       expect(Item.total_sold_quantity(merch2)).to eq(expected2)
-  
+
     end
->>>>>>> master
   end
 end

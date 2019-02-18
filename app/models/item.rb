@@ -61,9 +61,13 @@ class Item < ApplicationRecord
   end
 
   def self.total_inventory(merchant)
+    total_in_stock = Item.where(user: merchant).sum(:quantity)
+    total_sold = total_sold_quantity(merchant)
+    total_inventory = total_in_stock + total_sold
   end
 
-  def percent_sold
+  def self.percent_sold(merchant)
+    ((total_sold_quantity(merchant).to_f/total_inventory(merchant).to_f)*100).round(2)
   end
 
 end

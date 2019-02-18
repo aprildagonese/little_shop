@@ -86,7 +86,7 @@ RSpec.describe Item, type: :model do
       end
     end
 
-    context "#total_sold_quantity" do
+    context ".total_sold_quantity" do
       it "should get merchant's sum of all quantities sold for all items" do
         merch1, merch2 = create_list(:user, 2, role: 1)
         user1, user2, user3 = create_list(:user, 3)
@@ -118,20 +118,66 @@ RSpec.describe Item, type: :model do
         expect(Item.total_sold_quantity(merch2)).to eq(expected2)
       end
     end
-    context "#total_inventory" do
-      it "should get merchant's sum of all quantities of all items" do
+
+    context ".total_inventory" do
+      it "should get merchant's sum of all quantities of all items sold or in stock" do
+        user1 = create(:user)
         merch1, merch2, merch3 = create_list(:user, 3, role: 1)
-        item1, item2 = create_list(:item, 2, user: merch1, 20)
-        item3, item4 = create_list(:item, 2, user: merch2, 22)
-        item5, item6, item7 = create_list(:item, 2, user: merch3, 13)
+        item1, item2 = create_list(:item, 2, user: merch1, quantity: 20)
+        item3, item4 = create_list(:item, 2, user: merch2, quantity: 22)
+        item5, item6, item7 = create_list(:item, 3, user: merch3, quantity: 13)
+        order1 = create(:order, user: user1)
+        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
+        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
+        oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
+        oi4 = create(:order_item, order: order1, item: item4, quantity: 4)
+        oi5 = create(:order_item, order: order1, item: item5, quantity: 5)
+        oi6 = create(:order_item, order: order1, item: item6, quantity: 6)
+        oi7 = create(:order_item, order: order1, item: item7, quantity: 7)
 
-        
+        expected1 = 43
+        expected2 = 51
+        expected3 = 57
 
-        expect(Item.total_sold_quantity(merch1)).to eq(expected1)
-        expect(Item.total_sold_quantity(merch2)).to eq(expected2)
+        expect(Item.total_inventory(merch1)).to eq(expected1)
+        expect(Item.total_inventory(merch2)).to eq(expected2)
+        expect(Item.total_inventory(merch3)).to eq(expected3)
       end
     end
 
+    context ".percent_sold" do
+      it "should get merchant's sum of all quantities of all items sold or in stock" do
+        user1 = create(:user)
+        merch1, merch2, merch3 = create_list(:user, 3, role: 1)
+        item1, item2 = create_list(:item, 2, user: merch1, quantity: 20)
+        item3, item4 = create_list(:item, 2, user: merch2, quantity: 22)
+        item5, item6, item7 = create_list(:item, 3, user: merch3, quantity: 13)
+        order1 = create(:order, user: user1)
+        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
+        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
+        oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
+        oi4 = create(:order_item, order: order1, item: item4, quantity: 4)
+        oi5 = create(:order_item, order: order1, item: item5, quantity: 5)
+        oi6 = create(:order_item, order: order1, item: item6, quantity: 6)
+        oi7 = create(:order_item, order: order1, item: item7, quantity: 7)
+
+        sold1 = 3.0
+        inventory1 = 43.0
+        expected1 = ((sold1/inventory1)*100).round(2)
+
+        sold2 = 7.0
+        inventory2 = 51.0
+        expected2 = ((sold2/inventory2)*100).round(2)
+
+        sold3 = 18.0
+        inventory3 = 57.0
+        expected3 = ((sold3/inventory3)*100).round(2)
+
+        expect(Item.percent_sold(merch1)).to eq(expected1)
+        expect(Item.percent_sold(merch2)).to eq(expected2)
+        expect(Item.percent_sold(merch3)).to eq(expected3)
+      end
+    end
   end
 
   describe "Instance Methods" do

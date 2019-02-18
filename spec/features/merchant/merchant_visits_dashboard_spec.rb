@@ -88,7 +88,7 @@ RSpec.describe "as a merchant" do
     end
 
     it "total quantity of items sold" do
-      expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{@merchant.percent_sold}% of your total inventory")
+      expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{Item.percent_sold(@merchant)}% of your total inventory")
     end
   end
 end
