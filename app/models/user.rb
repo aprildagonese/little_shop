@@ -27,4 +27,8 @@ class User < ApplicationRecord
     end
     update_attribute(:role, 0)
   end
+
+  def total_revenue
+    items.joins(:order_items).sum(:sale_price)
+  end
 end
