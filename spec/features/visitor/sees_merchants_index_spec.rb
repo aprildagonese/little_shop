@@ -101,49 +101,55 @@ RSpec.describe "as a visitor" do
       # When I visit the merchants index page, I see an area with statistics:
       expect(page).to have_content("Statistics")
       within "#peoples-choice" do
-        # - top 3 merchants who have sold the most by price and quantity, and their revenue
-        # 1. merch 9
-        # 2. merch 1
-        # 3. merch 7
+        expect(page).to have_content("People's Choice")
+      # - top 3 merchants who have sold the most by price and quantity, and their revenue
+        expect(page).to have_content("1. #{@merch_9.name}, Revenue: #{@merch_9.revenue}")
+        expect(page).to have_content("2. #{@merch_1.name}, Revenue: #{@merch_1.revenue}")
+        expect(page).to have_content("3. #{@merch_7.name}, Revenue: #{@merch_7.revenue}")
       end
       within "#fast-food" do
-        # - top 3 merchants who were fastest at fulfilling items in an order, and their times
-        # 1. merch 2
-        # 2. merch 7
-        # 3. merch 8
+        expect(page).to have_content("Fast Food")
+      # - top 3 merchants who were fastest at fulfilling items in an order, and their times
+        expect(page).to have_content("1. #{@merch_2.name}, Avg. Delivery Time: #{@merch_2.avg_delivery}")
+        expect(page).to have_content("2. #{@merch_7.name}, Avg. Delivery Time: #{@merch_7.avg_delivery}")
+        expect(page).to have_content("3. #{@merch_8.name}, Avg. Delivery Time: #{@merch_8.avg_delivery}")
 
-        # 4. merch 9
+        expect(page).to_not have_content(@merch_9.name})
+        expect(page).to_not have_content("Avg. Delivery Time: #{@merch_9.avg_delivery}")
       end
 
       within "#slow-food" do
-        # - worst 3 merchants who were slowest at fulfilling items in an order, and their times
-        # 1. merch 6
-        # 2. merch 4
-        # 3. merch 3
+        expect(page).to have_content("Slow Food")
+      # - worst 3 merchants who were slowest at fulfilling items in an order, and their times
+        expect(page).to have_content("1. #{@merch_6.name}, Avg. Delivery Time: #{@merch_6.avg_delivery}")
+        expect(page).to have_content("2. #{@merch_4.name}, Avg. Delivery Time: #{@merch_4.avg_delivery}")
+        expect(page).to have_content("3. #{@merch_3.name}, Avg. Delivery Time: #{@merch_3.avg_delivery}")
 
-        # 4. merch 5
-        # 5. merch 1
+        expect(page).to_not have_content(@merch_5.name)
+        expect(page).to_not have_content("Avg. Delivery Time: #{@merch_5.avg_delivery}")
       end
 
        within "#foodie-states" do
-        # - top 3 states where any orders were shipped (by number of orders), and count of orders
-        # 1. Michigan
-        # 2. Illinois
-        # 3. Colorado
+         expect(page).to have_content("Best Foodie States")
+       # - top 3 states where any orders were shipped (by number of orders), and count of orders
+         expect(page).to have_content("1. Michigan")
+         expect(page).to have_content("2. Illinois")
+         expect(page).to have_content("3. Colorado")
        end
        within "#foodie-cities" do
-        # - top 3 cities where any orders were shipped (by number of orders, also Springfield, MI should not be grouped with Springfield, CO), and the count of orders
-        # 1. Detroit, MI
-        # 2. Detroit, IL
-        # 3. Boston, MA
+         expect(page).to have_content("Best Foodie Cities")
+       # - top 3 cities where any orders were shipped (by number of orders, also Springfield, MI should not be grouped with Springfield, CO), and the count of orders
+         expect(page).to have_content("1. Detroit, MI")
+         expect(page).to have_content("2. Detroit, IL")
+         expect(page).to have_content("3. Boston, MA")
        end
        within "biggest-appetites" do
-        # - top 3 biggest orders by quantity of items shipped in an order, plus their quantities
-        # 1. CO order 3
-        # 2. PA order 2
-        # 3. NY order 2
+         expect(page).to have_content("Biggest Appetites")
+         # - top 3 biggest orders by quantity of items shipped in an order, plus their quantities
+         expect(page).to have_content("1. Order ID: #{@co_order_3.id}, Qty: #{@co_order_3.item_count}")
+         expect(page).to have_content("2. Order ID: #{@pa_order_2.id}, Qty: #{@pa_order_2.item_count}")
+         expect(page).to have_content("3. Order ID: #{@ny_order_2.id}, Qty: #{@ny_order_2.item_count}")
        end
-
     end
   end
 end
