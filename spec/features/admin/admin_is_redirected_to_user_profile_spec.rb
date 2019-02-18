@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "As an admin", type: :feature do
   before :each do
+    Faker::UniqueGenerator.clear
+
     @admin = create(:user, role: 2)
     login_as(@admin)
 
@@ -15,12 +17,12 @@ RSpec.describe "As an admin", type: :feature do
       expect(current_path).to eq(admin_user_path(@user))
 
       within ".profile" do
-        expect(page).to have_content("Name: #{updated_user.name}")
-        expect(page).to have_content("Address: #{updated_user.street_address}")
-        expect(page).to have_content("City: #{updated_user.city}")
-        expect(page).to have_content("State: #{updated_user.state}")
-        expect(page).to have_content("Zip Code: #{updated_user.zip_code}")
-        expect(page).to have_content("Email: #{updated_user.email}")
+        expect(page).to have_content("Name: #{@user.name}")
+        expect(page).to have_content("Address: #{@user.street_address}")
+        expect(page).to have_content("City: #{@user.city}")
+        expect(page).to have_content("State: #{@user.state}")
+        expect(page).to have_content("Zip Code: #{@user.zip_code}")
+        expect(page).to have_content("Email: #{@user.email}")
       end
     end
   end
