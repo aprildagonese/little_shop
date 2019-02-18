@@ -4,14 +4,24 @@ RSpec.describe 'as an admin', type: :feature do
 
   before :each do
     @user = create(:user)
+    @merchant = create(:user, role: 1)
     @admin = create(:user, role: 2)
+    @order = create(:order, user: @user)
+    @i1, @i2, @i3, @i4, @i5 = create_list(:item, 5, user: @merchant)
+    @oi1, @oi2, @oi3, @oi4, @oi5 = create_list(:order_item, 5)
+    @oi1.update(order: @order, item: @i1, sale_price: 2, quantity: 5)
+    @oi2.update(order: @order, item: @i2, sale_price: 3, quantity: 5)
+    @oi3.update(order: @order, item: @i3, sale_price: 4, quantity: 5)
+    @oi4.update(order: @order, item: @i4, sale_price: 5, quantity: 5)
+    @oi5.update(order: @order, item: @i5, sale_price: 6, quantity: 5)
+    @order_items = [@oi1, @oi2, @oi3, @oi4, @oi5]
 
     login_as(@admin)
   end
 
-  xit 'can see a users profile with account info' do
+  it 'can see a users profile with account info' do
 
-    visit admin_profile_path(@user)
+    visit admin_user_path(@user)
 
     within ".profile" do
       expect(page).to have_content("Name: #{@user.name}")
@@ -23,45 +33,26 @@ RSpec.describe 'as an admin', type: :feature do
     end
 
     expect(page).to have_button("Edit Profile")
-    expect(page).to have_link("User Orders")
-
+    expect(page).to have_button("User Orders")
   end
 
-  xit "admin can see users order index page" do
+  it "clicking 'edit profile' brings admin to edit profile form" do
 
-    visit admin_profile_path(@user)
-
-    click_link 'User Orders'
-
-    expect(current_path).to eq(admin_profile_order_path(@order_1))
-    expect(page).to have_content("All Orders")
-    expect(page).to have_content("#{@order_1.title}")
-    expect(page).to have_content("#{@order_2.title}")
-  end
-
-  xit "admin can see user order show page" do
-
-    visit admin_profile_order_path(@order_1)
-
-    click_link 'Order 1'
-
-    expect(current_path).to eq(admin_profile_order_path(@order_1))
-
-    expect(page).to have_content("#{@order_1.title}")
-  end
-
-  xit "clicking 'edit profile' brings user to their edit profile form" do
-
-    visit login_path
-
-    fill_in "email", with: @user.email
-    fill_in "password", with: @user.password
-
-    click_button "Log In"
+    visit admin_user_path(@user)
 
     click_button 'Edit Profile'
 
-    expect(current_path).to eq(profile_edit_path)
+    expect(current_path).to eq(edit_admin_user_path(@user))
+    expect(page).to have_content("Edit Profile")
+  end
+
+  it "clicking 'user orders' brings admin to user orders index" do
+
+    visit admin_user_path(@user)
+
+    click_button 'User Orders'
+
+    expect(current_path).to eq(admin_orders_path)
   end
 
 end

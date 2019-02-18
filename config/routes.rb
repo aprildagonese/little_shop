@@ -21,6 +21,7 @@ put '/profile', to: 'users#update'
 get '/profile/orders', to: 'user/orders#index'
 patch '/profile/orders', to: 'user/orders#update'
 get '/profile/orders/:id', to: 'user/orders#show', as: 'profile_order'
+#get '/users/:id/orders', to: 'user/orders#index', as: 'user_orders'
 
 resources :users, only: [:show, :index, :create, :update] do
   resources :orders, only: [:show, :create]
@@ -42,6 +43,7 @@ namespace :admin do
   resources :merchants, only: [:show, :index]
   resources :items, except: [:show]
   resources :users, only: [:show, :index, :edit, :update]
+  resources :orders, only: [:index, :show, :destroy]
 end
 
 end
