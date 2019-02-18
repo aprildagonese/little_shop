@@ -136,8 +136,15 @@ RSpec.describe 'as an admin', type: :feature do
           expect(page).to have_content("Item Status: Unfulfilled")
         end
 
-        expect(@i1.quantity).to eq(20)
-        expect(@i2.quantity).to eq(25)
+        click_link("Browse Dishes")
+
+        within ".id-#{@i1.id}-row" do
+          expect(page).to have_content("Qty: 20")
+        end
+
+        within ".id-#{@i2.id}-row" do
+          expect(page).to have_content("Qty: 25")
+        end
 
         expect(page).to_not have_button("Cancel Order")
       end

@@ -12,9 +12,10 @@ class OrderItem < ApplicationRecord
 
   def cancel_item
     if fulfilled?
-      item = Item.find(item_id)
-      item.update(quantity: (item.quantity += quantity))
+      item.quantity = item.quantity + quantity
+      item.save
     end
-    update(fulfillment_status: 2)
+
+    self.fulfillment_status = 2
   end
 end

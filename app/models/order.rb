@@ -28,8 +28,10 @@ class Order < ApplicationRecord
   def cancel
     order_items.each do |order_item|
       order_item.cancel_item
+      order_item.save
     end
-    update(status: 2)
+
+    self.status = 2
   end
 
 end
