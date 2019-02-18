@@ -64,8 +64,8 @@ RSpec.describe "as a merchant" do
       @order2 = create(:order, user: @user2)
       @order3 = create(:order, user: @user3)
       @order4 = create(:order, user: @user4)
-      @order5 = create(:order, user: @user5)
-      @order6 = create(:order, user: @user6)
+      @order5 = create(:order, user: @user4)
+      @order6 = create(:order, user: @user4)
       @order7 = create(:order, user: @user7)
       @oi1 = create(:order_item, order: @order1, item: @item1, quantity: 1)
       @oi2 = create(:order_item, order: @order2, item: @item2, quantity: 2)
@@ -89,6 +89,10 @@ RSpec.describe "as a merchant" do
 
     it "total quantity of items sold" do
       expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{Item.percent_sold(@merchant)}% of your total inventory")
+    end
+
+    it "the user with the most orders from me" do
+      expect(page).to have_content("User With Most Orders: #{@user4.name} (#{@user4.orders.count} orders placed)")
     end
   end
 end
