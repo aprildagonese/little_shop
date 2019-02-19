@@ -34,7 +34,7 @@ put '/dashboard/items/:id/edit', to: "merchants/items#edit", as: 'dashboard_item
 get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
 
 # get '/merchants', to: 'users#index'
-resources :merchants, only: [:index, :update]
+resources :merchants, only: [:index]
 namespace :merchant do
   resources :items, except: [:show]
 end

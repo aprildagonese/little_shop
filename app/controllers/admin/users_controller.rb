@@ -34,7 +34,11 @@ class Admin::UsersController < Admin::BaseController
     elsif @user.registered?
       redirect_to admin_users_path
     end
-    flash[:alert] = "User #{@user.name}'s account has been disabled."
+    if @user.active?
+      flash[:alert] = "#{@user.name} has been enabled."
+    elsif @user.inactive?
+      flash[:alert] = "#{@user.name} has been disabled."
+    end
   end
 
   private
