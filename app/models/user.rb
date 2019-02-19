@@ -40,6 +40,6 @@ class User < ApplicationRecord
   def total_revenue
     items.joins(:orders)
          .where(orders: {status: 1})
-         .sum('sale_price * order_items.quantity')
+         .sum('order_items.sale_price * order_items.quantity')
   end
 end
