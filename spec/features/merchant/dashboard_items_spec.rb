@@ -35,14 +35,11 @@ RSpec.describe 'as a merchant' do
     @order_item_14 = create(:order_item, order: @order_1, item: @item_14)
     @order_item_15 = create(:order_item, order: @order_1, item: @item_15)
     @order_item_16 = create(:order_item, order: @order_1, item: @item_16)
-
-    login_as(@merchant)
-
   end
 
-  context 'visiting it\'s items index' do
+  context 'visiting its items index' do
     it 'sees all of their items' do
-
+      login_as(@merchant)
       visit dashboard_items_path
 
       @merchant.items.each do |item|
@@ -62,7 +59,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it 'sees a button to enable/disable' do
-
+      login_as(@merchant)
       visit dashboard_items_path
 
       within "#item-#{@item_1.id}" do

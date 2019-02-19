@@ -1,5 +1,4 @@
 class Admin::OrdersController < Admin::BaseController
-  before_action :require_admin
 
   def show
     @order = Order.find(params[:id])
@@ -7,7 +6,7 @@ class Admin::OrdersController < Admin::BaseController
 
   def index
     @user = User.find(params[:user_id])
-    @orders = Order.where(user_id: @user)
+    @orders = @user.orders
   end
 
   def destroy
