@@ -17,7 +17,6 @@ RSpec.describe "As an admin", type: :feature do
     #Log in as admin and re-activate the merchant
     login_as(@admin1)
     visit admin_merchants_path
-    save_and_open_page
     within ".user-#{@merchant1.id}-row" do
       click_button("Enable")
     end
