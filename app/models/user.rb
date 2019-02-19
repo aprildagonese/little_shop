@@ -28,7 +28,21 @@ class User < ApplicationRecord
     .where(orders: {status: 1}, role: 1)
     .group(:id)
     .order('avg_time asc')
+    .limit(3).reverse
+  end
+
+  def self.slowest_fulfillments
+    joins(items: :orders)
+    .select('users.*, AVG(order_items.updated_at - order_items.created_at) as avg_time')
+    .where(orders: {status: 1}, role: 1)
+    .group(:id)
+    .order('avg_time desc')
     .limit(3)
+  end
+
+  def self.most_orders_by_state
+    joins(:orders)
+    select('')
   end
 
   def change_status
@@ -46,17 +60,16 @@ class User < ApplicationRecord
     update_attribute(:role, 0)
   end
 
-  def total_revenue
-    items.joins(:orders)
-         .where(orders: {status: 1})
-         .sum('order_items.sale_price * order_items.quantity')
-  end
-
-  def avg_delivery
-    items.joins(:orders)
-         .where(orders: {status: 1})
-         .select('orders.*, AVG(orders.updated_at - orders.created_at) AS avg_time')
-         .group(:order_id)
-  end
+  # def total_revenue
+  #   items.joins(:orders)
+  #        .where(orders: {status: 1})
+  #        .sum('order_items.sale_price * order_items.quantity')
+  # end
+  #
+  # def avg_delivery
+  #   items.joins(:orders)
+  #   .where(orders: {status: 1})
+  #   .average('order_items.updated_at - order_items.created_at')
+  # end
 
 end

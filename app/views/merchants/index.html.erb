@@ -2,20 +2,24 @@
 <section class='merchant-stats'>
   <section id='peoples-choice'>
     <h4>People's Choice</h4>
-    <% @users.highest_revenues.each do |merchant| %>
-      <p><%= merchant.name %>, Revenue: <%= merchant.total_revenue %></p>
+    <% @best_revenue_merchants.each do |merchant| %>
+      <p><%= merchant.name %>, Revenue: <%= number_to_currency(merchant.total_revenue) %></p>
     <% end %>
   </section>
   <section id='fast-food'>
     <h4>Fast Food</h4>
-
+    <% @fastest_merchants.each do |merchant| %>
+      <p><%= merchant.name %>, Avg. Delivery Time: <%= time_ago_in_words(merchant.avg_time) %></p>
+    <% end %>
   </section>
   <section id='slow-food'>
     <h4>Slow Food</h4>
-
+    <% @slowest_merchants.each do |merchant| %>
+      <p><%= merchant.name %>, Avg. Delivery Time: <%= merchant.avg_time %></p>
+    <% end %>
   </section>
   <section id='foodie-states'>
-    <h4>Foodie States</h4>
+    <h4>Best Foodie States</h4>
 
   </section>
   <section id='foodie-cities'>

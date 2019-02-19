@@ -12,7 +12,7 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'class methods' do
-    it ".generate_order" do
+    it "::generate_order" do
       user = create(:user)
       item1 = create(:item)
       item2 = create(:item)
@@ -32,7 +32,7 @@ RSpec.describe Order, type: :model do
       expect(order.order_items[2].item).to eq(item3)
     end
 
-    it ".find_orders" do
+    it "::find_orders" do
       Faker::UniqueGenerator.clear
       merchant1, merchant2 = create_list(:user, 2, role: 1)
       user1, user2, user3 = create_list(:user, 3, role: 0)

@@ -82,10 +82,10 @@ RSpec.describe User, type: :model do
       @merch9_item = create(:item, user: @merch_8)
       @merch10_item = create(:item, user: @merch_8)
 
-      @ma_order_1, @ma_order_2, @ma_order_3, @ma_order_4 = create_list(:order, 4, user: @ma_user, status: 1)
+      @ma_order_1, @ma_order_2, @ma_order_3 = create_list(:order, 3, user: @ma_user, status: 1)
       @ca_order_1 = create(:order, user: @ca_user, status: 1)
       @wi_order_1, @wi_order_2 = create_list(:order, 2, user: @wi_user, status: 1)
-      @co_order_1 = create(:order, user: @co_user, status: 1)
+      @co_order_1, @co_order_4 = create_list(:order, 2, user: @co_user, status: 1)
       @co_order_2, @co_order_3 = create_list(:order, 2, user: @co_user_2, status: 1)
       @pa_order_1, @pa_order_2 = create_list(:order, 2, user: @pa_user, status: 1)
       @mi_order_1, @mi_order_2, @mi_order_3, @mi_order_4, @mi_order_5, @mi_order_6 = create_list(:order, 6, user: @mi_user, status: 1)
@@ -96,7 +96,6 @@ RSpec.describe User, type: :model do
       @ma_orderitem_2 = create(:order_item, order: @ma_order_1, item: @merch1_item_2, quantity: 21, sale_price: 25, created_at: 4000.minutes.ago, updated_at: 1600.minutes.ago)
       @ma_orderitem_3 = create(:order_item, order: @ma_order_2, item: @merch2_item_1, quantity: 2, sale_price: 4, created_at: 200.minutes.ago, updated_at: 198.minutes.ago)
       @ma_orderitem_4 = create(:order_item, order: @ma_order_3, item: @merch2_item_2, quantity: 4, sale_price: 2, created_at: 5000.minutes.ago, updated_at: 4998.minutes.ago)
-      @ma_orderitem_5 = create(:order_item, order: @ma_order_4, item: @merch3_item_1, quantity: 1, sale_price: 1, created_at: 4000.minutes.ago, updated_at: 1000.minutes.ago)
 
       @ca_orderitem_1 = create(:order_item, order: @ca_order_1, item: @merch3_item_2, quantity: 6, sale_price: 1, created_at: 9001.minutes.ago, updated_at: 4001.minutes.ago)
       @ca_orderitem_2 = create(:order_item, order: @ca_order_1, item: @merch4_item_1, quantity: 3, sale_price: 3, created_at: 12000.minutes.ago, updated_at: 7000.minutes.ago)
@@ -112,6 +111,7 @@ RSpec.describe User, type: :model do
       @co_orderitem_4 = create(:order_item, order: @co_order_3, item: @merch8_item, quantity: 1, sale_price: 1, created_at: 4000.minutes.ago, updated_at: 3955.minutes.ago)
       @co_orderitem_5 = create(:order_item, order: @co_order_3, item: @merch9_item, quantity: 90, sale_price: 60, created_at: 5000.minutes.ago, updated_at: 4900.minutes.ago)
       @co_orderitem_6 = create(:order_item, order: @co_order_3, item: @merch1_item_1, quantity: 35, sale_price: 25, created_at: 4000.minutes.ago, updated_at: 1700.minutes.ago)
+      @co_orderitem_7 = create(:order_item, order: @co_order_4, item: @merch3_item_1, quantity: 1, sale_price: 1, created_at: 4000.minutes.ago, updated_at: 1000.minutes.ago)
 
       @pa_orderitem_1 = create(:order_item, order: @pa_order_1, item: @merch8_item, quantity: 1, sale_price: 6, created_at: 4000.minutes.ago, updated_at: 3952.minutes.ago)
       @pa_orderitem_2 = create(:order_item, order: @pa_order_2, item: @merch9_item, quantity: 99, sale_price: 60, created_at: 5001.minutes.ago, updated_at: 4900.minutes.ago)
@@ -140,8 +140,22 @@ RSpec.describe User, type: :model do
     end
 
     it '::fastest_fulfillments' do
-      expected = [@merch_2, @merch_6, @merch_8]
+      expected = [@merch_8, @merch_6, @merch_2]
       actual = User.fastest_fulfillments
+
+      expect(actual).to eq(expected)
+    end
+
+    it '::slowest_fulfillments' do
+      expected = [@merch_7, @merch_4, @merch_3]
+      actual = User.slowest_fulfillments
+
+      expect(actual).to eq(expected)
+    end
+
+    it '::most_orders_by_state' do
+      expected = [1]
+      actual = User.most_orders_by_state
 
       expect(actual).to eq(expected)
     end
@@ -149,60 +163,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "Instance Methods" do
-
-    describe '#total_revenue' do
-      it 'returns the total revenue for a merchant' do
-
-        merchant = create(:merchant)
-
-        item_1, item_2, item_3, item_4, item_5, item_6 = create_list(:item, 6, user: merchant)
-
-        order = create(:order, status: 1)
-
-        order_item_1 = create(:order_item, order: order, item: item_1)
-        order_item_2 = create(:order_item, order: order, item: item_2)
-        order_item_3 = create(:order_item, order: order, item: item_3)
-        order_item_4 = create(:order_item, order: order, item: item_4)
-        order_item_5 = create(:order_item, order: order, item: item_5)
-        order_item_6 = create(:order_item, order: order, item: item_6)
-
-        expected = order.order_items.sum do |oi|
-          oi.quantity * oi.sale_price
-        end
-        actual = merchant.total_revenue
-
-        expect(actual).to eq(expected)
-      end
-    end
-
-    describe '#avg_delivery' do
-      it 'returns an average delivery time' do
-
-        merchant = create(:merchant)
-
-        item_1, item_2, item_3, item_4, item_5 = create_list(:item, 5, user: merchant)
-
-        order_1 = create(:order, status: 1, created_at: 10.minutes.ago, updated_at: 5.minutes.ago)
-        order_2 = create(:order, status: 1, created_at: 25.minutes.ago, updated_at: 5.minutes.ago)
-        order_3 = create(:order, status: 1, created_at: 75.minutes.ago, updated_at: 5.minutes.ago)
-        order_4 = create(:order, status: 1, created_at: 105.minutes.ago, updated_at: 100.minutes.ago)
-        order_5 = create(:order, status: 0, created_at: 113.minutes.ago, updated_at: 100.minutes.ago)
-
-        order_item_1 = create(:order_item, order: order_1, item: item_1)
-        order_item_2 = create(:order_item, order: order_2, item: item_2)
-        order_item_3 = create(:order_item, order: order_3, item: item_3)
-        order_item_4 = create(:order_item, order: order_4, item: item_4)
-        order_item_5 = create(:order_item, order: order_5, item: item_5)
-
-        completed_orders = [order_1, order_2, order_3, order_4]
-
-        expected = 100
-        actual = merchant.avg_delivery
-
-        expect(actual).to eq(expected)
-
-      end
-    end
 
     it "#change_status" do
       user = User.create!(name: "April",

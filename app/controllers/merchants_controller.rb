@@ -7,6 +7,9 @@ class MerchantsController < ApplicationController
     else
       @users = User.where(role: 1).where(activation_status: 0)
     end
+    @best_revenue_merchants = User.highest_revenues
+    @fastest_merchants = User.fastest_fulfillments
+    @slowest_merchants = User.slowest_fulfillments
   end
 
   def show
