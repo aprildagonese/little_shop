@@ -28,6 +28,8 @@ RSpec.describe 'as an admin', type: :feature do
     it "sees order information" do
       visit admin_order_path(@order_1)
 
+      expect(current_path).to eq("/admin/orders/#{@order_1.id}")
+
       within "#order-#{@order_1.id}" do
         expect(page).to have_content("Order ID: #{@order_1.id}")
         expect(page).to have_content("Placed on: #{@order_1.created_at}")
@@ -35,6 +37,28 @@ RSpec.describe 'as an admin', type: :feature do
         expect(page).to have_content("Item Count: #{@order_1.item_count}")
         expect(page).to have_content("Order Total: $#{@order_1.total_cost}.00")
         expect(page).to have_content("Order Status: Pending")
+      end
+
+      within ".order-items" do
+        expect(page).to have_content("Order Items:")
+
+        within ".id-#{@oi1.id}-row" do
+          expect(page).to have_css("img[src*='#{@oi1.item.image_url}']")
+          expect(page).to have_content("#{@oi1.item.title}")
+          expect(page).to have_content("#{@oi1.item.description}")
+          expect(page).to have_content("Sale Price: $2.00")
+          expect(page).to have_content("Qty: #{@oi1.quantity}")
+          expect(page).to have_content("Item Subtotal: $10.00")
+        end
+
+        within ".id-#{@oi2.id}-row" do
+          expect(page).to have_css("img[src*='#{@oi2.item.image_url}']")
+          expect(page).to have_content("#{@oi2.item.title}")
+          expect(page).to have_content("#{@oi2.item.description}")
+          expect(page).to have_content("Sale Price: $3.00")
+          expect(page).to have_content("Qty: #{@oi2.quantity}")
+          expect(page).to have_content("Item Subtotal: $15.00")
+        end
       end
 
       expect(page).to_not have_content("Order ID: #{@order_2.id}")
