@@ -16,7 +16,7 @@ RSpec.describe "As an admin", type: :feature do
       click_button "Disable"
 
       expect(current_path).to eq(admin_merchants_path)
-      
+
     end
   end
 end
