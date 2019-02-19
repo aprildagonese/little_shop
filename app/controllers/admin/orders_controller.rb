@@ -12,10 +12,10 @@ class Admin::OrdersController < Admin::BaseController
 
   def destroy
     order = Order.find(params[:id])
-    @user = User.find(order.user_id)
+    @user = order.user
     order.cancel
     order.save
-    redirect_to admin_user_path(@user)
+    redirect_to admin_orders_path(user_id: @user)
     flash[:notice] = "Order #{order.id} has been cancelled."
   end
 

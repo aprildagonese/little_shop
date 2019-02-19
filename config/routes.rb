@@ -21,6 +21,7 @@ put '/profile', to: 'users#update'
 
 get '/profile/orders', to: 'users/orders#index'
 patch '/profile/orders', to: 'users/orders#update'
+delete '/profile/orders', to: 'users/orders#destroy'
 get '/profile/orders/:id', to: 'users/orders#show', as: 'profile_order'
 
 resources :users, only: [:show, :index, :create, :update] do
