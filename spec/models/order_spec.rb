@@ -77,9 +77,9 @@ RSpec.describe Order, type: :model do
       @order_item_5 = create(:order_item, item: @item_5, order: @order)
       @order_item_6 = create(:order_item, item: @item_6, order: @order)
       @order_item_7 = create(:order_item, item: @item_7, order: @order)
-      @order_item_8 = create(:order_item, item: @item_8, order: @order)
-      @order_item_9 = create(:order_item, item: @item_9, order: @order)
-      @order_item_10 = create(:order_item, item: @item_10, order: @order)
+      @order_item_8 = create(:order_item, item: @item_8, order: @order, fulfillment_status: 1)
+      @order_item_9 = create(:order_item, item: @item_9, order: @order, fulfillment_status: 1)
+      @order_item_10 = create(:order_item, item: @item_10, order: @order, fulfillment_status: 1)
     end
 
     it '#item_count' do
@@ -106,7 +106,16 @@ RSpec.describe Order, type: :model do
       actual = @order.cancelled?
 
       expect(actual).to eq(expected)
+    end
 
+    it '#cancel' do
+      @order.cancel
+
+      expect(@order.status).to eq("cancelled")
+
+      @order.order_items.each do |order_item|
+        expect(order_item.fulfillment_status).to eq("unfulfilled")
+      end
     end
 
   end

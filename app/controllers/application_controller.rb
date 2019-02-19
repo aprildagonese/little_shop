@@ -32,6 +32,10 @@ class ApplicationController < ActionController::Base
     render file: "/public/404" unless current_merchant?
   end
 
+#   def require_registered_or_admin
+#     render file: "/public/404" unless current_registered? || current_admin?
+#   end
+
   def require_cart_access
     render file: "/public/404" unless current_user.nil? || current_user.registered?
   end
