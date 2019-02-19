@@ -80,7 +80,7 @@ RSpec.describe "as a merchant" do
     end
 
     it "top 5 items sold by quantity" do
-      # TODO: Check order 
+       # TODO: Check order
       expect(page).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
       expect(page).to have_content("#{@item6.title}: #{@item6.units_sold} units sold")
       expect(page).to have_content("#{@item5.title}: #{@item5.units_sold} units sold")
@@ -93,8 +93,9 @@ RSpec.describe "as a merchant" do
     end
 
     it 'sees top 3 states and quantities' do
-      within ''
-      expect(page).to have_content
+      within '#top_states'
+      expect(page).to have_content("Top 3 Where Items Were Shipped")
+      expect(page).to have_content()
     end
   end
 end
