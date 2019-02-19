@@ -139,6 +139,13 @@ RSpec.describe User, type: :model do
       expect(actual).to eq(expected)
     end
 
+    it '::fastest_fulfillments' do
+      expected = [@merch_2, @merch_6, @merch_8]
+      actual = User.fastest_fulfillments
+
+      expect(actual).to eq(expected)
+    end
+
   end
 
   describe "Instance Methods" do
@@ -147,13 +154,10 @@ RSpec.describe User, type: :model do
       it 'returns the total revenue for a merchant' do
 
         merchant = create(:merchant)
-        other_merchant = create(:merchant)
 
         item_1, item_2, item_3, item_4, item_5, item_6 = create_list(:item, 6, user: merchant)
-        item_7 = create(:item, user: other_merchant)
 
         order = create(:order, status: 1)
-        other_order = create(:order, status: 1)
 
         order_item_1 = create(:order_item, order: order, item: item_1)
         order_item_2 = create(:order_item, order: order, item: item_2)
@@ -162,14 +166,41 @@ RSpec.describe User, type: :model do
         order_item_5 = create(:order_item, order: order, item: item_5)
         order_item_6 = create(:order_item, order: order, item: item_6)
 
-        order_item_7 = create(:order_item, order: other_order, item: item_7)
-
         expected = order.order_items.sum do |oi|
           oi.quantity * oi.sale_price
         end
         actual = merchant.total_revenue
 
         expect(actual).to eq(expected)
+      end
+    end
+
+    describe '#avg_delivery' do
+      it 'returns an average delivery time' do
+
+        merchant = create(:merchant)
+
+        item_1, item_2, item_3, item_4, item_5 = create_list(:item, 5, user: merchant)
+
+        order_1 = create(:order, status: 1, created_at: 10.minutes.ago, updated_at: 5.minutes.ago)
+        order_2 = create(:order, status: 1, created_at: 25.minutes.ago, updated_at: 5.minutes.ago)
+        order_3 = create(:order, status: 1, created_at: 75.minutes.ago, updated_at: 5.minutes.ago)
+        order_4 = create(:order, status: 1, created_at: 105.minutes.ago, updated_at: 100.minutes.ago)
+        order_5 = create(:order, status: 0, created_at: 113.minutes.ago, updated_at: 100.minutes.ago)
+
+        order_item_1 = create(:order_item, order: order_1, item: item_1)
+        order_item_2 = create(:order_item, order: order_2, item: item_2)
+        order_item_3 = create(:order_item, order: order_3, item: item_3)
+        order_item_4 = create(:order_item, order: order_4, item: item_4)
+        order_item_5 = create(:order_item, order: order_5, item: item_5)
+
+        completed_orders = [order_1, order_2, order_3, order_4]
+
+        expected = 100
+        actual = merchant.avg_delivery
+
+        expect(actual).to eq(expected)
+
       end
     end
 
