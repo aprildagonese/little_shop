@@ -30,10 +30,20 @@ class User < ApplicationRecord
 
   def top_states(limit)
      User.joins(orders: {order_items: :item})
-      .select('users.state, SUM(order_items.quantity) AS total_items')
-      .where(items: {user_id: self.id}, order_items: {fulfillment_status: 1})
-      .group(:state)
-      .order('total_items desc')
-      .limit(limit)
+          .select('users.state, SUM(order_items.quantity) AS total_items')
+          .where(items: {user_id: self.id}, order_items: {fulfillment_status: 1})
+          .group(:state)
+          .order('total_items desc')
+          .limit(limit)
   end
+
+  def top_city_states(limit)
+    User.joins(orders: {order_items: :item})
+        .select('users.city, users.state, SUM(order_items.quantity) AS total_items')
+        .where(items: {user_id: self.id}, order_items: {fulfillment_status: 1})
+        .group(:city, :state)
+        .order('total_items desc')
+        .limit(limit)
+  end
+
 end

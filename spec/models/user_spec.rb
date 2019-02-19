@@ -99,8 +99,8 @@ RSpec.describe User, type: :model do
         @item1, @item2 = create_list(:item, 2, user: @merch1)
         @item3 = create(:item, user: @merch2)
         @order1, @order2 = create_list(:order, 2, user: @user1)
-        @order3, @order4 = create_list(:order, 2, user: @user2)
-        @order5 = create(:order, user: @user3)
+        @order3, @order4, @order5 = create_list(:order, 3, user: @user2)
+        @order6 = create(:order, user: @user3)
         @oi1 = create(:fulfilled_order_item, order: @order1, item: @item1, quantity: 1)
         @oi2 = create(:order_item, order: @order1, item: @item2, quantity: 2)
         @oi3 = create(:order_item, order: @order1, item: @item3, quantity: 3)
@@ -116,6 +116,7 @@ RSpec.describe User, type: :model do
         @oi13 = create(:fulfilled_order_item, order: @order5, item: @item1, quantity: 13)
         @oi14 = create(:order_item, order: @order5, item: @item2, quantity: 14)
         @oi15 = create(:order_item, order: @order5, item: @item3, quantity: 15)
+        @oi16 = create(:fulfilled_order_item, order: @order6, item: @item1, quantity: 16)
       end
 
       it "#total_sold_quantity should get merchant's sum of all quantities sold for all items" do
@@ -153,11 +154,24 @@ RSpec.describe User, type: :model do
       it '#top_states shows the top 3 states for that user and their quantities' do
         expected = @merch1.top_states(3)
 
-        expect(expected[1].state).to eq(@user2.state)
-        expect(expected[1].total_items).to eq(17)
+        expect(expected[0].state).to eq(@user2.state)
+        expect(expected[0].total_items).to eq(30)
 
-        expect(expected[0].state).to eq(@user1.state)
-        expect(expected[0].total_items).to eq(18)
+        expect(expected[1].state).to eq(@user1.state)
+        expect(expected[1].total_items).to eq(21)
+
+      end
+
+      it '#top_city_states shows the top 3 city, states for that merchant and their quantities' do
+        expected = @merch1.top_city_states(3)
+        
+        expect(expected[0].city).to eq(@user2.city)
+        expect(expected[1].city).to eq(@user3.city)
+        expect(expected[2].city).to eq(@user1.city)
+
+        expect(expected[0].total_items).to eq(30)
+        expect(expected[1].total_items).to eq(16)
+        expect(expected[2].total_items).to eq(5)
 
       end
     end

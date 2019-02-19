@@ -103,11 +103,18 @@ RSpec.describe "as a merchant" do
 
     it 'sees top 3 states and quantities' do
       within '#top_states' do
-        save_and_open_page
         expect(page).to have_content("Top 3 States Where Items Were Shipped")
-        expect(page).to have_content("IL (6 items shipped)")
+        expect(page).to have_content("MO (6 items shipped)")
         expect(page).to have_content("PA (2 items shipped)")
-        expect(page).to have_content("MO (1 item shipped)")
+        expect(page).to have_content("IL (1 item shipped)")
+      end
+    end
+
+    it 'sees top 3 city, states and their quantities' do
+      save_and_open_page
+      within '#top_city_states' do
+        expect(page).to have_content("Top 3 Cities Where Items Were Shipped")
+        expect(page).to have_content("Springfield, MO (6 items shipped)")
       end
     end
   end

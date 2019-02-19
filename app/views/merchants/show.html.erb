@@ -13,7 +13,16 @@
   <h3>Top 3 States Where Items Were Shipped</h3>
   <ol>
     <% @top_three_states.each do |state| %>
-      <li><%= state.state %> ( <%= pluralize(state.total_items, 'item') %> shipped)</li>
+      <li><%= state.state %> (<%= pluralize(state.total_items, 'item') %> shipped)</li>
+    <% end %>
+  </ol>
+</section>
+
+<section id="top_city_states">
+  <h3>Top 3 Cities Where Items Were Shipped</h3>
+  <ol>
+    <% @top_three_city_states.each do |city| %>
+      <li><%= city.city %>, <%= city.state %> (<%= pluralize(city.total_items, 'item') %> shipped)</li>
     <% end %>
   </ol>
 </section>
