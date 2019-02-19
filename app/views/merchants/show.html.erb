@@ -2,14 +2,17 @@
 <%= render 'orderslist' %>
 
 <!---Statistics--->
-<h3>Top 5 Items Sold by Quantity</h3>
-<% @top_five.each do |item| %>
-  <li><%= item.title %>: <%= item.units_sold %> units sold</li>
-<% end  %>
-<h3>Total Quantity of Items Sold</h3>
+<section id= 'top-items'>
+  <h3>Top 5 Items Sold by Quantity</h3>
+  <% @top_five.each do |item| %>
+    <li><%= item.title %>: <%= item.units_sold %> units sold</li>
+  <% end  %>
+  <h3>Total Quantity of Items Sold</h3>
+</section>
+
 <p>Sold <%= Item.total_sold_quantity(@user) %> items, which is <%= Item.percent_sold(@user) %>% of your total inventory</p>
 
-<section id='top_states'>
+<section id='top-states'>
   <h3>Top 3 States Where Items Were Shipped</h3>
   <ol>
     <% @top_three_states.each do |state| %>
@@ -18,10 +21,10 @@
   </ol>
 </section>
 
-<section id="top_city_states">
+<section id="top-cities">
   <h3>Top 3 Cities Where Items Were Shipped</h3>
   <ol>
-    <% @top_three_city_states.each do |city| %>
+    <% @top_three_cities.each do |city| %>
       <li><%= city.city %>, <%= city.state %> (<%= pluralize(city.total_items, 'item') %> shipped)</li>
     <% end %>
   </ol>
