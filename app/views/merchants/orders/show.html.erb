@@ -24,6 +24,9 @@
         <p>Qty: <%= order_item.quantity %></p>
         <p>Item Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
         <p>Order Status: <%= order_item.fulfillment_status.capitalize %></p>
+        <% if order_item.fulfillment_status == "pending" %>
+          <%= button_to "Fulfill Item", dashboard_order_item_path(order_item) %>
+        <% end %>
       </section>
     </section>
   <% end %>

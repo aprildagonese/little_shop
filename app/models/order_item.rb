@@ -19,4 +19,11 @@ class OrderItem < ApplicationRecord
     self.fulfillment_status = 2
   end
 
+  def in_stock?
+    quantity >= item.quantity
+  end
+
+  def fulfull_order_item
+  end
+
 end

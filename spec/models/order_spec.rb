@@ -66,7 +66,7 @@ RSpec.describe Order, type: :model do
       @user = create(:user)
       @merchant = create(:user, role: 1)
 
-      @item_1, @item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10 = create_list(:item, 10, user: @merchant)
+      @item_1, @item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10 = create_list(:item, 10, user: @merchant, quantity: 5)
 
       @order = create(:order, user: @user)
 
@@ -113,6 +113,19 @@ RSpec.describe Order, type: :model do
       @order.order_items.each do |order_item|
         expect(order_item.fulfillment_status).to eq("unfulfilled")
       end
+    end
+
+    it '#in_stock?' do
+      expect(@order_item_1.in_stock?).to eq(true)
+      expect(@order_item_2.in_stock?).to eq(true)
+      expect(@order_item_3.in_stock?).to eq(true)
+      expect(@order_item_4.in_stock?).to eq(true)
+      expect(@order_item_5.in_stock?).to eq(true)
+      expect(@order_item_6.in_stock?).to eq(true)
+      expect(@order_item_7.in_stock?).to eq(true)
+      expect(@order_item_8.in_stock?).to eq(true)
+      expect(@order_item_9.in_stock?).to eq(true)
+      expect(@order_item_10.in_stock?).to eq(true)
     end
 
   end
