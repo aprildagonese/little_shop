@@ -23,7 +23,10 @@ class OrderItem < ApplicationRecord
     item.quantity >= self.quantity
   end
 
-  def fulfull_order_item
+  def fulfill_order_item
+    update_attribute(:fulfillment_status, 1)
+    new_quantity = item.quantity - quantity
+    item.update_attribute(:quantity, new_quantity)
   end
 
 end
