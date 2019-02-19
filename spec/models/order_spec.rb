@@ -57,40 +57,6 @@ RSpec.describe Order, type: :model do
       expect(Order.find_orders(merchant1)).to eq(expected1)
       expect(Order.find_orders(merchant2)).to eq(expected2)
     end
-
-    it ".user_by_most_orders" do
-      Faker::UniqueGenerator.clear
-      merchant1, merchant2 = create_list(:user, 2, role: 1)
-      user1, user2 = create_list(:user, 2, role: 0)
-      item1, item2, item3 = create_list(:item, 3, user: merchant1)
-      item4, item5 = create_list(:item, 2, user: merchant2)
-
-      order1 = create(:order, user: user1) #user1 orders from merch1
-      oi1 = create(:order_item, order: order1, item: item1, status: 1)
-
-      order2 = create(:order, user: user2) #user2 orders from both
-      oi2 = create(:order_item, order: order2, item: item3, status: 1)
-      oi3 = create(:order_item, order: order2, item: item5, status: 1)
-
-      order3 = create(:order, user: user2) #user2 orders from both
-      oi4 = create(:order_item, order: order3, item: item2)
-      oi5 = create(:order_item, order: order3, item: item4, status: 1)
-
-      order4 = create(:order, user: user1) #user1 orders from merch1
-      oi5 = create(:order_item, order: order4, item: item1)
-      oi6 = create(:order_item, order: order4, item: item2)
-
-      order5 = create(:order, user: user2) #user2 orders from merch2
-      oi7 = create(:order_item, order: order5, item: item4)
-      oi8 = create(:order_item, order: order5, item: item5, status: 1)
-
-      order6 = create(:order, user: user2) #user1 orders from merch1
-      oi7 = create(:order_item, order: order6, item: item1)
-      oi8 = create(:order_item, order: order6, item: item2, status: 1)
-
-      expect(Order.user_by_most_orders(merchant1)).to eq(@user1)
-      expect(Order.user_by_most_orders(merchant2)).to eq(@user2)
-    end
   end
 
   describe 'instance methods' do
