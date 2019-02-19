@@ -12,7 +12,7 @@ class OrderItem < ApplicationRecord
 
   def cancel_item
     if fulfilled?
-      item.quantity = item.quantity + quantity
+      item.quantity += quantity
       item.save
     end
 
