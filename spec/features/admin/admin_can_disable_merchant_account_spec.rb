@@ -15,7 +15,7 @@ RSpec.describe "As an admin", type: :feature do
       click_button "Disable"
 
       expect(current_path).to eq(admin_merchants_path)
-      expect(page).to have_content("#{@merchant.name} has been disabled")
+      expect(page).to have_content("#{@merchant.name} has been disabled.")
     end
   end
   context 'merchant can no longer log in after disabled by admin' do
