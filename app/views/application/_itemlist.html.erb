@@ -9,7 +9,7 @@
 
     <div class="middle-column">
       <%= link_to item.title, item_path(item) %>
-      <p>Current Price: $<%= item.price %></p>
+      <p>Current Price: <%= number_to_currency(item.price) %></p>
       <% if @view!="Cart" %>
         <p>Qty: <%= item.quantity %></p>
       <% end %>

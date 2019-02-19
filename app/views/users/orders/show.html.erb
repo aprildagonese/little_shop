@@ -7,8 +7,8 @@
       <a>Placed on: <%= @order.created_at %></a>
       <a>Last Updated on: <%= @order.updated_at %></a>
       <a>Item Count: <%= @order.item_count %></a>
-      <a>Order Total: <%= @order.total_cost %></a>
-      <a>Order Status: <%= @order.status %></a>
+      <a>Order Total: <%= number_to_currency(@order.total_cost) %></a>
+      <a>Order Status: <%= @order.status.capitalize %></a>
       <% if @order.pending? %>
         <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: @order.id} %>
       <% end %>
