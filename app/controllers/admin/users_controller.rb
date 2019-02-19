@@ -26,6 +26,17 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def activation
+    @user = User.find(params[:user_id])
+    @user.change_status
+    if @user.merchant?
+      redirect_to admin_merchants_path
+    elsif @user.registered?
+      redirect_to admin_users_path
+    end
+    flash[:alert] = "User #{@user.name}'s account has been disabled."
+  end
+
   private
 
   def user_params
