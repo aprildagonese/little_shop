@@ -2,7 +2,9 @@
 <section class='merchant-stats'>
   <section id='peoples-choice'>
     <h4>People's Choice</h4>
-
+    <% @users.highest_revenues.each do |merchant| %>
+      <p><%= merchant.name %>, Revenue: <%= merchant.total_revenue %></p>
+    <% end %>
   </section>
   <section id='fast-food'>
     <h4>Fast Food</h4>
@@ -22,7 +24,7 @@
   </section>
   <section id='biggest-appetites'>
     <h4>Biggest Appetites</h4>
-    
+
   </section>
 </section>
 
