@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "As an admin", type: :feature do
   before :each do
+    Faker::UniqueGenerator.clear
+
     @admin = create(:user, role: 2)
     login_as(@admin)
 
@@ -11,8 +13,9 @@ RSpec.describe "As an admin", type: :feature do
   context 'when it visits the merchant index page' do
     it "can click on a merchant's name and is take to the admin merchant show page" do
       visit merchants_path
+      
       click_link @merchant.name
-
+      
       expect(current_path).to eq(admin_merchant_path(@merchant))
       expect(page).to have_content("Name: #{@merchant.name}")
       expect(page).to have_content("Address: #{@merchant.street_address}")

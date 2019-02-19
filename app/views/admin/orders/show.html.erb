@@ -1,0 +1,22 @@
+<ul class='orders-list'>
+  <li id="order-<%= @order.id %>">
+    <section class="order-item-header">
+      <a>Order ID: <%= @order.id %></a>
+    </section>
+    <section class="order-item-info">
+      <a>Placed on: <%= @order.created_at %></a>
+      <a>Last Updated on: <%= @order.updated_at %></a>
+      <a>Item Count: <%= @order.item_count %></a>
+      <a>Order Total: <%= @order.total_cost %></a>
+      <a>Order Status: <%= @order.status %></a>
+      <% if @order.pending? %>
+        <%= button_to "Cancel Order", admin_order_path(@order), method: :delete %>
+      <% end %>
+    </section>
+  </li>
+</ul>
+
+<section class="order-items">
+  <p>Order Items:</p>
+  <%= render 'orderitemlist' %>
+</section>

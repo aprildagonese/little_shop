@@ -12,6 +12,7 @@
     <div class="right-column">
       <p><%= order_item.item.description %></p>
       <p>Item Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
+      <p>Item Status: <%= order_item.fulfillment_status.capitalize %></p>
     </div>
   </div>
   <% end %>
