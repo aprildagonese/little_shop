@@ -70,16 +70,16 @@ RSpec.describe Order, type: :model do
 
       @order = create(:order, user: @user)
 
-      @order_item_1 = create(:order_item, item: @item_1, order: @order)
-      @order_item_2 = create(:order_item, item: @item_2, order: @order)
-      @order_item_3 = create(:order_item, item: @item_3, order: @order)
-      @order_item_4 = create(:order_item, item: @item_4, order: @order)
-      @order_item_5 = create(:order_item, item: @item_5, order: @order)
-      @order_item_6 = create(:order_item, item: @item_6, order: @order)
-      @order_item_7 = create(:order_item, item: @item_7, order: @order)
-      @order_item_8 = create(:order_item, item: @item_8, order: @order, fulfillment_status: 1)
-      @order_item_9 = create(:order_item, item: @item_9, order: @order, fulfillment_status: 1)
-      @order_item_10 = create(:order_item, item: @item_10, order: @order, fulfillment_status: 1)
+      @order_item_1 = create(:order_item, item: @item_1, order: @order, sale_price: 5, quantity: 1)
+      @order_item_2 = create(:order_item, item: @item_2, order: @order, sale_price: 5, quantity: 2)
+      @order_item_3 = create(:order_item, item: @item_3, order: @order, sale_price: 5, quantity: 3)
+      @order_item_4 = create(:order_item, item: @item_4, order: @order, sale_price: 5, quantity: 4)
+      @order_item_5 = create(:order_item, item: @item_5, order: @order, sale_price: 5, quantity: 5)
+      @order_item_6 = create(:order_item, item: @item_6, order: @order, sale_price: 5, quantity: 6)
+      @order_item_7 = create(:order_item, item: @item_7, order: @order, sale_price: 5, quantity: 7)
+      @order_item_8 = create(:order_item, item: @item_8, order: @order, sale_price: 5, quantity: 8, fulfillment_status: 1)
+      @order_item_9 = create(:order_item, item: @item_9, order: @order, sale_price: 5, quantity: 9, fulfillment_status: 1)
+      @order_item_10 = create(:order_item, item: @item_10, order: @order, sale_price: 5, quantity: 10, fulfillment_status: 1)
     end
 
     it '#item_count' do
@@ -91,12 +91,9 @@ RSpec.describe Order, type: :model do
     end
 
     it '#total_cost' do
-
-      expected = OrderItem.sum(:sale_price)
       actual = @order.total_cost
 
-      expect(actual).to eq(expected)
-
+      expect(actual).to eq(275)
     end
 
     it '#change_status' do
