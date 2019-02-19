@@ -20,7 +20,7 @@
     <% end %>
 
     <% unless item.ordered? %>
-      <%= button_to "Delete", dashboard_items_path(item), method: :delete %>
+      <%= button_to "Delete", delete_dashboard_item_path(item), method: :delete %>
     <% end %>
 
   </section>

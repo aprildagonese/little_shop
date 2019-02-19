@@ -20,4 +20,11 @@ class Merchants::ItemsController < Merchants::BaseController
     end
   end
 
+  def destroy
+    item = Item.find(params[:id])
+    item.delete
+    redirect_to dashboard_items_path
+    flash[:alert] = "#{item.title} has been deleted."
+  end
+
 end
