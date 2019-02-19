@@ -80,6 +80,7 @@ RSpec.describe "as a merchant" do
     end
 
     it "top 5 items sold by quantity" do
+      # TODO: Check order 
       expect(page).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
       expect(page).to have_content("#{@item6.title}: #{@item6.units_sold} units sold")
       expect(page).to have_content("#{@item5.title}: #{@item5.units_sold} units sold")
@@ -89,6 +90,11 @@ RSpec.describe "as a merchant" do
 
     it "total quantity of items sold" do
       expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{Item.percent_sold(@merchant)}% of your total inventory")
+    end
+
+    it 'sees top 3 states and quantities' do
+      within ''
+      expect(page).to have_content
     end
   end
 end

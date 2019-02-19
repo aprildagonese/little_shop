@@ -93,5 +93,4 @@ RSpec.describe 'as a merchant' do
 
     end
   end
-
 end
