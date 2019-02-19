@@ -33,8 +33,8 @@ RSpec.describe 'as an admin', type: :feature do
         expect(page).to have_content("Placed on: #{@order_1.created_at}")
         expect(page).to have_content("Last Updated on: #{@order_1.updated_at}")
         expect(page).to have_content("Item Count: #{@order_1.item_count}")
-        expect(page).to have_content("Order Total: #{@order_1.total_cost}")
-        expect(page).to have_content("Order Status: pending")
+        expect(page).to have_content("Order Total: $#{@order_1.total_cost}.00")
+        expect(page).to have_content("Order Status: Pending")
       end
 
       expect(page).to_not have_content("Order ID: #{@order_2.id}")
@@ -57,17 +57,17 @@ RSpec.describe 'as an admin', type: :feature do
 
         within "#order-#{@order_1.id}" do
           expect(page).to have_content("Order ID: #{@order_1.id}")
-          expect(page).to have_content("Order Status: pending")
+          expect(page).to have_content("Order Status: Pending")
         end
 
         within "#order-#{@order_2.id}" do
           expect(page).to have_content("Order ID: #{@order_2.id}")
-          expect(page).to have_content("Order Status: pending")
+          expect(page).to have_content("Order Status: Pending")
         end
 
         within "#order-#{@order_3.id}" do
           expect(page).to have_content("Order ID: #{@order_3.id}")
-          expect(page).to have_content("Order Status: fulfilled")
+          expect(page).to have_content("Order Status: Fulfilled")
         end
 
         click_link("Order ID: #{@order_1.id}")
@@ -76,7 +76,7 @@ RSpec.describe 'as an admin', type: :feature do
 
         within "#order-#{@order_1.id}" do
           expect(page).to have_content("Order ID: #{@order_1.id}")
-          expect(page).to have_content("Order Status: pending")
+          expect(page).to have_content("Order Status: Pending")
         end
 
         within ".id-#{@oi1.id}-row" do
@@ -96,6 +96,8 @@ RSpec.describe 'as an admin', type: :feature do
 
         expect(current_path).to eq(admin_user_path(@user))
 
+        expect(page).to have_content("Order #{@order_1.id} has been cancelled.")
+
         click_button 'User Orders'
 
         expect(current_path).to eq(admin_orders_path)
@@ -104,17 +106,17 @@ RSpec.describe 'as an admin', type: :feature do
 
         within "#order-#{@order_1.id}" do
           expect(page).to have_content("Order ID: #{@order_1.id}")
-          expect(page).to have_content("Order Status: cancelled")
+          expect(page).to have_content("Order Status: Cancelled")
         end
 
         within "#order-#{@order_2.id}" do
           expect(page).to have_content("Order ID: #{@order_2.id}")
-          expect(page).to have_content("Order Status: pending")
+          expect(page).to have_content("Order Status: Pending")
         end
 
         within "#order-#{@order_3.id}" do
           expect(page).to have_content("Order ID: #{@order_3.id}")
-          expect(page).to have_content("Order Status: fulfilled")
+          expect(page).to have_content("Order Status: Fulfilled")
         end
 
         click_link("Order ID: #{@order_1.id}")
@@ -123,7 +125,7 @@ RSpec.describe 'as an admin', type: :feature do
 
         within "#order-#{@order_1.id}" do
           expect(page).to have_content("Order ID: #{@order_1.id}")
-          expect(page).to have_content("Order Status: cancelled")
+          expect(page).to have_content("Order Status: Cancelled")
         end
 
         within ".id-#{@oi1.id}-row" do
@@ -154,7 +156,7 @@ RSpec.describe 'as an admin', type: :feature do
       it "doesn't see cancel order button" do
         visit admin_order_path(@order_3)
 
-        expect(page).to have_content("Order Status: fulfilled")
+        expect(page).to have_content("Order Status: Fulfilled")
         expect(page).to_not have_button("Cancel Order")
       end
     end

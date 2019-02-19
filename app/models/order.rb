@@ -18,7 +18,7 @@ class Order < ApplicationRecord
   end
 
   def total_cost
-    order_items.sum(:sale_price)
+    order_items.sum("sale_price * quantity")
   end
 
   def change_status
