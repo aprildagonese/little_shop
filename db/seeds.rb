@@ -69,7 +69,7 @@ item_images = ["https://www.sprinklesandsprouts.com/wp-content/uploads/2018/05/P
               ]
 
 all_merchants = []
-2.times do
+5.times do
   name = Faker::Name.name
   street_address = Faker::Address.street_address
   city = Faker::Address.city
