@@ -17,6 +17,7 @@ RSpec.describe "As an admin", type: :feature do
       visit admin_merchants_path
 
       within ".user-#{@merchant1.id}-row" do
+        expect(page).to have_button("Disable")
         click_button "Disable"
       end
 
