@@ -22,25 +22,25 @@ RSpec.describe "As an admin", type: :feature do
     before :each do
       Faker::UniqueGenerator.clear
       @admin1 = create(:user, role: 2, name: "Admin")
-      @merchant1 = create(:merchant, name: "Merchant")
-      @merchant2, @merchant3 = create_list(:merchant)
+      @merchant1 = create(:user, role: 1, name: "Merchant")
+      @merchant2, @merchant3 = create_list(:user, 2, role: 1)
     end
     it 'sees a flash error when trying to log in' do
       login_as(@merchant1)
-      expect(current_path).to eq(dashboard_path(@merchant1))
+      expect(current_path).to eq(dashboard_path)
       expect(page).to have_content("#{@merchant1.name}")
-      logout_as(@merchant1)
+      click_on("Log Out")
 
       login_as(@admin1)
       visit admin_merchants_path
       within ".user-#{@merchant1.id}-row" do
         click_button("Disable")
       end
-      expect(page).to have_content("#{@merchant.name} has been disabled")
+      expect(page).to have_content("#{@merchant1.name} has been disabled")
       within ".user-#{@merchant1.id}-row" do
         expect(page).to have_button("Enable")
       end
-      logout_as(@admin1)
+      click_on("Log Out")
 
       visit login_path
       fill_in "Email", with: "#{@merchant1.email}"

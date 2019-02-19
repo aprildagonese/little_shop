@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       elsif user.admin?
         redirect_to welcome_path
       end
-    elsif user.inactive?
+    elsif user && user.inactive?
       flash[:alert] = "This account has been disabled. Please contact an administrator to log in."
       render :new
     else
