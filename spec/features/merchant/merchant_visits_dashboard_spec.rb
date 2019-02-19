@@ -18,7 +18,7 @@ RSpec.describe "as a merchant" do
       expect(page).to_not have_button("Downgrade Merchant")
     end
 
-    it "it shows me orders with unfulfilled items" do
+    xit "it shows me orders with unfulfilled items" do
       Faker::UniqueGenerator.clear
       merchant1, merchant2 = create_list(:user, 2, role: 1)
       user1, user2 = create_list(:user, 2, role: 0)

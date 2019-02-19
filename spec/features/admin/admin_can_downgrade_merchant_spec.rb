@@ -27,6 +27,7 @@ RSpec.describe "As an admin", type: :feature do
         expect(current_path).to eq(admin_user_path(@merchant))
 
         expect(page).to have_content("Merchant has been downgraded to a user")
+        expect(page).to_not have_button("Downgrade")
       end
 
       it 'no longer shows the newly downgraded merchant on the merchant index and they appear on the user index page instead' do

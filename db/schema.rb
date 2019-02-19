@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20190218180114) do
 
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,8 +35,8 @@ ActiveRecord::Schema.define(version: 20190218180114) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity"
+    t.integer "status", default: 0
     t.integer "fulfillment_status", default: 0
-
     t.index ["item_id"], name: "index_order_items_on_item_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end

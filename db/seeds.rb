@@ -7,10 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-require_relative '../app/models/user.rb'
-require_relative '../app/models/item.rb'
-require_relative '../app/models/order.rb'
-
 User.destroy_all
 Item.destroy_all
 Order.destroy_all
