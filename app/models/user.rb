@@ -29,9 +29,10 @@ class User < ApplicationRecord
   end
 
   def self.user_by_most_orders(merchant)
-    User.joins(orders: :items)
-        .select("users.*, count(orders.id) as user_orders")
-        .where(items: {user_id: merchant.id}, order_items: {status: 1})
+    User.joins("join orders on users.id = orders.user_id join order_items on orders.id = order_items.order_id")
+        .select("select users.name from users")
+        .select()
+        .where("where orders.user_id = ?", merchant.id)
         .group(:id)
         .order("user_orders asc")
         .first

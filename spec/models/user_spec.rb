@@ -61,15 +61,15 @@ RSpec.describe User, type: :model do
       item6, item7 = create_list(:item, 2, user: merchant3)
 
       order1 = create(:order, user: user1) #user1 orders from merch1
-      oi1 = create(:order_item, order: order1, item: item1, status: 1)
+      oi1 = create(:order_item, order: order1, item: item1, fulfillment_status: 1)
 
       order2 = create(:order, user: user2) #user2 orders from both
-      oi2 = create(:order_item, order: order2, item: item3, status: 1)
-      oi3 = create(:order_item, order: order2, item: item5, status: 1)
+      oi2 = create(:order_item, order: order2, item: item3, fulfillment_status: 1)
+      oi3 = create(:order_item, order: order2, item: item5, fulfillment_status: 1)
 
       order3 = create(:order, user: user2) #user2 orders from both
       oi4 = create(:order_item, order: order3, item: item2)
-      oi5 = create(:order_item, order: order3, item: item4, status: 1)
+      oi5 = create(:order_item, order: order3, item: item4, fulfillment_status: 1)
 
       order4 = create(:order, user: user1) #user1 orders from merch1
       oi5 = create(:order_item, order: order4, item: item1)
@@ -77,15 +77,15 @@ RSpec.describe User, type: :model do
 
       order5 = create(:order, user: user2) #user2 orders from merch2
       oi7 = create(:order_item, order: order5, item: item4)
-      oi8 = create(:order_item, order: order5, item: item5, status: 1)
+      oi8 = create(:order_item, order: order5, item: item5, fulfillment_status: 1)
 
       order6 = create(:order, user: user2) #user1 orders from merch1
       oi7 = create(:order_item, order: order6, item: item1)
-      oi8 = create(:order_item, order: order6, item: item2, status: 1)
+      oi8 = create(:order_item, order: order6, item: item2, fulfillment_status: 1)
 
       order7 = create(:order, user: user3)
-      oi9 = create(:order_item, order: order7, item: item6, status: 1)
-      oi10 = create(:order_item, order: order7, item: item7, status: 0)
+      oi9 = create(:order_item, order: order7, item: item6, fulfillment_status: 1)
+      oi10 = create(:order_item, order: order7, item: item7, fulfillment_status: 0)
 
       expect(User.user_by_most_orders(merchant1)).to eq(user1)
       expect(User.user_by_most_orders(merchant2)).to eq(user2)

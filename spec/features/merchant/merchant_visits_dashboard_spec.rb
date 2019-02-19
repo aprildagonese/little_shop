@@ -95,10 +95,9 @@ RSpec.describe "as a merchant" do
     end
 
     it "the user with the most orders from me" do
-      binding.pry
       login_as(@merchant)
       visit dashboard_path(@merchant)
-      save_and_open_page
+
       expect(page).to have_content("User With Most Orders: #{@user4.name} (#{@user4.orders.count} orders placed)")
     end
   end
