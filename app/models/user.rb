@@ -22,6 +22,15 @@ class User < ApplicationRecord
     .limit(3)
   end
 
+  def self.fastest_fulfillments
+    joins(items: :orders)
+    .select('users.*, AVG(order_items.updated_at - order_items.created_at) as avg_time')
+    .where(orders: {status: 1}, role: 1)
+    .group(:id)
+    .order('avg_time asc')
+    .limit(3)
+  end
+
   def change_status
     if activation_status == "active"
       update_attribute(:activation_status, 1)
@@ -42,4 +51,12 @@ class User < ApplicationRecord
          .where(orders: {status: 1})
          .sum('order_items.sale_price * order_items.quantity')
   end
+
+  def avg_delivery
+    items.joins(:orders)
+         .where(orders: {status: 1})
+         .select('orders.*, AVG(orders.updated_at - orders.created_at) AS avg_time')
+         .group(:order_id)
+  end
+
 end
