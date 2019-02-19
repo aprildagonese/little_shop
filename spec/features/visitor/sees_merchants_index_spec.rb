@@ -110,11 +110,12 @@ RSpec.describe "as a visitor" do
         expect(page).to have_content("#{@merch_1.name}, Revenue: #{@merch_1.total_revenue}")
         expect(page).to have_content("#{@merch_6.name}, Revenue: #{@merch_6.total_revenue}")
       end
+
       within "#fast-food" do
         expect(page).to have_content("Fast Food")
       # - top 3 merchants who were fastest at fulfilling items in an order, and their times
         expect(page).to have_content("#{@merch_2.name}, Avg. Delivery Time: #{@merch_2.avg_delivery}")
-        expect(page).to have_content("#{@merch_7.name}, Avg. Delivery Time: #{@merch_7.avg_delivery}")
+        expect(page).to have_content("#{@merch_6.name}, Avg. Delivery Time: #{@merch_6.avg_delivery}")
         expect(page).to have_content("#{@merch_8.name}, Avg. Delivery Time: #{@merch_8.avg_delivery}")
 
         expect(page).to_not have_content(@merch_9.name)
