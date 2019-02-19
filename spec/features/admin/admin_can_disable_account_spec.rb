@@ -46,7 +46,7 @@ RSpec.describe "As an admin", type: :feature do
       click_button("Log In")
 
       expect(current_path).to eq(login_path)
-      expect(page).to have_content("Login failed. Please check your email address and password.")
+      expect(page).to have_content("This account has been disabled. Please contact an administrator to log in.")
     end
   end
 end

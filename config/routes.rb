@@ -31,6 +31,8 @@ end
 get '/dashboard', to: 'merchants#show'
 get '/dashboard/items', to: 'merchants/items#index'
 put '/dashboard/items/:id/edit', to: "merchants/items#edit", as: 'dashboard_item'
+get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
+
 # get '/merchants', to: 'users#index'
 resources :merchants, only: [:index, :update]
 namespace :merchant do

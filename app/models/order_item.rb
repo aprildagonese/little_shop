@@ -7,7 +7,7 @@ class OrderItem < ApplicationRecord
   enum fulfillment_status: [:pending, :fulfilled, :unfulfilled]
 
   def subtotal
-    (quantity * sale_price).round(2)
+    (quantity * sale_price).round(2).to_i
   end
 
   def cancel_item
