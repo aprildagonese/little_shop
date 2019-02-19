@@ -164,7 +164,7 @@ RSpec.describe User, type: :model do
 
       it '#top_city_states shows the top 3 city, states for that merchant and their quantities' do
         expected = @merch1.top_city_states(3)
-        
+
         expect(expected[0].city).to eq(@user2.city)
         expect(expected[1].city).to eq(@user3.city)
         expect(expected[2].city).to eq(@user1.city)
@@ -179,5 +179,4 @@ RSpec.describe User, type: :model do
 end
 
 
-#- top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be grouped with Springfield, CO)
 #- top 3 users who have spent the most money on my items, and the total amount they've spent

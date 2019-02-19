@@ -89,13 +89,12 @@ RSpec.describe "as a merchant" do
     end
 
     it "top 5 items sold by quantity" do
-       # TODO: Check order
        within '#top-items' do
-        expect(page).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
-        expect(page).to have_content("#{@item6.title}: #{@item6.units_sold} units sold")
-        expect(page).to have_content("#{@item5.title}: #{@item5.units_sold} units sold")
-        expect(page).to have_content("#{@item4.title}: #{@item4.units_sold} units sold")
-        expect(page).to have_content("#{@item3.title}: #{@item3.units_sold} units sold")
+        expect(page.all('.item')[0]).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
+        expect(page.all('.item')[1]).to have_content("#{@item6.title}: #{@item6.units_sold} units sold")
+        expect(page.all('.item')[2]).to have_content("#{@item5.title}: #{@item5.units_sold} units sold")
+        expect(page.all('.item')[3]).to have_content("#{@item4.title}: #{@item4.units_sold} units sold")
+        expect(page.all('.item')[4]).to have_content("#{@item3.title}: #{@item3.units_sold} units sold")
       end
     end
 
@@ -106,19 +105,18 @@ RSpec.describe "as a merchant" do
     it 'sees top 3 states and quantities' do
       within '#top-states' do
         expect(page).to have_content("Top 3 States Where Items Were Shipped")
-        expect(page).to have_content("MO (6 items shipped)")
-        expect(page).to have_content("PA (2 items shipped)")
-        expect(page).to have_content("IL (1 item shipped)")
+        expect(page.all('.state')[0]).to have_content("MO (6 items shipped)")
+        expect(page.all('.state')[1]).to have_content("PA (2 items shipped)")
+        expect(page.all('.state')[2]).to have_content("IL (1 item shipped)")
       end
     end
 
     it 'sees top 3 city, states and their quantities' do
       within '#top-cities' do
         expect(page).to have_content("Top 3 Cities Where Items Were Shipped")
-        expect(page).to have_content("Springfield, MO (6 items shipped)")
-        expect(page).to have_content("Harrisburg, PA (2 items shipped)")
-        expect(page).to have_content("Springfield, IL (1 item shipped)")
-
+        expect(page.all('.city')[0]).to have_content("Springfield, MO (6 items shipped)")
+        expect(page.all('.city')[1]).to have_content("Harrisburg, PA (2 items shipped)")
+        expect(page.all('.city')[2]).to have_content("Springfield, IL (1 item shipped)")
       end
     end
   end

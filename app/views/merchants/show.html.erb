@@ -2,30 +2,36 @@
 <%= render 'orderslist' %>
 
 <!---Statistics--->
-<section id= 'top-items'>
-  <h3>Top 5 Items Sold by Quantity</h3>
+<section id=top-items>
+<h3>Top 5 Items Sold by Quantity</h3>
   <% @top_five.each do |item| %>
-    <li><%= item.title %>: <%= item.units_sold %> units sold</li>
+    <section class='item'>
+        <li><%= item.title %>: <%= item.units_sold %> units sold</li>
+      </section>
   <% end  %>
-  <h3>Total Quantity of Items Sold</h3>
 </section>
 
+<h3>Total Quantity of Items Sold</h3>
 <p>Sold <%= Item.total_sold_quantity(@user) %> items, which is <%= Item.percent_sold(@user) %>% of your total inventory</p>
 
 <section id='top-states'>
   <h3>Top 3 States Where Items Were Shipped</h3>
   <ol>
     <% @top_three_states.each do |state| %>
-      <li><%= state.state %> (<%= pluralize(state.total_items, 'item') %> shipped)</li>
+      <section class='state'>
+        <li><%= state.state %> (<%= pluralize(state.total_items, 'item') %> shipped)</li>
+      </section>
     <% end %>
   </ol>
 </section>
 
-<section id="top-cities">
+<section id='top-cities'>
   <h3>Top 3 Cities Where Items Were Shipped</h3>
   <ol>
     <% @top_three_cities.each do |city| %>
-      <li><%= city.city %>, <%= city.state %> (<%= pluralize(city.total_items, 'item') %> shipped)</li>
+      <section class="city">
+        <li><%= city.city %>, <%= city.state %> (<%= pluralize(city.total_items, 'item') %> shipped)</li>
+      </section>
     <% end %>
   </ol>
 </section>

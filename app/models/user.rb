@@ -46,4 +46,8 @@ class User < ApplicationRecord
         .limit(limit)
   end
 
+  def top_spending_customers(limit)
+    
+  end
+
 end
