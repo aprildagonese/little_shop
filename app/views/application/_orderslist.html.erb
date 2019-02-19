@@ -8,6 +8,8 @@
           <%= link_to  "Order ID: #{order.id}", dashboard_order_path(order) %>
         <% elsif current_user.admin? %>
           <%= link_to  "Order ID: #{order.id}", admin_order_path(order) %>
+        <% elsif current_user.merchant? %>
+          <%= link_to  "Order ID: #{order.id}", profile_order_path(order) %>
         <% end %>
         <a>Placed on: <%= order.created_at %></a>
         <a>Last Updated on: <%= order.updated_at %></a>
