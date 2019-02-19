@@ -115,19 +115,6 @@ RSpec.describe Order, type: :model do
       end
     end
 
-    it '#in_stock?' do
-      expect(@order_item_1.in_stock?).to eq(true)
-      expect(@order_item_2.in_stock?).to eq(true)
-      expect(@order_item_3.in_stock?).to eq(true)
-      expect(@order_item_4.in_stock?).to eq(true)
-      expect(@order_item_5.in_stock?).to eq(true)
-      expect(@order_item_6.in_stock?).to eq(true)
-      expect(@order_item_7.in_stock?).to eq(true)
-      expect(@order_item_8.in_stock?).to eq(true)
-      expect(@order_item_9.in_stock?).to eq(true)
-      expect(@order_item_10.in_stock?).to eq(true)
-    end
-
   end
 
 end

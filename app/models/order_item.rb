@@ -20,7 +20,7 @@ class OrderItem < ApplicationRecord
   end
 
   def in_stock?
-    quantity >= item.quantity
+    item.quantity >= self.quantity
   end
 
   def fulfull_order_item
