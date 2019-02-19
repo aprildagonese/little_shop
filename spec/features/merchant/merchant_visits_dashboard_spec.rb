@@ -18,7 +18,7 @@ RSpec.describe "as a merchant" do
       expect(page).to_not have_button("Downgrade Merchant")
     end
 
-    xit "it shows me orders with unfulfilled items" do
+    it "it shows me orders with unfulfilled items" do
       Faker::UniqueGenerator.clear
       merchant1, merchant2 = create_list(:user, 2, role: 1)
       user1, user2 = create_list(:user, 2, role: 0)
@@ -27,12 +27,12 @@ RSpec.describe "as a merchant" do
       order1 = create(:order, user: user1)
       order2 = create(:order, user: user2)
       order3 = create(:order, user: user1)
-      oi1 = create(:order_item, order: order1, item: item1)
-      oi2 = create(:order_item, order: order1, item: item3)
+      oi1 = create(:order_item, order: order1, item: item1, sale_price: 2.00, quantity: 1)
+      oi2 = create(:order_item, order: order1, item: item3, sale_price: 3.00, quantity: 1)
       oi3 = create(:order_item, order: order2, item: item2, fulfillment_status: 1)
       oi4 = create(:order_item, order: order2, item: item4)
-      oi5 = create(:order_item, order: order3, item: item1)
-      oi6 = create(:order_item, order: order3, item: item2, fulfillment_status: 1)
+      oi5 = create(:order_item, order: order3, item: item1, sale_price: 4.00, quantity: 1)
+      oi6 = create(:order_item, order: order3, item: item2, fulfillment_status: 1, sale_price: 5.00, quantity: 1)
 
       login_as(merchant1)
       visit dashboard_path(merchant1)
@@ -41,13 +41,13 @@ RSpec.describe "as a merchant" do
         expect(page).to have_link("Order ID: #{order1.id}")
         expect(page).to have_content("Placed on: #{order1.created_at.to_date.to_s}")
         expect(page).to have_content("Item Count: #{order1.item_count}")
-        expect(page).to have_content("Order Total: #{order1.total_cost}")
+        expect(page).to have_content("Order Total: $#{order1.total_cost}")
       end
       within "#order-#{order3.id}" do
         expect(page).to have_link("Order ID: #{order3.id}")
         expect(page).to have_content("Placed on: #{order3.created_at.to_date.to_s}")
         expect(page).to have_content("Item Count: #{order3.item_count}")
-        expect(page).to have_content("Order Total: #{order3.total_cost}")
+        expect(page).to have_content("Order Total: $#{order3.total_cost}")
       end
       expect(page).to_not have_button("Cancel Order")
       expect(page).to_not have_content("Order ID: #{order2.id}")
@@ -94,7 +94,7 @@ RSpec.describe "as a merchant" do
       expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{Item.percent_sold(@merchant)}% of your total inventory")
     end
 
-    it "the user with the most orders from me" do
+    xit "the user with the most orders from me" do
       login_as(@merchant)
       visit dashboard_path(@merchant)
 

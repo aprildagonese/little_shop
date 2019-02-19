@@ -15,8 +15,8 @@ class MerchantsController < ApplicationController
     @top_five = Item.top_items_sold(@user).limit(5)
     @total_sold = Item.total_sold_quantity(@user)
     @percent_sold = Item.percent_sold(@user)
-    @most_orders = User.user_by_most_orders(@user)
-    @order_count = @most_orders.orders.count
+    # @most_orders = User.user_by_most_orders(@user)
+    # @order_count = @most_orders.orders.count
   end
 
   def update

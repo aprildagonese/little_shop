@@ -52,7 +52,7 @@ RSpec.describe User, type: :model do
 
 
   describe 'Class Methods' do
-    it ".user_by_most_orders" do
+    xit ".user_by_most_orders" do
       Faker::UniqueGenerator.clear
       merchant1, merchant2, merchant3 = create_list(:user, 3, role: 1)
       user1, user2, user3 = create_list(:user, 3, role: 0)

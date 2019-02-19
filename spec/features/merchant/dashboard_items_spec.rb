@@ -59,7 +59,6 @@ RSpec.describe 'as a merchant' do
     end
 
     it 'sees a button to enable/disable' do
-      binding.pry
       login_as(@merchant)
       visit dashboard_items_path
 
