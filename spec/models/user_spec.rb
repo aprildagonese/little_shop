@@ -130,13 +130,14 @@ RSpec.describe User, type: :model do
     end
 
     it "#total_sold_quantity should get merchant's sum of all quantities sold for all items" do
+      #this should not count sold items for cancelled orders
       merch1, merch2 = create_list(:user, 2, role: 1)
       user1, user2, user3 = create_list(:user, 3)
       item1, item2 = create_list(:item, 2, user: merch1)
       item3 = create(:item, user: merch2)
       order1, order2 = create_list(:order, 2, user: user1)
       order3, order4 = create_list(:order, 2, user: user2)
-      order5 = create(:order, user: user3)
+      order5 = create(:order, user: user3, status: 2)
       oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
       oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
       oi3 = create(:order_item, order: order1, item: item3, quantity: 3)

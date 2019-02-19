@@ -3,6 +3,7 @@ class MerchantsController < ApplicationController
 
   def index
     if current_user && current_user.admin?
+      #move order by name to a model
       @users = User.where(role: 1).order(:name)
     else
       @users = User.where(role: 1).where(activation_status: 0).order(:name)
