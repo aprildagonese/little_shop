@@ -77,6 +77,7 @@ RSpec.describe "as a merchant" do
 
       login_as(@merchant)
       visit dashboard_path(@merchant)
+      save_and_open_page
     end
 
     it "top 5 items sold by quantity" do
