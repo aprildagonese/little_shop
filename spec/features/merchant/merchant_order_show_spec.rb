@@ -27,12 +27,11 @@ RSpec.describe "as a merchant" do
     it 'I see customer info' do
       expect(current_path).to eq("/dashboard/orders/#{@order.id}")
 
-      within ".merchant-order-customer_info" do
+      within ".merchant-order-customer-info" do
         expect(page).to have_content("Customer: #{@user.name}")
-        expect(page).to have_content("Shipping to: #{@user.street_address},
-                                                  #{@user.city},
-                                                  #{@user.state},
-                                                  #{@user.zip_code}")
+        expect(page).to have_content("Shipping to:\n#{@user.street_address}")
+        expect(page).to have_content("#{@user.city}, #{@user.state}")
+        expect(page).to have_content(@user.zip_code)
       end
 
       within ".merchant-order-items" do
@@ -41,7 +40,7 @@ RSpec.describe "as a merchant" do
           expect(page).to have_css("img[src*='#{@oi1.item.image_url}']")
           expect(page).to have_content("Price: $#{@oi1.sale_price}.00")
           expect(page).to have_content("Qty: #{@oi1.quantity}")
-          expect(page).to have_content("Item Subtotal: $#{@order.total_cost}.00")
+          expect(page).to have_content("Item Subtotal: $#{@oi1.subtotal}.00")
           expect(page).to have_content("Order Status: Pending")
         end
         within ".item-#{@oi2.id}" do
@@ -49,7 +48,7 @@ RSpec.describe "as a merchant" do
           expect(page).to have_css("img[src*='#{@oi2.item.image_url}']")
           expect(page).to have_content("Price: $#{@oi2.sale_price}.00")
           expect(page).to have_content("Qty: #{@oi2.quantity}")
-          expect(page).to have_content("Item Subtotal: $#{@order.total_cost}.00")
+          expect(page).to have_content("Item Subtotal: $#{@oi2.subtotal}.00")
           expect(page).to have_content("Order Status: Pending")
         end
         within ".item-#{@oi3.id}" do
@@ -57,7 +56,7 @@ RSpec.describe "as a merchant" do
           expect(page).to have_css("img[src*='#{@oi3.item.image_url}']")
           expect(page).to have_content("Price: $#{@oi3.sale_price}.00")
           expect(page).to have_content("Qty: #{@oi3.quantity}")
-          expect(page).to have_content("Item Subtotal: $#{@order.total_cost}.00")
+          expect(page).to have_content("Item Subtotal: $#{@oi3.subtotal}.00")
           expect(page).to have_content("Order Status: Pending")
         end
       end
