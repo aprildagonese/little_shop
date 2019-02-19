@@ -30,15 +30,15 @@ RSpec.describe "as a visitor" do
       @merch9_item = create(:item, user: @merch_8)
       @merch10_item = create(:item, user: @merch_8)
 
-      @ma_order_1, @ma_order_2, @ma_order_3, @ma_order_4 = create_list(:order, 4, user: @ma_user)
-      @ca_order_1 = create(:order, user: @ca_user)
-      @wi_order_1, @wi_order_2 = create_list(:order, 2, user: @wi_user)
-      @co_order_1 = create(:order, user: @co_user)
-      @co_order_2, @co_order_3 = create_list(:order, 2, user: @co_user_2)
-      @pa_order_1, @pa_order_2 = create_list(:order, 2, user: @pa_user)
-      @mi_order_1, @mi_order_2, @mi_order_3, @mi_order_4, @mi_order_5, @mi_order_6 = create_list(:order, 6, user: @mi_user)
-      @ny_order_1, @ny_order_2 = create_list(:order, 2, user: @ny_user)
-      @il_order_1, @il_order_2, @il_order_3, @il_order_4 = create_list(:order, 4, user: @il_user)
+      @ma_order_1, @ma_order_2, @ma_order_3, @ma_order_4 = create_list(:order, 4, user: @ma_user, status: 1)
+      @ca_order_1 = create(:order, user: @ca_user, status: 1)
+      @wi_order_1, @wi_order_2 = create_list(:order, 2, user: @wi_user, status: 1)
+      @co_order_1 = create(:order, user: @co_user, status: 1)
+      @co_order_2, @co_order_3 = create_list(:order, 2, user: @co_user_2, status: 1)
+      @pa_order_1, @pa_order_2 = create_list(:order, 2, user: @pa_user, status: 1)
+      @mi_order_1, @mi_order_2, @mi_order_3, @mi_order_4, @mi_order_5, @mi_order_6 = create_list(:order, 6, user: @mi_user, status: 1)
+      @ny_order_1, @ny_order_2 = create_list(:order, 2, user: @ny_user, status: 1)
+      @il_order_1, @il_order_2, @il_order_3, @il_order_4 = create_list(:order, 4, user: @il_user, status: 1)
 
       @ma_orderitem_1 = create(:order_item, order: @ma_order_1, item: @merch1_item_1, quantity: 41, sale_price: 25, created_at: 4000.minutes.ago, updated_at: 1700.minutes.ago)
       @ma_orderitem_2 = create(:order_item, order: @ma_order_1, item: @merch1_item_2, quantity: 21, sale_price: 25, created_at: 4000.minutes.ago, updated_at: 1600.minutes.ago)
@@ -106,16 +106,16 @@ RSpec.describe "as a visitor" do
       within "#peoples-choice" do
         expect(page).to have_content("People's Choice")
       # - top 3 merchants who have sold the most by price and quantity, and their revenue
-        expect(page).to have_content("1. #{@merch_9.name}, Revenue: #{@merch_9.total_revenue}")
-        expect(page).to have_content("2. #{@merch_1.name}, Revenue: #{@merch_1.total_revenue}")
-        expect(page).to have_content("3. #{@merch_7.name}, Revenue: #{@merch_7.total_revenue}")
+        expect(page).to have_content("#{@merch_8.name}, Revenue: #{@merch_8.total_revenue}")
+        expect(page).to have_content("#{@merch_1.name}, Revenue: #{@merch_1.total_revenue}")
+        expect(page).to have_content("#{@merch_6.name}, Revenue: #{@merch_6.total_revenue}")
       end
       within "#fast-food" do
         expect(page).to have_content("Fast Food")
       # - top 3 merchants who were fastest at fulfilling items in an order, and their times
-        expect(page).to have_content("1. #{@merch_2.name}, Avg. Delivery Time: #{@merch_2.avg_delivery}")
-        expect(page).to have_content("2. #{@merch_7.name}, Avg. Delivery Time: #{@merch_7.avg_delivery}")
-        expect(page).to have_content("3. #{@merch_8.name}, Avg. Delivery Time: #{@merch_8.avg_delivery}")
+        expect(page).to have_content("#{@merch_2.name}, Avg. Delivery Time: #{@merch_2.avg_delivery}")
+        expect(page).to have_content("#{@merch_7.name}, Avg. Delivery Time: #{@merch_7.avg_delivery}")
+        expect(page).to have_content("#{@merch_8.name}, Avg. Delivery Time: #{@merch_8.avg_delivery}")
 
         expect(page).to_not have_content(@merch_9.name)
         expect(page).to_not have_content("Avg. Delivery Time: #{@merch_9.avg_delivery}")
@@ -124,9 +124,9 @@ RSpec.describe "as a visitor" do
       within "#slow-food" do
         expect(page).to have_content("Slow Food")
       # - worst 3 merchants who were slowest at fulfilling items in an order, and their times
-        expect(page).to have_content("1. #{@merch_6.name}, Avg. Delivery Time: #{@merch_6.avg_delivery}")
-        expect(page).to have_content("2. #{@merch_4.name}, Avg. Delivery Time: #{@merch_4.avg_delivery}")
-        expect(page).to have_content("3. #{@merch_3.name}, Avg. Delivery Time: #{@merch_3.avg_delivery}")
+        expect(page).to have_content("#{@merch_6.name}, Avg. Delivery Time: #{@merch_6.avg_delivery}")
+        expect(page).to have_content("#{@merch_4.name}, Avg. Delivery Time: #{@merch_4.avg_delivery}")
+        expect(page).to have_content("#{@merch_3.name}, Avg. Delivery Time: #{@merch_3.avg_delivery}")
 
         expect(page).to_not have_content(@merch_5.name)
         expect(page).to_not have_content("Avg. Delivery Time: #{@merch_5.avg_delivery}")
@@ -135,23 +135,23 @@ RSpec.describe "as a visitor" do
        within "#foodie-states" do
          expect(page).to have_content("Best Foodie States")
        # - top 3 states where any orders were shipped (by number of orders), and count of orders
-         expect(page).to have_content("1. Michigan")
-         expect(page).to have_content("2. Illinois")
-         expect(page).to have_content("3. Colorado")
+         expect(page).to have_content("Michigan")
+         expect(page).to have_content("Illinois")
+         expect(page).to have_content("Colorado")
        end
        within "#foodie-cities" do
          expect(page).to have_content("Best Foodie Cities")
        # - top 3 cities where any orders were shipped (by number of orders, also Springfield, MI should not be grouped with Springfield, CO), and the count of orders
-         expect(page).to have_content("1. Detroit, MI")
-         expect(page).to have_content("2. Detroit, IL")
-         expect(page).to have_content("3. Boston, MA")
+         expect(page).to have_content("Detroit, MI")
+         expect(page).to have_content("Detroit, IL")
+         expect(page).to have_content("Boston, MA")
        end
        within "biggest-appetites" do
          expect(page).to have_content("Biggest Appetites")
          # - top 3 biggest orders by quantity of items shipped in an order, plus their quantities
-         expect(page).to have_content("1. Order ID: #{@co_order_3.id}, Qty: #{@co_order_3.item_count}")
-         expect(page).to have_content("2. Order ID: #{@pa_order_2.id}, Qty: #{@pa_order_2.item_count}")
-         expect(page).to have_content("3. Order ID: #{@ny_order_2.id}, Qty: #{@ny_order_2.item_count}")
+         expect(page).to have_content("Order ID: #{@co_order_3.id}, Qty: #{@co_order_3.item_count}")
+         expect(page).to have_content("Order ID: #{@pa_order_2.id}, Qty: #{@pa_order_2.item_count}")
+         expect(page).to have_content("Order ID: #{@ny_order_2.id}, Qty: #{@ny_order_2.item_count}")
        end
     end
   end
