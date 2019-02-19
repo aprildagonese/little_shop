@@ -27,7 +27,7 @@
         <% if order_item.pending? && order_item.in_stock? %>
           <%= button_to "Fulfill Item", dashboard_order_item_path(order_item), method: :patch %>
         <% elsif order_item.pending? && !order_item.in_stock? %>
-          <strong>You have insufficient quantity in stock to fulfill this order item.</strong>
+          <strong style="color:red;">You have insufficient quantity in stock to fulfill this order item.</strong>
         <% end %>
       </section>
     </section>
