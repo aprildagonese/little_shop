@@ -41,6 +41,7 @@ get '/merchants/:id', to: 'users#show' #???
 #--------------Admin---------------
 get '/admin/dashboard', to: 'admin/dashboard#show'
 patch '/admin/downgrade', to: 'admin/merchants#downgrade'
+patch '/admin/activation', to: 'admin/users#activation'
 namespace :admin do
   resources :merchants, only: [:show, :index, :update]
   resources :items, except: [:show]

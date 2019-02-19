@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-    if user && user.authenticate(params[:password])
+    if user && user.authenticate(params[:password]) && user.activation_status == "active"
       session[:user_id] = user.id
       flash[:alert] = "You have been logged in."
       if user.registered?
