@@ -59,8 +59,8 @@ RSpec.describe Item, type: :model do
       end
     end
 
-    context "sorting by quantity sold" do
-      it ".top_items_sold should sort by highest item sold first" do
+    context ".top_items_sold" do
+      it "should sort by highest item sold first" do
         Faker::UniqueGenerator.clear
         @merchant = create(:user, role: 1)
         @user1, @user2, @user3, @user4, @user5, @user6, @user7 = create_list(:user, 7, role: 0)
@@ -86,6 +86,98 @@ RSpec.describe Item, type: :model do
       end
     end
 
+    context ".total_sold_quantity" do
+      it "should get merchant's sum of all quantities sold for all items" do
+        merch1, merch2 = create_list(:user, 2, role: 1)
+        user1, user2, user3 = create_list(:user, 3)
+        item1, item2 = create_list(:item, 2, user: merch1)
+        item3 = create(:item, user: merch2)
+        order1, order2 = create_list(:order, 2, user: user1)
+        order3, order4 = create_list(:order, 2, user: user2)
+        order5 = create(:order, user: user3)
+        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
+        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
+        oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
+        oi4 = create(:order_item, order: order2, item: item1, quantity: 4)
+        oi5 = create(:order_item, order: order2, item: item2, quantity: 5)
+        oi6 = create(:order_item, order: order2, item: item3, quantity: 6)
+        oi7 = create(:order_item, order: order3, item: item1, quantity: 7)
+        oi8 = create(:order_item, order: order3, item: item2, quantity: 8)
+        oi9 = create(:order_item, order: order3, item: item3, quantity: 9)
+        oi10 = create(:order_item, order: order4, item: item1, quantity: 10)
+        oi11 = create(:order_item, order: order4, item: item2, quantity: 11)
+        oi12 = create(:order_item, order: order4, item: item3, quantity: 12)
+        oi13 = create(:order_item, order: order5, item: item1, quantity: 13)
+        oi14 = create(:order_item, order: order5, item: item2, quantity: 14)
+        oi15 = create(:order_item, order: order5, item: item3, quantity: 15)
+
+        expected1 = (oi1.quantity + oi2.quantity + oi4.quantity + oi5.quantity + oi7.quantity + oi8.quantity + oi10.quantity + oi11.quantity + oi13.quantity + oi14.quantity)
+        expected2 = (oi3.quantity + oi6.quantity + oi9.quantity + oi12.quantity + oi15.quantity)
+
+        expect(Item.total_sold_quantity(merch1)).to eq(expected1)
+        expect(Item.total_sold_quantity(merch2)).to eq(expected2)
+      end
+    end
+
+    context ".total_inventory" do
+      it "should get merchant's sum of all quantities of all items sold or in stock" do
+        user1 = create(:user)
+        merch1, merch2, merch3 = create_list(:user, 3, role: 1)
+        item1, item2 = create_list(:item, 2, user: merch1, quantity: 20)
+        item3, item4 = create_list(:item, 2, user: merch2, quantity: 22)
+        item5, item6, item7 = create_list(:item, 3, user: merch3, quantity: 13)
+        order1 = create(:order, user: user1)
+        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
+        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
+        oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
+        oi4 = create(:order_item, order: order1, item: item4, quantity: 4)
+        oi5 = create(:order_item, order: order1, item: item5, quantity: 5)
+        oi6 = create(:order_item, order: order1, item: item6, quantity: 6)
+        oi7 = create(:order_item, order: order1, item: item7, quantity: 7)
+
+        expected1 = 43
+        expected2 = 51
+        expected3 = 57
+
+        expect(Item.total_inventory(merch1)).to eq(expected1)
+        expect(Item.total_inventory(merch2)).to eq(expected2)
+        expect(Item.total_inventory(merch3)).to eq(expected3)
+      end
+    end
+
+    context ".percent_sold" do
+      it "should get merchant's sum of all quantities of all items sold or in stock" do
+        user1 = create(:user)
+        merch1, merch2, merch3 = create_list(:user, 3, role: 1)
+        item1, item2 = create_list(:item, 2, user: merch1, quantity: 20)
+        item3, item4 = create_list(:item, 2, user: merch2, quantity: 22)
+        item5, item6, item7 = create_list(:item, 3, user: merch3, quantity: 13)
+        order1 = create(:order, user: user1)
+        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
+        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
+        oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
+        oi4 = create(:order_item, order: order1, item: item4, quantity: 4)
+        oi5 = create(:order_item, order: order1, item: item5, quantity: 5)
+        oi6 = create(:order_item, order: order1, item: item6, quantity: 6)
+        oi7 = create(:order_item, order: order1, item: item7, quantity: 7)
+
+        sold1 = 3.0
+        inventory1 = 43.0
+        expected1 = ((sold1/inventory1)*100).round(2)
+
+        sold2 = 7.0
+        inventory2 = 51.0
+        expected2 = ((sold2/inventory2)*100).round(2)
+
+        sold3 = 18.0
+        inventory3 = 57.0
+        expected3 = ((sold3/inventory3)*100).round(2)
+
+        expect(Item.percent_sold(merch1)).to eq(expected1)
+        expect(Item.percent_sold(merch2)).to eq(expected2)
+        expect(Item.percent_sold(merch3)).to eq(expected3)
+      end
+    end
   end
 
   describe "Instance Methods" do

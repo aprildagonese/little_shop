@@ -2,10 +2,13 @@ class Admin::UsersController < Admin::BaseController
 
   def show
     @user = User.find(params[:id])
+    if @user.merchant?
+      redirect_to admin_merchant_path(@user)
+    end
   end
 
   def index
-      @users = User.where(role: 0).order(:name)
+    @users = User.where(role: 0).order(:name)
   end
 
   def edit
@@ -20,6 +23,17 @@ class Admin::UsersController < Admin::BaseController
       flash[:error] = "That email has already been taken"
       redirect_to edit_admin_user_path(@user)
     end
+  end
+
+  def activation
+    @user = User.find(params[:user_id])
+    @user.change_status
+    if @user.merchant?
+      redirect_to admin_merchants_path
+    elsif @user.registered?
+      redirect_to admin_users_path
+    end
+    flash[:alert] = "User #{@user.name}'s account has been disabled."
   end
 
   private

@@ -4,7 +4,9 @@
 <!---Statistics--->
 <h3>Top 5 Items Sold by Quantity</h3>
 <% @top_five.each do |item| %>
-  <li><%= item.title %>: <%= item.units_sold %></li>
+  <li><%= item.title %>: <%= item.units_sold %> units sold</li>
 <% end  %>
+</br>
 <h3>Total Quantity of Items Sold</h3>
-<!-- <p>Sold %= @user.total_sold_quantity %> items, which is %= @user.percent_sold %>% of your total inventory</p> -->
+<p>Sold <%= @total_sold %> items, which is <%= @percent_sold %>% of your total inventory</p>
+</br>

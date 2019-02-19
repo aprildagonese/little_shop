@@ -2,18 +2,28 @@
   <% if !@orders.nil? %>
     <% @orders.each do |order| %>
       <li id="order-<%= order.id %>">
-        <%= link_to  "Order ID: #{order.id}", profile_order_path(order) %>
+        <% if current_user.registered? %>
+          <%= link_to  "Order ID: #{order.id}", profile_order_path(order) %>
+        <% elsif current_user.merchant? %>
+          <%= link_to  "Order ID: #{order.id}", dashboard_order_path(order) %>
+        <% elsif current_user.admin? %>
+          <%= link_to  "Order ID: #{order.id}", admin_order_path(order) %>
+        <% end %>
         <a>Placed on: <%= order.created_at %></a>
         <a>Last Updated on: <%= order.updated_at %></a>
         <a>Item Count: <%= order.item_count %></a>
-        <a>Order Total: <%= order.total_cost %></a>
-        <a>Order Status: <%= order.status %></a>
-        <% if order.pending? && !@user.merchant? %>
-          <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: order.id} %>
+        <a>Order Total: <%= number_to_currency(order.total_cost) %></a>
+        <a>Order Status: <%= order.status.capitalize %></a>
+        <% if order.pending? %>
+          <% if current_user.registered? %>
+            <%= button_to "Cancel Order", profile_orders_path, method: :patch, params: {order_id: order.id} %>
+          <% elsif current_user.admin? %>
+            <%= button_to "Cancel Order", admin_order_path(order), method: :delete, params: {order_id: order.id} %>
+          <% end %>
         <% end %>
       </li>
     <% end %>
   <% else %>
-    <h3>There are no orders yet</h3>
+    <h3>No orders have been placed yet.</h3>
   <% end %>
 </ul>

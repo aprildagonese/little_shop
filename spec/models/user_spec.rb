@@ -57,6 +57,7 @@ RSpec.describe User, type: :model do
 
 
   describe 'Class Methods' do
+    
     before :each do
       @ma_user = create(:user, city: 'Boston', state: 'Massachusetts')
       @ca_user = create(:user, city: 'San Francisco', state: 'California')
@@ -164,6 +165,52 @@ RSpec.describe User, type: :model do
 
   describe "Instance Methods" do
 
+    xit ".user_by_most_orders" do
+      Faker::UniqueGenerator.clear
+      merchant1, merchant2, merchant3 = create_list(:user, 3, role: 1)
+      user1, user2, user3 = create_list(:user, 3, role: 0)
+      item1, item2, item3 = create_list(:item, 3, user: merchant1)
+      item4, item5 = create_list(:item, 2, user: merchant2)
+      item6, item7 = create_list(:item, 2, user: merchant3)
+
+      order1 = create(:order, user: user1) #user1 orders from merch1
+      oi1 = create(:order_item, order: order1, item: item1, fulfillment_status: 1)
+
+      order2 = create(:order, user: user2) #user2 orders from both
+      oi2 = create(:order_item, order: order2, item: item3, fulfillment_status: 1)
+      oi3 = create(:order_item, order: order2, item: item5, fulfillment_status: 1)
+
+      order3 = create(:order, user: user2) #user2 orders from both
+      oi4 = create(:order_item, order: order3, item: item2)
+      oi5 = create(:order_item, order: order3, item: item4, fulfillment_status: 1)
+
+      order4 = create(:order, user: user1) #user1 orders from merch1
+      oi5 = create(:order_item, order: order4, item: item1)
+      oi6 = create(:order_item, order: order4, item: item2)
+
+      order5 = create(:order, user: user2) #user2 orders from merch2
+      oi7 = create(:order_item, order: order5, item: item4)
+      oi8 = create(:order_item, order: order5, item: item5, fulfillment_status: 1)
+
+      order6 = create(:order, user: user2) #user1 orders from merch1
+      oi7 = create(:order_item, order: order6, item: item1)
+      oi8 = create(:order_item, order: order6, item: item2, fulfillment_status: 1)
+
+      order7 = create(:order, user: user3)
+      oi9 = create(:order_item, order: order7, item: item6, fulfillment_status: 1)
+      oi10 = create(:order_item, order: order7, item: item7, fulfillment_status: 0)
+
+      expect(User.user_by_most_orders(merchant1)).to eq(user1)
+      expect(User.user_by_most_orders(merchant2)).to eq(user2)
+      expect(User.user_by_most_orders(merchant3)).to eq(user3)
+    end
+  end
+
+  describe "Instance Methods" do
+    before :each do
+      Faker::UniqueGenerator.clear
+    end
+
     it "#change_status" do
       user = User.create!(name: "April",
                           email: "adag@email.com",
@@ -174,7 +221,6 @@ RSpec.describe User, type: :model do
       user.change_status
       expect(user.activation_status).to eq("active")
     end
-
 
     it '#downgrade' do
       merchant = create(:user, role: 1)

@@ -7,7 +7,7 @@ class Users::OrdersController < ApplicationController
 
   def index
     @user = User.find(session[:user_id])
-    @orders = Order.where(user_id: @user)
+    @orders = @user.orders
   end
 
   def update

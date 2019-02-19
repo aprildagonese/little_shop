@@ -60,16 +60,13 @@ class User < ApplicationRecord
     update_attribute(:role, 0)
   end
 
-  # def total_revenue
-  #   items.joins(:orders)
-  #        .where(orders: {status: 1})
-  #        .sum('order_items.sale_price * order_items.quantity')
+  # def self.user_by_most_orders(merchant)
+  #   User.joins("join orders on users.id = orders.user_id join order_items on orders.id = order_items.order_id")
+  #       .select("select users.name from users")
+  #       .select()
+  #       .where("where orders.user_id = ?", merchant.id)
+  #       .group(:id)
+  #       .order("user_orders asc")
+  #       .first
   # end
-  #
-  # def avg_delivery
-  #   items.joins(:orders)
-  #   .where(orders: {status: 1})
-  #   .average('order_items.updated_at - order_items.created_at')
-  # end
-
 end
