@@ -165,6 +165,5 @@ RSpec.describe User, type: :model do
 end
 
 
-#- top 3 states where my items were shipped, and their quantities
 #- top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be grouped with Springfield, CO)
 #- top 3 users who have spent the most money on my items, and the total amount they've spent

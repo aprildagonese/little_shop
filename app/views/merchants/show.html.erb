@@ -10,5 +10,10 @@
 <p>Sold <%= Item.total_sold_quantity(@user) %> items, which is <%= Item.percent_sold(@user) %>% of your total inventory</p>
 
 <section id='top_states'>
-  <h3>Top 3 Where Items Were Shipped</h3>
+  <h3>Top 3 States Where Items Were Shipped</h3>
+  <ol>
+    <% @top_three_states.each do |state| %>
+      <li><%= state.state %> ( <%= pluralize(state.total_items, 'item') %> shipped)</li>
+    <% end %>
+  </ol>
 </section>

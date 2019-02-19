@@ -13,6 +13,7 @@ class MerchantsController < ApplicationController
     @user = current_user
     @orders = Order.find_orders(@user)
     @top_five = Item.top_items_sold(@user).limit(5)
+    @top_three_states = @user.top_states(3)
   end
 
   def update

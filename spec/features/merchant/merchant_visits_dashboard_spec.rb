@@ -58,8 +58,12 @@ RSpec.describe "as a merchant" do
     before :each do
       Faker::UniqueGenerator.clear
       @merchant = create(:user, role: 1)
-      @user1, @user2, @user3, @user4, @user5, @user6, @user7 = create_list(:user, 7, role: 0)
-      @item1, @item2, @item3, @item4, @item5, @item6, @item7 = create_list(:item, 7, user: @merchant, quantity: 10)
+      @user1 = create(:user, role: 0, city: "Springfield", state: "IL")
+      @user2 = create(:user, role: 0, city: "Springfield", state: "MO")
+      @user3 = create(:user, role: 0, city: "Chicago", state: "IL")
+      @user4, @user5, @user6, @user7 = create_list(:user, 4, role: 0)
+      @user8 = create(:user, role: 0, city: "Harrisburg", state: "PA")
+      @item1, @item2, @item3, @item4, @item5, @item6, @item7, @item8 = create_list(:item, 8, user: @merchant, quantity: 10)
       @order1 = create(:order, user: @user1)
       @order2 = create(:order, user: @user2)
       @order3 = create(:order, user: @user3)
@@ -67,13 +71,18 @@ RSpec.describe "as a merchant" do
       @order5 = create(:order, user: @user5)
       @order6 = create(:order, user: @user6)
       @order7 = create(:order, user: @user7)
-      @oi1 = create(:order_item, order: @order1, item: @item1, quantity: 1)
-      @oi2 = create(:order_item, order: @order2, item: @item2, quantity: 2)
+      @order8 = create(:order, user: @user1)
+      @order9 = create(:order, user: @user8)
+      @oi1 = create(:fulfilled_order_item, order: @order1, item: @item1, quantity: 1)
+      @oi2 = create(:fulfilled_order_item, order: @order2, item: @item2, quantity: 2)
       @oi3 = create(:order_item, order: @order3, item: @item3, quantity: 3)
       @oi4 = create(:order_item, order: @order4, item: @item4, quantity: 4)
       @oi5 = create(:order_item, order: @order5, item: @item5, quantity: 5)
       @oi6 = create(:order_item, order: @order6, item: @item6, quantity: 6)
       @oi7 = create(:order_item, order: @order7, item: @item7, quantity: 7)
+      @oi8 = create(:fulfilled_order_item, order: @order2, item: @item8, quantity: 2)
+      @oi9 = create(:fulfilled_order_item, order: @order2, item: @item2, quantity: 2)
+      @oi10 = create(:fulfilled_order_item, order: @order9, item: @item8, quantity: 2)
 
       login_as(@merchant)
       visit dashboard_path(@merchant)
@@ -93,9 +102,13 @@ RSpec.describe "as a merchant" do
     end
 
     it 'sees top 3 states and quantities' do
-      within '#top_states'
-      expect(page).to have_content("Top 3 Where Items Were Shipped")
-      expect(page).to have_content()
+      within '#top_states' do
+        save_and_open_page
+        expect(page).to have_content("Top 3 States Where Items Were Shipped")
+        expect(page).to have_content("IL (6 items shipped)")
+        expect(page).to have_content("PA (2 items shipped)")
+        expect(page).to have_content("MO (1 item shipped)")
+      end
     end
   end
 end
