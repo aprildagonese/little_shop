@@ -94,6 +94,10 @@ RSpec.describe User, type: :model do
   end
 
   describe "Instance Methods" do
+    before :each do
+      Faker::UniqueGenerator.clear
+    end
+
     it "#change_status" do
       user = User.create!(name: "April",
                           email: "adag@email.com",

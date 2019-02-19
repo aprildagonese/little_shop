@@ -18,17 +18,32 @@ class Order < ApplicationRecord
   end
 
   def total_cost
-    order_items.sum(:sale_price)
+    order_items.sum("sale_price * quantity")
   end
 
   def change_status
     update_attribute(:status, 2) if pending?
   end
 
-  def self.find_orders(merchant)
+  def cancel
+    order_items.each do |order_item|
+      order_item.cancel_item
+      order_item.save
+    end
+
+    self.status = 2
+  end
+
+  def self.find_orders(user)
     Order.joins(:items)
-    .where(order_items: {status: "pending"}, items: {user_id: merchant.id})
+    .where(order_items: {fulfillment_status: 0}, items: {user_id: user.id})
     .distinct
   end
+
+  def user_items(user)
+    OrderItem.joins(:item)
+    .where(items: {user_id: user}, order_id: id)
+  end
+
 
 end

@@ -32,8 +32,8 @@ RSpec.describe "as a registered user" do
         expect(page).to have_content("Placed on: #{@order.created_at}")
         expect(page).to have_content("Last Updated on: #{@order.updated_at}")
         expect(page).to have_content("Item Count: #{@order.item_count}")
-        expect(page).to have_content("Order Total: #{@order.total_cost}")
-        expect(page).to have_content("Order Status: #{@order.status}")
+        expect(page).to have_content("Order Total: $#{@order.total_cost}.00")
+        expect(page).to have_content("Order Status: Pending")
       end
 
       within ".order-items" do
@@ -44,7 +44,7 @@ RSpec.describe "as a registered user" do
             expect(page).to have_css("img[src*='#{order_item.item.image_url}']")
             expect(page).to have_content("#{order_item.item.title}")
             expect(page).to have_content("#{order_item.item.description}")
-            expect(page).to have_content("Sale Price: #{order_item.sale_price}")
+            expect(page).to have_content("Sale Price: $#{order_item.sale_price}.00")
             expect(page).to have_content("Qty: #{order_item.quantity}")
           end
         end
