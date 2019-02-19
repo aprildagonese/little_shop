@@ -19,6 +19,7 @@ class MerchantsController < ApplicationController
     @user = User.find(params[:id])
     @user.change_status
     redirect_to admin_merchants_path
+    flash[:success] = "#{@user.name} has been disabled."
   end
 
 end
