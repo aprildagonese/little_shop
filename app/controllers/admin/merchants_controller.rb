@@ -1,5 +1,4 @@
 class Admin::MerchantsController < Admin::BaseController
-  before_action :require_admin
 
   def index
     @users = User.where(role: 1).order(:name)

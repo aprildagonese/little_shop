@@ -36,13 +36,13 @@ class Order < ApplicationRecord
 
   def self.find_orders(user)
     Order.joins(:items)
-    .where(order_items: {fulfillment_status: 0}, items: {user_id: user.id})
-    .distinct
+         .where(order_items: {fulfillment_status: 0}, items: {user_id: user.id})
+         .distinct
   end
 
   def user_items(user)
     OrderItem.joins(:item)
-    .where(items: {user_id: user}, order_id: id)
+             .where(items: {user_id: user}, order_id: id)
   end
 
 

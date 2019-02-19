@@ -23,6 +23,7 @@ class Item < ApplicationRecord
   end
 
   def self.most_popular
+    #consolidate with least_popular and pass in direction
     Item.joins(:orders)
     .select("items.*, sum(order_items.quantity) as total_quantity")
     .where(orders: {status: 1})
