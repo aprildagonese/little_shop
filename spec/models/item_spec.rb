@@ -59,8 +59,8 @@ RSpec.describe Item, type: :model do
       end
     end
 
-    context "sorting by quantity sold" do
-      it ".top_items_sold should sort by highest item sold first" do
+    context ".top_items_sold" do
+      it "should sort by highest item sold first" do
         Faker::UniqueGenerator.clear
         @merchant = create(:user, role: 1)
         @user1, @user2, @user3, @user4, @user5, @user6, @user7 = create_list(:user, 7, role: 0)

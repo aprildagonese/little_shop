@@ -27,4 +27,14 @@ class User < ApplicationRecord
     end
     update_attribute(:role, 0)
   end
+
+  # def self.user_by_most_orders(merchant)
+  #   User.joins("join orders on users.id = orders.user_id join order_items on orders.id = order_items.order_id")
+  #       .select("select users.name from users")
+  #       .select()
+  #       .where("where orders.user_id = ?", merchant.id)
+  #       .group(:id)
+  #       .order("user_orders asc")
+  #       .first
+  # end
 end

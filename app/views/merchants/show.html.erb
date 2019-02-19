@@ -6,5 +6,7 @@
 <% @top_five.each do |item| %>
   <li><%= item.title %>: <%= item.units_sold %> units sold</li>
 <% end  %>
+</br>
 <h3>Total Quantity of Items Sold</h3>
-<p>Sold <%= Item.total_sold_quantity(@user) %> items, which is <%= Item.percent_sold(@user) %>% of your total inventory</p>
+<p>Sold <%= @total_sold %> items, which is <%= @percent_sold %>% of your total inventory</p>
+</br>
