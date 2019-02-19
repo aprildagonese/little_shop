@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "As an admin", type: :feature do
   before :each do
+    Faker::UniqueGenerator.clear
+
     @admin = create(:user, role: 2)
     login_as(@admin)
     @merchant = create(:user, name: "Merchant Man", role: 1)
@@ -41,6 +43,7 @@ RSpec.describe "As an admin", type: :feature do
         click_button "Downgrade Merchant"
 
         visit admin_merchants_path
+        save_and_open_page
         expect(page).to_not have_content(@merchant.name)
 
         visit admin_users_path

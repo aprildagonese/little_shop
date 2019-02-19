@@ -36,7 +36,7 @@ class Order < ApplicationRecord
 
   def self.find_orders(user)
     Order.joins(:items)
-    .where(order_items: {status: "pending"}, items: {user_id: user.id})
+    .where(order_items: {fulfillment_status: 0}, items: {user_id: user.id})
     .distinct
   end
 

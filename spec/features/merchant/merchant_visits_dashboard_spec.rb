@@ -29,10 +29,10 @@ RSpec.describe "as a merchant" do
       order3 = create(:order, user: user1)
       oi1 = create(:order_item, order: order1, item: item1)
       oi2 = create(:order_item, order: order1, item: item3)
-      oi3 = create(:order_item, order: order2, item: item2, status: 1)
+      oi3 = create(:order_item, order: order2, item: item2, fulfillment_status: 1)
       oi4 = create(:order_item, order: order2, item: item4)
       oi5 = create(:order_item, order: order3, item: item1)
-      oi6 = create(:order_item, order: order3, item: item2, status: 1)
+      oi6 = create(:order_item, order: order3, item: item2, fulfillment_status: 1)
 
       login_as(merchant1)
       visit dashboard_path(merchant1)

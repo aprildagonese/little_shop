@@ -42,14 +42,14 @@ RSpec.describe Order, type: :model do
       order2 = create(:order, user: user2)
       order3 = create(:order, user: user3)
       order4 = create(:order, user: user1)
-      oi1 = create(:order_item, order: order1, item: item1, status: 1)
-      oi2 = create(:order_item, order: order1, item: item3, status: 1)
+      oi1 = create(:order_item, order: order1, item: item1, fulfillment_status: 1)
+      oi2 = create(:order_item, order: order1, item: item3, fulfillment_status: 1)
       oi3 = create(:order_item, order: order2, item: item2)
-      oi4 = create(:order_item, order: order2, item: item4, status: 1)
+      oi4 = create(:order_item, order: order2, item: item4, fulfillment_status: 1)
       oi5 = create(:order_item, order: order3, item: item1)
       oi6 = create(:order_item, order: order3, item: item2)
       oi7 = create(:order_item, order: order4, item: item4)
-      oi8 = create(:order_item, order: order4, item: item5, status: 1)
+      oi8 = create(:order_item, order: order4, item: item5, fulfillment_status: 1)
 
       expected1 = [order2, order3]
       expected2 = [order4]
