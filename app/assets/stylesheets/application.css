@@ -144,6 +144,10 @@ h1 {
   text-shadow: 1px 1px darkslategray;
 }
 
+.title {
+  margin-left: 10px;
+}
+
 .full {
   display: inline-grid;
   width: 100%;
@@ -151,6 +155,8 @@ h1 {
 }
 
 .cart-nav {
+  margin-top: 10px;
+  margin-right: 15px;
   display: inline-grid;
 }
 
