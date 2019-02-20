@@ -13,7 +13,7 @@ class Merchants::ItemsController < Merchants::BaseController
     if @item.update(item_params)
       redirect_to dashboard_items_path
     else
-      flash[:error] = "Dish has been entered erroneously."
+      flash[:error] = "Your item has been entered incorrectly."
       redirect_to dashboard_item_edit_path(@item)
     end
   end

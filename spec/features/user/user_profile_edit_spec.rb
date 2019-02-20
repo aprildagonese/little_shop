@@ -96,7 +96,7 @@ RSpec.describe 'as a registered user' do
 
     expect(current_path).to eq(profile_edit_path)
 
-    expect(page).to have_content("That email has already been taken")
+    expect(page).to have_content("Another account is associated with that email address.")
 
     expect(page).to have_content("Name")
     expect(page).to have_content("Street address")

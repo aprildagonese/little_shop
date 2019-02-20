@@ -33,9 +33,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(session[:user_id])
     if @user.update(user_params)
+      flash[:success] = "Your profile has been updated."
       redirect_to profile_path
     else
-      flash[:error] = "That email has already been taken."
+      flash[:error] = "Another account is associated with that email address."
       redirect_to profile_edit_path
     end
   end

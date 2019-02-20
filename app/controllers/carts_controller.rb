@@ -20,6 +20,7 @@ class CartsController < ApplicationController
     if @cart.contents[params[:item_id]] == 0
       @cart.contents.delete(params[:item_id])
     end
+    flash[:success] = "Your cart has been updated."
     redirect_to cart_path
   end
 

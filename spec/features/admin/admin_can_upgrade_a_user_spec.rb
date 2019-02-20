@@ -24,7 +24,7 @@ RSpec.describe "As an admin", type: :feature do
 
         expect(current_path).to eq(admin_merchant_path(@user))
 
-        expect(page).to have_content("User has been upgraded to a merchant")
+        expect(page).to have_content("User role has been upgraded to 'merchant'.")
         expect(page).to_not have_button("Upgrade")
       end
     end

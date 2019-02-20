@@ -17,7 +17,7 @@ class Admin::MerchantsController < Admin::BaseController
   def downgrade
     @user = User.find(params[:user_id])
     @user.downgrade
-    flash[:downgraded] = "Merchant has been downgraded to a user"
+    flash[:downgraded] = "Merchant role has been downgraded to 'user'."
     redirect_to admin_user_path(@user)
   end
 end

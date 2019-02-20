@@ -22,7 +22,7 @@ RSpec.describe "As an admin", type: :feature do
       end
 
       expect(current_path).to eq(admin_merchants_path)
-      expect(page).to have_content("#{@merchant1.name} has been re-enabled.")
+      expect(page).to have_content("#{@merchant1.name} has been enabled.")
 
       within ".user-#{@merchant1.id}-row" do
         expect(page).to have_content("#{@merchant1.name}")
@@ -45,7 +45,7 @@ RSpec.describe "As an admin", type: :feature do
           click_button("Enable")
         end
 
-        expect(page).to have_content("#{@merchant1.name} has been re-enabled")
+        expect(page).to have_content("#{@merchant1.name} has been enabled")
         within ".user-#{@merchant1.id}-row" do
           expect(page).to have_button("Disable")
         end
@@ -81,7 +81,7 @@ RSpec.describe "As an admin", type: :feature do
       end
 
       expect(current_path).to eq(admin_users_path)
-      expect(page).to have_content("#{@user.name} has been re-enabled.")
+      expect(page).to have_content("#{@user.name} has been enabled.")
 
       within ".user-#{@user.id}-row" do
         expect(page).to have_content("#{@user.name}")

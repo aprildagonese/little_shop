@@ -120,7 +120,7 @@ RSpec.describe 'as an admin', type: :feature do
 
         expect(current_path).to eq(admin_orders_path)
 
-        expect(page).to have_content("Order #{@order_1.id} has been cancelled.")
+        expect(page).to have_content("Order ##{@order_1.id} has been cancelled.")
         expect(page).to have_content("User Orders")
 
         within "#order-#{@order_1.id}" do

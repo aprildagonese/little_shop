@@ -315,7 +315,7 @@ RSpec.describe 'as a merchant' do
 
       click_button "Update Item"
 
-      expect(page).to have_content("Dish has been entered erroneously.")
+      expect(page).to have_content("Your item has been entered incorrectly.")
       expect(current_path).to eq(dashboard_item_edit_path(@item_1))
     end
 

@@ -20,7 +20,7 @@ class Admin::UsersController < Admin::BaseController
     if @user.update(user_params)
       redirect_to admin_user_path(@user)
     else
-      flash[:error] = "That email has already been taken"
+      flash[:error] = "An account already exists for that email address."
       redirect_to edit_admin_user_path(@user)
     end
   end
@@ -34,7 +34,7 @@ class Admin::UsersController < Admin::BaseController
       redirect_to admin_users_path
     end
     if @user.active?
-      flash[:alert] = "#{@user.name} has been re-enabled."
+      flash[:alert] = "#{@user.name} has been enabled."
     elsif @user.inactive?
       flash[:alert] = "#{@user.name} has been disabled."
     end
@@ -43,7 +43,7 @@ class Admin::UsersController < Admin::BaseController
   def upgrade
     @user = User.find(params[:user_id])
     @user.upgrade
-    flash[:upgraded] = "User has been upgraded to a merchant"
+    flash[:upgraded] = "User role has been upgraded to 'merchant'."
     redirect_to admin_merchant_path(@user)
   end
 
