@@ -3,6 +3,7 @@ class MerchantsController < ApplicationController
 
   def index
     if current_user && current_user.admin?
+      #move order by name to a model
       @users = User.where(role: 1).order(:name)
     else
       @users = User.where(role: 1).where(activation_status: 0).order(:name)
@@ -23,7 +24,11 @@ class MerchantsController < ApplicationController
     @user = User.find(params[:id])
     @user.change_status
     redirect_to admin_merchants_path
-    flash[:success] = "#{@user.name} has been disabled."
+    if @user.inactive?
+      flash[:success] = "#{@user.name} has been disabled."
+    elsif @user.active?
+      flash[:success] = "#{@user.name} has been re-enabled."
+    end
   end
 
 end

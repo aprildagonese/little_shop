@@ -1,5 +1,4 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :require_admin
 
   def show
     @user = User.find(params[:id])
@@ -9,7 +8,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def index
-      @users = User.where(role: 0).order(:name)
+    @users = User.where(role: 0).order(:name)
   end
 
   def edit
@@ -34,7 +33,11 @@ class Admin::UsersController < Admin::BaseController
     elsif @user.registered?
       redirect_to admin_users_path
     end
-    flash[:alert] = "User #{@user.name}'s account has been disabled."
+    if @user.active?
+      flash[:alert] = "#{@user.name} has been enabled."
+    elsif @user.inactive?
+      flash[:alert] = "#{@user.name} has been disabled."
+    end
   end
 
   private

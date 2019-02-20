@@ -17,6 +17,7 @@
           <%= link_to "My Orders", profile_orders_path %>
         <% elsif current_user.merchant? %>
           <%= link_to "My Dashboard", dashboard_path %>
+          <%= link_to "My Dishes", dashboard_items_path %>
         <% elsif current_user.admin? %>
           <%= link_to "Admin Dashboard", admin_dashboard_path %>
           <%= link_to "Users", admin_users_path %>

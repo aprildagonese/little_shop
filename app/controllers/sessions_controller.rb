@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password]) && user.active?
       session[:user_id] = user.id
       flash[:alert] = "You have been logged in."
+      #move lines 15-21 to a helper method
       if user.registered?
         redirect_to profile_path
       elsif user.merchant?

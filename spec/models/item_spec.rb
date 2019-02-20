@@ -268,6 +268,21 @@ RSpec.describe Item, type: :model do
         expect(item2.units_sold).to eq(20)
       end
     end
+
+    it "#change_status" do
+      merchant = create(:merchant)
+      item = Item.create!(title: "Test",
+                          description: "dish",
+                          quantity: 5,
+                          price: 5,
+                          user: merchant,
+                          active: true)
+      expect(item.active).to eq(true)
+      item.change_status
+      expect(item.active).to eq(false)
+      item.change_status
+      expect(item.active).to eq(true)
+    end
   end
 
 end
