@@ -33,6 +33,14 @@ footer a:hover {
 
 }
 
+ul {
+  padding-left: 0px;
+}
+
+li {
+  list-style: none;
+}
+
 /* NAVBAR */
 
 .nav-bar a {
@@ -151,13 +159,15 @@ footer a:hover {
   margin: 0;
   display: grid;
   grid-template: 10vh 90vh / 65vw 35vw;
-  background: #f1e9dc;
+  background-image: radial-gradient(#f1e9dc, #D5B9B2);
   overflow: scroll;
 }
 
 .merchant-titles {
   grid-area: 1 / 1 / 2 / 2;
   background: #A26769;
+  background: #353230;
+  color: #efe5e3;
   border-radius: 5px;
   margin: 12px;
   margin-bottom: 0px;
@@ -169,23 +179,54 @@ footer a:hover {
   border-radius: 5px;
   display: grid;
   grid-template: repeat(6, auto) / auto;
-  background: #D5B9B2;
+  /* background: #D5B9B2;
+  background: #232120; */
+  background: #353230;
+  color: #efe5e3;
 }
 
 .merchant-stats h3 {
   text-align: center;
-  padding-bottom: 12px;
   border-bottom: 2px #a26769 solid;
+  border-bottom: 2px #232120 solid;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+  display: grid;
+  grid-template: 150px auto / 50vw 50vw;
+}
+
+.dashboard-stats {
+  grid-area: 1 / 1 / 3 / 4
+  border: 2px #673F5D solid;
+  margin: 6px;
 }
 
 
 /* PARTIALS */
 
+/* _orderslist */
+
+.orders-list {
+
+  border: 2px #673F5D solid;
+  margin: 6px;
+}
+
+.orders-list li {
+  margin: 8px;
+}
+
 /* _infopage */
 
-.info_page {
-  display: grid;
-  grid-template: 100vh / 65vh 35vh;
+.info-page {
+  /* display: grid;
+  grid-template: 100vh / 65vh 35vh; */
+  border: 2px #673F5D solid;
+  text-align: center;
+  margin: 6px;
 }
 
 .info-page-buttons {
@@ -195,10 +236,10 @@ footer a:hover {
 }
 
 .profile {
-  grid-area: 1 / 1 / 1 / 1;
-  display: grid;
-    width: 60vw;
-  padding: 20px;
+  /* grid-area: 1 / 1 / 1 / 1;
+  display: grid; */
+    /* width: 60vw;
+  padding: 20px; */
 }
 
 .profile p {
