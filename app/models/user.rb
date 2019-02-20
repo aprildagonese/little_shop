@@ -13,6 +13,51 @@ class User < ApplicationRecord
   enum role: [:registered, :merchant, :admin]
   enum activation_status: [:active, :inactive]
 
+  def self.highest_revenues
+    joins(items: :orders)
+    .select('users.*, SUM(order_items.sale_price * order_items.quantity) AS total_revenue')
+    .where(orders: {status: 1}, role: 1)
+    .group(:id)
+    .order('total_revenue desc')
+    .limit(3)
+  end
+
+  def self.fastest_fulfillments
+    joins(items: :orders)
+    .select('users.*, AVG(order_items.updated_at - order_items.created_at) as avg_time')
+    .where(orders: {status: 1}, role: 1)
+    .group(:id)
+    .order("avg_time asc")
+    .limit(3).reverse
+  end
+
+  def self.slowest_fulfillments
+    joins(items: :orders)
+    .select('users.*, AVG(order_items.updated_at - order_items.created_at) as avg_time')
+    .where(orders: {status: 1}, role: 1)
+    .group(:id)
+    .order('avg_time desc')
+    .limit(3)
+  end
+
+  def self.most_orders_by_state
+    joins(orders: :order_items)
+    .select('users.state, COUNT(DISTINCT orders.id) AS total_orders')
+    .where(orders: {status: 1}, role: 0)
+    .group(:state)
+    .order('total_orders desc')
+    .limit(3)
+  end
+
+  def self.most_orders_by_city
+    joins(orders: :order_items)
+    .select('users.city, users.state, COUNT(DISTINCT orders.id) AS total_orders')
+    .where(orders: {status: 1}, role: 0)
+    .group(:city, :state)
+    .order('total_orders desc')
+    .limit(3)
+  end
+
   def change_status
     if activation_status == "active"
       update_attribute(:activation_status, 1)

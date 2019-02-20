@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe "As a merchant", type: :feature do
 
   before :each do
-    @merchant = create(:user, role: 1)
+    Faker::UniqueGenerator.clear
+    
+    @merchant = create(:merchant)
     login_as(@merchant)
   end
 
