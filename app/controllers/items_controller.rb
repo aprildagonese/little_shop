@@ -8,8 +8,10 @@ class ItemsController < ApplicationController
     @user = current_user
 
     @item = @user.items.new(item_params)
+    if @item.image_url == ""
+      @item.image_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
+    end
     @item.active = true
-
     if @item.save
       redirect_to dashboard_items_path
       flash[:alert] = "'#{@item.title}' has been saved and is available for sale."
@@ -26,12 +28,6 @@ class ItemsController < ApplicationController
     @items = Item.where(active: true)
     @top_items = Item.most_popular.limit(5)
     @bottom_items = Item.least_popular.limit(5)
-  end
-
-  def edit
-  end
-
-  def update
   end
 
   def destroy
