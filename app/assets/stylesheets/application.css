@@ -1,4 +1,9 @@
+html {
+  font-family: 'Raleway', sans-serif;
+}
+
 body {
+  height: 100vh;
   margin: 0;
 }
 
@@ -6,12 +11,35 @@ h1 {
   text-align: center;
 }
 
+h4 {
+  text-align: center;
+  margin: 0;
+  padding-top: 6px;
+}
+
+footer h4 {
+  color: darkslategray;
+}
+
+footer a {
+  text-decoration: none;
+  color: darkslategray;
+}
+
+footer a:hover {
+  padding-left: 12px;
+  padding-right: 12px;
+  color: #a26769;
+
+}
+
 /* NAVBAR */
 
 .nav-bar a {
   text-decoration: none;
   color: whitesmoke;
-  padding: 8px;
+  padding: 7px;
+  padding-bottom: 8px;
 }
 
 .nav-bar a:hover {
@@ -24,32 +52,72 @@ h1 {
   display: inline-grid;
   width: 100%;
   height: 6vh;
-  grid-template-columns: auto auto auto;
   align-items: center;
+  grid-template-columns: auto auto;
+}
+
+.right-nav {
+  justify-content: flex-end;
+  display: inline-grid;
+  grid-template-columns: auto auto;
 }
 
 .general-nav {
+  height: 6vh;
   display: inline-grid;
+  align-items: center;
   grid-template-columns: auto auto auto;
 }
 
 .auth_nav {
+  height: 6vh;
+  align-items: center;
   display: inline-grid;
+}
+
+.link {
+  display: inline;
 }
 
 /* SPLASH PAGE */
 
 .splash {
-  /* padding-top: 60px; */
   display: grid;
+  grid-template: 33% 33% 33% / auto;
   text-align: center;
-  background: #f1e9dc;
+  background-image: url(https://lh3.googleusercontent.com/snrW2_eKtRQdFX9SPmQLP23Q_eEWLRkGOia-gI-UL7Wy6-LCbbgG4e-RHHYizvHs8aAMkr6ewhMNF3gBFH-uAM3ARMK1ef08HHI2F-s9KbnH_L552pyIBaTAKAasXokYAVZUR_Mg0TzZe5bz5iDBqQOKDOenRROLscoMwcMKn3We0gUJdf_US3LP9CfyIdPsqMdTmRU8M5DmqAXRh-qxlv2sOVNYOM_c57i2BWQGSMBK5uUEwQVhg2K7YC4d94vaWdtYuJnz64_2n585PxC3AcAIbYue3lkf9OhTUMY-tYLGEyBniT-eyfRZk8IqVM5OMUxXhDn5ArA0kPnv2Vlatj64Yi1c1NaG0YpX8GOJwgcQ6Uvl4PGdcM-N0gs3--rbxiwq7R1KwcEl0pwmdz3zUAPS1vkNW1Mbmib38fCWT7Bj1U-hnnaYK0VK6FK4ueXs5gKuIJcJjKkWzLjNXBJQ-u4MIXNI7ZGgQFFPT6ahJkPHGZvkembzOE-cE03ajic6M1Tegf2pEI2LSnJ9K8ZLH2dJdlgF74p9QNQU1YV5yRm7gzVveFFADuB2krj0BRhHNmYOQbXg9-krP9gMQSYpTpa-cZHvMOPPCSLmpxbqXANd0WLo_wp8NcZ1xw4mcsAkZr4NKfUyI8mlP42VVgNhw6Shji2mDmGoQDeUh20cQzRXyodGw34sSZG9sYDEGETb_1JkX8npR5l0ZCtAq5KzQJH3=w2880-h1110-no);
+  background-size: cover;
   height: 76vh;
 }
 
-.splash img {
-  margin: auto;
-  width: 100vw;
+.splash h1 {
+  color: whitesmoke;
+  text-shadow: 1px 1px darkslategray;
+  font-weight: 400;
+}
+
+.splash a {
+  text-decoration: none;
+  color: whitesmoke;
+  text-shadow: 1px 1px black;
+  padding: 6px;
+}
+
+.splash a:hover {
+  border-radius: 3px;
+  background-color: #582c4d;
+}
+
+.splash h3 {
+  padding-top: 15vh;
+  color: whitesmoke;
+  text-shadow: 1px 1px black;
+  font-weight: 400;
+}
+
+.splash footer {
+  background: #f1e9dc;
+  height: 5vh;
 }
 
 /* ITEMS INDEX */
@@ -75,6 +143,41 @@ h1 {
   grid-area: 1 / 2;
   text-align: center;
 }
+
+/* MERCHANT INDEX */
+
+.merchant-index {
+  height: 85vh;
+  margin: 0;
+  display: grid;
+  grid-template: 10vh 90vh / 65vw 35vw;
+  background: #f1e9dc;
+  overflow: scroll;
+}
+
+.merchant-titles {
+  grid-area: 1 / 1 / 2 / 2;
+  background: #A26769;
+  border-radius: 5px;
+  margin: 12px;
+  margin-bottom: 0px;
+}
+
+.merchant-stats {
+  grid-area: 1 / 2 / 4 / 3;
+  margin: 12px;
+  border-radius: 5px;
+  display: grid;
+  grid-template: repeat(6, auto) / auto;
+  background: #D5B9B2;
+}
+
+.merchant-stats h3 {
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 2px #a26769 solid;
+}
+
 
 /* PARTIALS */
 
@@ -117,11 +220,28 @@ h1 {
   background: #ece2d0;
   text-align: center;
   border: 2px dotted #d7cebe;
+  border-radius: 5px;
   width: 60vw;
 }
 
 .item img {
 
+}
+
+/* _userlist */
+
+.user-list {
+  margin: 12px;
+  overflow: scroll;
+  border: 4px darkslategray solid;
+  border-radius: 5px;
+}
+
+.user {
+  background: #ece2d0;
+  border: 2px #d7cebe dotted;
+  border-radius: 5px;
+  margin: 4px;
 }
 
 .auth-column {
@@ -140,7 +260,12 @@ h1 {
   width: 100%;
   grid-template-columns: auto auto auto;
   background: #bfb5af;
+}
+
+.title-full {
+  padding-left: 12px;
   color: whitesmoke;
+  font-family: 'Poiret One', cursive;
   text-shadow: 1px 1px darkslategray;
 }
 
@@ -153,6 +278,57 @@ h1 {
 .cart-nav {
   display: inline-grid;
 }
+
+/* MERCHANT INDEX */
+
+#peoples-choice {
+  text-align: center;
+}
+
+#peoples-choice p {
+  margin: 2px;
+}
+
+#fast-food {
+  text-align: center;
+}
+
+#fast-food p {
+  margin: 2px;
+}
+
+#slow-food {
+  text-align: center;
+}
+
+#slow-food p {
+  margin: 2px;
+}
+
+#foodie-states {
+  text-align: center;
+}
+
+#foodie-states p {
+    margin: 2px;
+}
+
+#foodie-cities {
+  text-align: center;
+}
+
+#foodie-cities p {
+    margin: 2px;
+}
+
+#biggest-appetites {
+  text-align: center;
+}
+
+#biggest-appetites p {
+  margin: 2px;
+}
+
 
 /* .title-block {
   display: grid;

@@ -1,37 +1,67 @@
 <!---Nav Bar--->
   <nav class="nav-bar">
     <div class="general-nav">
-      <%= link_to "Home", welcome_path %>
-      <%= link_to "Browse Dishes", items_path %>
+      <nav class='link'>
+        <%= link_to "Home", welcome_path %>
+      </nav>
+      <nav class='link'>
+        <%= link_to "Browse Dishes", items_path %>
+      </nav>
       <% if current_user && current_user.admin? %>
+      <nav class='link'>
         <%= link_to "Restaurants", admin_merchants_path %>
+      </nav>
       <% else %>
+      <nav class='link'>
         <%= link_to "Restaurants", merchants_path %>
+      </nav>
       <% end %>
     </div>
 
-    <div class="personal-nav">
-      <% if current_user %>
-        <% if current_user.registered? %>
-          <%= link_to "My Profile", profile_path %>
-          <%= link_to "My Orders", profile_orders_path %>
-        <% elsif current_user.merchant? %>
-          <%= link_to "My Dashboard", dashboard_path %>
-          <%= link_to "My Dishes", dashboard_items_path %>
-        <% elsif current_user.admin? %>
-          <%= link_to "Admin Dashboard", admin_dashboard_path %>
-          <%= link_to "Users", admin_users_path %>
+    <div class="right-nav">
+      <div class="personal-nav">
+        <% if current_user %>
+
+          <% if current_user.registered? %>
+          <nav class='link'>
+            <%= link_to "My Profile", profile_path %>
+          </nav>
+          <nav class='link'>
+            <%= link_to "My Orders", profile_orders_path %>
+          </nav>
+          <% elsif current_user.merchant? %>
+          <nav class='link'>
+            <%= link_to "My Dashboard", dashboard_path %>
+          </nav>
+          <nav class='link'>
+            <%= link_to "My Dishes", dashboard_items_path %>
+          </nav>
+          <% elsif current_user.admin? %>
+          <nav class='link'>
+            <%= link_to "Admin Dashboard", admin_dashboard_path %>
+          </nav>
+          <nav class='link'>
+            <%= link_to "Users", admin_users_path %>
+          </nav>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
 
-    <div class="auth-nav">
-      <% if !current_user %>
-        <%= link_to "Log In", login_path %>
-        <%= link_to "Register", register_path %>
-      <% else %>
-        <%= link_to "Log Out", logout_path, method: :delete %>
-      <% end %>
+
+      <div class="auth-nav">
+        <% if !current_user %>
+        <nav class='link'>
+          <%= link_to "Log In", login_path, class: 'session' %>
+        </nav>
+        <nav class='link'>
+          <%= link_to "Register", register_path %>
+        </nav>
+        <% else %>
+        <nav class='link'>
+          <%= link_to "Log Out", logout_path, method: :delete, class: 'session' %>
+        </nav>
+        <% end %>
+      </div>
     </div>
 
   </nav>
