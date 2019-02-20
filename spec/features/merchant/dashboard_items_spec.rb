@@ -171,7 +171,7 @@ RSpec.describe 'as a merchant' do
 
       fill_in "Dish", with: "Delicious Treats"
       fill_in "Description", with: "They're ok"
-      fill_in "Image (optional)", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
       fill_in "Price", with: 20
       fill_in "Current Inventory", with: 40
 
@@ -190,12 +190,12 @@ RSpec.describe 'as a merchant' do
       end
     end
 
-    it "can't submit invalid info" do
+    it "can't submit invalid title" do
       login_as(@merchant)
       visit dashboard_items_new_path
 
       fill_in "Description", with: "They're ok"
-      fill_in "Image (optional)", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
       fill_in "Price", with: 20
       fill_in "Current Inventory", with: 40
 
@@ -204,7 +204,62 @@ RSpec.describe 'as a merchant' do
       expect(page).to have_content("Enter information for your new dish:")
     end
 
+    it "can't submit invalid description" do
+      login_as(@merchant)
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      expect(page).to have_content("Enter information for your new dish:")
+    end
+
+    it "can't submit invalid price" do
+      login_as(@merchant)
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      expect(page).to have_content("Enter information for your new dish:")
+    end
+
+    it "can't submit invalid inventory" do
+      login_as(@merchant)
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+
+      click_button("Save Item")
+
+      expect(page).to have_content("Enter information for your new dish:")
+    end
+
     it "can leave image blank and get default image" do
+      login_as(@merchant)
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content("'Delicious Treats' has been saved and is available for sale.")
+      expect(page).to have_css("img[src*='https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg']")
     end
 
   end
