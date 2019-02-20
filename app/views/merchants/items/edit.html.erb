@@ -1,4 +1,4 @@
-<h1>Enter information for your new dish:</h1>
+<h1>Edit <%= @item.title %></h1>
 
 <% if @item.errors %>
   <ul id="errors">
@@ -24,5 +24,5 @@
   <%= f.label :quantity, "Current Inventory" %>
   <%= f.text_field :quantity, required: true %>
 
-  <%= f.submit "Save Item" %>
+  <%= f.submit %>
 <% end %>

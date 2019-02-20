@@ -114,7 +114,6 @@ RSpec.describe "as a visitor" do
       within "#fast-food" do
         expect(page).to have_content("Fast Food")
       # - top 3 merchants who were fastest at fulfilling items in an order, and their times
-        save_and_open_page
         expect(page).to have_content("#{@merch_8.name}, Avg. Delivery Time: 01:22:22")
         expect(page).to have_content("#{@merch_2.name}, Avg. Delivery Time: 00:01:00")
         expect(page).to have_content("#{@merch_6.name}, Avg. Delivery Time: 00:05:00")

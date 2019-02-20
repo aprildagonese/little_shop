@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'as a merchant' do
   before :each do
+
     Faker::UniqueGenerator.clear
 
     @user = create(:user)
@@ -217,7 +218,13 @@ RSpec.describe 'as a merchant' do
         click_button "Edit Item"
       end
 
-      expect(current_path).to eq(dashboard_items_edit_path(@item_1))
+      expect(current_path).to eq(dashboard_item_edit_path(@item_1))
+      expect(page).to have_content(@item_1.title)
+      expect(page).to have_content("Description")
+      expect(page).to have_content("Image (optional)")
+      expect(page).to have_content("Price")
+      expect(page).to have_content("Current Inventory")
+      expect(page).to have_button("Update Item")
     end
   end
 

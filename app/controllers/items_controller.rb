@@ -28,9 +28,6 @@ class ItemsController < ApplicationController
     @bottom_items = Item.least_popular.limit(5)
   end
 
-  def edit
-  end
-
   def update
   end
 
