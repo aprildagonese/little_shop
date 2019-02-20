@@ -151,6 +151,62 @@ RSpec.describe 'as a merchant' do
       expect(page).to_not have_content("Item ID: #{@item_17.id}")
       expect(page).to have_content("Item ID: #{@item_18.id}")
     end
+
+    it 'can add an item' do
+      login_as(@merchant)
+      visit dashboard_items_path
+
+      expect(page).to have_button("Add a New Item")
+      click_button("Add a New Item")
+
+      expect(current_path).to eq("/dashboard/items/new")
+
+      expect(page).to have_content("Dish")
+      expect(page).to have_content("Description")
+      expect(page).to have_content("Image (optional)")
+      expect(page).to have_content("Price")
+      expect(page).to have_content("Inventory")
+
+      expect(page).to have_button("Save Item")
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "Image (optional)", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      item_id = Item.last.id
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content("'Delicious Treats' has been saved and is available for sale.")
+
+      within "#item-#{item_id}" do
+        expect(page).to have_content("Delicious Treats")
+        expect(page).to have_button("Disable")
+        expect(page).to_not have_button("Enable")
+        expect(page).to have_button("Delete")
+      end
+    end
+
+    it "can't submit invalid info" do
+      login_as(@merchant)
+      visit dashboard_items_new_path
+
+      fill_in "Description", with: "They're ok"
+      fill_in "Image (optional)", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      expect(page).to have_content("Enter information for your new dish:")
+    end
+
+    it "can leave image blank and get default image" do
+    end
+
   end
 
 end
