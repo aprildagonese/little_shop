@@ -12,7 +12,7 @@ class Users::OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:order_id])
-    @order.change_status
+    @order.change_status("cancel")
     redirect_to profile_orders_path
   end
 
