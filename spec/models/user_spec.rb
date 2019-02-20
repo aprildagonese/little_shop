@@ -57,7 +57,7 @@ RSpec.describe User, type: :model do
 
 
   describe 'Class Methods' do
-    
+
     before :each do
       @ma_user = create(:user, city: 'Boston', state: 'Massachusetts')
       @ca_user = create(:user, city: 'San Francisco', state: 'California')
@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
       @ny_user = create(:user, city: 'Schenectady', state: 'New York')
       @il_user = create(:user, city: 'Detroit', state: 'Illinois')
 
-      @merch_1, @merch_2, @merch_3, @merch_4, @merch_5, @merch_6, @merch_7, @merch_8, @merch_9, @merch_10 = create_list(:merchant, 10)
+      @merch_1, @merch_2, @merch_3, @merch_4, @merch_5, @merch_6, @merch_7, @merch_8, @merch_9, @merch_10 = create_list(:merchant, 10, state: 'na')
       @merchants = [@merch_1, @merch_2, @merch_3, @merch_4, @merch_5, @merch_6, @merch_7, @merch_8, @merch_9, @merch_10]
 
       @merch1_item_1, @merch1_item_2 = create_list(:item, 5, user: @merch_1)
@@ -155,8 +155,22 @@ RSpec.describe User, type: :model do
     end
 
     it '::most_orders_by_state' do
-      expected = [1]
-      actual = User.most_orders_by_state
+      expected = [{"Michigan" => 6}, {"Illinois" => 4}, {"Colorado" => 4}]
+      actual = User.most_orders_by_state.map do |user|
+        {user.state => user.total_orders.to_i}
+      end
+
+      expect(actual).to eq(expected)
+    end
+
+    it '::most_orders_by_city' do
+      expected = [{"Detroit, Michigan" => 6},
+      {"Detroit, Illinois"  => 4},
+      {"Boston, Massachusetts" => 3}]
+
+      actual = User.most_orders_by_city.map do |user|
+        {"#{user.city}, #{user.state}" => user.total_orders.to_i}
+      end
 
       expect(actual).to eq(expected)
     end

@@ -114,9 +114,9 @@ RSpec.describe "as a visitor" do
       within "#fast-food" do
         expect(page).to have_content("Fast Food")
       # - top 3 merchants who were fastest at fulfilling items in an order, and their times
-        expect(page).to have_content("#{@merch_8.name}, Avg. Delivery Time: about 11 hours")
-        expect(page).to have_content("#{@merch_2.name}, Avg. Delivery Time: about 12 hours")
-        expect(page).to have_content("#{@merch_6.name}, Avg. Delivery Time: about 12 hours")
+        expect(page).to have_content("#{@merch_8.name}, Avg. Delivery Time: about 16 hours")
+        expect(page).to have_content("#{@merch_2.name}, Avg. Delivery Time: about 18 hours")
+        expect(page).to have_content("#{@merch_6.name}, Avg. Delivery Time: about 18 hours")
 
         expect(page).to_not have_content(@merch_9.name)
       end
@@ -144,10 +144,10 @@ RSpec.describe "as a visitor" do
          expect(page).to have_content("Best Foodie Cities")
        # - top 3 cities where any orders were shipped (by number of orders, also Springfield, MI should not be grouped with Springfield, CO), and the count of orders
          expect(page).to have_content("Detroit, Michigan - Orders: 6")
-         expect(page).to have_content("Detroit, Illinois  - Orders: 4")
+         expect(page).to have_content("Detroit, Illinois - Orders: 4")
          expect(page).to have_content("Boston, Massachusetts - Orders: 3")
        end
-       within "biggest-appetites" do
+       within "#biggest-appetites" do
          expect(page).to have_content("Biggest Appetites")
          # - top 3 biggest orders by quantity of items shipped in an order, plus their quantities
          expect(page).to have_content("Order ID: #{@co_order_3.id}, Qty: #{@co_order_3.item_count}")

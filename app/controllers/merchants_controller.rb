@@ -11,6 +11,9 @@ class MerchantsController < ApplicationController
     @best_revenue_merchants = User.highest_revenues
     @fastest_merchants = User.fastest_fulfillments
     @slowest_merchants = User.slowest_fulfillments
+    @highest_order_states = User.most_orders_by_state
+    @highest_order_cities = User.most_orders_by_city
+    @biggest_orders = Order.largest_orders
   end
 
   def show

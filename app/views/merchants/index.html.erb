@@ -20,15 +20,21 @@
   </section>
   <section id='foodie-states'>
     <h4>Best Foodie States</h4>
-
+    <% @highest_order_states.each do |state| %>
+      <%= state.state %>, Orders: <%= state.total_orders.to_i %>
+    <% end %>
   </section>
   <section id='foodie-cities'>
-    <h4>Foodie Cities</h4>
-
+    <h4>Best Foodie Cities</h4>
+    <% @highest_order_cities.each do |city| %>
+      <%= city.city %>, <%= city.state %> - Orders: <%= city.total_orders.to_i %>
+    <% end %>
   </section>
   <section id='biggest-appetites'>
     <h4>Biggest Appetites</h4>
-
+    <% @biggest_orders.each do |order| %>
+      Order ID: <%= order.id %>, Qty: <%= order.total_quantity %>
+    <% end %>
   </section>
 </section>
 

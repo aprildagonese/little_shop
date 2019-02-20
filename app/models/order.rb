@@ -13,6 +13,14 @@ class Order < ApplicationRecord
     end
   end
 
+  def self.largest_orders
+    joins(:order_items)
+    .select('orders.id, SUM(order_items.quantity) AS total_quantity')
+    .where(orders: {status: 1})
+    .group(:id)
+    .order('total_quantity desc')
+    .limit(3)
+  end
 
   def item_count
     order_items.sum(:quantity)

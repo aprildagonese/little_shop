@@ -27,7 +27,7 @@ class User < ApplicationRecord
     .select('users.*, AVG(order_items.updated_at - order_items.created_at) as avg_time')
     .where(orders: {status: 1}, role: 1)
     .group(:id)
-    .order('avg_time asc')
+    .order("avg_time asc")
     .limit(3).reverse
   end
 
@@ -41,8 +41,21 @@ class User < ApplicationRecord
   end
 
   def self.most_orders_by_state
-    joins(:orders)
-    select('')
+    joins(orders: :order_items)
+    .select('users.state, COUNT(DISTINCT orders.id) AS total_orders')
+    .where(orders: {status: 1}, role: 0)
+    .group(:state)
+    .order('total_orders desc')
+    .limit(3)
+  end
+
+  def self.most_orders_by_city
+    joins(orders: :order_items)
+    .select('users.city, users.state, COUNT(DISTINCT orders.id) AS total_orders')
+    .where(orders: {status: 1}, role: 0)
+    .group(:city, :state)
+    .order('total_orders desc')
+    .limit(3)
   end
 
   def change_status
