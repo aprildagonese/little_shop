@@ -249,6 +249,14 @@ RSpec.describe User, type: :model do
       expect(item_3.active).to eq(false)
     end
 
+    it '#upgrade' do
+      user = create(:user, role: 0)
+
+      expect(user.role).to eq("registered")
+      user.upgrade
+      expect(user.role).to eq("merchant")
+    end
+
     context 'merchant dash stats' do
       before :each do
         @merch1, @merch2 = create_list(:user, 2, role: 1)

@@ -16,18 +16,44 @@ RSpec.describe "As an admin", type: :feature do
       expect(page).to have_button("Upgrade User")
     end
 
-    context 'clicks the button to downgrade merchant' do
-      it 'redirects to an admin user show path and merchant role is now a user' do
-        visit admin_merchant_path(@merchant)
+    context 'clicks the button to upgrade user' do
+      it 'redirects to an admin merchant show path and user role is now a merchant' do
+        visit admin_user_path(@user)
 
         click_button "Upgrade User"
 
-        expect(current_path).to eq(admin_merchant_path(@user)
+        expect(current_path).to eq(admin_merchant_path(@user))
 
-        expect(page).to have_content("Merchant has been downgraded to a user")
-        expect(page).to_not have_button("Downgrade")
+        expect(page).to have_content("User has been upgraded to a merchant")
+        expect(page).to_not have_button("Upgrade")
       end
     end
 
+    it 'no longer shows the newly upgraded user on the user index and they appear on the merchant index page instead' do
+      visit admin_users_path
+      expect(page).to have_content(@user.name)
+
+      visit admin_merchants_path
+      expect(page).to_not have_content(@user.name)
+
+      visit admin_user_path(@user)
+      click_button "Upgrade User"
+
+      visit admin_users_path
+      expect(page).to_not have_content(@user.name)
+
+      visit admin_merchants_path
+      expect(page).to have_content(@user.name)
+    end
+
+    it 'shows the newly upgraded user as a merchant when they log in the next time' do
+      visit admin_user_path(@user)
+      click_button "Upgrade User"
+
+      click_link "Log Out"
+      login_as(@user)
+
+      expect(page).to have_content("My Dashboard")
+    end
   end
 end
