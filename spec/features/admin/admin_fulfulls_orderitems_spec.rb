@@ -19,6 +19,7 @@ RSpec.describe "As an admin" do
 
       login_as(admin)
       visit admin_merchant_order_path(order: order, merchant: merchant)
+      save_and_open_page
 
       within ".item-#{oi1.id}" do
         expect(page).to have_content("Order Item Status: Pending")
