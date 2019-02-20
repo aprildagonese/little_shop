@@ -1,20 +1,6 @@
 <section class='dashboard'>
 
-  <section class='dashboard-stats'>
-    <div class="container">
-      <h3>Top 5 Items Sold by Quantity</h3>
-      <% @top_five.each do |item| %>
-        <li><%= item.title %>: <%= item.units_sold %> units sold</li>
-      <% end %>
-    </div>
-    <br>
-    <div class="container">
-      <h3>Total Quantity of Items Sold</h3>
-      <p>Sold <%= @total_sold %> items, which is <%= @percent_sold %>% of your total inventory</p>
-    </div>
-    <br>
-  </section>
-
+  <%= render 'dashboardstats' %>
   <%= render 'infopage' %>
   <%= render 'orderslist' %>
 

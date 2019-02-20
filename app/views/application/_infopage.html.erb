@@ -14,6 +14,8 @@
         <%= button_to "Edit Profile", edit_admin_user_path(@user), method: :get %>
         <% if @user.merchant? %>
           <%= button_to "Downgrade Merchant", admin_downgrade_path, method: :patch, params: {user_id: @user} %>
+        <% elsif @user.registered? %>
+          <%= button_to "Upgrade User", admin_upgrade_path, method: :patch, params: {user_id: @user} %>
         <% end %>
       <% elsif current_user && current_user.registered? %>
         <%= button_to "Edit Profile", profile_edit_path, method: :get %>
@@ -21,7 +23,11 @@
     </aside>
     <aside class="user-order-buttons">
       <% if current_user && current_user.admin? %>
-        <%= button_to "User Orders", admin_orders_path, method: :get, params: {user_id: @user} %>
+        <% if @user.registered? %>
+          <%= button_to "User Orders", admin_orders_path, method: :get, params: {user_id: @user} %>
+        <% elsif @user.merchant? %>
+          <%= button_to "Manage Merchant Items", admin_items_path, method: :get, params: {user_id: @user} %>
+        <% end %>
       <% end %>
     </aside>
   </aside>

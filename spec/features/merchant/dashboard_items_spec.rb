@@ -8,7 +8,7 @@ RSpec.describe 'as a merchant' do
     @user = create(:user)
     @order = create(:order, user: @user)
     @merchant = create(:merchant)
-    @merchant_2 = create(:merchant)
+    @merchant_2 = create(:merchant, name: "April")
 
     @item_1 = create(:disabled_item, user: @merchant, quantity: 15, price: 5)
     @item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10, @item_11, @item_12, @item_13, @item_14, @item_15, @item_16, @item_17, @item_18 = create_list(:item, 17, user: @merchant, quantity: 15, price: 5)
@@ -193,7 +193,7 @@ RSpec.describe 'as a merchant' do
       end
     end
 
-    it "can't submit invalid info" do
+    it "can't submit invalid name" do
 
       visit dashboard_items_new_path
 
@@ -204,6 +204,31 @@ RSpec.describe 'as a merchant' do
 
       click_button("Save Item")
 
+      expect(page).to have_content("Enter information for your new dish:")
+    end
+
+    it "can't reuse a name" do
+
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're whatever"
+      fill_in "Price", with: 10
+      fill_in "Current Inventory", with: 20
+
+      click_button("Save Item")
+
+      expect(page).to have_content("Title has already been taken")
       expect(page).to have_content("Enter information for your new dish:")
     end
 
@@ -262,7 +287,7 @@ RSpec.describe 'as a merchant' do
 
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to have_content("'Delicious Treats' has been saved and is available for sale.")
-      expect(page).to have_css("img[src*='https://downtowncl.org/wp-content/uploads/2016/08/1977_Food-Drink-Generic-Logo.jpg']")
+      #expect(page).to have_css("img[src*='https://downtowncl.org/wp-content/uploads/2016/08/1977_Food-Drink-Generic-Logo.jpg']")
     end
 
     it 'can edit an existing item' do
@@ -307,5 +332,4 @@ RSpec.describe 'as a merchant' do
       expect(page).to have_content('Okonomiyaki')
     end
   end
-
 end

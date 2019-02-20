@@ -1,0 +1,68 @@
+<section class='dashboard-stats'>
+  <section id=top-items>
+  <h3>Top 5 Items Sold by Quantity</h3>
+    <% @top_five.each do |item| %>
+      <section class='item'>
+          <li><%= item.title %>: <%= item.units_sold %> units sold</li>
+        </section>
+    <% end  %>
+  </section>
+
+  <h3>Total Quantity of Items Sold</h3>
+  <p>Sold <%= Item.total_sold_quantity(@user) %> items, which is <%= Item.percent_sold(@user) %>% of your total inventory</p>
+
+  <section id='top-states'>
+    <h3>Top 3 States Where Items Were Shipped</h3>
+    <ol>
+      <% @top_three_states.each do |state| %>
+        <section class='state'>
+          <li><%= state.state %> (<%= pluralize(state.total_items, 'item') %> shipped)</li>
+        </section>
+      <% end %>
+    </ol>
+  </section>
+
+  <section id='top-cities'>
+    <h3>Top 3 Cities Where Items Were Shipped</h3>
+    <ol>
+      <% @top_three_cities.each do |city| %>
+        <section class="city">
+          <li><%= city.city %>, <%= city.state %> (<%= pluralize(city.total_items, 'item') %> shipped)</li>
+        </section>
+      <% end %>
+    </ol>
+  </section>
+
+  <section id='top-spending-patrons'>
+    <h3>Top 3 Spending Patrons</h3>
+    <ol>
+      <% @top_three_patrons.each do |patron| %>
+        <section class="patron">
+          <li> <%= patron.name %> (<%= number_to_currency(patron.total_spent) %>) </li>
+        </section>
+      <% end %>
+    </ol>
+  </section>
+
+  <section id='top-items-patrons'>
+    <h3>Patron Who Purchased The Most Total Items</h3>
+    <ol>
+      <% @top_items_patrons.each do |patron| %>
+        <section class="patron">
+          <li> <%= patron.name %> (<%= pluralize(patron.total_items_qty, 'item')%>) </li>
+        </section>
+      <% end %>
+    </ol>
+  </section>
+
+  <section id='top-orders-patrons'>
+    <h3>Patron Who Has The Most Orders</h3>
+    <ol>
+      <% @top_orders_patrons.each do |patron| %>
+        <section class="patron">
+          <li> <%= patron.name %> (<%= pluralize(patron.total_orders, 'order')%>) </li>
+        </section>
+      <% end %>
+    </ol>
+  </section>
+</section>

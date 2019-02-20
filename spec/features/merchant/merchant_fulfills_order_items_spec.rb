@@ -109,4 +109,46 @@ RSpec.describe "as a merchant" do
       end
     end
   end
+  context "if the final item has been fulfilled" do
+    it "the order status changes" do
+      Faker::UniqueGenerator.clear
+      @user = create(:user)
+      @merchant = create(:user, role: 1)
+      @merchant2 = create(:user, role: 1)
+      @order1 = create(:order, user: @user)
+      @order2 = create(:order, user: @user)
+      @i1, @i3, @i5 = create_list(:item, 3, user: @merchant, quantity: 10)
+      @i2, @i4 = create_list(:item, 2, user: @merchant2, quantity: 10)
+      @oi1, @oi2, @oi3, @oi4, @oi5 = create_list(:order_item, 5)
+      @oi1.update(order: @order1, item: @i1, sale_price: 2, quantity: 5)
+      @oi2.update(order: @order1, item: @i2, sale_price: 3, quantity: 5, fulfillment_status: 1)
+      @oi3.update(order: @order1, item: @i3, sale_price: 4, quantity: 3)
+      @oi4.update(order: @order2, item: @i4, sale_price: 5, quantity: 6)
+      @oi5.update(order: @order2, item: @i5, sale_price: 6, quantity: 6, fulfillment_status: 1)
+
+      login_as(@merchant)
+      visit dashboard_order_path(@order1)
+      expect(@order1.status).to eq("pending")
+      within ".item-#{@oi1.id}" do
+        click_button("Fulfill Item")
+      end
+      @order1 = Order.find(@order1.id)
+      expect(@order1.status).to eq("pending")
+      within ".item-#{@oi3.id}" do
+        click_button("Fulfill Item")
+      end
+      @order1 = Order.find(@order1.id)
+      expect(@order1.status).to eq("fulfilled")
+      click_link("Log Out")
+
+      login_as(@merchant2)
+      visit dashboard_order_path(@order2)
+      expect(@order2.status).to eq("pending")
+      within ".item-#{@oi4.id}" do
+        click_button("Fulfill Item")
+      end
+      @order2 = Order.find(@order2.id)
+      expect(@order2.status).to eq("fulfilled")
+    end
+  end
 end

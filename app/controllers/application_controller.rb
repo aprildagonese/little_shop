@@ -3,11 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :set_cart
   helper_method :current_user
 
-  #Unhighlight if needed in view
-  #helper_method :current_admin?
-  #helper_method :current_merchant?
-  #helper_method :current_registered?
-
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
@@ -29,12 +24,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_merchant
-    render file: "/public/404" unless current_merchant?
+    render file: "/public/404" unless current_admin? || current_merchant?
   end
-
-#   def require_registered_or_admin
-#     render file: "/public/404" unless current_registered? || current_admin?
-#   end
 
   def require_cart_access
     render file: "/public/404" unless current_user.nil? || current_user.registered?

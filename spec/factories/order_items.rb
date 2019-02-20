@@ -6,4 +6,8 @@ FactoryBot.define do
     quantity { Faker::Number.number(2) }
     fulfillment_status { 0 }
   end
+
+  factory :fulfilled_order_item, parent: :order_item do
+    fulfillment_status { 1 }
+  end
 end

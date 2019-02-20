@@ -57,7 +57,6 @@ RSpec.describe User, type: :model do
 
 
   describe 'Class Methods' do
-
     before :each do
       @ma_user = create(:user, city: 'Boston', state: 'Massachusetts')
       @ca_user = create(:user, city: 'San Francisco', state: 'California')
@@ -157,9 +156,8 @@ RSpec.describe User, type: :model do
     it '::most_orders_by_state' do
       expected = [{"Michigan" => 6}, {"Illinois" => 4}, {"Colorado" => 4}]
       actual = User.most_orders_by_state.map do |user|
-        {user.state => user.total_orders.to_i}
-      end
-
+          {user.state => user.total_orders.to_i}
+        end
       expect(actual).to eq(expected)
     end
 
@@ -169,54 +167,9 @@ RSpec.describe User, type: :model do
       {"Boston, Massachusetts" => 3}]
 
       actual = User.most_orders_by_city.map do |user|
-        {"#{user.city}, #{user.state}" => user.total_orders.to_i}
-      end
-
+          {"#{user.city}, #{user.state}" => user.total_orders.to_i}
+        end
       expect(actual).to eq(expected)
-    end
-
-  end
-
-  describe "Instance Methods" do
-
-    xit ".user_by_most_orders" do
-      Faker::UniqueGenerator.clear
-      merchant1, merchant2, merchant3 = create_list(:user, 3, role: 1)
-      user1, user2, user3 = create_list(:user, 3, role: 0)
-      item1, item2, item3 = create_list(:item, 3, user: merchant1)
-      item4, item5 = create_list(:item, 2, user: merchant2)
-      item6, item7 = create_list(:item, 2, user: merchant3)
-
-      order1 = create(:order, user: user1) #user1 orders from merch1
-      oi1 = create(:order_item, order: order1, item: item1, fulfillment_status: 1)
-
-      order2 = create(:order, user: user2) #user2 orders from both
-      oi2 = create(:order_item, order: order2, item: item3, fulfillment_status: 1)
-      oi3 = create(:order_item, order: order2, item: item5, fulfillment_status: 1)
-
-      order3 = create(:order, user: user2) #user2 orders from both
-      oi4 = create(:order_item, order: order3, item: item2)
-      oi5 = create(:order_item, order: order3, item: item4, fulfillment_status: 1)
-
-      order4 = create(:order, user: user1) #user1 orders from merch1
-      oi5 = create(:order_item, order: order4, item: item1)
-      oi6 = create(:order_item, order: order4, item: item2)
-
-      order5 = create(:order, user: user2) #user2 orders from merch2
-      oi7 = create(:order_item, order: order5, item: item4)
-      oi8 = create(:order_item, order: order5, item: item5, fulfillment_status: 1)
-
-      order6 = create(:order, user: user2) #user1 orders from merch1
-      oi7 = create(:order_item, order: order6, item: item1)
-      oi8 = create(:order_item, order: order6, item: item2, fulfillment_status: 1)
-
-      order7 = create(:order, user: user3)
-      oi9 = create(:order_item, order: order7, item: item6, fulfillment_status: 1)
-      oi10 = create(:order_item, order: order7, item: item7, fulfillment_status: 0)
-
-      expect(User.user_by_most_orders(merchant1)).to eq(user1)
-      expect(User.user_by_most_orders(merchant2)).to eq(user2)
-      expect(User.user_by_most_orders(merchant3)).to eq(user3)
     end
   end
 
@@ -256,6 +209,43 @@ RSpec.describe User, type: :model do
       expect(item_3.active).to eq(false)
     end
 
+    it '#upgrade' do
+      user = create(:user, role: 0)
+
+      expect(user.role).to eq("registered")
+      user.upgrade
+      expect(user.role).to eq("merchant")
+    end
+
+    context 'merchant dash stats' do
+      before :each do
+        @merch1, @merch2 = create_list(:user, 2, role: 1)
+        @user1 = create(:user, city: "Springfield", state: "IL")
+        @user2 = create(:user, city: "Springfield", state: "MO")
+        @user3 = create(:user, city: "Chicago", state: "IL")
+        @item1, @item2 = create_list(:item, 2, user: @merch1)
+        @item3 = create(:item, user: @merch2)
+        @order1, @order2 = create_list(:order, 2, user: @user1)
+        @order3, @order4, @order5 = create_list(:order, 3, user: @user2)
+        @order6 = create(:order, user: @user3)
+        @oi1 = create(:fulfilled_order_item, order: @order1, item: @item1, quantity: 1, sale_price: 30)
+        @oi2 = create(:order_item, order: @order1, item: @item2, quantity: 2)
+        @oi3 = create(:order_item, order: @order1, item: @item3, quantity: 3)
+        @oi4 = create(:fulfilled_order_item, order: @order2, item: @item1, quantity: 4, sale_price: 5)
+        @oi5 = create(:order_item, order: @order2, item: @item2, quantity: 5)
+        @oi6 = create(:order_item, order: @order2, item: @item3, quantity: 6)
+        @oi7 = create(:fulfilled_order_item, order: @order3, item: @item1, quantity: 7, sale_price: 10)
+        @oi8 = create(:order_item, order: @order3, item: @item2, quantity: 8)
+        @oi9 = create(:order_item, order: @order3, item: @item3, quantity: 9)
+        @oi10 = create(:fulfilled_order_item, order: @order4, item: @item1, quantity: 10, sale_price: 3)
+        @oi11 = create(:order_item, order: @order4, item: @item2, quantity: 11)
+        @oi12 = create(:order_item, order: @order4, item: @item3, quantity: 12)
+        @oi13 = create(:fulfilled_order_item, order: @order5, item: @item1, quantity: 13, sale_price: 1)
+        @oi14 = create(:order_item, order: @order5, item: @item2, quantity: 14)
+        @oi15 = create(:order_item, order: @order5, item: @item3, quantity: 15)
+        @oi16 = create(:fulfilled_order_item, order: @order6, item: @item1, quantity: 16, sale_price: 2)
+      end
+
     describe "#total_sold_quantity" do
       it "should get merchant's sum of all quantities sold for all items" do
         merch1, merch2 = create_list(:user, 2, role: 1)
@@ -287,8 +277,55 @@ RSpec.describe User, type: :model do
         expect(Item.total_sold_quantity(merch1)).to eq(expected1)
         expect(Item.total_sold_quantity(merch2)).to eq(expected2)
       end
+
+      it '#top_states - shows the top 3 states for that user and their quantities' do
+        expected = @merch1.top_states(3)
+
+        expect(expected[0].state).to eq(@user2.state)
+        expect(expected[0].total_items).to eq(30)
+
+        expect(expected[1].state).to eq(@user1.state)
+        expect(expected[1].total_items).to eq(21)
+      end
+
+      it '#top_city_states - shows the top 3 city, states for that merchant and their quantities' do
+        expected = @merch1.top_city_states(3)
+
+        expect(expected[0].city).to eq(@user2.city)
+        expect(expected[1].city).to eq(@user3.city)
+        expect(expected[2].city).to eq(@user1.city)
+
+        expect(expected[0].total_items).to eq(30)
+        expect(expected[1].total_items).to eq(16)
+        expect(expected[2].total_items).to eq(5)
+      end
+
+      it '#top_spending_patrons - shows the top 3 city, states for that merchant and their quantities' do
+        expected = @merch1.top_spending_patrons(3)
+
+        expect(expected[0].name).to eq(@user2.name)
+        expect(expected[1].name).to eq(@user1.name)
+        expect(expected[2].name).to eq(@user3.name)
+
+        expect(expected[0].total_spent).to eq(113)
+        expect(expected[1].total_spent).to eq(50)
+        expect(expected[2].total_spent).to eq(32)
+      end
+
+      it '#most_items_patrons - shows the patron who has purchased the most total items and their quantity of items' do
+        expected = @merch1.most_items_patrons(1)
+
+        expect(expected[0].name).to eq(@user2.name)
+        expect(expected[0].total_items_qty).to eq(30)
+      end
+
+      it '#most_orders_patrons - shows the patron who has purchased the most total items and their quantity of items' do
+        expected = @merch1.most_orders_patrons(1)
+
+        expect(expected[0].name).to eq(@user2.name)
+        expect(expected[0].total_orders).to eq(3)
+      end
     end
-
-
   end
+end
 end

@@ -185,12 +185,17 @@ RSpec.describe Order, type: :model do
     end
 
     it '#change_status' do
+      @order.change_status("cancel")
+      expect(@order.cancelled?).to eq(true)
 
-      @order.change_status
-      expected = true
-      actual = @order.cancelled?
-
-      expect(actual).to eq(expected)
+      Faker::UniqueGenerator.clear
+      order = create(:order, user: @user)
+      oi1 = create(:order_item, item: @item_1, order: order, sale_price: 5, quantity: 1, fulfillment_status: 0)
+      oi2 = create(:order_item, item: @item_2, order: order, sale_price: 5, quantity: 2, fulfillment_status: 0)
+      oi3 = create(:order_item, item: @item_3, order: order, sale_price: 5, quantity: 3, fulfillment_status: 0)
+      expect(order.status).to eq("pending")
+      order.change_status("fulfill")
+      expect(order.status).to eq("fulfilled")
     end
 
     it '#cancel' do
@@ -203,6 +208,58 @@ RSpec.describe Order, type: :model do
       end
     end
 
-  end
+    it '#items_fulfilled?' do
+      Faker::UniqueGenerator.clear
+      user = create(:user)
+      merchant = create(:user, role: 1)
+      item1 = create(:item, title: "item1", user: merchant, quantity: 5)
+      item2 = create(:item, title: "item2", user: merchant, quantity: 5)
+      item3 = create(:item, title: "item3", user: merchant, quantity: 5)
+      item4 = create(:item, title: "item4", user: merchant, quantity: 5)
+      item5 = create(:item, title: "item5", user: merchant, quantity: 5)
+      item6 = create(:item, title: "item6", user: merchant, quantity: 5)
+      order1, order2, order3 = create_list(:order, 3, user: user)
+      oi1 = create(:order_item, item: item1, order: order1, sale_price: 5, quantity: 1, fulfillment_status: 0)
+      oi2 = create(:order_item, item: item2, order: order1, sale_price: 5, quantity: 2, fulfillment_status: 0)
+      oi3 = create(:order_item, item: item3, order: order2, sale_price: 5, quantity: 3, fulfillment_status: 0)
+      oi4 = create(:order_item, item: item4, order: order2, sale_price: 5, quantity: 4, fulfillment_status: 1)
+      oi5 = create(:order_item, item: item5, order: order3, sale_price: 5, quantity: 5, fulfillment_status: 1)
+      oi6 = create(:order_item, item: item6, order: order3, sale_price: 5, quantity: 5, fulfillment_status: 1)
 
+      expect(order1.items_fulfilled?).to eq(false)
+      expect(order2.items_fulfilled?).to eq(false)
+      expect(order3.items_fulfilled?).to eq(true)
+    end
+
+    it '#check_status' do
+      Faker::UniqueGenerator.clear
+      user = create(:user)
+      merchant = create(:user, role: 1)
+      item_1 = create(:item, title: "I1", user: merchant, quantity: 5)
+      item_2 = create(:item, title: "I2", user: merchant, quantity: 5)
+      item_3 = create(:item, title: "I3", user: merchant, quantity: 5)
+      item_4 = create(:item, title: "I4", user: merchant, quantity: 5)
+      item_5 = create(:item, title: "I5", user: merchant, quantity: 5)
+      item_6 = create(:item, title: "I6", user: merchant, quantity: 5) 
+      order1, order2, order3 = create_list(:order, 3, user: user)
+      order_item_1 = create(:order_item, item: item_1, order: order1, sale_price: 5, quantity: 1, fulfillment_status: 0)
+      order_item_2 = create(:order_item, item: item_2, order: order1, sale_price: 5, quantity: 2, fulfillment_status: 0)
+      order_item_3 = create(:order_item, item: item_3, order: order2, sale_price: 5, quantity: 3, fulfillment_status: 0)
+      order_item_4 = create(:order_item, item: item_4, order: order2, sale_price: 5, quantity: 4, fulfillment_status: 1)
+      order_item_5 = create(:order_item, item: item_5, order: order3, sale_price: 5, quantity: 5, fulfillment_status: 1)
+      order_item_6 = create(:order_item, item: item_6, order: order3, sale_price: 5, quantity: 5, fulfillment_status: 1)
+
+      expect(order1.status).to eq("pending")
+      order1.check_status
+      expect(order1.status).to eq("pending")
+
+      expect(order2.status).to eq("pending")
+      order2.check_status
+      expect(order2.status).to eq("pending")
+
+      expect(order3.status).to eq("pending")
+      order3.check_status
+      expect(order3.status).to eq("fulfilled")
+    end
+  end
 end
