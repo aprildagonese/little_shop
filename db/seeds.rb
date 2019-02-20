@@ -69,7 +69,7 @@ item_images = ["https://www.sprinklesandsprouts.com/wp-content/uploads/2018/05/P
               ]
 
 all_merchants = []
-8.times do
+5.times do
   name = Faker::Name.name
   street_address = Faker::Address.street_address
   city = Faker::Address.city
@@ -109,7 +109,8 @@ all_merchants << user
   quantity = Faker::Number.number(4)
   price = Faker::Commerce.price
   active = true
-  user.items.create(title: title, description: description, quantity: quantity, price: price, active: active)
+  image_url = item_images.sample
+  user.items.create(title: title, description: description, quantity: quantity, price: price, image_url: image_url, active: active)
 end
 
 10.times do
@@ -123,16 +124,34 @@ end
   role = 0
   status = 0
   user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
-  rand(1..8).times do
-    status = [0, 1].sample
-    created_at = rand(300..500).days.ago
+  rand(1..4).times do
+    status = 0
+    created_at = rand(500..600).days.ago
     updated_at = rand(100..299).days.ago
-
+    order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
+    rand(1..4).times do
+      item = all_merchants.sample.items.sample
+      fulfillment_status = [0, 1].sample
+      created_at = rand(400..499).days.ago
+      updated_at = rand(300..399).days.ago
+      OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: fulfillment_status)
+    end
+    item = all_merchants.sample.items.sample
+    created_at = rand(400..499).days.ago
+    updated_at = rand(300..399).days.ago
+    OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: 0)
+  end
+  rand(1..4).times do
+    status = 1
+    created_at = rand(500..600).days.ago
+    updated_at = rand(100..299).days.ago
     order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
     rand(1..5).times do
       item = all_merchants.sample.items.sample
-      activation_status = 0
-      OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10))
+      fulfillment_status = 1
+      created_at = rand(400..499).days.ago
+      updated_at = rand(300..399).days.ago
+      OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: fulfillment_status)
     end
   end
 end
@@ -146,17 +165,35 @@ email = 'user@test.com'
 password = 'password'
 role = 0
 activation_status = 0
-User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
-rand(1..8).times do
-  status = [0, 1].sample
-  created_at = rand(300..500).days.ago
+user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+rand(1..4).times do
+  status = 0
+  created_at = rand(500..600).days.ago
   updated_at = rand(100..299).days.ago
-
+  order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
+  rand(1..4).times do
+    item = all_merchants.sample.items.sample
+    fulfillment_status = [0, 1].sample
+    created_at = rand(400..499).days.ago
+    updated_at = rand(300..399).days.ago
+    OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: fulfillment_status)
+  end
+  item = all_merchants.sample.items.sample
+  created_at = rand(400..499).days.ago
+  updated_at = rand(300..399).days.ago
+  OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: 0)
+end
+rand(1..4).times do
+  status = 1
+  created_at = rand(500..600).days.ago
+  updated_at = rand(100..299).days.ago
   order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
   rand(1..5).times do
     item = all_merchants.sample.items.sample
-    activation_status = 0
-    OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10))
+    fulfillment_status = 1
+    created_at = rand(400..499).days.ago
+    updated_at = rand(300..399).days.ago
+    OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: fulfillment_status)
   end
 end
 

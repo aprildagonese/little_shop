@@ -13,6 +13,15 @@ class Order < ApplicationRecord
     end
   end
 
+  def self.largest_orders
+    joins(:order_items)
+    .select('orders.id, SUM(order_items.quantity) AS total_quantity')
+    .where(orders: {status: 1})
+    .group(:id)
+    .order('total_quantity desc')
+    .limit(3)
+  end
+
   def item_count
     order_items.sum(:quantity)
   end
@@ -21,8 +30,12 @@ class Order < ApplicationRecord
     order_items.sum("sale_price * quantity")
   end
 
-  def change_status
-    update_attribute(:status, 2) if pending?
+  def change_status(change)
+    if change == "cancel"
+      update_attribute(:status, 2) if pending?
+    elsif change == "fulfill"
+      update_attribute(:status, 1) if pending?
+    end
   end
 
   def cancel
@@ -36,8 +49,21 @@ class Order < ApplicationRecord
 
   def self.find_orders(user)
     Order.joins(:items)
-    .where(order_items: {fulfillment_status: 0}, items: {user_id: user.id})
-    .distinct
+         .where(order_items: {fulfillment_status: 0}, items: {user_id: user.id})
+         .distinct
+  end
+
+  def user_items(user)
+    OrderItem.joins(:item)
+             .where(items: {user_id: user}, order_id: id)
+  end
+
+  def items_fulfilled?
+    order_items.where(fulfillment_status: 0).count == 0
+  end
+
+  def check_status
+    change_status("fulfill") if items_fulfilled?
   end
 
 end

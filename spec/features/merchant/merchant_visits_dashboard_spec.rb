@@ -27,30 +27,30 @@ RSpec.describe "as a merchant" do
       order1 = create(:order, user: user1)
       order2 = create(:order, user: user2)
       order3 = create(:order, user: user1)
-      oi1 = create(:order_item, order: order1, item: item1)
-      oi2 = create(:order_item, order: order1, item: item3)
+      oi1 = create(:order_item, order: order1, item: item1, sale_price: 2.00, quantity: 1)
+      oi2 = create(:order_item, order: order1, item: item3, sale_price: 3.00, quantity: 1)
       oi3 = create(:order_item, order: order2, item: item2, fulfillment_status: 1)
       oi4 = create(:order_item, order: order2, item: item4)
-      oi5 = create(:order_item, order: order3, item: item1)
-      oi6 = create(:order_item, order: order3, item: item2, fulfillment_status: 1)
+      oi5 = create(:order_item, order: order3, item: item1, sale_price: 4.00, quantity: 1)
+      oi6 = create(:order_item, order: order3, item: item2, fulfillment_status: 1, sale_price: 5.00, quantity: 1)
 
       login_as(merchant1)
       visit dashboard_path(merchant1)
 
       within "#order-#{order1.id}" do
-        expect(page).to have_link("Order ID: #{order1.id}", href: profile_order_path(order1))
+        expect(page).to have_link("Order ID: #{order1.id}")
         expect(page).to have_content("Placed on: #{order1.created_at.to_date.to_s}")
         expect(page).to have_content("Item Count: #{order1.item_count}")
-        expect(page).to have_content("Order Total: #{order1.total_cost}")
+        expect(page).to have_content("Order Total: $#{order1.total_cost}")
       end
       within "#order-#{order3.id}" do
-        expect(page).to have_link("#{order3.id}", href: profile_order_path(order3))
+        expect(page).to have_link("Order ID: #{order3.id}")
         expect(page).to have_content("Placed on: #{order3.created_at.to_date.to_s}")
         expect(page).to have_content("Item Count: #{order3.item_count}")
-        expect(page).to have_content("Order Total: #{order3.total_cost}")
+        expect(page).to have_content("Order Total: $#{order3.total_cost}")
       end
       expect(page).to_not have_button("Cancel Order")
-      expect(page).to_not have_link("#{order2.id}", href: profile_order_path(order2))
+      expect(page).to_not have_content("Order ID: #{order2.id}")
     end
   end
 
@@ -68,8 +68,8 @@ RSpec.describe "as a merchant" do
       @order2 = create(:order, user: @user2)
       @order3 = create(:order, user: @user3)
       @order4 = create(:order, user: @user4)
-      @order5 = create(:order, user: @user5)
-      @order6 = create(:order, user: @user6)
+      @order5 = create(:order, user: @user4)
+      @order6 = create(:order, user: @user4)
       @order7 = create(:order, user: @user7)
       @order8 = create(:order, user: @user1)
       @order9 = create(:order, user: @user8)
@@ -84,9 +84,9 @@ RSpec.describe "as a merchant" do
       @oi9 = create(:fulfilled_order_item, order: @order2, item: @item2, quantity: 2, sale_price: 50)
       @oi10 = create(:fulfilled_order_item, order: @order9, item: @item8, quantity: 2, sale_price: 1)
 
+    it "top 5 items sold by quantity" do
       login_as(@merchant)
       visit dashboard_path(@merchant)
-    end
 
     it "top 5 items sold by quantity" do
        within '#top-items' do
@@ -99,6 +99,9 @@ RSpec.describe "as a merchant" do
     end
 
     it "total quantity of items sold" do
+      login_as(@merchant)
+      visit dashboard_path(@merchant)
+
       expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{Item.percent_sold(@merchant)}% of your total inventory")
     end
 

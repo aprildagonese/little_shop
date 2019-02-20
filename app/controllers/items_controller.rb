@@ -1,12 +1,59 @@
 class ItemsController < ApplicationController
+
+  def new
+    @item = Item.new
+    @merchant = params[:user]
+  end
+
+  def create
+    @user = current_user
+    @item = @user.items.new(item_params)
+    @item.set_image
+    @item.active = true
+
+    if @item.save
+      redirect_to dashboard_items_path if current_user.merchant?
+      redirect_to admin_items_path(user_id: @user) if current_user.admin?
+      flash[:alert] = "'#{@item.title}' has been saved and is available for sale."
+    else
+      render :new
+    end
+  end
+
+  def show
+    @item = Item.find(params[:id])
+  end
+
   def index
     @items = Item.where(active: true)
     @top_items = Item.most_popular.limit(5)
     @bottom_items = Item.least_popular.limit(5)
   end
 
-  def show
+  def destroy
+    item = Item.find(params[:id])
+    item.delete
+    redirect_to dashboard_items_path if current_user.merchant?
+    redirect_to admin_items_path(user_id: item.user) if current_user.admin?
+    flash[:alert] = "#{item.title} has been deleted."
+  end
+
+  def enable
     @item = Item.find(params[:id])
+    @item.change_status
+    redirect_to dashboard_items_path if current_user.merchant?
+    redirect_to admin_items_path(user_id: @item.user) if current_user.admin?
+    if @item.active
+      flash[:alert] = "#{@item.title} has been enabled and is now available for sale."
+    else
+      flash[:alert] = "#{@item.title} has been disabled and is no longer for sale."
+    end
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:title, :description, :image_url, :price, :quantity)
   end
 
 end

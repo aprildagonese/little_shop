@@ -4,10 +4,10 @@
       <li id="order-<%= order.id %>">
         <% if current_user.registered? %>
           <%= link_to  "Order ID: #{order.id}", profile_order_path(order) %>
+        <% elsif current_user.merchant? %>
+          <%= link_to  "Order ID: #{order.id}", dashboard_order_path(order) %>
         <% elsif current_user.admin? %>
           <%= link_to  "Order ID: #{order.id}", admin_order_path(order) %>
-        <% elsif current_user.merchant? %>
-          <%= link_to  "Order ID: #{order.id}", profile_order_path(order) %>
         <% end %>
         <a>Placed on: <%= order.created_at %></a>
         <a>Last Updated on: <%= order.updated_at %></a>
@@ -24,6 +24,6 @@
       </li>
     <% end %>
   <% else %>
-    <h3>There are no orders yet</h3>
+    <h3>No orders have been placed yet.</h3>
   <% end %>
 </ul>

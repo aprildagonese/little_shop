@@ -8,6 +8,7 @@ RSpec.describe "As an admin", type: :feature do
     login_as(@admin)
 
     @user = create(:user, id: 200)
+    @merchant = create(:user, id: 201, role: 1)
   end
 
   context 'if it visits a merchant dashboard, but that merchant is a regular user' do
@@ -23,6 +24,23 @@ RSpec.describe "As an admin", type: :feature do
         expect(page).to have_content("State: #{@user.state}")
         expect(page).to have_content("Zip Code: #{@user.zip_code}")
         expect(page).to have_content("Email: #{@user.email}")
+      end
+    end
+  end
+
+  context 'if it visits a user profile, but that user is a merchant' do
+    it 'redirects to merchant dashboard' do
+      visit admin_user_path(@merchant)
+
+      expect(current_path).to eq(admin_merchant_path(@merchant))
+
+      within ".profile" do
+        expect(page).to have_content("Name: #{@merchant.name}")
+        expect(page).to have_content("Address: #{@merchant.street_address}")
+        expect(page).to have_content("City: #{@merchant.city}")
+        expect(page).to have_content("State: #{@merchant.state}")
+        expect(page).to have_content("Zip Code: #{@merchant.zip_code}")
+        expect(page).to have_content("Email: #{@merchant.email}")
       end
     end
   end

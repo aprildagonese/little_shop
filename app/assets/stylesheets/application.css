@@ -1,16 +1,129 @@
+body {
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* NAVBAR */
+
+.nav-bar a {
+  text-decoration: none;
+  color: whitesmoke;
+  padding: 8px;
+}
+
+.nav-bar a:hover {
+  background: #2F3F3F;
+  color: ghostwhite;
+}
+
 .nav-bar {
+  background: darkslategray;
   display: inline-grid;
   width: 100%;
-  grid-template-columns: auto auto;
-  grid-column-gap: 50px;
+  height: 6vh;
+  grid-template-columns: auto auto auto;
+  align-items: center;
 }
 
 .general-nav {
   display: inline-grid;
-  width: 100%;
-  grid-template-columns: auto auto auto auto auto auto;
-  grid-column-gap: 10px;
+  grid-template-columns: auto auto auto;
 }
+
+.auth_nav {
+  display: inline-grid;
+}
+
+/* SPLASH PAGE */
+
+.splash {
+  /* padding-top: 60px; */
+  display: grid;
+  text-align: center;
+  background: #f1e9dc;
+  height: 76vh;
+}
+
+.splash img {
+  margin: auto;
+  width: 100vw;
+}
+
+/* ITEMS INDEX */
+
+.items-index h1 {
+  margin: 0;
+  padding: 12px;
+  background: #A26769;
+}
+
+.item-statistics {
+  display: grid;
+  grid-template: 1 / 2;
+  background: #D5B9B2;
+}
+
+.most-popular {
+  grid-area: 1 / 1;
+  text-align: center;
+}
+
+.least-popular {
+  grid-area: 1 / 2;
+  text-align: center;
+}
+
+/* PARTIALS */
+
+/* _infopage */
+
+.info_page {
+  display: grid;
+  grid-template: 100vh / 65vh 35vh;
+}
+
+.info-page-buttons {
+  display: flex;
+  grid-area: 1 / 2 / 1 / 2;
+  padding: 20px;
+}
+
+.profile {
+  grid-area: 1 / 1 / 1 / 1;
+  display: grid;
+    width: 60vw;
+  padding: 20px;
+}
+
+.profile p {
+  text-align: center;
+}
+
+/* _itemlist */
+
+.item-list {
+  display: grid;
+  height: 43vh;
+  overflow: scroll;
+  background: #f1e9dc;
+}
+
+.item {
+  margin-left: auto;
+  margin-right: auto;
+  background: #ece2d0;
+  text-align: center;
+  border: 2px dotted #d7cebe;
+  width: 60vw;
+}
+
+.item img {
+
+}
+
 .auth-column {
   display: inline-grid;
   width: 100%;
@@ -26,6 +139,13 @@
   display: inline-grid;
   width: 100%;
   grid-template-columns: auto auto auto;
+  background: #bfb5af;
+  color: whitesmoke;
+  text-shadow: 1px 1px darkslategray;
+}
+
+.title {
+  margin-left: 10px;
 }
 
 .full {
@@ -35,6 +155,8 @@
 }
 
 .cart-nav {
+  margin-top: 10px;
+  margin-right: 15px;
   display: inline-grid;
 }
 

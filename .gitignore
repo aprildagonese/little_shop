@@ -14,7 +14,7 @@ coverage
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-user_login_credentials.txt
+/db/user_login_credentials.txt
 
 /node_modules
 /yarn-error.log

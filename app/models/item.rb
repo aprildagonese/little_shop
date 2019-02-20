@@ -23,6 +23,7 @@ class Item < ApplicationRecord
   end
 
   def self.most_popular
+    #consolidate with least_popular and pass in direction
     Item.joins(:orders)
     .select("items.*, sum(order_items.quantity) as total_quantity")
     .where(orders: {status: 1})
@@ -46,6 +47,7 @@ class Item < ApplicationRecord
   def self.top_items_sold(merchant)
     Item.joins(:orders)
         .select("items.*, sum(order_items.quantity) as total_quantity")
+        .where(items: {user: merchant})
         .group(:id)
         .order("total_quantity desc")
   end
@@ -68,6 +70,25 @@ class Item < ApplicationRecord
 
   def self.percent_sold(merchant)
     ((total_sold_quantity(merchant).to_f/total_inventory(merchant).to_f)*100).round(2)
+  end
+
+  def change_status
+    if active
+      update_attribute(:active, false)
+    else
+      update_attribute(:active, true)
+    end
+  end
+
+  def set_image
+    default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
+    if self.image_url == ""
+      self.image_url = default_url
+    else
+      # response = Net::HTTP.get_response(URI.parse(self.image_url))
+      # self.image_url = default_url unless response.code.to_i >= 200 && response.code.to_i < 400
+      self
+    end
   end
 
 end

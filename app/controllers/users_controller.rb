@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @orders = Order.where(user: current_user)
+    @orders = @user.orders
   end
 
   def edit
@@ -48,8 +48,8 @@ class UsersController < ApplicationController
 
   def require_login
     unless logged_in?
-      flash[:error] = "The page you were looking for doesn't exist." #remove - just render 404
-      redirect_to 'public/404' #render file: '/public/404' unless current_user
+      flash[:error] = "The page you were looking for doesn't exist."
+      redirect_to 'public/404'
     end
   end
 
@@ -60,10 +60,5 @@ class UsersController < ApplicationController
     end
   end
 
-  # def password_confirmed?
-  #   match = params[:user][:password] == params[:user][:confirm_password]
-  #   flash[:notice] = "Your passwords didn't match!" unless match
-  #   match
-  # end
 
 end
