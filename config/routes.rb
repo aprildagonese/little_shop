@@ -52,6 +52,8 @@ get '/admin/dashboard', to: 'admin/dashboard#show'
 patch '/admin/downgrade', to: 'admin/merchants#downgrade'
 patch '/admin/upgrade', to: 'admin/users#upgrade'
 patch '/admin/activation', to: 'admin/users#activation'
+get '/admin/merchants/orders', to: 'merchants/orders#show', as: 'admin_merchant_order'
+patch '/admin/merchants/orderitems', to: 'merchants/order_items#update', as: 'admin_merchant_order_item'
 namespace :admin do
   resources :merchants, only: [:show, :index, :update]
   resources :items, except: [:show]
