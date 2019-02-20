@@ -208,7 +208,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it "can't submit invalid description" do
-      login_as(@merchant)
+    
       visit dashboard_items_new_path
 
       fill_in "Dish", with: "Delicious Treats"
@@ -222,7 +222,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it "can't submit invalid price" do
-      login_as(@merchant)
+    
       visit dashboard_items_new_path
 
       fill_in "Dish", with: "Delicious Treats"
@@ -236,7 +236,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it "can't submit invalid inventory" do
-      login_as(@merchant)
+    
       visit dashboard_items_new_path
 
       fill_in "Dish", with: "Delicious Treats"
@@ -250,7 +250,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it "can leave image blank and get default image" do
-      login_as(@merchant)
+    
       visit dashboard_items_new_path
 
       fill_in "Dish", with: "Delicious Treats"
