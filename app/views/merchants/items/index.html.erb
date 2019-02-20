@@ -10,7 +10,7 @@
         <% end %>
       </p>
       <h4><%= item.title %></h4>
-      <%= image_tag item.image_url, width: '100'%>
+      <%= image_tag item.image_url, width: '100' if item.image_url %>
       <p>Price: <%= item.price %></p>
       <p>Inventory: <%= item.quantity %></p>
       <%= button_to "Edit Item", dashboard_item_edit_path(item), method: :get %>

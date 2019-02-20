@@ -80,4 +80,15 @@ class Item < ApplicationRecord
     end
   end
 
+  def set_image
+    default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
+    if self.image_url == ""
+      self.image_url = default_url
+    else
+      # response = Net::HTTP.get_response(URI.parse(self.image_url))
+      # self.image_url = default_url unless response.code.to_i >= 200 && response.code.to_i < 400
+      self
+    end
+  end
+
 end
