@@ -6,7 +6,9 @@ get '/login', to: 'sessions#new'
 post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
 
-resources :items, only: [:show, :index, :edit, :new, :destroy]
+resources :items, only: [:show, :index, :edit, :new, :destroy, :create]
+#put '/items/:id/edit', to: "items#edit", as: 'item'
+patch '/items/:id/enable', to: "items#enable", as: 'enable_item'
 
 get '/cart', to: 'carts#show'
 post '/cart', to: 'carts#create', as: 'carts'
@@ -31,9 +33,8 @@ end
 #------------Merchant-------------
 get '/dashboard', to: 'merchants#show'
 get '/dashboard/items', to: 'merchants/items#index'
-put '/dashboard/items/:id/edit', to: "merchants/items#edit", as: 'dashboard_item'
-patch '/dashboard/items/:id/enable', to: "merchants/items#enable", as: 'enable_dashboard_item'
-delete '/dashboard/items/:id', to: "merchants/items#destroy", as: 'delete_dashboard_item'
+get '/dashboard/items/new', to: 'items#new'
+#delete '/dashboard/items/:id', to: "merchants/items#destroy", as: 'delete_dashboard_item'
 get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
 patch '/dashboard/orderitems/:id', to: 'merchants/order_items#update', as: 'dashboard_order_item'
 
