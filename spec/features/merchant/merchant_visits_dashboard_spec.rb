@@ -73,16 +73,16 @@ RSpec.describe "as a merchant" do
       @order7 = create(:order, user: @user7)
       @order8 = create(:order, user: @user1)
       @order9 = create(:order, user: @user8)
-      @oi1 = create(:fulfilled_order_item, order: @order1, item: @item1, quantity: 1)
-      @oi2 = create(:fulfilled_order_item, order: @order2, item: @item2, quantity: 2)
+      @oi1 = create(:fulfilled_order_item, order: @order1, item: @item1, quantity: 1, sale_price: 100)
+      @oi2 = create(:fulfilled_order_item, order: @order2, item: @item2, quantity: 2, sale_price: 200)
       @oi3 = create(:order_item, order: @order3, item: @item3, quantity: 30)
       @oi4 = create(:order_item, order: @order4, item: @item4, quantity: 40)
       @oi5 = create(:order_item, order: @order5, item: @item5, quantity: 50)
       @oi6 = create(:order_item, order: @order6, item: @item6, quantity: 60)
       @oi7 = create(:order_item, order: @order7, item: @item7, quantity: 70)
-      @oi8 = create(:fulfilled_order_item, order: @order2, item: @item8, quantity: 2)
-      @oi9 = create(:fulfilled_order_item, order: @order2, item: @item2, quantity: 2)
-      @oi10 = create(:fulfilled_order_item, order: @order9, item: @item8, quantity: 2)
+      @oi8 = create(:fulfilled_order_item, order: @order2, item: @item8, quantity: 2, sale_price: 100)
+      @oi9 = create(:fulfilled_order_item, order: @order2, item: @item2, quantity: 2, sale_price: 50)
+      @oi10 = create(:fulfilled_order_item, order: @order9, item: @item8, quantity: 2, sale_price: 1)
 
       login_as(@merchant)
       visit dashboard_path(@merchant)
@@ -102,7 +102,7 @@ RSpec.describe "as a merchant" do
       expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{Item.percent_sold(@merchant)}% of your total inventory")
     end
 
-    it 'sees top 3 states and quantities' do
+    it 'the top 3 states and quantities' do
       within '#top-states' do
         expect(page).to have_content("Top 3 States Where Items Were Shipped")
         expect(page.all('.state')[0]).to have_content("MO (6 items shipped)")
@@ -111,12 +111,28 @@ RSpec.describe "as a merchant" do
       end
     end
 
-    it 'sees top 3 city, states and their quantities' do
+    it 'the top 3 city, states and their quantities' do
       within '#top-cities' do
         expect(page).to have_content("Top 3 Cities Where Items Were Shipped")
         expect(page.all('.city')[0]).to have_content("Springfield, MO (6 items shipped)")
         expect(page.all('.city')[1]).to have_content("Harrisburg, PA (2 items shipped)")
         expect(page.all('.city')[2]).to have_content("Springfield, IL (1 item shipped)")
+      end
+    end
+
+    it 'the top 3 users who have spent the most money on its items and the amount they have spent' do
+      within '#top-spending-patrons' do
+        expect(page).to have_content("Top 3 Spending Patrons")
+        expect(page.all('.patron')[0]).to have_content("#{@user2.name} ($#{@order2.total_cost}.00)")
+        expect(page.all('.patron')[1]).to have_content("#{@user1.name} ($#{@order1.total_cost}.00)")
+        expect(page.all('.patron')[2]).to have_content("#{@user8.name} ($#{@order9.total_cost}.00)")
+      end
+    end
+
+    it 'the top user who has purchased the most total items from a specific merchant' do
+      within '#top-items-patrons' do
+        expect(page).to have_content("Patron Who Purchased The Most Total Items")
+        expect(page.all('.patron')[0]).to have_content("#{@user2.name} (6 items)")
       end
     end
   end

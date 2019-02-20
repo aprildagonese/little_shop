@@ -15,6 +15,8 @@ class MerchantsController < ApplicationController
     @top_five = Item.top_items_sold(@user).limit(5)
     @top_three_states = @user.top_states(3)
     @top_three_cities = @user.top_city_states(3)
+    @top_three_patrons = @user.top_spending_patrons(3)
+    @top_items_patrons = @user.most_items_patrons(1)
   end
 
   def update
