@@ -332,5 +332,4 @@ RSpec.describe 'as a merchant' do
       expect(page).to have_content('Okonomiyaki')
     end
   end
-
 end
