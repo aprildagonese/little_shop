@@ -84,9 +84,9 @@ RSpec.describe "as a merchant" do
       @oi9 = create(:fulfilled_order_item, order: @order2, item: @item2, quantity: 2, sale_price: 50)
       @oi10 = create(:fulfilled_order_item, order: @order9, item: @item8, quantity: 2, sale_price: 1)
 
-    it "top 5 items sold by quantity" do
       login_as(@merchant)
       visit dashboard_path(@merchant)
+    end
 
     it "top 5 items sold by quantity" do
        within '#top-items' do
@@ -99,9 +99,6 @@ RSpec.describe "as a merchant" do
     end
 
     it "total quantity of items sold" do
-      login_as(@merchant)
-      visit dashboard_path(@merchant)
-
       expect(page).to have_content("Sold #{Item.total_sold_quantity(@merchant)} items, which is #{Item.percent_sold(@merchant)}% of your total inventory")
     end
 

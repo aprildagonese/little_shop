@@ -57,7 +57,6 @@ RSpec.describe User, type: :model do
 
 
   describe 'Class Methods' do
-
     before :each do
       @ma_user = create(:user, city: 'Boston', state: 'Massachusetts')
       @ca_user = create(:user, city: 'San Francisco', state: 'California')
@@ -157,9 +156,8 @@ RSpec.describe User, type: :model do
     it '::most_orders_by_state' do
       expected = [{"Michigan" => 6}, {"Illinois" => 4}, {"Colorado" => 4}]
       actual = User.most_orders_by_state.map do |user|
-        {user.state => user.total_orders.to_i}
-      end
-
+          {user.state => user.total_orders.to_i}
+        end
       expect(actual).to eq(expected)
     end
 
@@ -169,15 +167,16 @@ RSpec.describe User, type: :model do
       {"Boston, Massachusetts" => 3}]
 
       actual = User.most_orders_by_city.map do |user|
-        {"#{user.city}, #{user.state}" => user.total_orders.to_i}
-      end
-
+          {"#{user.city}, #{user.state}" => user.total_orders.to_i}
+        end
       expect(actual).to eq(expected)
     end
-
   end
 
   describe "Instance Methods" do
+    before :each do
+      Faker::UniqueGenerator.clear
+    end
 
     xit ".user_by_most_orders" do
       Faker::UniqueGenerator.clear
@@ -217,12 +216,6 @@ RSpec.describe User, type: :model do
       expect(User.user_by_most_orders(merchant1)).to eq(user1)
       expect(User.user_by_most_orders(merchant2)).to eq(user2)
       expect(User.user_by_most_orders(merchant3)).to eq(user3)
-    end
-  end
-
-  describe "Instance Methods" do
-    before :each do
-      Faker::UniqueGenerator.clear
     end
 
     it "#change_status" do
@@ -325,7 +318,6 @@ RSpec.describe User, type: :model do
 
         expect(expected[1].state).to eq(@user1.state)
         expect(expected[1].total_items).to eq(21)
-
       end
 
       it '#top_city_states - shows the top 3 city, states for that merchant and their quantities' do
@@ -338,7 +330,6 @@ RSpec.describe User, type: :model do
         expect(expected[0].total_items).to eq(30)
         expect(expected[1].total_items).to eq(16)
         expect(expected[2].total_items).to eq(5)
-
       end
 
       it '#top_spending_patrons - shows the top 3 city, states for that merchant and their quantities' do
@@ -368,4 +359,5 @@ RSpec.describe User, type: :model do
       end
     end
   end
+end
 end

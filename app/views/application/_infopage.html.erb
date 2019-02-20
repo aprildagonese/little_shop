@@ -21,8 +21,9 @@
     </aside>
     <aside class="user-order-buttons">
       <% if current_user && current_user.admin? %>
-        <% if @user.merchant? %>
+        <% if @user.registered? %>
           <%= button_to "User Orders", admin_orders_path, method: :get, params: {user_id: @user} %>
+        <% elsif @user.merchant? %>
           <%= button_to "Manage Merchant Items", admin_items_path, method: :get, params: {user_id: @user} %>
         <% end %>
       <% end %>
