@@ -100,6 +100,7 @@ RSpec.describe Order, type: :model do
       @order.change_status("cancel")
       expect(@order.cancelled?).to eq(true)
 
+      Faker::UniqueGenerator.clear
       order = create(:order, user: @user)
       oi1 = create(:order_item, item: @item_1, order: order, sale_price: 5, quantity: 1, fulfillment_status: 0)
       oi2 = create(:order_item, item: @item_2, order: order, sale_price: 5, quantity: 2, fulfillment_status: 0)
@@ -123,7 +124,12 @@ RSpec.describe Order, type: :model do
       Faker::UniqueGenerator.clear
       user = create(:user)
       merchant = create(:user, role: 1)
-      item1, item2, item3, item4, item5, item6 = create_list(:item, 6, user: merchant, quantity: 5)
+      item1 = create(:item, title: "item1", user: merchant, quantity: 5)
+      item2 = create(:item, title: "item2", user: merchant, quantity: 5)
+      item3 = create(:item, title: "item3", user: merchant, quantity: 5)
+      item4 = create(:item, title: "item4", user: merchant, quantity: 5)
+      item5 = create(:item, title: "item5", user: merchant, quantity: 5)
+      item6 = create(:item, title: "item6", user: merchant, quantity: 5)
       order1, order2, order3 = create_list(:order, 3, user: user)
       oi1 = create(:order_item, item: item1, order: order1, sale_price: 5, quantity: 1, fulfillment_status: 0)
       oi2 = create(:order_item, item: item2, order: order1, sale_price: 5, quantity: 2, fulfillment_status: 0)
@@ -141,7 +147,12 @@ RSpec.describe Order, type: :model do
       Faker::UniqueGenerator.clear
       user = create(:user)
       merchant = create(:user, role: 1)
-      item_1, item_2, item_3, item_4, item_5, item_6 = create_list(:item, 6, user: merchant, quantity: 5)
+      item_1 = create(:item, title: "I1", user: merchant, quantity: 5)
+      item_2 = create(:item, title: "I2", user: merchant, quantity: 5)
+      item_3 = create(:item, title: "I3", user: merchant, quantity: 5)
+      item_4 = create(:item, title: "I4", user: merchant, quantity: 5)
+      item_5 = create(:item, title: "I5", user: merchant, quantity: 5)
+      item_6 = create(:item, title: "I6", user: merchant, quantity: 5) 
       order1, order2, order3 = create_list(:order, 3, user: user)
       order_item_1 = create(:order_item, item: item_1, order: order1, sale_price: 5, quantity: 1, fulfillment_status: 0)
       order_item_2 = create(:order_item, item: item_2, order: order1, sale_price: 5, quantity: 2, fulfillment_status: 0)
