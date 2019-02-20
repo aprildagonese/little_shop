@@ -16,13 +16,13 @@
   <%= f.text_field :description, required: true %>
 
   <%= f.label :image_url, "Image (optional)" %>
-  <%= f.text_field :image_url, value: "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"  %>
+  <%= f.text_field :image_url, value: "" %>
 
   <%= f.label :price %>
-  <%= f.text_field :price, required: true %>
+  <%= f.number_field :price, min: 0, required: true %>
 
   <%= f.label :quantity, "Current Inventory" %>
-  <%= f.text_field :quantity, required: true %>
+  <%= f.number_field :quantity, min: 0, required: true %>
 
   <%= f.submit "Save Item" %>
 <% end %>
