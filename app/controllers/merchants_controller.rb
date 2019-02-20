@@ -19,12 +19,16 @@ class MerchantsController < ApplicationController
     # @most_orders = User.user_by_most_orders(@user)
     # @order_count = @most_orders.orders.count
   end
-  #
-  # def update
-  #   @user = User.find(params[:id])
-  #   @user.change_status
-  #   redirect_to admin_merchants_path
-  #   flash[:success] = "#{@user.name} has been disabled."
-  # end
+
+  def update
+    @user = User.find(params[:id])
+    @user.change_status
+    redirect_to admin_merchants_path
+    if @user.inactive?
+      flash[:success] = "#{@user.name} has been disabled."
+    elsif @user.active?
+      flash[:success] = "#{@user.name} has been re-enabled."
+    end
+  end
 
 end
