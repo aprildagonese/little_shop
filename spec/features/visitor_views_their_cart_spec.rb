@@ -4,10 +4,11 @@ RSpec.describe 'Cart show page' do
 
   before :each do
     Faker::UniqueGenerator.clear
-    
+
     @item_1 = create(:item, price: 21, quantity: 5)
     @item_2 = create(:item, price: 3, quantity: 10)
     @item_3 = create(:item, price: 17, quantity: 7)
+    @item_4 = create(:item, price: 1, quantity: 2)
   end
 
   context 'as a visitor' do
@@ -80,7 +81,34 @@ RSpec.describe 'Cart show page' do
         expect(page).to have_content("Desired Quantity: 1")
           expect(page).to have_content("Subtotal: $21")
       end
+    end
 
+    it 'does not allow you to increase desired quantity to more than quantity of item' do
+      visit item_path(@item_4)
+      click_button "Add Item To Cart"
+      visit cart_path
+
+      within ".id-#{@item_4.id}-row" do
+        expect(page).to have_content("Desired Quantity: 1")
+      end
+
+      within ".id-#{@item_4.id}-row" do
+        click_button('+')
+      end
+
+      within ".id-#{@item_4.id}-row" do
+        expect(page).to have_content("Desired Quantity: 2")
+      end
+
+      within ".id-#{@item_4.id}-row" do
+        click_button('+')
+      end
+  
+      expect(page).to have_content("Not Enough Items In Stock")
+
+      within ".id-#{@item_4.id}-row" do
+        expect(page).to have_content("Desired Quantity: 2")
+      end
     end
 
     it 'removes items with 0 desired quantity' do
