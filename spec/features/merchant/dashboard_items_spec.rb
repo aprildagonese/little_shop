@@ -193,7 +193,7 @@ RSpec.describe 'as a merchant' do
       end
     end
 
-    it "can't submit invalid info" do
+    it "can't submit invalid name" do
 
       visit dashboard_items_new_path
 
@@ -207,8 +207,33 @@ RSpec.describe 'as a merchant' do
       expect(page).to have_content("Enter information for your new dish:")
     end
 
+    it "can't reuse a name" do
+
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're whatever"
+      fill_in "Price", with: 10
+      fill_in "Current Inventory", with: 20
+
+      click_button("Save Item")
+
+      expect(page).to have_content("Title has already been taken")
+      expect(page).to have_content("Enter information for your new dish:")
+    end
+
     it "can't submit invalid description" do
-    
+
       visit dashboard_items_new_path
 
       fill_in "Dish", with: "Delicious Treats"
@@ -222,7 +247,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it "can't submit invalid price" do
-    
+
       visit dashboard_items_new_path
 
       fill_in "Dish", with: "Delicious Treats"
@@ -236,7 +261,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it "can't submit invalid inventory" do
-    
+
       visit dashboard_items_new_path
 
       fill_in "Dish", with: "Delicious Treats"
@@ -250,7 +275,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it "can leave image blank and get default image" do
-    
+
       visit dashboard_items_new_path
 
       fill_in "Dish", with: "Delicious Treats"
