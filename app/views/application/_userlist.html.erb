@@ -5,7 +5,7 @@
         <div class="user-name">
           <%= link_to user.name, admin_merchant_path(user) if user.merchant? %>
           <%= link_to user.name, admin_user_path(user) if user.registered? %>
-          <% if user.activation_status == "inactive" %>
+          <% if user.inactive? %>
             (Disabled)
           <% end %>
         </div>
@@ -19,12 +19,10 @@
       <div class="activation-data">
         <% unless @view=="Users" %><p>Date Registered: <%= user.created_at.to_date.to_s %></p><% end %>
         <% if current_user && current_user.admin? %>
-          <% if user.activation_status == "active" %>
-            <%= button_to "Disable", merchant_path(user), method: :patch if user.merchant? %>
-            <%= button_to "Disable", admin_activation_path(user_id: user), method: :patch if user.registered? %>
+          <% if user.active? %>
+            <%= button_to "Disable", admin_activation_path(user_id: user), method: :patch %>
           <% else %>
-            <%= button_to "Enable", merchant_path(user), method: :patch if user.merchant? %>
-            <%= button_to "Enable", admin_activation_path(user_id: user), method: :patch if user.registered? %>
+            <%= button_to "Enable", admin_activation_path(user_id: user), method: :patch %>
           <% end %>
         <% end %>
       </div>

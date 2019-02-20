@@ -16,4 +16,13 @@ class Users::OrdersController < ApplicationController
     redirect_to profile_orders_path
   end
 
+  def destroy
+    order = Order.find(params[:order_id])
+    @user = order.user
+    order.cancel
+    order.save
+    redirect_to profile_orders_path
+    flash[:notice] = "Order #{order.id} has been cancelled."
+  end
+
 end
