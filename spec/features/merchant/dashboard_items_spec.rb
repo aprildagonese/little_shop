@@ -287,7 +287,7 @@ RSpec.describe 'as a merchant' do
 
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to have_content("'Delicious Treats' has been saved and is available for sale.")
-      expect(page).to have_css("img[src*='https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg']")
+      expect(page).to have_css("img[src*='https://downtowncl.org/wp-content/uploads/2016/08/1977_Food-Drink-Generic-Logo.jpg']")
     end
 
     it 'can edit an existing item' do
@@ -305,6 +305,31 @@ RSpec.describe 'as a merchant' do
       expect(page).to have_content("Price")
       expect(page).to have_content("Current Inventory")
       expect(page).to have_button("Update Item")
+    end
+
+    it 'is redirected to the edit form if item is entered in error' do
+
+      visit dashboard_item_edit_path(@item_1)
+
+      fill_in 'Dish', with: ''
+
+      click_button "Update Item"
+
+      expect(page).to have_content("Dish has been entered erroneously.")
+      expect(current_path).to eq(dashboard_item_edit_path(@item_1))
+    end
+
+    it 'is redirected to the items index if form is filled correctly' do
+
+      visit dashboard_item_edit_path(@item_1)
+
+      fill_in 'Dish', with: 'Okonomiyaki'
+
+      click_button "Update Item"
+
+      expect(current_path).to eq(dashboard_items_path)
+
+      expect(page).to have_content('Okonomiyaki')
     end
   end
 

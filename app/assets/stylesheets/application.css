@@ -40,7 +40,7 @@ h1 {
 /* SPLASH PAGE */
 
 .splash {
-  padding-top: 60px;
+  /* padding-top: 60px; */
   display: grid;
   text-align: center;
   background: #f1e9dc;
@@ -49,7 +49,7 @@ h1 {
 
 .splash img {
   margin: auto;
-  width: 30vw;
+  width: 100vw;
 }
 
 /* ITEMS INDEX */
