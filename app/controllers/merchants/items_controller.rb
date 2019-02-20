@@ -4,4 +4,12 @@ class Merchants::ItemsController < Merchants::BaseController
     @items = Item.where(user: current_user)
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    
+  end
+
 end

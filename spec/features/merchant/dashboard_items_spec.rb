@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'as a merchant' do
   before :each do
+
     Faker::UniqueGenerator.clear
 
     @user = create(:user)
@@ -32,11 +33,13 @@ RSpec.describe 'as a merchant' do
     @order_item_14 = create(:order_item, order: @order, item: @item_14, sale_price: 4, quantity: 5, fulfillment_status: 2)
     @order_item_15 = create(:order_item, order: @order, item: @item_15, sale_price: 4, quantity: 5, fulfillment_status: 2)
     @order_item_16 = create(:order_item, order: @order, item: @item_16, sale_price: 4, quantity: 5, fulfillment_status: 2)
+
+    login_as(@merchant)
   end
 
   context 'visiting its items index' do
     it 'can visit dashboard items index' do
-      login_as(@merchant)
+
 
       visit dashboard_path
 
@@ -47,7 +50,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it 'sees all of their items' do
-      login_as(@merchant)
+
       visit dashboard_items_path
 
       @merchant.items.each do |item|
@@ -66,7 +69,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it 'sees a button to enable/disable' do
-      login_as(@merchant)
+
       visit dashboard_items_path
 
       within "#item-#{@item_1.id}" do
@@ -97,7 +100,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it 'can disable an item' do
-      login_as(@merchant)
+
       visit dashboard_items_path
 
       within "#item-#{@item_2.id}" do
@@ -117,7 +120,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it 'can enable an item' do
-      login_as(@merchant)
+
       visit dashboard_items_path
 
       within "#item-#{@item_1.id}" do
@@ -137,7 +140,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it 'can delete an item' do
-      login_as(@merchant)
+
       visit dashboard_items_path
 
       within "#item-#{@item_17.id}" do
@@ -153,7 +156,7 @@ RSpec.describe 'as a merchant' do
     end
 
     it 'can add an item' do
-      login_as(@merchant)
+
       visit dashboard_items_path
 
       expect(page).to have_button("Add a New Item")
@@ -190,8 +193,8 @@ RSpec.describe 'as a merchant' do
       end
     end
 
-    it "can't submit invalid title" do
-      login_as(@merchant)
+    it "can't submit invalid info" do
+
       visit dashboard_items_new_path
 
       fill_in "Description", with: "They're ok"
@@ -262,6 +265,22 @@ RSpec.describe 'as a merchant' do
       expect(page).to have_css("img[src*='https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg']")
     end
 
+    it 'can edit an existing item' do
+
+      visit dashboard_items_path
+
+      within "#item-#{@item_1.id}" do
+        click_button "Edit Item"
+      end
+
+      expect(current_path).to eq(dashboard_item_edit_path(@item_1))
+      expect(page).to have_content(@item_1.title)
+      expect(page).to have_content("Description")
+      expect(page).to have_content("Image (optional)")
+      expect(page).to have_content("Price")
+      expect(page).to have_content("Current Inventory")
+      expect(page).to have_button("Update Item")
+    end
   end
 
 end
