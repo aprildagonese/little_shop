@@ -1,23 +1,30 @@
 <h1>All Items</h1>
+<%= button_to "Add a New Item", dashboard_items_new_path, method: :get %>
 
-<% @items.each do |item| %>
-<section id=<%= "item-#{item.id}" %>>
-  <p>Item ID: <%= item.id %></p>
-  <h4><%= item.title %></h4>
-  <%= image_tag item.image_url %>
-  <p>Price: <%= item.price %></p>
-  <p>Inventory: <%= item.quantity %></p>
-  <%= button_to "Edit Item", dashboard_item_path(item), method: :put %>
+<section class="merchant-items-index">
+  <% @items.each do |item| %>
+    <section id=<%= "item-#{item.id}" %>>
+      <p>Item ID: <%= item.id %>
+        <% if item.active == false %>
+          (Disabled)
+        <% end %>
+      </p>
+      <h4><%= item.title %></h4>
+      <%= image_tag item.image_url, width: '100'%>
+      <p>Price: <%= item.price %></p>
+      <p>Inventory: <%= item.quantity %></p>
+      <%= button_to "Edit Item", edit_item_path(item), method: :put %>
 
-  <% if item.active %>
-    <%= button_to "Disable", dashboard_items_path(item), method: :patch %>
-  <% else %>
-    <%= button_to "Enable", dashboard_items_path(item), method: :patch %>
+      <% if item.active %>
+        <%= button_to "Disable", enable_item_path(item), method: :patch %>
+      <% else %>
+        <%= button_to "Enable", enable_item_path(item), method: :patch %>
+      <% end %>
+
+      <% unless item.ordered? %>
+        <%= button_to "Delete", item_path(item), method: :delete %>
+      <% end %>
+
+    </section>
   <% end %>
-
-  <% unless item.ordered? %>
-    <%= button_to "Delete", dashboard_items_path(item), method: :delete %>
-  <% end %>
-
 </section>
-<% end %>
