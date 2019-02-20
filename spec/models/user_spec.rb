@@ -288,5 +288,7 @@ RSpec.describe User, type: :model do
         expect(Item.total_sold_quantity(merch2)).to eq(expected2)
       end
     end
+
+
   end
 end
