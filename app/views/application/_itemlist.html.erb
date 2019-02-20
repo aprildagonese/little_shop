@@ -1,34 +1,44 @@
 <div class="item-list">
+  <br>
+  <br>
   <% @items.each do |item| %>
-  <div class="id-<%=item.id%>-row">
-    <div class="left-column">
-      <%= link_to item_path(item) do%>
-        <%= image_tag(item.image_url, width: '100') if item.image_url %>
-      <% end %>
-    </div>
+  <div class="item">
+      <br>
 
-    <div class="middle-column">
-      <%= link_to item.title, item_path(item) %>
-      <p>Current Price: <%= number_to_currency(item.price) %></p>
-      <% if @view!="Cart" %>
-        <p>Qty: <%= item.quantity %></p>
-      <% end %>
-    </div>
-
-    <div class="right-column">
-      <p>Sold By: <%= item.user.name %></p>
-      <% if @view=="Cart" %>
-          <% @cart.contents.each do |id, qty| %>
-            <% if id.to_i == item.id %>
-              <p>Desired Quantity: <%= qty %>
-              <%= button_to '-', cart_path, method: :patch, params: {item_id: item.id, qty: qty - 1} %>
-              <%= button_to '+', cart_path, method: :patch, params: {item_id: item.id, qty: qty + 1} %>
-              <%= button_to 'Remove From Cart', '/cart/delete_item', method: :delete_item, params: {item: item} %></p>
-            <% end %>
-          <% end %>
-          <p>Subtotal: $<%= @cart.subtotal(item.id) %></p>
+    <div class="id-<%=item.id%>-row">
+      <div class="left-column">
+        <%= link_to item_path(item) do%>
+          <%= image_tag(item.image_url, width: '100') if item.image_url %>
         <% end %>
+      </div>
+
+      <div class="middle-column">
+        <%= link_to item.title, item_path(item) %>
+        <p>Current Price: <%= number_to_currency(item.price) %></p>
+        <% if @view!="Cart" %>
+          <p>Qty: <%= item.quantity %></p>
+        <% end %>
+      </div>
+
+      <div class="right-column">
+        <p>Sold By: <%= item.user.name %></p>
+        <% if @view=="Cart" %>
+            <% @cart.contents.each do |id, qty| %>
+              <% if id.to_i == item.id %>
+                <p>Desired Quantity: <%= qty %>
+                <%= button_to '-', cart_path, method: :patch, params: {item_id: item.id, qty: qty - 1} %>
+                <%= button_to '+', cart_path, method: :patch, params: {item_id: item.id, qty: qty + 1} %>
+                <%= button_to 'Remove From Cart', '/cart/delete_item', method: :delete_item, params: {item: item} %></p>
+              <% end %>
+            <% end %>
+            <p>Subtotal: $<%= @cart.subtotal(item.id) %></p>
+          <% end %>
+      </div>
     </div>
+
   </div>
+  <br>
   <% end %>
+  <br>
+  <br>
 </div>

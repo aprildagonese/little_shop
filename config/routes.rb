@@ -21,6 +21,7 @@ put '/profile', to: 'users#update'
 
 get '/profile/orders', to: 'users/orders#index'
 patch '/profile/orders', to: 'users/orders#update'
+delete '/profile/orders', to: 'users/orders#destroy'
 get '/profile/orders/:id', to: 'users/orders#show', as: 'profile_order'
 
 resources :users, only: [:show, :index, :create, :update] do
@@ -31,11 +32,13 @@ end
 get '/dashboard', to: 'merchants#show'
 get '/dashboard/items', to: 'merchants/items#index'
 put '/dashboard/items/:id/edit', to: "merchants/items#edit", as: 'dashboard_item'
+patch '/dashboard/items/:id/enable', to: "merchants/items#enable", as: 'enable_dashboard_item'
+delete '/dashboard/items/:id', to: "merchants/items#destroy", as: 'delete_dashboard_item'
 get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
 patch '/dashboard/orderitems/:id', to: 'merchants/order_items#update', as: 'dashboard_order_item'
 
 # get '/merchants', to: 'users#index'
-resources :merchants, only: [:index, :update]
+resources :merchants, only: [:index]
 namespace :merchant do
   resources :items, except: [:show]
 end

@@ -72,4 +72,12 @@ class Item < ApplicationRecord
     ((total_sold_quantity(merchant).to_f/total_inventory(merchant).to_f)*100).round(2)
   end
 
+  def change_status
+    if active
+      update_attribute(:active, false)
+    else
+      update_attribute(:active, true)
+    end
+  end
+
 end

@@ -32,8 +32,9 @@ RSpec.describe "as a merchant" do
       end
     end
   end
-  context "when I do not enough in-stock quantity" do
-    it 'it does not allow me to fulfill' do
+
+  context "when I do not have enough in-stock quantity" do
+    it 'I can not fulfill an order-item' do
       Faker::UniqueGenerator.clear
       @user = create(:user)
       @merchant = create(:user, role: 1)
