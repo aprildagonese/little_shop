@@ -8,4 +8,8 @@ class Merchants::ItemsController < Merchants::BaseController
     @item = Item.find(params[:id])
   end
 
+  def update
+    
+  end
+
 end
