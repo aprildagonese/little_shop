@@ -9,7 +9,7 @@
   <section id='fast-food'>
     <h4>Fast Food</h4>
     <% @fastest_merchants.each do |merchant| %>
-      <p><%= merchant.name %>, Avg. Delivery Time: <%= time_ago_in_words(merchant.avg_time) %></p>
+      <p><%= merchant.name %>, Avg. Delivery Time: <%= merchant.avg_time %></p>
     <% end %>
   </section>
   <section id='slow-food'>

@@ -141,7 +141,7 @@ RSpec.describe User, type: :model do
     end
 
     it '::fastest_fulfillments' do
-      expected = [@merch_8, @merch_6, @merch_2]
+      expected = [@merch_2, @merch_6, @merch_8]
       actual = User.fastest_fulfillments
 
       expect(actual).to eq(expected)

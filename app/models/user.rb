@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates_presence_of :password, require: true
-  
+
   has_secure_password
 
   enum role: [:registered, :merchant, :admin]
@@ -27,7 +27,7 @@ class User < ApplicationRecord
     .where(orders: {status: 1}, role: 1)
     .group(:id)
     .order("avg_time asc")
-    .limit(3).reverse
+    .limit(3)
   end
 
   def self.slowest_fulfillments
