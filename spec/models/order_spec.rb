@@ -198,6 +198,18 @@ RSpec.describe Order, type: :model do
       expect(order.status).to eq("fulfilled")
     end
 
+    it '#user_items' do
+      Faker::UniqueGenerator.clear
+      order = create(:order, user: @user)
+      oi1 = create(:order_item, item: @item_1, order: order, sale_price: 5, quantity: 1, fulfillment_status: 0)
+      oi2 = create(:order_item, item: @item_2, order: order, sale_price: 5, quantity: 2, fulfillment_status: 0)
+      oi3 = create(:order_item, item: @item_3, order: order, sale_price: 5, quantity: 3, fulfillment_status: 0)
+
+      expected = [oi1, oi2, oi3]
+
+      expect(order.user_items(@merchant)).to eq(expected)
+    end
+
     it '#cancel' do
       @order.cancel
 
@@ -240,7 +252,7 @@ RSpec.describe Order, type: :model do
       item_3 = create(:item, title: "I3", user: merchant, quantity: 5)
       item_4 = create(:item, title: "I4", user: merchant, quantity: 5)
       item_5 = create(:item, title: "I5", user: merchant, quantity: 5)
-      item_6 = create(:item, title: "I6", user: merchant, quantity: 5) 
+      item_6 = create(:item, title: "I6", user: merchant, quantity: 5)
       order1, order2, order3 = create_list(:order, 3, user: user)
       order_item_1 = create(:order_item, item: item_1, order: order1, sale_price: 5, quantity: 1, fulfillment_status: 0)
       order_item_2 = create(:order_item, item: item_2, order: order1, sale_price: 5, quantity: 2, fulfillment_status: 0)
