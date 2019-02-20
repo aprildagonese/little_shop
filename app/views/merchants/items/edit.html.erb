@@ -8,7 +8,9 @@
   </ul>
 <% end %>
 
-<%= form_for @item do |f| %>
+<%= form_for @item, url: url_for(controller: :items, action: :update) do |f| %>
+  <%= hidden_field_tag :id, @item.id %>
+
   <%= f.label :title, "Dish" %>
   <%= f.text_field :title, required: true %>
 
@@ -16,7 +18,7 @@
   <%= f.text_field :description, required: true %>
 
   <%= f.label :image_url, "Image (optional)" %>
-  <%= f.text_field :image_url, value: "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"  %>
+  <%= f.text_field :image_url  %>
 
   <%= f.label :price %>
   <%= f.text_field :price, required: true %>

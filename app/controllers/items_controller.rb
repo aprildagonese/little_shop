@@ -6,14 +6,11 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @user = current_user if current_user.merchant?
-    @user = User.find(params[:user]) if current_user.admin?
-
+    @user = current_user
     @item = @user.items.new(item_params)
-    if @item.image_url == ""
-      @item.image_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
-    end
+    @item.set_image
     @item.active = true
+
     if @item.save
       redirect_to dashboard_items_path if current_user.merchant?
       redirect_to admin_items_path(user_id: @user) if current_user.admin?
