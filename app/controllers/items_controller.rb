@@ -6,12 +6,10 @@ class ItemsController < ApplicationController
 
   def create
     @user = current_user
-
     @item = @user.items.new(item_params)
-    if @item.image_url == ""
-      @item.image_url = "https://downtowncl.org/wp-content/uploads/2016/08/1977_Food-Drink-Generic-Logo.jpg"
-    end
+    @item.set_image
     @item.active = true
+
     if @item.save
       redirect_to dashboard_items_path
       flash[:alert] = "'#{@item.title}' has been saved and is available for sale."
