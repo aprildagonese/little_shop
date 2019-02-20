@@ -40,6 +40,13 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def upgrade
+    @user = User.find(params[:user_id])
+    @user.upgrade
+    flash[:upgraded] = "User has been upgraded to a merchant"
+    redirect_to admin_merchant_path(@user)
+  end
+
   private
 
   def user_params

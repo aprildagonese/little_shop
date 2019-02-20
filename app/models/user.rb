@@ -72,6 +72,10 @@ class User < ApplicationRecord
     update_attribute(:role, 0)
   end
 
+  def upgrade
+    update_attribute(:role, 1)
+  end
+
   def top_states(limit)
      User.joins(orders: {order_items: :item})
           .select('users.state, SUM(order_items.quantity) AS total_items')
