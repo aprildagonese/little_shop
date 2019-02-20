@@ -8,7 +8,11 @@
   </section>
   <div class="cart-nav full">
     <% if !current_user || current_user.registered? %>
-      <h3><%= link_to "Cart (#{@cart.total_count})", cart_path %></h3>
+      <p>
+        <a href="/cart" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-shopping-cart"></span> Cart (<%= @cart.total_count %>)
+        </a>
+      </p>
     <% end %>
   </div>
 </section>
