@@ -1,43 +1,58 @@
-<h3>Statistics</h3>
-<section class='merchant-stats'>
-  <section id='peoples-choice'>
-    <h4>People's Choice</h4>
-    <% @best_revenue_merchants.each do |merchant| %>
-      <p><%= merchant.name %>, Revenue: <%= number_to_currency(merchant.total_revenue) %></p>
-    <% end %>
+<section class='merchant-index'>
+
+  <section class='merchant-titles'>
+    <h1>All Restaurants</h1>
   </section>
-  <section id='fast-food'>
-    <h4>Fast Food</h4>
-    <% @fastest_merchants.each do |merchant| %>
-      <p><%= merchant.name %>, Avg. Delivery Time: <%= merchant.avg_time %></p>
-    <% end %>
-  </section>
-  <section id='slow-food'>
-    <h4>Slow Food</h4>
-    <% @slowest_merchants.each do |merchant| %>
-      <p><%= merchant.name %>, Avg. Delivery Time: <%= merchant.avg_time %></p>
-    <% end %>
-  </section>
-  <section id='foodie-states'>
-    <h4>Best Foodie States</h4>
-    <% @highest_order_states.each do |state| %>
-      <%= state.state %>, Orders: <%= state.total_orders.to_i %>
-    <% end %>
-  </section>
-  <section id='foodie-cities'>
-    <h4>Best Foodie Cities</h4>
-    <% @highest_order_cities.each do |city| %>
-      <%= city.city %>, <%= city.state %> - Orders: <%= city.total_orders.to_i %>
-    <% end %>
-  </section>
-  <section id='biggest-appetites'>
-    <h4>Biggest Appetites</h4>
-    <% @biggest_orders.each do |order| %>
-      Order ID: <%= order.id %>, Qty: <%= order.total_quantity %>
-    <% end %>
-  </section>
+
+  <aside class='merchant-stats'>
+
+    <h3>Statistics</h3>
+
+    <section id='peoples-choice'>
+      <h4>People's Choice</h4>
+      <% @best_revenue_merchants.each do |merchant| %>
+        <p><%= merchant.name %>, Revenue: <%= number_to_currency(merchant.total_revenue) %></p>
+      <% end %>
+    </section>
+
+    <section id='fast-food'>
+      <h4>Fast Food</h4>
+      <% @fastest_merchants.each do |merchant| %>
+        <p><%= merchant.name %>, Avg. Delivery Time: <%= merchant.avg_time %></p>
+      <% end %>
+    </section>
+
+    <section id='slow-food'>
+      <h4>Slow Food</h4>
+      <% @slowest_merchants.each do |merchant| %>
+        <p><%= merchant.name %>, Avg. Delivery Time: <%= merchant.avg_time %></p>
+      <% end %>
+    </section>
+
+    <section id='foodie-states'>
+      <h4>Best Foodie States</h4>
+      <% @highest_order_states.each do |state| %>
+        <p><%= state.state %>, Orders: <%= state.total_orders.to_i %></p>
+      <% end %>
+    </section>
+
+    <section id='foodie-cities'>
+      <h4>Best Foodie Cities</h4>
+      <% @highest_order_cities.each do |city| %>
+        <p><%= city.city %>, <%= city.state %> - Orders: <%= city.total_orders.to_i %></p>
+      <% end %>
+    </section>
+
+    <section id='biggest-appetites'>
+      <h4>Biggest Appetites</h4>
+      <% @biggest_orders.each do |order| %>
+        <p>Order ID: <%= order.id %>, Qty: <%= order.total_quantity %></p>
+      <% end %>
+    </section>
+
+  </aside>
+
+  <%= render 'userlist' %>
+
+
 </section>
-
-
-<h1>All Restaurants</h1>
-<%= render 'userlist' %>
