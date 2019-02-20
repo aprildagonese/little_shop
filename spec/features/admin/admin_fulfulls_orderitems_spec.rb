@@ -19,11 +19,12 @@ RSpec.describe "As an admin" do
 
       login_as(admin)
       visit admin_merchant_order_path(order: order, merchant: merchant)
-      save_and_open_page
 
       within ".item-#{oi1.id}" do
         expect(page).to have_content("Order Item Status: Pending")
         click_button "Fulfill Item"
+      end
+      within ".item-#{oi1.id}" do
         expect(page).to have_content("Order Item Status: Fulfilled")
       end
 
@@ -32,6 +33,8 @@ RSpec.describe "As an admin" do
       within ".item-#{oi3.id}" do
         expect(page).to have_content("Order Item Status: Pending")
         click_button "Fulfill Item"
+      end
+      within ".item-#{oi3.id}" do
         expect(page).to have_content("Order Item Status: Fulfilled")
       end
 
@@ -43,7 +46,7 @@ RSpec.describe "As an admin" do
         expect(page).to have_content("You have insufficient quantity in stock to fulfill this order item.")
       end
 
-      visit admin_merchant_order_path(order, merchant: merchant2)
+      visit admin_merchant_order_path(order: order, merchant: merchant2)
 
       expect(page).to_not have_content("#{oi1.item.title}")
 
@@ -57,6 +60,8 @@ RSpec.describe "As an admin" do
       within ".item-#{oi4.id}" do
         expect(page).to have_content("Order Item Status: Pending")
         click_button "Fulfill Item"
+      end
+      within ".item-#{oi4.id}" do
         expect(page).to have_content("Order Item Status: Fulfilled")
       end
     end

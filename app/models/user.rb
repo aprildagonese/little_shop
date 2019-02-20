@@ -79,6 +79,7 @@ class User < ApplicationRecord
           .group(:state)
           .order('total_items desc')
           .limit(limit)
+  end
 
   # def self.user_by_most_orders(merchant)
   #   User.joins("join orders on users.id = orders.user_id join order_items on orders.id = order_items.order_id")
