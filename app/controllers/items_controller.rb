@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
 
     @item = @user.items.new(item_params)
     if @item.image_url == ""
-      @item.image_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
+      @item.image_url = "https://downtowncl.org/wp-content/uploads/2016/08/1977_Food-Drink-Generic-Logo.jpg"
     end
     @item.active = true
     if @item.save
