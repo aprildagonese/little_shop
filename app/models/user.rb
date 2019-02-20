@@ -64,4 +64,13 @@ class User < ApplicationRecord
         .limit(limit)
   end
 
+  def most_orders_patrons(limit)
+    User.joins(orders: {order_items: :item})
+        .select('users.name, COUNT(order_items) AS total_orders')
+        .where(items: {user_id: self.id}, order_items: {fulfillment_status: 1})
+        .group(:name)
+        .order('total_orders desc')
+        .limit(limit)
+  end
+
 end

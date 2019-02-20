@@ -193,6 +193,13 @@ RSpec.describe User, type: :model do
         expect(expected[0].name).to eq(@user2.name)
         expect(expected[0].total_items_qty).to eq(30)
       end
+
+      it '#most_orders_patrons - shows the patron who has purchased the most total items and their quantity of items' do
+        expected = @merch1.most_orders_patrons(1)
+
+        expect(expected[0].name).to eq(@user2.name)
+        expect(expected[0].total_orders).to eq(3)
+      end
     end
   end
 end

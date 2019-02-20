@@ -135,5 +135,12 @@ RSpec.describe "as a merchant" do
         expect(page.all('.patron')[0]).to have_content("#{@user2.name} (6 items)")
       end
     end
+
+    it 'the top user who has the most orders from a specific merchant' do
+      within '#top-orders-patrons' do
+        expect(page).to have_content("Patron Who Has The Most Orders")
+        expect(page.all('.patron')[0]).to have_content("#{@user2.name} (3 orders)")
+      end
+    end
   end
 end

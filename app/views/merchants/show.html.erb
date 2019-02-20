@@ -1,6 +1,3 @@
-<%= render 'infopage' %>
-<%= render 'orderslist' %>
-
 <!---Statistics--->
 <section id='dash-stats'>
   <section id=top-items>
@@ -58,4 +55,18 @@
       <% end %>
     </ol>
   </section>
+
+  <section id='top-orders-patrons'>
+    <h3>Patron Who Has The Most Orders</h3>
+    <ol>
+      <% @top_orders_patrons.each do |patron| %>
+        <section class="patron">
+          <li> <%= patron.name %> (<%= pluralize(patron.total_orders, 'order')%>) </li>
+        </section>
+      <% end %>
+    </ol>
+  </section>
 </section>
+
+<%= render 'infopage' %>
+<%= render 'orderslist' %>
