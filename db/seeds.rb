@@ -126,28 +126,32 @@ end
   user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
   rand(1..4).times do
     status = 0
-    created_at = rand(300..500).days.ago
+    created_at = rand(500..600).days.ago
     updated_at = rand(100..299).days.ago
-
     order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
     rand(1..4).times do
       item = all_merchants.sample.items.sample
       fulfillment_status = [0, 1].sample
-      OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10), fulfillment_status: fulfillment_status)
+      created_at = rand(400..499).days.ago
+      updated_at = rand(300..399).days.ago
+      OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: fulfillment_status)
     end
     item = all_merchants.sample.items.sample
-    OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10), fulfillment_status: 0)
+    created_at = rand(400..499).days.ago
+    updated_at = rand(300..399).days.ago
+    OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: 0)
   end
   rand(1..4).times do
     status = 1
-    created_at = rand(300..500).days.ago
+    created_at = rand(500..600).days.ago
     updated_at = rand(100..299).days.ago
-
     order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
     rand(1..5).times do
       item = all_merchants.sample.items.sample
       fulfillment_status = 1
-      OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10), fulfillment_status: fulfillment_status)
+      created_at = rand(400..499).days.ago
+      updated_at = rand(300..399).days.ago
+      OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: fulfillment_status)
     end
   end
 end
@@ -164,28 +168,32 @@ activation_status = 0
 user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
 rand(1..4).times do
   status = 0
-  created_at = rand(300..500).days.ago
+  created_at = rand(500..600).days.ago
   updated_at = rand(100..299).days.ago
-
   order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
   rand(1..4).times do
     item = all_merchants.sample.items.sample
     fulfillment_status = [0, 1].sample
-    OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10), fulfillment_status: fulfillment_status)
+    created_at = rand(400..499).days.ago
+    updated_at = rand(300..399).days.ago
+    OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: fulfillment_status)
   end
   item = all_merchants.sample.items.sample
-  OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10), fulfillment_status: 0)
+  created_at = rand(400..499).days.ago
+  updated_at = rand(300..399).days.ago
+  OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: 0)
 end
 rand(1..4).times do
   status = 1
-  created_at = rand(300..500).days.ago
+  created_at = rand(500..600).days.ago
   updated_at = rand(100..299).days.ago
-
   order = user.orders.create!(status: status, created_at: created_at, updated_at: updated_at)
   rand(1..5).times do
     item = all_merchants.sample.items.sample
     fulfillment_status = 1
-    OrderItem.create!(order: order, item: item, sale_price: item.price, quantity: rand(1..10), fulfillment_status: fulfillment_status)
+    created_at = rand(400..499).days.ago
+    updated_at = rand(300..399).days.ago
+    OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: fulfillment_status)
   end
 end
 
