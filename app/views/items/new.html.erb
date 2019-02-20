@@ -1,0 +1,28 @@
+<h1>Enter information for your new dish:</h1>
+
+<% if @item.errors %>
+  <ul id="errors">
+    <% @item.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @item do |f| %>
+  <%= f.label :title, "Dish" %>
+  <%= f.text_field :title, required: true %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description, required: true %>
+
+  <%= f.label :image_url, "Image (optional)" %>
+  <%= f.text_field :image_url, value: "" %>
+
+  <%= f.label :price %>
+  <%= f.number_field :price, min: 0, required: true %>
+
+  <%= f.label :quantity, "Current Inventory" %>
+  <%= f.number_field :quantity, min: 0, required: true %>
+
+  <%= f.submit "Save Item" %>
+<% end %>

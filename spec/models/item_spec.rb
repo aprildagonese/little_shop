@@ -127,13 +127,13 @@ RSpec.describe Item, type: :model do
         item3, item4 = create_list(:item, 2, user: merch2, quantity: 22)
         item5, item6, item7 = create_list(:item, 3, user: merch3, quantity: 13)
         order1 = create(:order, user: user1)
-        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
-        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
-        oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
-        oi4 = create(:order_item, order: order1, item: item4, quantity: 4)
-        oi5 = create(:order_item, order: order1, item: item5, quantity: 5)
-        oi6 = create(:order_item, order: order1, item: item6, quantity: 6)
-        oi7 = create(:order_item, order: order1, item: item7, quantity: 7)
+        create(:order_item, order: order1, item: item1, quantity: 1)
+        create(:order_item, order: order1, item: item2, quantity: 2)
+        create(:order_item, order: order1, item: item3, quantity: 3)
+        create(:order_item, order: order1, item: item4, quantity: 4)
+        create(:order_item, order: order1, item: item5, quantity: 5)
+        create(:order_item, order: order1, item: item6, quantity: 6)
+        create(:order_item, order: order1, item: item7, quantity: 7)
 
         expected1 = 43
         expected2 = 51
@@ -153,13 +153,13 @@ RSpec.describe Item, type: :model do
         item3, item4 = create_list(:item, 2, user: merch2, quantity: 22)
         item5, item6, item7 = create_list(:item, 3, user: merch3, quantity: 13)
         order1 = create(:order, user: user1)
-        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
-        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
-        oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
-        oi4 = create(:order_item, order: order1, item: item4, quantity: 4)
-        oi5 = create(:order_item, order: order1, item: item5, quantity: 5)
-        oi6 = create(:order_item, order: order1, item: item6, quantity: 6)
-        oi7 = create(:order_item, order: order1, item: item7, quantity: 7)
+        create(:order_item, order: order1, item: item1, quantity: 1)
+        create(:order_item, order: order1, item: item2, quantity: 2)
+        create(:order_item, order: order1, item: item3, quantity: 3)
+        create(:order_item, order: order1, item: item4, quantity: 4)
+        create(:order_item, order: order1, item: item5, quantity: 5)
+        create(:order_item, order: order1, item: item6, quantity: 6)
+        create(:order_item, order: order1, item: item7, quantity: 7)
 
         sold1 = 3.0
         inventory1 = 43.0
@@ -186,7 +186,7 @@ RSpec.describe Item, type: :model do
       it 'should return true if that item has been ordered' do
         item = create(:item)
         order = create(:order)
-        order_item = create(:order_item, order: order, item: item)
+        create(:order_item, order: order, item: item)
 
         expected = true
         actual = item.ordered?
@@ -255,18 +255,33 @@ RSpec.describe Item, type: :model do
         item1, item2 = create_list(:item, 2, user: merch)
         order1, order2 = create_list(:order, 2, user: user1)
         order3, order4 = create_list(:order, 2, user: user2)
-        oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
-        oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
-        oi3 = create(:order_item, order: order2, item: item1, quantity: 3)
-        oi4 = create(:order_item, order: order2, item: item2, quantity: 4)
-        oi5 = create(:order_item, order: order3, item: item1, quantity: 5)
-        oi6 = create(:order_item, order: order3, item: item2, quantity: 6)
-        oi7 = create(:order_item, order: order4, item: item1, quantity: 7)
-        oi8 = create(:order_item, order: order4, item: item2, quantity: 8)
+        create(:order_item, order: order1, item: item1, quantity: 1)
+        create(:order_item, order: order1, item: item2, quantity: 2)
+        create(:order_item, order: order2, item: item1, quantity: 3)
+        create(:order_item, order: order2, item: item2, quantity: 4)
+        create(:order_item, order: order3, item: item1, quantity: 5)
+        create(:order_item, order: order3, item: item2, quantity: 6)
+        create(:order_item, order: order4, item: item1, quantity: 7)
+        create(:order_item, order: order4, item: item2, quantity: 8)
 
         expect(item1.units_sold).to eq(16)
         expect(item2.units_sold).to eq(20)
       end
+    end
+
+    it "#change_status" do
+      merchant = create(:merchant)
+      item = Item.create!(title: "Test",
+                          description: "dish",
+                          quantity: 5,
+                          price: 5,
+                          user: merchant,
+                          active: true)
+      expect(item.active).to eq(true)
+      item.change_status
+      expect(item.active).to eq(false)
+      item.change_status
+      expect(item.active).to eq(true)
     end
   end
 

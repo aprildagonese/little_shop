@@ -6,7 +6,9 @@ get '/login', to: 'sessions#new'
 post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
 
-resources :items, only: [:show, :index, :edit, :new, :destroy]
+resources :items, only: [:show, :index, :edit, :new, :destroy, :create]
+#put '/items/:id/edit', to: "items#edit", as: 'item'
+patch '/items/:id/enable', to: "items#enable", as: 'enable_item'
 
 get '/cart', to: 'carts#show'
 post '/cart', to: 'carts#create', as: 'carts'
@@ -21,6 +23,7 @@ put '/profile', to: 'users#update'
 
 get '/profile/orders', to: 'users/orders#index'
 patch '/profile/orders', to: 'users/orders#update'
+delete '/profile/orders', to: 'users/orders#destroy'
 get '/profile/orders/:id', to: 'users/orders#show', as: 'profile_order'
 
 resources :users, only: [:show, :index, :create, :update] do
@@ -30,14 +33,18 @@ end
 #------------Merchant-------------
 get '/dashboard', to: 'merchants#show'
 get '/dashboard/items', to: 'merchants/items#index'
-put '/dashboard/items/:id/edit', to: "merchants/items#edit", as: 'dashboard_item'
+get '/dashboard/items/new', to: 'items#new'
+get '/dashboard/items/:id/edit', to: 'merchants/items#edit', as: 'dashboard_item_edit'
+patch '/dashboard/items', to: 'merchants/items#update'
+#delete '/dashboard/items/:id', to: "merchants/items#destroy", as: 'delete_dashboard_item'
 get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
+patch '/dashboard/orderitems/:id', to: 'merchants/order_items#update', as: 'dashboard_order_item'
 
 # get '/merchants', to: 'users#index'
-resources :merchants, only: [:index, :update]
-namespace :merchant do
-  resources :items, except: [:show]
-end
+resources :merchants, only: [:index]
+# namespace :merchant do
+#   resources :items, except: [:show, :edit, :create]
+# end
 get '/merchants/:id', to: 'users#show' #???
 
 #--------------Admin---------------

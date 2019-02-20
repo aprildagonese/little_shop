@@ -41,7 +41,7 @@ RSpec.describe "as a merchant" do
           expect(page).to have_content("Price: $#{@oi1.sale_price}.00")
           expect(page).to have_content("Qty: #{@oi1.quantity}")
           expect(page).to have_content("Item Subtotal: $#{@oi1.subtotal}.00")
-          expect(page).to have_content("Order Status: Pending")
+          expect(page).to have_content("Order Item Status: Pending")
         end
         within ".item-#{@oi2.id}" do
           expect(page).to have_link("#{@oi2.item.title}")
@@ -49,7 +49,7 @@ RSpec.describe "as a merchant" do
           expect(page).to have_content("Price: $#{@oi2.sale_price}.00")
           expect(page).to have_content("Qty: #{@oi2.quantity}")
           expect(page).to have_content("Item Subtotal: $#{@oi2.subtotal}.00")
-          expect(page).to have_content("Order Status: Pending")
+          expect(page).to have_content("Order Item Status: Pending")
         end
         within ".item-#{@oi3.id}" do
           expect(page).to have_link("#{@oi3.item.title}")
@@ -57,7 +57,7 @@ RSpec.describe "as a merchant" do
           expect(page).to have_content("Price: $#{@oi3.sale_price}.00")
           expect(page).to have_content("Qty: #{@oi3.quantity}")
           expect(page).to have_content("Item Subtotal: $#{@oi3.subtotal}.00")
-          expect(page).to have_content("Order Status: Pending")
+          expect(page).to have_content("Order Item Status: Pending")
         end
       end
 

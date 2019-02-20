@@ -6,12 +6,56 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates_presence_of :password, require: true
-  #validates :password_confirmation, presence: true
 
   has_secure_password
 
   enum role: [:registered, :merchant, :admin]
   enum activation_status: [:active, :inactive]
+
+  def self.highest_revenues
+    joins(items: :orders)
+    .select('users.*, SUM(order_items.sale_price * order_items.quantity) AS total_revenue')
+    .where(orders: {status: 1}, role: 1)
+    .group(:id)
+    .order('total_revenue desc')
+    .limit(3)
+  end
+
+  def self.fastest_fulfillments
+    joins(items: :orders)
+    .select('users.*, AVG(order_items.updated_at - order_items.created_at) as avg_time')
+    .where(orders: {status: 1}, role: 1)
+    .group(:id)
+    .order("avg_time asc")
+    .limit(3)
+  end
+
+  def self.slowest_fulfillments
+    joins(items: :orders)
+    .select('users.*, AVG(order_items.updated_at - order_items.created_at) as avg_time')
+    .where(orders: {status: 1}, role: 1)
+    .group(:id)
+    .order('avg_time desc')
+    .limit(3)
+  end
+
+  def self.most_orders_by_state
+    joins(orders: :order_items)
+    .select('users.state, COUNT(DISTINCT orders.id) AS total_orders')
+    .where(orders: {status: 1}, role: 0)
+    .group(:state)
+    .order('total_orders desc')
+    .limit(3)
+  end
+
+  def self.most_orders_by_city
+    joins(orders: :order_items)
+    .select('users.city, users.state, COUNT(DISTINCT orders.id) AS total_orders')
+    .where(orders: {status: 1}, role: 0)
+    .group(:city, :state)
+    .order('total_orders desc')
+    .limit(3)
+  end
 
   def change_status
     if activation_status == "active"
@@ -28,13 +72,4 @@ class User < ApplicationRecord
     update_attribute(:role, 0)
   end
 
-  # def self.user_by_most_orders(merchant)
-  #   User.joins("join orders on users.id = orders.user_id join order_items on orders.id = order_items.order_id")
-  #       .select("select users.name from users")
-  #       .select()
-  #       .where("where orders.user_id = ?", merchant.id)
-  #       .group(:id)
-  #       .order("user_orders asc")
-  #       .first
-  # end
 end
