@@ -21,8 +21,12 @@ class Order < ApplicationRecord
     order_items.sum("sale_price * quantity")
   end
 
-  def change_status
-    update_attribute(:status, 2) if pending?
+  def change_status(change)
+    if change == "cancel"
+      update_attribute(:status, 2) if pending?
+    elsif change == "fulfill"
+      update_attribute(:status, 1) if pending?
+    end
   end
 
   def cancel
@@ -43,6 +47,14 @@ class Order < ApplicationRecord
   def user_items(user)
     OrderItem.joins(:item)
              .where(items: {user_id: user}, order_id: id)
+  end
+
+  def items_fulfilled?
+    order_items.where(fulfillment_status: 0).count == 0
+  end
+
+  def check_status
+    change_status("fulfill") if items_fulfilled?
   end
 
 end
