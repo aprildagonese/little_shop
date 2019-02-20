@@ -135,6 +135,22 @@ RSpec.describe 'as a merchant' do
         expect(page).to_not have_button("Delete")
       end
     end
+
+    it 'can delete an item' do
+      login_as(@merchant)
+      visit dashboard_items_path
+
+      within "#item-#{@item_17.id}" do
+        expect(page).to have_button("Delete")
+        click_button("Delete")
+      end
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content("#{@item_17.title} has been deleted.")
+
+      expect(page).to_not have_content("Item ID: #{@item_17.id}")
+      expect(page).to have_content("Item ID: #{@item_18.id}")
+    end
   end
 
 end
