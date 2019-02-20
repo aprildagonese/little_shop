@@ -23,7 +23,10 @@
         <p>Price: <%= number_to_currency(order_item.sale_price) %></p>
         <p>Qty: <%= order_item.quantity %></p>
         <p>Item Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
-        <p>Order Status: <%= order_item.fulfillment_status.capitalize %></p>
+        <p>Order Item Status: <%= order_item.fulfillment_status.capitalize %></p>
+        <% if order_item.pending? && order_item.in_stock? %>
+          <%= button_to "Fulfill Item", dashboard_order_item_path(order_item), method: :patch %>
+        <% end %>
       </section>
     </section>
   <% end %>

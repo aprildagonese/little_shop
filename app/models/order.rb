@@ -45,5 +45,4 @@ class Order < ApplicationRecord
              .where(items: {user_id: user}, order_id: id)
   end
 
-
 end
