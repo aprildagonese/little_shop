@@ -85,16 +85,6 @@ class User < ApplicationRecord
           .limit(limit)
   end
 
-  # def self.user_by_most_orders(merchant)
-  #   User.joins("join orders on users.id = orders.user_id join order_items on orders.id = order_items.order_id")
-  #       .select("select users.name from users")
-  #       .select("select count(orders.id) as order_count from orders")
-  #       .where("where orders.user_id = ?", merchant.id)
-  #       .group(:id)
-  #       .order("user_orders asc")
-  #       .first
-  # end
-
   def top_city_states(limit)
     User.joins(orders: {order_items: :item})
         .select('users.city, users.state, SUM(order_items.quantity) AS total_items')
