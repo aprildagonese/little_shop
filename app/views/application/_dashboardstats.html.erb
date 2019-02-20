@@ -1,15 +1,18 @@
 <section class='dashboard-stats'>
+
+  <section class='percent-sold'>
+    <h3>Total Quantity of Items Sold</h3>
+    <p>Sold <%= Item.total_sold_quantity(@user) %> items, which is <%= Item.percent_sold(@user) %>% of your total inventory</p>
+  </section>
+
   <section id=top-items>
   <h3>Top 5 Items Sold by Quantity</h3>
     <% @top_five.each do |item| %>
-      <section class='item'>
+      <section class='top-item'>
           <li><%= item.title %>: <%= item.units_sold %> units sold</li>
         </section>
     <% end  %>
   </section>
-
-  <h3>Total Quantity of Items Sold</h3>
-  <p>Sold <%= Item.total_sold_quantity(@user) %> items, which is <%= Item.percent_sold(@user) %>% of your total inventory</p>
 
   <section id='top-states'>
     <h3>Top 3 States Where Items Were Shipped</h3>
