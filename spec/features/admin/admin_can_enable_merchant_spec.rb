@@ -20,7 +20,7 @@ RSpec.describe "As an admin", type: :feature do
     within ".user-#{@merchant1.id}-row" do
       click_button("Enable")
     end
-    expect(page).to have_content("#{@merchant1.name} has been enabled")
+    expect(page).to have_content("#{@merchant1.name} has been re-enabled")
     within ".user-#{@merchant1.id}-row" do
       expect(page).to have_button("Disable")
     end
