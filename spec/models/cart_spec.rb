@@ -14,6 +14,15 @@ RSpec.describe Cart do
   end
 
   describe '#add_item' do
+    it 'should add an item to an empty cart' do
+      cart = Cart.new({})
+
+      cart.add_item(1)
+      expect(cart.contents).to eq({1 => 1})
+
+      cart.add_item(2)
+      expect(cart.contents).to eq({1 => 1, 2 => 1})
+    end
     it 'should add an item to our cart' do
       cart = Cart.new({
         1 => 2,
