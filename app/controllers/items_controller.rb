@@ -2,10 +2,12 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+    @merchant = params[:user]
   end
 
   def create
-    @user = current_user
+    @user = current_user if current_user.merchant?
+    @user = User.find(params[:user]) if current_user.admin?
 
     @item = @user.items.new(item_params)
     if @item.image_url == ""
@@ -13,7 +15,8 @@ class ItemsController < ApplicationController
     end
     @item.active = true
     if @item.save
-      redirect_to dashboard_items_path
+      redirect_to dashboard_items_path if current_user.merchant?
+      redirect_to admin_items_path(user_id: @user) if current_user.admin?
       flash[:alert] = "'#{@item.title}' has been saved and is available for sale."
     else
       render :new
@@ -33,19 +36,16 @@ class ItemsController < ApplicationController
   def destroy
     item = Item.find(params[:id])
     item.delete
-    redirect_to dashboard_items_path
+    redirect_to dashboard_items_path if current_user.merchant?
+    redirect_to admin_items_path(user_id: item.user) if current_user.admin?
     flash[:alert] = "#{item.title} has been deleted."
   end
 
   def enable
     @item = Item.find(params[:id])
     @item.change_status
-    # if @item.merchant?
-    #   redirect_to admin_merchants_path
-    # elsif @item.registered?
-    #   redirect_to admin_users_path
-    # end
-    redirect_to dashboard_items_path
+    redirect_to dashboard_items_path if current_user.merchant?
+    redirect_to admin_items_path(user_id: @item.user) if current_user.admin?
     if @item.active
       flash[:alert] = "#{@item.title} has been enabled and is now available for sale."
     else

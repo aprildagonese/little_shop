@@ -9,7 +9,7 @@ class Merchants::ItemsController < Merchants::BaseController
   end
 
   def update
-    
+
   end
 
 end
