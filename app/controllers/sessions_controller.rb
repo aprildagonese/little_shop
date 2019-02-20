@@ -12,14 +12,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password]) && user.active?
       session[:user_id] = user.id
       flash[:alert] = "You have been logged in."
-      #move lines 15-21 to a helper method
-      if user.registered?
-        redirect_to profile_path
-      elsif user.merchant?
-        redirect_to dashboard_path
-      elsif user.admin?
-        redirect_to welcome_path
-      end
+      direct_to(user)
     elsif user && user.inactive?
       flash[:alert] = "This account has been disabled. Please contact an administrator to log in."
       render :new
@@ -37,6 +30,16 @@ class SessionsController < ApplicationController
 
 
   private
+
+  def direct_to(user)
+    if user.registered?
+      redirect_to profile_path
+    elsif user.merchant?
+      redirect_to dashboard_path
+    elsif user.admin?
+      redirect_to welcome_path
+    end
+  end
 
   def is_logged_in
     if current_user.role == 'registered'

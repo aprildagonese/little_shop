@@ -1,5 +1,7 @@
 <div class="user-list">
   <% @users.each do |user| %>
+  <section class ='user'>
+
     <div class="user-<%=user.id%>-row">
       <% if current_user && current_user.admin? %>
         <div class="user-name">
@@ -27,5 +29,7 @@
         <% end %>
       </div>
     </div>
+
+  </section>
   <% end %>
 </div>
