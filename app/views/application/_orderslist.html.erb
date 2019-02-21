@@ -1,5 +1,5 @@
 <ul class='orders-list'>
-  <% if !@orders.nil? %>
+  <% if !@orders.empty? %>
     <% @orders.each do |order| %>
       <li id="order-<%= order.id %>">
         <% if current_user.registered? %>
