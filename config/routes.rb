@@ -7,7 +7,6 @@ post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
 
 resources :items, only: [:show, :index, :edit, :new, :destroy, :create]
-#put '/items/:id/edit', to: "items#edit", as: 'item'
 patch '/items/:id/enable', to: "items#enable", as: 'enable_item'
 
 get '/cart', to: 'carts#show'
@@ -50,7 +49,7 @@ get '/admin/merchants/orders', to: 'merchants/orders#show', as: 'admin_merchant_
 patch '/admin/merchants/orderitems', to: 'merchants/order_items#update', as: 'admin_merchant_order_item'
 namespace :admin do
   resources :merchants, only: [:show, :index, :update]
-  resources :items, except: [:show]
+  resources :items, onlh: [:index]
   resources :users, only: [:show, :index, :edit, :update]
   resources :orders, only: [:index, :show, :destroy]
 end
