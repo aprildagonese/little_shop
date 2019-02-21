@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'uri'
 
 RSpec.describe "items", type: :feature do
 
@@ -319,6 +320,63 @@ RSpec.describe "items", type: :feature do
 
       expect(page).to_not have_content("#{@item_2.title}")
       expect(page).to have_content("Dish title is already taken.")
+    end
+
+    it 'can leave the image field blank' do
+      default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
+
+      visit admin_items_path(user_id: @merchant)
+
+      within "#item-#{@item_1.id}" do
+        click_button("Edit Item")
+      end
+
+      fill_in 'Dish', with: "No image"
+
+      click_button "Update Item"
+
+      expect(page).to have_content("'No image' has been updated.")
+      expect(current_path).to eq(admin_items_path)
+      expect(page).to have_css("img[src*='#{default_url}']")
+    end
+
+    it 'can put a bad link in the image field' do
+      default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
+
+      visit admin_items_path(user_id: @merchant)
+
+      within "#item-#{@item_1.id}" do
+        click_button("Edit Item")
+      end
+
+      fill_in 'Dish', with: "Bad image"
+      fill_in "Image (optional)", with: "notagoodlink"
+
+      click_button "Update Item"
+
+      expect(page).to have_content("'Bad image' has been updated.")
+      expect(current_path).to eq(admin_items_path)
+      expect(page).to have_css("img[src*='#{default_url}']")
+    end
+
+    it 'can put a bad link in the image field' do
+      default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
+      good_url = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/socialmedia/apple/155/thumbs-up-sign_1f44d.png"
+
+      visit admin_items_path(user_id: @merchant)
+
+      within "#item-#{@item_1.id}" do
+        click_button("Edit Item")
+      end
+
+      fill_in 'Dish', with: "Good image"
+      fill_in "Image (optional)", with: good_url
+
+      click_button "Update Item"
+
+      expect(page).to have_content("'Good image' has been updated.")
+      expect(current_path).to eq(admin_items_path)
+      expect(page).to have_css("img[src*='#{good_url}']")
     end
 
   end

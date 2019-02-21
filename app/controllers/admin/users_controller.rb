@@ -20,7 +20,7 @@ class Admin::UsersController < Admin::BaseController
     if @user.update(user_params)
       redirect_to admin_user_path(@user)
     else
-      flash[:error] = "That email has already been taken"
+      flash[:error] = "That email has already been taken."
       redirect_to edit_admin_user_path(@user)
     end
   end
