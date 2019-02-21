@@ -88,7 +88,7 @@ RSpec.describe "As an admin", type: :feature do
 
       expect(current_path).to eq(edit_admin_user_path(@user))
 
-      expect(page).to have_content("That email has already been taken")
+      expect(page).to have_content("That email has already been taken.")
 
       not_updated_user = User.find(100)
 
