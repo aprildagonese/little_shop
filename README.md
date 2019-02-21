@@ -36,9 +36,8 @@ Tests are divided by models and features, with feature tests generally sub-divid
 
 ## How to use?
 We provide demo accounts to help users explore the application. Please use the following accounts to log in. All accounts use the test password: `password`
-- user@test.com
-- merchant@test.com
-- admin@test.com
+- `user@test.com`
+- `merchant@test.com`
 
 ## Contribute
 To contribute to Little Shop of Hors D'Oeurves, please fork the repository at https://github.com/aprildagonese/little_shop and make a pull request back to the original repo.
