@@ -300,7 +300,7 @@ RSpec.describe Item, type: :model do
 
       item.image_url = good_url
       item.set_image
-      binding.pry
+      
       expect(item.image_url).to eq(good_url)
     end
 
