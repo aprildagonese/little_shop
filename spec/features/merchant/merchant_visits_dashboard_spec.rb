@@ -40,14 +40,14 @@ RSpec.describe "as a merchant" do
       within "#order-#{order1.id}" do
         expect(page).to have_link("Order ID: #{order1.id}")
         expect(page).to have_content("Placed on: #{order1.created_at.to_date.to_s}")
-        expect(page).to have_content("Item Count: #{order1.item_count}")
-        expect(page).to have_content("Order Total: $#{order1.total_cost}")
+        expect(page).to have_content("Item Count: #{order1.user_total_items(merchant1)}")
+        expect(page).to have_content("Order Total: $#{order1.user_grand_total(merchant1)}")
       end
       within "#order-#{order3.id}" do
         expect(page).to have_link("Order ID: #{order3.id}")
         expect(page).to have_content("Placed on: #{order3.created_at.to_date.to_s}")
-        expect(page).to have_content("Item Count: #{order3.item_count}")
-        expect(page).to have_content("Order Total: $#{order3.total_cost}")
+        expect(page).to have_content("Item Count: #{order3.user_total_items(merchant1)}")
+        expect(page).to have_content("Order Total: $#{order3.user_grand_total(merchant1)}")
       end
       expect(page).to_not have_button("Cancel Order")
       expect(page).to_not have_content("Order ID: #{order2.id}")
@@ -90,11 +90,11 @@ RSpec.describe "as a merchant" do
 
     it "top 5 items sold by quantity" do
        within '#top-items' do
-        expect(page.all('.item')[0]).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
-        expect(page.all('.item')[1]).to have_content("#{@item6.title}: #{@item6.units_sold} units sold")
-        expect(page.all('.item')[2]).to have_content("#{@item5.title}: #{@item5.units_sold} units sold")
-        expect(page.all('.item')[3]).to have_content("#{@item4.title}: #{@item4.units_sold} units sold")
-        expect(page.all('.item')[4]).to have_content("#{@item3.title}: #{@item3.units_sold} units sold")
+        expect(page.all('.top-item')[0]).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
+        expect(page.all('.top-item')[1]).to have_content("#{@item6.title}: #{@item6.units_sold} units sold")
+        expect(page.all('.top-item')[2]).to have_content("#{@item5.title}: #{@item5.units_sold} units sold")
+        expect(page.all('.top-item')[3]).to have_content("#{@item4.title}: #{@item4.units_sold} units sold")
+        expect(page.all('.top-item')[4]).to have_content("#{@item3.title}: #{@item3.units_sold} units sold")
       end
     end
 

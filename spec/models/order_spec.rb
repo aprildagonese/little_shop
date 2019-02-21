@@ -210,6 +210,30 @@ RSpec.describe Order, type: :model do
       expect(order.user_items(@merchant)).to eq(expected)
     end
 
+    it '#user_grand_total' do
+      Faker::UniqueGenerator.clear
+      order = create(:order, user: @user)
+      oi1 = create(:order_item, item: @item_1, order: order, sale_price: 5, quantity: 1, fulfillment_status: 0)
+      oi2 = create(:order_item, item: @item_2, order: order, sale_price: 5, quantity: 2, fulfillment_status: 0)
+      oi3 = create(:order_item, item: @item_3, order: order, sale_price: 5, quantity: 3, fulfillment_status: 0)
+
+      expected = 30
+
+      expect(order.user_grand_total(@merchant)).to eq(expected)
+    end
+
+    it '#user_grand_total' do
+      Faker::UniqueGenerator.clear
+      order = create(:order, user: @user)
+      oi1 = create(:order_item, item: @item_1, order: order, sale_price: 5, quantity: 1, fulfillment_status: 0)
+      oi2 = create(:order_item, item: @item_2, order: order, sale_price: 5, quantity: 2, fulfillment_status: 0)
+      oi3 = create(:order_item, item: @item_3, order: order, sale_price: 5, quantity: 3, fulfillment_status: 0)
+
+      expected = 6
+
+      expect(order.user_total_items(@merchant)).to eq(expected)
+    end
+
     it '#cancel' do
       @order.cancel
 
