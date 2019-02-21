@@ -1,33 +1,45 @@
 <section class="admin-items-index">
+  <section class='merchant-items'>
 
-  <h1>Merchant <%= @merchant.id %> (<%= @merchant.name %>) Dishes</h1>
-  <%= button_to "Add a New Item", new_item_path, method: :get, params: {user: @merchant} %>
+    <h1>Merchant <%= @merchant.id %> (<%= @merchant.name %>) Dishes</h1>
+    <div class="add-item">
+      <%= button_to "Add a New Item", new_item_path, method: :get, params: {user: @merchant} %>
+    </div>
 
-  <section class="merchant-items-index">
-    <% @items.each do |item| %>
-      <section id="item-<%= item.id %>" >
-        <p>Item ID: <%= item.id %>
-          <% if item.active == false %>
-            (Disabled)
-          <% end %>
-        </p>
-        <h4><%= item.title %></h4>
-        <%= image_tag item.image_url, width: '100'%>
-        <p>Price: <%= item.price %></p>
-        <p>Inventory: <%= item.quantity %></p>
-        <%= button_to "Edit Item", edit_admin_item_path(item), method: :get %>
-        <% if item.active %>
-          <%= button_to "Disable", enable_item_path(item), method: :patch %>
-        <% else %>
-          <%= button_to "Enable", enable_item_path(item), method: :patch %>
-        <% end %>
+    <section class="merchant-items-index">
+      <% @items.each do |item| %>
+        <section id="item-<%= item.id %>" >
+          <div class="item">
+            <p>Item ID: <%= item.id %>
+              <% if item.active == false %>
+                (Disabled)
+              <% end %>
+            </p>
+            <h4><%= item.title %></h4>
+            <%= image_tag item.image_url, width: '100'%>
+            <p>Price: <%= item.price %></p>
+            <p>Inventory: <%= item.quantity %></p>
 
-        <% unless item.ordered? %>
-          <%= button_to "Delete", item_path(item), method: :delete %>
-        <% end %>
-        
-      </section>
-    <% end %>
+            <div class="buttons">
+
+            <%= button_to "Edit Item", edit_admin_item_path(item), method: :get %>
+            <% if item.active %>
+              <%= button_to "Disable", enable_item_path(item), method: :patch %>
+            <% else %>
+              <%= button_to "Enable", enable_item_path(item), method: :patch %>
+            <% end %>
+
+            <% unless item.ordered? %>
+              <%= button_to "Delete", item_path(item), method: :delete %>
+            <% end %>
+            </div>
+
+          </div>
+
+        </section>
+      <% end %>
+    </section>
+
   </section>
 
 </section>

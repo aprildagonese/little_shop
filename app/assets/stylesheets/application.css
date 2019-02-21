@@ -379,6 +379,7 @@ li {
 .merchant-items {
   height: 86vh;
   overflow: scroll;
+  background: #353230;
 }
 
 .merchant-items-index {
