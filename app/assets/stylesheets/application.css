@@ -5,7 +5,7 @@ html {
 body {
   height: 100vh;
   margin: 0;
-  background: #353230;
+  background: #BFB5AF;
 }
 
 h1 {
@@ -257,6 +257,7 @@ li {
 .item-info {
   padding-left: 15px;
 }
+
 /* MERCHANT INDEX */
 
 .merchant-index {
@@ -440,7 +441,7 @@ li {
   font-size: 18px;
 }
 .edit-profile {
-  height: 86vh;
+  height: 85vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -451,7 +452,7 @@ li {
 }
 
 .edit-profile .form {
-  margin-top: 6px;
+  margin-top: 1px;
 }
 
 /* USER PROFILE */
@@ -475,6 +476,30 @@ li {
   color: whitesmoke;
   background-color: #353230;
   height: 40vh;
+}
+
+/* USER ORDERS */
+
+.user-orders {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.user-order-list {
+  margin-left: 100px;
+}
+.user-orders h1 {
+  width: 70vw;
+  text-align: center;
+  color: whitesmoke;
+  text-shadow: none;
+}
+
+.user-orders .orders-list {
+  width: 60vw;
+  margin: 0px;
 }
 
 /* PARTIALS */

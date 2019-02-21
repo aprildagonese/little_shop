@@ -10,10 +10,12 @@ class Merchants::ItemsController < Merchants::BaseController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(item_params)
+    new_params = item_params
+    new_params[:image_url] = set_url(item_params[:image_url])
+    if @item.update(new_params)
       redirect_to dashboard_items_path
     else
-      flash[:error] = "Dish has been entered erroneously."
+      flash[:error] = "Dish title is already taken."
       redirect_to dashboard_item_edit_path(@item)
     end
   end

@@ -21,9 +21,6 @@ class Admin::MerchantsController < Admin::BaseController
     @percent_sold = Item.percent_sold(@user)
   end
 
-  def update
-  end
-
   def downgrade
     @user = User.find(params[:user_id])
     @user.downgrade

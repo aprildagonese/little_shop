@@ -6,8 +6,7 @@ get '/login', to: 'sessions#new'
 post '/login', to: 'sessions#create'
 delete '/logout', to: 'sessions#destroy'
 
-resources :items, only: [:show, :index, :edit, :new, :destroy, :create]
-#put '/items/:id/edit', to: "items#edit", as: 'item'
+resources :items, only: [:show, :index, :new, :destroy, :create]
 patch '/items/:id/enable', to: "items#enable", as: 'enable_item'
 
 get '/cart', to: 'carts#show'
@@ -39,7 +38,6 @@ patch '/dashboard/items', to: 'merchants/items#update'
 get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
 patch '/dashboard/orderitems/:id', to: 'merchants/order_items#update', as: 'dashboard_order_item'
 resources :merchants, only: [:index]
-get '/merchants/:id', to: 'users#show' #???
 
 #--------------Admin---------------
 get '/admin/dashboard', to: 'admin/dashboard#show'

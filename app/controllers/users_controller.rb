@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  #These potenitally do the same thing?
   before_action :require_login, only: [:show, :edit]
   before_action :require_current_user, only: [:show, :edit]
 
@@ -14,7 +13,6 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to profile_path(@user)
     else
-      #TODO add helper method
       flash[:alert] = "Your account could not be created with those credentials. Please try again or log in with an existing account."
       @user.email = ""
       render :new
