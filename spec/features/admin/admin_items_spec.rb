@@ -167,12 +167,14 @@ RSpec.describe "items", type: :feature do
 
       click_button("Save Item")
 
-      item_id = Item.last.id
+      new_item = Item.last
+
+      expect(new_item.user).to eq(@merchant)
 
       expect(current_path).to eq(admin_items_path)
       expect(page).to have_content("'Delicious Treats' has been saved and is available for sale.")
 
-      within "#item-#{item_id}" do
+      within "#item-#{new_item.id}" do
         expect(page).to have_content("Delicious Treats")
         expect(page).to have_button("Disable")
         expect(page).to_not have_button("Enable")

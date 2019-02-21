@@ -6,7 +6,11 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @user = current_user
+    if current_user.admin?
+      @user = User.find(params[:user])
+    else
+      @user = current_user
+    end
     @item = @user.items.new(item_params)
     @item.set_image
     @item.active = true
