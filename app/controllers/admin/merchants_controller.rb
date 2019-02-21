@@ -9,6 +9,7 @@ class Admin::MerchantsController < Admin::BaseController
     if @user.registered?
       redirect_to admin_user_path(@user)
     end
+
     @orders = Order.find_orders(@user)
     @top_five = Item.top_items_sold(@user).limit(5)
     @top_three_states = @user.top_states(3)
