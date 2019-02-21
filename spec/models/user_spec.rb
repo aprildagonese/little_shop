@@ -278,54 +278,54 @@ RSpec.describe User, type: :model do
         expect(Item.total_sold_quantity(merch2)).to eq(expected2)
       end
 
-      it '#top_states - shows the top 3 states for that user and their quantities' do
-        expected = @merch1.top_states(3)
+        it '#top_states - shows the top 3 states for that user and their quantities' do
+          expected = @merch1.top_states(3)
 
-        expect(expected[0].state).to eq(@user2.state)
-        expect(expected[0].total_items).to eq(30)
+          expect(expected[0].state).to eq(@user2.state)
+          expect(expected[0].total_items).to eq(30)
 
-        expect(expected[1].state).to eq(@user1.state)
-        expect(expected[1].total_items).to eq(21)
-      end
+          expect(expected[1].state).to eq(@user1.state)
+          expect(expected[1].total_items).to eq(21)
+        end
 
-      it '#top_city_states - shows the top 3 city, states for that merchant and their quantities' do
-        expected = @merch1.top_city_states(3)
+        it '#top_city_states - shows the top 3 city, states for that merchant and their quantities' do
+          expected = @merch1.top_city_states(3)
 
-        expect(expected[0].city).to eq(@user2.city)
-        expect(expected[1].city).to eq(@user3.city)
-        expect(expected[2].city).to eq(@user1.city)
+          expect(expected[0].city).to eq(@user2.city)
+          expect(expected[1].city).to eq(@user3.city)
+          expect(expected[2].city).to eq(@user1.city)
 
-        expect(expected[0].total_items).to eq(30)
-        expect(expected[1].total_items).to eq(16)
-        expect(expected[2].total_items).to eq(5)
-      end
+          expect(expected[0].total_items).to eq(30)
+          expect(expected[1].total_items).to eq(16)
+          expect(expected[2].total_items).to eq(5)
+        end
 
-      it '#top_spending_patrons - shows the top 3 city, states for that merchant and their quantities' do
-        expected = @merch1.top_spending_patrons(3)
+        it '#top_spending_patrons - shows the top 3 city, states for that merchant and their quantities' do
+          expected = @merch1.top_spending_patrons(3)
 
-        expect(expected[0].name).to eq(@user2.name)
-        expect(expected[1].name).to eq(@user1.name)
-        expect(expected[2].name).to eq(@user3.name)
+          expect(expected[0].name).to eq(@user2.name)
+          expect(expected[1].name).to eq(@user1.name)
+          expect(expected[2].name).to eq(@user3.name)
 
-        expect(expected[0].total_spent).to eq(113)
-        expect(expected[1].total_spent).to eq(50)
-        expect(expected[2].total_spent).to eq(32)
-      end
+          expect(expected[0].total_spent).to eq(113)
+          expect(expected[1].total_spent).to eq(50)
+          expect(expected[2].total_spent).to eq(32)
+        end
 
-      it '#most_items_patrons - shows the patron who has purchased the most total items and their quantity of items' do
-        expected = @merch1.most_items_patrons(1)
+        it '#most_items_patrons - shows the patron who has purchased the most total items and their quantity of items' do
+          expected = @merch1.most_items_patrons(1)
 
-        expect(expected[0].name).to eq(@user2.name)
-        expect(expected[0].total_items_qty).to eq(30)
-      end
+          expect(expected[0].name).to eq(@user2.name)
+          expect(expected[0].total_items_qty).to eq(30)
+        end
 
-      it '#most_orders_patrons - shows the patron who has purchased the most total items and their quantity of items' do
-        expected = @merch1.most_orders_patrons(1)
+        it '#most_orders_patrons - shows the patron who has purchased the most total items and their quantity of items' do
+          expected = @merch1.most_orders_patrons(1)
 
-        expect(expected[0].name).to eq(@user2.name)
-        expect(expected[0].total_orders).to eq(3)
+          expect(expected[0].name).to eq(@user2.name)
+          expect(expected[0].total_orders).to eq(3)
+        end
       end
     end
   end
-end
 end

@@ -16,7 +16,12 @@ class CartsController < ApplicationController
 
 
   def update
-    @cart.contents[params[:item_id]] = params[:qty].to_i
+    item = Item.find(params[:item_id])
+    if params[:qty].to_i <= item.quantity
+      @cart.contents[params[:item_id]] = params[:qty].to_i
+    else
+      flash[:insufficient] = "Not Enough Items In Stock"
+    end
     if @cart.contents[params[:item_id]] == 0
       @cart.contents.delete(params[:item_id])
     end
