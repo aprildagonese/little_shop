@@ -5,14 +5,4 @@ class Admin::ItemsController < Admin::BaseController
     @merchant = User.find(params[:user_id])
   end
 
-  def edit
-    #edit an item
-  end
-
-  def update
-  end
-
-  def destroy
-  end
-
 end
