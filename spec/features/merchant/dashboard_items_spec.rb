@@ -102,7 +102,7 @@ RSpec.describe 'as a merchant' do
     it 'can disable an item' do
 
       visit dashboard_items_path
-      
+
       within "#item-#{@item_2.id}" do
             expect(page).to have_button("Disable")
             click_button("Disable")
@@ -291,7 +291,7 @@ RSpec.describe 'as a merchant' do
     it 'can edit an existing item' do
 
       visit dashboard_items_path
-      save_and_open_page
+  
       within "#item-#{@item_1.id}" do
         click_button "Edit Item"
       end
