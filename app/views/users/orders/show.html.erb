@@ -1,22 +1,26 @@
-<ul class='orders-list'>
-  <li id="order-<%= @order.id %>">
-    <section class="order-item-header">
-      <a>Order ID: <%= @order.id %></a>
-    </section>
-    <section class="order-item-info">
-      <a>Placed on: <%= @order.created_at %></a>
-      <a>Last Updated on: <%= @order.updated_at %></a>
-      <a>Item Count: <%= @order.item_count %></a>
-      <a>Order Total: <%= number_to_currency(@order.total_cost) %></a>
-      <a>Order Status: <%= @order.status.capitalize %></a>
-      <% if @order.pending? %>
-        <%= button_to "Cancel Order", profile_orders_path(order_id: @order), method: :delete %>
-      <% end %>
-    </section>
-  </li>
-</ul>
+<section class='order-show'>
 
-<section class="order-items">
-  <p>Order Items:</p>
-  <%= render 'orderitemlist' %>
+  <ul class='orders-list'>
+    <li id="order-<%= @order.id %>">
+      <section class="order-item-header">
+        <p>Order ID: <%= @order.id %></p>
+      </section>
+      <section class="order-item-info">
+        <p>Placed on: <%= @order.created_at %></p>
+        <p>Last Updated on: <%= @order.updated_at %></p>
+        <p>Item Count: <%= @order.item_count %></p>
+        <p>Order Total: <%= number_to_currency(@order.total_cost) %></p>
+        <p>Order Status: <%= @order.status.capitalize %></p>
+        <% if @order.pending? %>
+          <%= button_to "Cancel Order", profile_orders_path(order_id: @order), method: :delete %>
+        <% end %>
+      </section>
+    </li>
+  </ul>
+
+  <section class="order-items">
+    <p>Order Items:</p>
+    <%= render 'orderitemlist' %>
+  </section>
+
 </section>
