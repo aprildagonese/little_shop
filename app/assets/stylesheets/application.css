@@ -237,8 +237,8 @@ li {
 
 .item-main-info .item-image {
   object-fit: cover;
-  width:150px;
-  height:150px;
+  width: 550px;
+  height: 550px;
   border-radius: 5px;
   padding-left: 35%;
   padding-top: 8%;
@@ -481,6 +481,7 @@ li {
 /* USER ORDERS */
 
 .user-orders {
+  background: #353230;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -500,6 +501,31 @@ li {
 .user-orders .orders-list {
   width: 60vw;
   margin: 0px;
+}
+
+/* USER ORDER SHOW */
+
+.order-show {
+  background: #353230;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.order-show .orders-list {
+  width: 70vw;
+  margin: 0;
+}
+
+.order-show .item {
+  grid-template: auto / 30% auto auto;
+}
+
+.order-show .item-list {
+  width: 70vw;
+  border-radius: 5px;
 }
 
 /* PARTIALS */

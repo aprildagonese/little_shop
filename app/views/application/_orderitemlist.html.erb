@@ -1,19 +1,23 @@
 <div class="item-list">
   <% @order.order_items.each do |order_item| %>
   <div class="id-<%=order_item.id%>-row">
-    <div class="left-column">
-      <%= image_tag(order_item.item.image_url, width: '250') %>
+
+      <div class="item">
+      <div class="left-column">
+        <%= image_tag(order_item.item.image_url, width: '250') %>
+      </div>
+      <div class="middle-column">
+        <p><%= order_item.item.title %></p>
+        <p>Sale Price: <%= number_to_currency(order_item.sale_price) %></p>
+        <p>Qty: <%= order_item.quantity %></p>
+      </div>
+      <div class="right-column">
+        <p><%= order_item.item.description %></p>
+        <p>Item Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
+        <p>Item Status: <%= order_item.fulfillment_status.capitalize %></p>
+      </div>
     </div>
-    <div class="middle-column">
-      <p><%= order_item.item.title %></p>
-      <p>Sale Price: <%= number_to_currency(order_item.sale_price) %></p>
-      <p>Qty: <%= order_item.quantity %></p>
-    </div>
-    <div class="right-column">
-      <p><%= order_item.item.description %></p>
-      <p>Item Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
-      <p>Item Status: <%= order_item.fulfillment_status.capitalize %></p>
-    </div>
+
   </div>
   <% end %>
 </div>
