@@ -60,7 +60,7 @@ class Item < ApplicationRecord
 
   def self.total_sold_quantity(merchant)
     Item.joins(:order_items)
-        .where(items: {user_id: merchant.id})
+        .where(items: {user_id: merchant.id}, order_items: {fulfillment_status: 1})
         .sum("order_items.quantity")
   end
 
@@ -71,7 +71,12 @@ class Item < ApplicationRecord
   end
 
   def self.percent_sold(merchant)
-    ((total_sold_quantity(merchant).to_f/total_inventory(merchant).to_f)*100).round(2)
+    result = ((total_sold_quantity(merchant).to_f/total_inventory(merchant).to_f)*100).round(2)
+    if result == 0
+      result = "N/A"
+    else
+      result
+    end
   end
 
   def change_status

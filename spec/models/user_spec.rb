@@ -246,37 +246,37 @@ RSpec.describe User, type: :model do
         @oi16 = create(:fulfilled_order_item, order: @order6, item: @item1, quantity: 16, sale_price: 2)
       end
 
-      describe "#total_sold_quantity" do
-        it "should get merchant's sum of all quantities sold for all items" do
-          merch1, merch2 = create_list(:user, 2, role: 1)
-          user1, user2, user3 = create_list(:user, 3)
-          item1, item2 = create_list(:item, 2, user: merch1)
-          item3 = create(:item, user: merch2)
-          order1, order2 = create_list(:order, 2, user: user1)
-          order3, order4 = create_list(:order, 2, user: user2)
-          order5 = create(:order, user: user3)
-          oi1 = create(:order_item, order: order1, item: item1, quantity: 1)
-          oi2 = create(:order_item, order: order1, item: item2, quantity: 2)
-          oi3 = create(:order_item, order: order1, item: item3, quantity: 3)
-          oi4 = create(:order_item, order: order2, item: item1, quantity: 4)
-          oi5 = create(:order_item, order: order2, item: item2, quantity: 5)
-          oi6 = create(:order_item, order: order2, item: item3, quantity: 6)
-          oi7 = create(:order_item, order: order3, item: item1, quantity: 7)
-          oi8 = create(:order_item, order: order3, item: item2, quantity: 8)
-          oi9 = create(:order_item, order: order3, item: item3, quantity: 9)
-          oi10 = create(:order_item, order: order4, item: item1, quantity: 10)
-          oi11 = create(:order_item, order: order4, item: item2, quantity: 11)
-          oi12 = create(:order_item, order: order4, item: item3, quantity: 12)
-          oi13 = create(:order_item, order: order5, item: item1, quantity: 13)
-          oi14 = create(:order_item, order: order5, item: item2, quantity: 14)
-          oi15 = create(:order_item, order: order5, item: item3, quantity: 15)
+    describe "#total_sold_quantity" do
+      it "should get merchant's sum of all quantities sold for all items" do
+        merch1, merch2 = create_list(:user, 2, role: 1)
+        user1, user2, user3 = create_list(:user, 3)
+        item1, item2 = create_list(:item, 2, user: merch1)
+        item3 = create(:item, user: merch2)
+        order1, order2 = create_list(:order, 2, user: user1)
+        order3, order4 = create_list(:order, 2, user: user2)
+        order5 = create(:order, user: user3)
+        oi1 = create(:order_item, order: order1, item: item1, quantity: 1, fulfillment_status: 0)
+        oi2 = create(:order_item, order: order1, item: item2, quantity: 2, fulfillment_status: 1)
+        oi3 = create(:order_item, order: order1, item: item3, quantity: 3, fulfillment_status: 1)
+        oi4 = create(:order_item, order: order2, item: item1, quantity: 4, fulfillment_status: 1)
+        oi5 = create(:order_item, order: order2, item: item2, quantity: 5, fulfillment_status: 1)
+        oi6 = create(:order_item, order: order2, item: item3, quantity: 6, fulfillment_status: 1)
+        oi7 = create(:order_item, order: order3, item: item1, quantity: 7, fulfillment_status: 1)
+        oi8 = create(:order_item, order: order3, item: item2, quantity: 8, fulfillment_status: 1)
+        oi9 = create(:order_item, order: order3, item: item3, quantity: 9, fulfillment_status: 0)
+        oi10 = create(:order_item, order: order4, item: item1, quantity: 10, fulfillment_status: 1)
+        oi11 = create(:order_item, order: order4, item: item2, quantity: 11, fulfillment_status: 1)
+        oi12 = create(:order_item, order: order4, item: item3, quantity: 12, fulfillment_status: 1)
+        oi13 = create(:order_item, order: order5, item: item1, quantity: 13, fulfillment_status: 1)
+        oi14 = create(:order_item, order: order5, item: item2, quantity: 14, fulfillment_status: 1)
+        oi15 = create(:order_item, order: order5, item: item3, quantity: 15, fulfillment_status: 1)
 
-          expected1 = (oi1.quantity + oi2.quantity + oi4.quantity + oi5.quantity + oi7.quantity + oi8.quantity + oi10.quantity + oi11.quantity + oi13.quantity + oi14.quantity)
-          expected2 = (oi3.quantity + oi6.quantity + oi9.quantity + oi12.quantity + oi15.quantity)
+        expected1 = (oi2.quantity + oi4.quantity + oi5.quantity + oi7.quantity + oi8.quantity + oi10.quantity + oi11.quantity + oi13.quantity + oi14.quantity)
+        expected2 = (oi3.quantity + oi6.quantity + oi12.quantity + oi15.quantity)
 
-          expect(Item.total_sold_quantity(merch1)).to eq(expected1)
-          expect(Item.total_sold_quantity(merch2)).to eq(expected2)
-        end
+        expect(Item.total_sold_quantity(merch1)).to eq(expected1)
+        expect(Item.total_sold_quantity(merch2)).to eq(expected2)
+      end
 
         it '#top_states - shows the top 3 states for that user and their quantities' do
           expected = @merch1.top_states(3)
