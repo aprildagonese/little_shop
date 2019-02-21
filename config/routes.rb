@@ -36,15 +36,9 @@ get '/dashboard/items', to: 'merchants/items#index'
 get '/dashboard/items/new', to: 'items#new'
 get '/dashboard/items/:id/edit', to: 'merchants/items#edit', as: 'dashboard_item_edit'
 patch '/dashboard/items', to: 'merchants/items#update'
-#delete '/dashboard/items/:id', to: "merchants/items#destroy", as: 'delete_dashboard_item'
 get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
 patch '/dashboard/orderitems/:id', to: 'merchants/order_items#update', as: 'dashboard_order_item'
-
-# get '/merchants', to: 'users#index'
 resources :merchants, only: [:index]
-# namespace :merchant do
-#   resources :items, except: [:show, :edit, :create]
-# end
 get '/merchants/:id', to: 'users#show' #???
 
 #--------------Admin---------------
