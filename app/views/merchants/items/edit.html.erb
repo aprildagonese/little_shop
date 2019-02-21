@@ -1,30 +1,54 @@
-<h1>Edit <%= @item.title %></h1>
+<section class='new-item'>
 
-<% if @item.errors %>
-  <ul id="errors">
-    <% @item.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
+  <% if @item.errors %>
+    <ul id="errors">
+      <% @item.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="form">
+    <h1>Enter updated information for <%= @item.title %>:</h1>
+    <br>
+    <%= form_for @item, url: url_for(controller: :items, action: :update) do |f| %>
+
+      <%= hidden_field_tag :id, @item.id %>
+
+      <div class="label-input">
+        <%= f.label :title, "Dish" %>
+        <br>
+        <%= f.text_field :title, required: true %>
+      </div>
+
+      <div class="label-input">
+        <%= f.label :description %>
+        <br>
+        <%= f.text_field :description, required: true %>
+      </div>
+
+      <div class="label-input">
+        <%= f.label :image_url, "Image (optional)" %>
+        <br>
+        <%= f.text_field :image_url, value: ""  %>
+      </div>
+
+      <div class="label-input">
+        <%= f.label :price %>
+        <br>
+        <%= f.number_field :price, min: 0, required: true %>
+      </div>
+
+      <div class="label-input">
+        <%= f.label :quantity, "Current Inventory" %>
+        <br>
+        <%= f.number_field :quantity, min: 0, required: true %>
+      </div>
+      <br>
+
+      <div class="label-input">
+        <%= f.submit %>
+      </div>
     <% end %>
-  </ul>
-<% end %>
-
-<%= form_for @item, url: url_for(controller: :items, action: :update) do |f| %>
-  <%= hidden_field_tag :id, @item.id %>
-
-  <%= f.label :title, "Dish" %>
-  <%= f.text_field :title, required: true %>
-
-  <%= f.label :description %>
-  <%= f.text_field :description, required: true %>
-
-  <%= f.label :image_url, "Image (optional)" %>
-  <%= f.text_field :image_url  %>
-
-  <%= f.label :price %>
-  <%= f.text_field :price, required: true %>
-
-  <%= f.label :quantity, "Current Inventory" %>
-  <%= f.text_field :quantity, required: true %>
-
-  <%= f.submit %>
-<% end %>
+  </div>
+</section>
