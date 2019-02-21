@@ -1,3 +1,5 @@
+require 'uri'
+
 class Item < ApplicationRecord
   belongs_to :user
   has_many :order_items
@@ -58,7 +60,7 @@ class Item < ApplicationRecord
 
   def self.total_sold_quantity(merchant)
     Item.joins(:order_items)
-        .where(items: {user_id: merchant.id})
+        .where(items: {user_id: merchant.id}, order_items: {fulfillment_status: 1})
         .sum("order_items.quantity")
   end
 
@@ -69,7 +71,12 @@ class Item < ApplicationRecord
   end
 
   def self.percent_sold(merchant)
-    ((total_sold_quantity(merchant).to_f/total_inventory(merchant).to_f)*100).round(2)
+    result = ((total_sold_quantity(merchant).to_f/total_inventory(merchant).to_f)*100).round(2)
+    if result == 0
+      result = "N/A"
+    else
+      result
+    end
   end
 
   def change_status
@@ -82,12 +89,10 @@ class Item < ApplicationRecord
 
   def set_image
     default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
-    if self.image_url == ""
-      self.image_url = default_url
-    else
-      # response = Net::HTTP.get_response(URI.parse(self.image_url))
-      # self.image_url = default_url unless response.code.to_i >= 200 && response.code.to_i < 400
+    if self.image_url =~ URI::regexp
       self
+    else
+      self.image_url = default_url
     end
   end
 
