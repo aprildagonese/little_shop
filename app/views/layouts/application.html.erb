@@ -21,7 +21,7 @@
     <%= render 'nav' %>
     <!---Flash--->
     <% flash.each do |type, message| %>
-      <%= content_tag :div, message, class: type %>
+      <%= content_tag :div, message, class: "flash" %>
     <% end %>
 
 

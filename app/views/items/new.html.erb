@@ -1,30 +1,56 @@
-<h1>Enter information for your new dish:</h1>
+<section class='new-item'>
 
-<% if @item.errors %>
+  <% if @item.errors %>
   <ul id="errors">
     <% @item.errors.full_messages.each do |message| %>
     <li><%= message %></li>
     <% end %>
   </ul>
-<% end %>
+  <% end %>
 
-<%= form_for @item do |f| %>
-  <%= f.label :title, "Dish" %>
-  <%= f.text_field :title, required: true %>
+  <div class="form">
 
-  <%= f.label :description %>
-  <%= f.text_field :description, required: true %>
+    <h1>Enter information</h1>
+    <h1>for your new dish:</h1>
+    <br>
 
-  <%= f.label :image_url, "Image (optional)" %>
-  <%= f.text_field :image_url, value: "" %>
 
-  <%= f.label :price %>
-  <%= f.number_field :price, min: 0, required: true %>
+    <%= form_for @item do |f| %>
+    <div class="label-input">
+      <%= f.label :title, "Dish" %>
+      <br>
+      <%= f.text_field :title, required: true %>
+    </div>
 
-  <%= f.label :quantity, "Current Inventory" %>
-  <%= f.number_field :quantity, min: 0, required: true %>
+    <div class="label-input">
+      <%= f.label :description %>
+      <br>
+      <%= f.text_field :description, required: true %>
+    </div>
 
-  <%= hidden_field_tag "user", "#{@merchant}" %>
+    <div class="label-input">
+      <%= f.label :image_url, "Image (optional)" %>
+      <br>
+      <%= f.text_field :image_url, value: "" %>
+    </div>
+    <div class="label-input">
+      <%= f.label :price %>
+      <br>
+      <%= f.number_field :price, min: 0, required: true %>
+    </div>
 
-  <%= f.submit "Save Item" %>
-<% end %>
+    <div class="label-input">
+      <%= f.label :quantity, "Current Inventory" %>
+      <br>
+      <%= f.number_field :quantity, min: 0, required: true %>
+      <%= hidden_field_tag "user", "#{@merchant}" %>
+    </div>
+     <br>
+    <div class="label-input">
+      <%= f.submit "Save Item" %>
+    </div>
+    <% end %>
+
+  </div>
+
+</section>

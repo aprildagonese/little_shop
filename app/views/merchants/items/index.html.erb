@@ -1,30 +1,47 @@
-<h1>All Items</h1>
-<%= button_to "Add a New Item", dashboard_items_new_path, method: :get %>
+<section class='merchant-items'>
 
-<section class="merchant-items-index">
-  <% @items.each do |item| %>
-    <section id=<%= "item-#{item.id}" %>>
-      <p>Item ID: <%= item.id %>
-        <% if item.active == false %>
-          (Disabled)
-        <% end %>
-      </p>
-      <h4><%= item.title %></h4>
-      <%= image_tag item.image_url, width: '100' if item.image_url %>
-      <p>Price: <%= item.price %></p>
-      <p>Inventory: <%= item.quantity %></p>
-      <%= button_to "Edit Item", dashboard_item_edit_path(item), method: :get %>
+  <h1>All Items</h1>
 
-      <% if item.active %>
-        <%= button_to "Disable", enable_item_path(item), method: :patch %>
-      <% else %>
-        <%= button_to "Enable", enable_item_path(item), method: :patch %>
-      <% end %>
+  <div class="add-item">
+    <%= button_to "Add a New Item", dashboard_items_new_path, method: :get %>
+  </div>
 
-      <% unless item.ordered? %>
-        <%= button_to "Delete", item_path(item), method: :delete %>
-      <% end %>
+  <section class="merchant-items-index">
+    <% @items.each do |item| %>
 
-    </section>
-  <% end %>
+
+      <section id=<%= "item-#{item.id}" %>>
+        <div class="item">
+
+          <%= image_tag item.image_url, width: '100' if item.image_url %>
+
+          <div class="item-id">
+            <h4><%= item.title %></h4>
+            <p>Item ID: <%= item.id %>
+              <% if item.active == false %>
+              (Disabled)
+              <% end %>
+            </p>
+          </div>
+
+          <p>Price: <%= item.price %></p>
+          <p>Inventory: <%= item.quantity %></p>
+          <div class="buttons">
+            <%= button_to "Edit Item", dashboard_item_edit_path(item), method: :get %>
+
+            <% if item.active %>
+              <%= button_to "Disable", enable_item_path(item), method: :patch %>
+            <% else %>
+              <%= button_to "Enable", enable_item_path(item), method: :patch %>
+            <% end %>
+
+            <% unless item.ordered? %>
+              <%= button_to "Delete", item_path(item), method: :delete %>
+          </div>
+          <% end %>
+        </div>
+      </section>
+
+    <% end %>
+  </section>
 </section>
