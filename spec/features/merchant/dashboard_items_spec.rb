@@ -102,12 +102,11 @@ RSpec.describe 'as a merchant' do
     it 'can disable an item' do
 
       visit dashboard_items_path
-
+      
       within "#item-#{@item_2.id}" do
-        expect(page).to have_button("Disable")
-        click_button("Disable")
+            expect(page).to have_button("Disable")
+            click_button("Disable")
       end
-
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to have_content("#{@item_2.title} has been disabled and is no longer for sale.")
 
@@ -204,7 +203,7 @@ RSpec.describe 'as a merchant' do
 
       click_button("Save Item")
 
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can't reuse a name" do
@@ -229,7 +228,7 @@ RSpec.describe 'as a merchant' do
       click_button("Save Item")
 
       expect(page).to have_content("Title has already been taken")
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can't submit invalid description" do
@@ -243,7 +242,7 @@ RSpec.describe 'as a merchant' do
 
       click_button("Save Item")
 
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can't submit invalid price" do
@@ -257,7 +256,7 @@ RSpec.describe 'as a merchant' do
 
       click_button("Save Item")
 
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can't submit invalid inventory" do
@@ -271,7 +270,7 @@ RSpec.describe 'as a merchant' do
 
       click_button("Save Item")
 
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can leave image blank and get default image" do
@@ -287,13 +286,12 @@ RSpec.describe 'as a merchant' do
 
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to have_content("'Delicious Treats' has been saved and is available for sale.")
-      #expect(page).to have_css("img[src*='https://downtowncl.org/wp-content/uploads/2016/08/1977_Food-Drink-Generic-Logo.jpg']")
     end
 
     it 'can edit an existing item' do
 
       visit dashboard_items_path
-
+      save_and_open_page
       within "#item-#{@item_1.id}" do
         click_button "Edit Item"
       end

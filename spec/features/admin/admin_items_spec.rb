@@ -193,7 +193,7 @@ RSpec.describe "items", type: :feature do
 
       click_button("Save Item")
 
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can't submit invalid description" do
@@ -207,7 +207,7 @@ RSpec.describe "items", type: :feature do
 
       click_button("Save Item")
 
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can't submit invalid price" do
@@ -221,7 +221,7 @@ RSpec.describe "items", type: :feature do
 
       click_button("Save Item")
 
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can't submit invalid inventory" do
@@ -235,7 +235,7 @@ RSpec.describe "items", type: :feature do
 
       click_button("Save Item")
 
-      expect(page).to have_content("Enter information for your new dish:")
+      expect(page).to have_content("Enter information\nfor your new dish:")
     end
 
     it "can leave image blank and get default image" do

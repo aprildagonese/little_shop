@@ -5,7 +5,7 @@
 
   <section class="merchant-items-index">
     <% @items.each do |item| %>
-      <section id=<%= "item-#{item.id}" %>>
+      <section id="item-<%= item.id %>" >
         <p>Item ID: <%= item.id %>
           <% if item.active == false %>
             (Disabled)
@@ -16,7 +16,6 @@
         <p>Price: <%= item.price %></p>
         <p>Inventory: <%= item.quantity %></p>
         <%= button_to "Edit Item", edit_admin_item_path(item), method: :get %>
-
         <% if item.active %>
           <%= button_to "Disable", enable_item_path(item), method: :patch %>
         <% else %>
@@ -26,7 +25,7 @@
         <% unless item.ordered? %>
           <%= button_to "Delete", item_path(item), method: :delete %>
         <% end %>
-
+        
       </section>
     <% end %>
   </section>
