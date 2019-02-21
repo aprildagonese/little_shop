@@ -341,6 +341,37 @@ li {
   background-size: cover;
 }
 
+/* ADMIN DASHBOARD */
+
+.admin-dashboard p {
+  color: whitesmoke;
+  background: #673F5D;
+  border-radius: 5px;
+  padding: 25px;
+}
+
+.admin-dashboard h1 {
+  color: whitesmoke;
+  margin: 0px;
+  padding: 20px;
+  padding-right: 50px;
+  padding-left: 50px;
+  background: #673F5D;
+  border-radius: 5px;
+  display: inline;
+}
+.admin-dashboard {
+  background-image: url('https://media3.s-nbcnews.com/i/newscms/2015_32/717401/oysters-lemon-stock-today-tease-150806_477f67ef1a7127c43303ec79e6d3541f.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 86vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 /* PARTIALS */
 
 /* _orderslist */
