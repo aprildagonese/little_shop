@@ -5,7 +5,7 @@ html {
 body {
   height: 100vh;
   margin: 0;
-  background-color: #353230;
+  background: #353230;
 }
 
 h1 {
@@ -211,6 +211,16 @@ li {
   text-align: center;
 }
 
+/* ITEM SHOW */
+
+.item-main-info .item-image {
+  object-fit: cover;
+  width:150px;
+  height:150px;
+  border-radius: 5px;
+}
+
+
 /* MERCHANT INDEX */
 
 .merchant-index {
@@ -237,7 +247,7 @@ li {
   margin: 12px;
   border-radius: 5px;
   display: grid;
-  grid-template: 10vh 15vh 15vh 15vh 15vh / 50% 50% ;
+  grid-template: 10vh 15vh 22vh 15vh 12vh / 50% 50% ;
   /* background: #D5B9B2;
   background: #232120; */
   background: #353230;
@@ -341,6 +351,18 @@ li {
   background-size: cover;
 }
 
+/* EDIT ITEM */
+
+.edit-item {
+  height: 86vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('http://theartofplating.com/wp-content/uploads/2016/07/POTD_feature1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /* ADMIN DASHBOARD */
 
 .admin-dashboard p {
@@ -373,6 +395,52 @@ li {
   flex-direction: column;
 }
 
+/* USER PROFILE */
+
+.edit-profile h1 {
+  font-size: 22px;
+}
+.edit-profile h2 {
+  font-size: 18px;
+}
+.edit-profile {
+  height: 86vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://www.gannett-cdn.com/-mm-/2655786dc94953efa60a8fe239232a36f792454f/c=0-246-2397-1600/local/-/media/2018/02/15/DetroitFreeP/DetroitFreePress/636543218062329743-012602018-chefstable-d-5-.jpg?width=3200&height=1680&fit=crop');
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+
+.edit-profile .form {
+  margin-top: 6px;
+}
+
+/* USER PROFILE */
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://www.berlinale.de/media/filmstills/2017_2/kulinarisches_kino_10/201715768_3_IMG_FIX_700x700.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 85vh;
+  overflow: hidden;
+}
+
+.user-profile .info-page {
+  padding-top: 20px;
+  border-radius: 5px;
+  display: grid;
+  grid-template: 100vh / 65vh 35vh;
+  color: whitesmoke;
+  background-color: #353230;
+  height: 40vh;
+}
+
 /* PARTIALS */
 
 /* _orderslist */
@@ -397,8 +465,6 @@ li {
 /* _infopage */
 
 .info-page {
-  /* display: grid;
-  grid-template: 100vh / 65vh 35vh; */
   text-align: center;
   margin: 6px;
 }
@@ -513,6 +579,7 @@ li {
 #peoples-choice {
   grid-area: 2 / 1 / 3 / 3;
   text-align: center;
+  overflow: scroll;
 }
 
 #peoples-choice p {
@@ -522,6 +589,7 @@ li {
 #fast-food {
   grid-area: 3 / 1 / 4 / 2;
   text-align: center;
+  overflow: scroll;
 }
 
 #fast-food p {
@@ -531,6 +599,7 @@ li {
 #slow-food {
   grid-area: 3 / 2 / 4 / 3;
   text-align: center;
+  overflow: scroll;
 }
 
 #slow-food p {
@@ -539,6 +608,7 @@ li {
 
 #foodie-states {
   text-align: center;
+  overflow: scroll;
 }
 
 #foodie-states p {
@@ -547,6 +617,7 @@ li {
 
 #foodie-cities {
   text-align: center;
+  overflow: scroll;
 }
 
 #foodie-cities p {
@@ -556,6 +627,7 @@ li {
 #biggest-appetites {
   grid-area: 5 / 1 / 6 / 3;
   text-align: center;
+  overflow: scroll;
 }
 
 #biggest-appetites p {
