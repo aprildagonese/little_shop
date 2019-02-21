@@ -1,0 +1,56 @@
+
+<section class='edit-item'>
+
+  <% if @item.errors %>
+    <ul id="errors">
+      <% @item.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+
+  <div class="form">
+    <h1>Enter updated information for <%= @item.title %>:</h1>
+
+    <%= form_for @item, url: url_for(controller: "admin/items", action: :update) do |f| %>
+      <%= hidden_field_tag :id, @item.id %>
+
+      <div class="label-input">
+        <%= f.label :title, "Dish" %>
+        <br>
+        <%= f.text_field :title, required: true %>
+      </div>
+
+      <div class="label-input">
+        <%= f.label :description %>
+        <br>
+        <%= f.text_field :description, required: true %>
+      </div>
+
+      <div class="label-input">
+        <%= f.label :image_url, "Image (optional)" %>
+        <br>
+        <%= f.text_field :image_url, value: ""  %>
+      </div>
+
+      <div class="label-input">
+        <%= f.label :price %>
+        <br>
+        <%= f.number_field :price, min: 0, required: true %>
+      </div>
+
+      <div class="label-input">
+        <%= f.label :quantity, "Current Inventory" %>
+        <br>
+        <%= f.number_field :quantity, min: 0, required: true %>
+      </div>
+      <br>
+
+      <div class="label-input">
+        <%= f.submit %>
+      </div>
+    <% end %>
+  </div>
+
+</section>

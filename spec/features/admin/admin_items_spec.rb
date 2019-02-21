@@ -254,5 +254,72 @@ RSpec.describe "items", type: :feature do
       expect(page).to have_css("img[src*='https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg']")
     end
 
+    it "can add new image" do
+
+      visit new_item_path(user: @merchant)
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      expect(current_path).to eq(admin_items_path)
+      expect(page).to have_content("'Delicious Treats' has been saved and is available for sale.")
+      expect(page).to have_css("img[src*='https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg']")
+    end
+
+    it 'can edit an item' do
+      visit admin_items_path(user_id: @merchant)
+
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_button("Edit Item")
+        click_button("Edit Item")
+      end
+
+      expect(current_path).to eq(edit_admin_item_path(@item_1))
+
+      expect(page).to have_content("Dish")
+      expect(page).to have_content("Description")
+      expect(page).to have_content("Image (optional)")
+      expect(page).to have_content("Price")
+      expect(page).to have_content("Current Inventory")
+      expect(page).to have_button("Update Item")
+
+      fill_in 'Dish', with: 'Okonomiyaki'
+
+      click_button "Update Item"
+
+      expect(current_path).to eq(admin_items_path)
+
+      expect(page).to have_content('Okonomiyaki')
+      expect(page).to have_content("'Okonomiyaki' has been updated.")
+    end
+
+    it 'is redirected to the edit form if item is entered in error' do
+      visit admin_items_path(user_id: @merchant)
+
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_button("Edit Item")
+        click_button("Edit Item")
+      end
+
+      expect(current_path).to eq(edit_admin_item_path(@item_1))
+
+      fill_in 'Dish', with: "#{@item_2.title}"
+      fill_in 'Description', with: "good"
+      fill_in 'Price', with: 5
+      fill_in 'Current Inventory', with: 4
+
+      click_button "Update Item"
+
+      expect(current_path).to eq(edit_admin_item_path(@item_1))
+
+      expect(page).to_not have_content("#{@item_2.title}")
+      expect(page).to have_content("Dish title is already taken.")
+    end
+
   end
 end
