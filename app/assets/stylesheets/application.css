@@ -213,11 +213,49 @@ li {
 
 /* ITEM SHOW */
 
+.item-show-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #353230;
+}
+
+.item-main-info {
+  padding-top: 2%;
+  padding-left: 5%;
+  border-radius: 5px;
+  background-color: #A26769;
+  display: grid;
+  grid-template: 100vh / 65vh 45vh;
+  color: whitesmoke;
+  height: 45vh;
+  line-height: 1.75;
+}
+
 .item-main-info .item-image {
   object-fit: cover;
   width:150px;
   height:150px;
   border-radius: 5px;
+  padding-left: 35%;
+  padding-top: 8%;
+}
+
+.item-image img {
+  height: 150px;
+  width: 150px;
+}
+
+.item-main-info input {
+  margin-top: 40px;
+  justify-content: right;
+}
+
+.item-info {
+  padding-left: 15px;
 }
 
 /* MERCHANT INDEX */
