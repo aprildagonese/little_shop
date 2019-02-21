@@ -56,6 +56,7 @@ class Order < ApplicationRecord
   def user_items(user)
     OrderItem.joins(:item)
              .where(items: {user_id: user}, order_id: id)
+
   end
 
   def items_fulfilled?
