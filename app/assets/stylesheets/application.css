@@ -364,6 +364,7 @@ li {
   background-image: url('https://media3.s-nbcnews.com/i/newscms/2015_32/717401/oysters-lemon-stock-today-tease-150806_477f67ef1a7127c43303ec79e6d3541f.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   height: 86vh;
   text-align: center;
   display: flex;
