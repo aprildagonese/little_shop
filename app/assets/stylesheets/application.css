@@ -547,7 +547,7 @@ li {
 .title-block {
   display: inline-grid;
   width: 100%;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
   background: #bfb5af;
 }
 
@@ -566,6 +566,12 @@ li {
   display: inline-grid;
   width: 100%;
   justify-content: space-between;
+}
+
+.login-status {
+  display: inline-grid;
+  margin-top: 12px;
+  padding: 10px;
 }
 
 .cart-nav {
@@ -648,9 +654,7 @@ li {
 .title {
   grid-area: a;
 }
-.login-status {
-  grid-area: d;
-}
+
 .cart-nav {
   grid-area: h;
 } */
