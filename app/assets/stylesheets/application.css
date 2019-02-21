@@ -146,6 +146,7 @@ li {
 .form {
   margin-top: 30px;
   padding: 18px;
+  padding-bottom: 30px;
   align-items: center;
   justify-content: center;
   width: 35vw;
@@ -325,6 +326,19 @@ li {
 
 .item-id p {
   display: inline;
+}
+
+/* NEW ITEM */
+
+.new-item {
+  height: 86vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/VC_NewGoldRush_ChefsTables_NNaka_Supplied_nnakaA5WagyuBeefSteak_ZenSekizawa_1280x640.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* PARTIALS */
