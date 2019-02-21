@@ -22,7 +22,7 @@ Installation Steps:
 3. Run `rake db:{create,migrate,seed}`
 4. To run locally in development mode, run `rails s` in your terminal; then go to `localhost:3000` in your browser.
 
-##Features
+## Features
 Little Shop of Hors d'Oeuvres is especially proud of the use of partials to keep its code DRY and its styling consistent. The app relies heavily on ActiveRecord for database queries of intermediate complexity, and it successfully implements Authorization.
 
 ## Tests
