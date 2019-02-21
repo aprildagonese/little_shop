@@ -5,8 +5,7 @@ html {
 body {
   height: 100vh;
   margin: 0;
-  background: #353230;
-  text-shadow: 1px 1px whitesmoke;
+  background: #BFB5AF;
 }
 
 h1 {
@@ -444,26 +443,25 @@ li {
 /* USER ORDERS */
 
 .user-orders {
-  display: grid;
-  grid-template: auto / 70vw 30vw;
-}
-
-.user-order-list h1 {
-  display: inline;
-  width: 70vw;
-  background: darkslategray;
-}
-
-.user-order-list {
-  grid-area: 1 / 1 / 2 / 2;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
+.user-order-list {
+  margin-left: 100px;
+}
+.user-orders h1 {
+  width: 70vw;
+  text-align: center;
+  color: whitesmoke;
+  text-shadow: none;
+}
+
 .user-orders .orders-list {
   width: 60vw;
+  margin: 0px;
 }
 
 /* PARTIALS */
