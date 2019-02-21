@@ -1,4 +1,5 @@
-<section class='new-item'>
+
+<section class='edit-item'>
 
   <% if @item.errors %>
     <ul id="errors">
@@ -8,11 +9,11 @@
     </ul>
   <% end %>
 
+
   <div class="form">
     <h1>Enter updated information for <%= @item.title %>:</h1>
-    <br>
-    <%= form_for @item, url: url_for(controller: :items, action: :update) do |f| %>
 
+    <%= form_for @item, url: url_for(controller: :items, action: :update) do |f| %>
       <%= hidden_field_tag :id, @item.id %>
 
       <div class="label-input">
@@ -51,4 +52,5 @@
       </div>
     <% end %>
   </div>
+
 </section>

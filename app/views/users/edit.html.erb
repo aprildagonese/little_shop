@@ -1,39 +1,75 @@
-<% if @user.errors %>
-  <ul id="errors">
-    <% @user.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
+<section class='edit-profile'>
+
+  <section class='form'>
+
+    <% if @user.errors %>
+      <ul id="errors">
+        <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
 
-<h1>Edit Profile</h1>
+    <h1>Edit Profile</h1>
 
-<%= form_for @user do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name, required: true %>
+    <%= form_for @user do |f| %>
 
-  <%= f.label :street_address %>
-  <%= f.text_field :street_address, required: true %>
+    <div class="label-input">
+      <%= f.label :name %>
+      <br>
+      <%= f.text_field :name, required: true %>
+    </div>
 
-  <%= f.label :city %>
-  <%= f.text_field :city, required: true %>
+    <div class="label-input">
+      <%= f.label :street_address %>
+      <br>
+      <%= f.text_field :street_address, required: true %>
+    </div>
 
-  <%= f.label :state %>
-  <%= f.text_field :state, required: true %>
 
-  <%= f.label :zip_code %>
-  <%= f.text_field :zip_code, required: true %>
+    <div class="label-input">
+      <%= f.label :city %>
+      <br>
+      <%= f.text_field :city, required: true %>
+    </div>
 
-  <%= f.label :email %>
-  <%= f.text_field :email, required: true %>
+    <div class="label-input">
+      <%= f.label :state %>
+      <br>
+      <%= f.text_field :state, required: true %>
+    </div>
 
-<h2>Reset Password</h2>
+    <div class="label-input">
+      <%= f.label :zip_code %>
+      <br>
+      <%= f.text_field :zip_code, required: true %>
+    </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password, required: true %>
+    <div class="label-input">
+      <%= f.label :email %>
+      <br>
+      <%= f.text_field :email, required: true %>
+    </div>
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation, required: true %>
+    <h2>Reset Password</h2>
 
-  <%= f.submit "Update Profile" %>
-<% end %>
+    <div class="label-input">
+      <%= f.label :password %>
+      <br>
+      <%= f.password_field :password, required: true %>
+    </div>
+
+    <div class="label-input">
+      <%= f.label :password_confirmation %>
+      <br>
+      <%= f.password_field :password_confirmation, required: true %>
+    </div>
+    <br>
+    <div class="label-input">
+      <%= f.submit "Update Profile" %>
+    </div>
+    <% end %>
+
+  </section>
+
+</section>
