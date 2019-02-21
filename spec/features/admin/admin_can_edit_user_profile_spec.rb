@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe "As an admin", type: :feature do
   before :each do
     Faker::UniqueGenerator.clear
-     
+
     @admin = create(:user, role: 2)
     login_as(@admin)
 
     @user = create(:user, id: 100)
+    @user2 = create(:user, id: 99, email: "taken_email")
   end
 
   context 'when it visits user profile page' do
@@ -68,6 +69,31 @@ RSpec.describe "As an admin", type: :feature do
         expect(page).to have_content("Email: #{updated_user.email}")
       end
 
+    end
+
+    it "can't update a user's info with a taken email" do
+
+      visit edit_admin_user_path(@user)
+
+      fill_in :user_name, with: "April Dagonese"
+      fill_in :user_email, with: "taken_email"
+      fill_in :user_street_address, with: "1111 Street Dr."
+      fill_in :user_city, with: "Denver"
+      fill_in :user_state, with: "CO"
+      fill_in :user_zip_code, with: 80202
+      fill_in :user_password, with: "testing"
+      fill_in :user_password_confirmation, with: "testing"
+
+      click_button("Update Profile")
+
+      expect(current_path).to eq(edit_admin_user_path(@user))
+
+      expect(page).to have_content("That email has already been taken")
+
+      not_updated_user = User.find(100)
+
+      expect(not_updated_user.name).to_not eq("April Dagonese")
+      expect(not_updated_user.email).to_not eq("taken_email")
     end
   end
 end

@@ -47,7 +47,7 @@ RSpec.describe "As an admin", type: :feature do
 
       click_link @merchant.name
 
-      expect(page).to have_content("Merchant #{@merchant.id} Orders")
+      expect(page).to have_content("Merchant ID:#{@merchant.id}")
 
       within "#order-#{order1.id}" do
         expect(page).to have_link("Order ID: #{order1.id}")

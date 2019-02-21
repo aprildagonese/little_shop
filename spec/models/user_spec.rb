@@ -58,6 +58,8 @@ RSpec.describe User, type: :model do
 
   describe 'Class Methods' do
     before :each do
+      Faker::UniqueGenerator.clear
+
       @ma_user = create(:user, city: 'Boston', state: 'Massachusetts')
       @ca_user = create(:user, city: 'San Francisco', state: 'California')
       @wi_user = create(:user, city: 'Milwaukee', state: 'Wisconsin')
@@ -219,6 +221,7 @@ RSpec.describe User, type: :model do
 
     context 'merchant dash stats' do
       before :each do
+        Faker::UniqueGenerator.clear
         @merch1, @merch2 = create_list(:user, 2, role: 1)
         @user1 = create(:user, city: "Springfield", state: "IL")
         @user2 = create(:user, city: "Springfield", state: "MO")
