@@ -18,8 +18,10 @@ h4 {
   padding-top: 6px;
 }
 
-footer h4 {
-  color: darkslategray;
+footer {
+  padding-top: 12px;
+  background: #ece2d0;
+  height: 9vh;
 }
 
 footer a {
@@ -40,6 +42,13 @@ ul, ol {
 
 li {
   list-style: none;
+}
+
+.button_to {
+  display: inline;
+  background: whitesmoke;
+  color: darkslategray;
+  border-radius: 5px;
 }
 
 /* NAVBAR */
@@ -75,7 +84,7 @@ li {
   height: 6vh;
   display: inline-grid;
   align-items: center;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto 55vw;
 }
 
 .auth_nav {
@@ -86,6 +95,8 @@ li {
 
 .link {
   display: inline;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 /* SPLASH PAGE */
@@ -94,7 +105,8 @@ li {
   display: grid;
   grid-template: 33% 33% 33% / auto;
   text-align: center;
-  background-image: url(https://lh3.googleusercontent.com/snrW2_eKtRQdFX9SPmQLP23Q_eEWLRkGOia-gI-UL7Wy6-LCbbgG4e-RHHYizvHs8aAMkr6ewhMNF3gBFH-uAM3ARMK1ef08HHI2F-s9KbnH_L552pyIBaTAKAasXokYAVZUR_Mg0TzZe5bz5iDBqQOKDOenRROLscoMwcMKn3We0gUJdf_US3LP9CfyIdPsqMdTmRU8M5DmqAXRh-qxlv2sOVNYOM_c57i2BWQGSMBK5uUEwQVhg2K7YC4d94vaWdtYuJnz64_2n585PxC3AcAIbYue3lkf9OhTUMY-tYLGEyBniT-eyfRZk8IqVM5OMUxXhDn5ArA0kPnv2Vlatj64Yi1c1NaG0YpX8GOJwgcQ6Uvl4PGdcM-N0gs3--rbxiwq7R1KwcEl0pwmdz3zUAPS1vkNW1Mbmib38fCWT7Bj1U-hnnaYK0VK6FK4ueXs5gKuIJcJjKkWzLjNXBJQ-u4MIXNI7ZGgQFFPT6ahJkPHGZvkembzOE-cE03ajic6M1Tegf2pEI2LSnJ9K8ZLH2dJdlgF74p9QNQU1YV5yRm7gzVveFFADuB2krj0BRhHNmYOQbXg9-krP9gMQSYpTpa-cZHvMOPPCSLmpxbqXANd0WLo_wp8NcZ1xw4mcsAkZr4NKfUyI8mlP42VVgNhw6Shji2mDmGoQDeUh20cQzRXyodGw34sSZG9sYDEGETb_1JkX8npR5l0ZCtAq5KzQJH3=w2880-h1110-no);
+  background-image: url('https://lh3.googleusercontent.com/snrW2_eKtRQdFX9SPmQLP23Q_eEWLRkGOia-gI-UL7Wy6-LCbbgG4e-RHHYizvHs8aAMkr6ewhMNF3gBFH-uAM3ARMK1ef08HHI2F-s9KbnH_L552pyIBaTAKAasXokYAVZUR_Mg0TzZe5bz5iDBqQOKDOenRROLscoMwcMKn3We0gUJdf_US3LP9CfyIdPsqMdTmRU8M5DmqAXRh-qxlv2sOVNYOM_c57i2BWQGSMBK5uUEwQVhg2K7YC4d94vaWdtYuJnz64_2n585PxC3AcAIbYue3lkf9OhTUMY-tYLGEyBniT-eyfRZk8IqVM5OMUxXhDn5ArA0kPnv2Vlatj64Yi1c1NaG0YpX8GOJwgcQ6Uvl4PGdcM-N0gs3--rbxiwq7R1KwcEl0pwmdz3zUAPS1vkNW1Mbmib38fCWT7Bj1U-hnnaYK0VK6FK4ueXs5gKuIJcJjKkWzLjNXBJQ-u4MIXNI7ZGgQFFPT6ahJkPHGZvkembzOE-cE03ajic6M1Tegf2pEI2LSnJ9K8ZLH2dJdlgF74p9QNQU1YV5yRm7gzVveFFADuB2krj0BRhHNmYOQbXg9-krP9gMQSYpTpa-cZHvMOPPCSLmpxbqXANd0WLo_wp8NcZ1xw4mcsAkZr4NKfUyI8mlP42VVgNhw6Shji2mDmGoQDeUh20cQzRXyodGw34sSZG9sYDEGETb_1JkX8npR5l0ZCtAq5KzQJH3=w2880-h1110-no');
+  background-position: center;
   background-size: cover;
   height: 76vh;
 }
@@ -129,6 +141,51 @@ li {
   height: 5vh;
 }
 
+/* FORMS */
+
+.form {
+  margin-top: 30px;
+  padding: 18px;
+  align-items: center;
+  justify-content: center;
+  width: 35vw;
+  background: #bfb5af;
+  border-radius: 5px;
+}
+
+.form input {
+  width: 25vw;
+}
+
+.form .label-input {
+  text-align: center;
+}
+
+/* REGISTER */
+
+.register {
+  height: 86vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://slack-imgs.com/?c=1&url=http%3A%2F%2Fwww.orlandostylemagazine.com%2Fwp-content%2Fuploads%2F2015%2F03%2Fimage.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* LOGIN */
+
+.login {
+  height: 86vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://cdn.shopify.com/s/files/1/1870/6945/files/fullsizeoutput_43.jpeg?v=1527101323');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /* ITEMS INDEX */
 
 .items-index h1 {
@@ -159,7 +216,7 @@ li {
   height: 85vh;
   margin: 0;
   display: grid;
-  grid-template: 10vh 90vh / 65vw 35vw;
+  grid-template: 10vh 70vh / 63vw 37vw;
   background-image: radial-gradient(#f1e9dc, #D5B9B2);
   overflow: scroll;
 }
@@ -179,7 +236,7 @@ li {
   margin: 12px;
   border-radius: 5px;
   display: grid;
-  grid-template: repeat(6, auto) / auto;
+  grid-template: 10vh 15vh 15vh 15vh 15vh / 50% 50% ;
   /* background: #D5B9B2;
   background: #232120; */
   background: #353230;
@@ -188,8 +245,13 @@ li {
 
 .merchant-stats h3 {
   text-align: center;
+  grid-area: 1 / 1 / 2 / 3;
   border-bottom: 2px #a26769 solid;
   border-bottom: 2px #232120 solid;
+}
+
+.merchant-stats p {
+  font-size: 13px;
 }
 
 /* DASHBOARD */
@@ -222,6 +284,47 @@ li {
 
 .dashboard-stats li {
   font-size: 11px;
+}
+
+/* MERCHANT ITEMS INDEX */
+
+.merchant-items {
+  height: 86vh;
+  overflow: scroll;
+}
+
+.merchant-items-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.merchant-items .add-item {
+  margin-top: 15px;
+  margin-left: 30px;
+}
+.merchant-items h1 {
+  margin-top: 0px;
+  padding: 12px;
+  background: whitesmoke;
+}
+
+.merchant-items .item {
+  margin: 8px;
+}
+
+.item-id {
+  padding-top: 4px;
+}
+
+.item-id h4 {
+  display: inline;
+}
+
+.item-id p {
+  display: inline;
 }
 
 /* PARTIALS */
@@ -287,11 +390,18 @@ li {
   text-align: center;
   border: 2px dotted #d7cebe;
   border-radius: 5px;
-  width: 60vw;
+  width: 50vw;
+  display: grid;
+  grid-template: auto / 30% auto;
 }
 
 .item img {
-
+  margin: 12px;
+  grid-area: 1 / 1 / 5 / 2;
+  object-fit: cover;
+  width:150px;
+  height:150px;
+  border-radius: 5px;
 }
 
 /* _userlist */
@@ -308,6 +418,7 @@ li {
   border: 2px #d7cebe dotted;
   border-radius: 5px;
   margin: 4px;
+  text-align: center;
 }
 
 .auth-column {
@@ -354,27 +465,30 @@ li {
 /* MERCHANT INDEX */
 
 #peoples-choice {
+  grid-area: 2 / 1 / 3 / 3;
   text-align: center;
 }
 
 #peoples-choice p {
-  margin: 2px;
+  margin: 1px;
 }
 
 #fast-food {
+  grid-area: 3 / 1 / 4 / 2;
   text-align: center;
 }
 
 #fast-food p {
-  margin: 2px;
+  margin: 1px;
 }
 
 #slow-food {
+  grid-area: 3 / 2 / 4 / 3;
   text-align: center;
 }
 
 #slow-food p {
-  margin: 2px;
+  margin: 1px;
 }
 
 #foodie-states {
@@ -382,7 +496,7 @@ li {
 }
 
 #foodie-states p {
-    margin: 2px;
+    margin: 1px;
 }
 
 #foodie-cities {
@@ -390,15 +504,16 @@ li {
 }
 
 #foodie-cities p {
-    margin: 2px;
+    margin: 1px;
 }
 
 #biggest-appetites {
+  grid-area: 5 / 1 / 6 / 3;
   text-align: center;
 }
 
 #biggest-appetites p {
-  margin: 2px;
+  margin: 1px;
 }
 
 
