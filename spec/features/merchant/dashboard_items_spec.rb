@@ -291,7 +291,7 @@ RSpec.describe 'as a merchant' do
     it 'can edit an existing item' do
 
       visit dashboard_items_path
-  
+
       within "#item-#{@item_1.id}" do
         click_button "Edit Item"
       end
@@ -313,7 +313,7 @@ RSpec.describe 'as a merchant' do
 
       click_button "Update Item"
 
-      expect(page).to have_content("Dish has been entered erroneously.")
+      expect(page).to have_content("Dish title is already taken.")
       expect(current_path).to eq(dashboard_item_edit_path(@item_1))
     end
 

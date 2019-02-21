@@ -1,3 +1,5 @@
+require 'uri'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_cart
@@ -39,6 +41,15 @@ class ApplicationController < ActionController::Base
 
   def set_cart
     @cart ||= Cart.new(session[:cart])
+  end
+
+  def set_url(url)
+    default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
+    if url =~ URI::regexp
+      url
+    else
+      default_url
+    end
   end
 
 end

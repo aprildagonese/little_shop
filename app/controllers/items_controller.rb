@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
       @user = current_user
     end
     @item = @user.items.new(item_params)
-    @item.set_image
+    @item.image_url = set_url(params[:image_url])
     @item.active = true
 
     if @item.save

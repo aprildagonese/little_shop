@@ -25,7 +25,6 @@ class Item < ApplicationRecord
   end
 
   def self.most_popular
-    #consolidate with least_popular and pass in direction
     Item.joins(:orders)
     .select("items.*, sum(order_items.quantity) as total_quantity")
     .where(orders: {status: 1})
@@ -40,7 +39,6 @@ class Item < ApplicationRecord
     .group(:id)
     .order("total_quantity asc")
   end
-
 
   def ordered?
     OrderItem.pluck(:item_id).include?(self.id)
@@ -84,15 +82,6 @@ class Item < ApplicationRecord
       update_attribute(:active, false)
     else
       update_attribute(:active, true)
-    end
-  end
-
-  def set_image
-    default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
-    if self.image_url =~ URI::regexp
-      self
-    else
-      self.image_url = default_url
     end
   end
 
