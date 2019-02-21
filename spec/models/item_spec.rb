@@ -284,25 +284,25 @@ RSpec.describe Item, type: :model do
       expect(item.active).to eq(true)
     end
 
-    ##DONT DELETE YET. ASK IAN ABOUT TESTING
-    # it "#set_image" do
-    #   item = create(:item)
-    #   bad_url = "thisisntapicture7"
-    #   good_url = "http://orangetwig.com/blog/wp-content/uploads/2013/07/FB-good-url-bad-url-2.png"
-    #   default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
-    #
-    #   item.image_url = ""
-    #   item.set_image
-    #   expect(item.image_url).to eq(default_url)
+    it "#set_image" do
+      item = create(:item)
+      bad_url = "thisisntapicture7"
+      good_url = "http://orangetwig.com/blog/wp-content/uploads/2013/07/FB-good-url-bad-url-2.png"
+      default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
 
-    #   item.image_url = bad_url
-    #   item.set_image
-    #   expect(item.image_url).to eq(default_url)
-    #
-    #   item.image_url = good_url
-    #   item.set_image
-    #   expect(item.image_url).to eq(good_url)
-    # end
+      item.image_url = ""
+      item.set_image
+      expect(item.image_url).to eq(default_url)
+
+      item.image_url = bad_url
+      item.set_image
+      expect(item.image_url).to eq(default_url)
+
+      item.image_url = good_url
+      item.set_image
+      binding.pry
+      expect(item.image_url).to eq(good_url)
+    end
 
   end
 
