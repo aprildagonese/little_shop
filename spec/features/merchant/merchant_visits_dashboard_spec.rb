@@ -40,14 +40,14 @@ RSpec.describe "as a merchant" do
       within "#order-#{order1.id}" do
         expect(page).to have_link("Order ID: #{order1.id}")
         expect(page).to have_content("Placed on: #{order1.created_at.to_date.to_s}")
-        expect(page).to have_content("Item Count: #{order1.user_items(merchant1).count}")
-        expect(page).to have_content("Order Total: $#{order1.total_cost}")
+        expect(page).to have_content("Item Count: #{order1.user_total_items(merchant1)}")
+        expect(page).to have_content("Order Total: $#{order1.user_grand_total(merchant1)}")
       end
       within "#order-#{order3.id}" do
         expect(page).to have_link("Order ID: #{order3.id}")
         expect(page).to have_content("Placed on: #{order3.created_at.to_date.to_s}")
-        expect(page).to have_content("Item Count: #{order3.item_count}")
-        expect(page).to have_content("Order Total: $#{order3.total_cost}")
+        expect(page).to have_content("Item Count: #{order3.user_total_items(merchant1)}")
+        expect(page).to have_content("Order Total: $#{order3.user_grand_total(merchant1)}")
       end
       expect(page).to_not have_button("Cancel Order")
       expect(page).to_not have_content("Order ID: #{order2.id}")

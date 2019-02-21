@@ -15,9 +15,9 @@
         <% end %>
         <p>Placed on: <%= order.created_at %></p>
         <p>Last Updated on: <%= order.updated_at %></p>
-        <% if @user.merchant? %>
-          <p>Item Count: <%= order.user_items(@user).count %> </p>
-          <p>Order Total: <%= number_to_currency(order.total_cost) %></p>
+        <% if current_user.merchant? %>
+          <p>Item Count: <%= order.user_total_items(@user) %> </p>
+          <p>Order Total: <%= number_to_currency(order.user_grand_total(@user)) %></p>
         <% else %>
           <p>Item Count: <%= order.item_count %></p>
           <p>Order Total: <%= number_to_currency(order.total_cost) %></p>

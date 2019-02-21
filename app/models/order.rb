@@ -59,6 +59,18 @@ class Order < ApplicationRecord
 
   end
 
+  def user_grand_total(user)
+    OrderItem.joins(:item)
+             .where(items: {user_id: user}, order_id: id)
+             .sum('order_items.quantity * order_items.sale_price')
+  end
+
+  def user_total_items(user)
+    OrderItem.joins(:item)
+             .where(items: {user_id: user}, order_id: id)
+             .sum('order_items.quantity')
+  end
+
   def items_fulfilled?
     order_items.where(fulfillment_status: 0).count == 0
   end
