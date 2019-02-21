@@ -353,6 +353,10 @@ li {
   margin-top: 15px;
   margin-left: 30px;
 }
+
+.add-item form{
+  margin-left: 44vw;
+}
 .merchant-items h1 {
   margin-top: 0px;
   padding: 12px;
