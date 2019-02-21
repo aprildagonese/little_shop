@@ -2,7 +2,7 @@
 
 <h1>All Items</h1>
 
-<section class="item-statistics">
+<aside class="item-statistics">
   <section class="most-popular">
     <h2>Most popular dishes:</h2>
     <% @top_items.each do |dish| %>
@@ -15,7 +15,7 @@
       <p><%= dish.title %> (<%= dish.total_quantity %>)</p>
     <% end %>
   </section>
-</section>
+</aside>
 
 <%= render 'itemlist' %>
 

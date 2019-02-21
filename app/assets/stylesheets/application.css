@@ -189,25 +189,65 @@ li {
 
 /* ITEMS INDEX */
 
+.items-index {
+  display: grid;
+  grid-template: 6vh auto / 65vw 35vw ;
+  height: 86vh;
+  background-image: url('https://cdn1.thr.com/sites/default/files/2015/06/n_naka.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .items-index h1 {
+  grid-area: 1 / 1 / 2 / 3;
   margin: 0;
-  padding: 12px;
+  padding: 1px;
   background: #A26769;
 }
 
+.item-statistics h2 {
+  margin: 0px;
+}
+
 .item-statistics {
+  grid-area: 2 / 2 / 3 / 3;
+  margin: 12px;
+  border-radius: 5px;
   display: grid;
-  grid-template: 1 / 2;
+  display: grid;
+  grid-template: auto auto / auto;
   background: #D5B9B2;
 }
 
+.items-index .item-list {
+  height: 80vh;
+  background: transparent;
+  display: grid;
+  grid-template: auto / auto;
+}
+
+.items-index .item {
+  display: grid;
+  grid-template: auto / auto;
+}
+
+.items-index .left-column {
+  display: inline;
+}
+
+.items-index .left-column {
+
+  grid-area: 1 / 1 / 2 / 2;
+}
+
 .most-popular {
-  grid-area: 1 / 1;
+  padding-top: 30px;
+  grid-area: 1 / 1 / 2 / 2;
   text-align: center;
 }
 
 .least-popular {
-  grid-area: 1 / 2;
+  grid-area: 2 / 1 / 3 / 2;
   text-align: center;
 }
 
@@ -526,6 +566,67 @@ li {
 .order-show .item-list {
   width: 70vw;
   border-radius: 5px;
+}
+
+/* ADMIN MERCHANT DASHBOARD */
+
+.admin h1 {
+  margin: 0px;
+  background: #A26769;
+}
+
+/* ADMIN MERCHANT ORDER SHOW */
+
+.admin-merchant-order-show {
+  display: grid;
+  grid-template: auto / auto auto;
+}
+
+.merchant-order-customer-info {
+  grid-area: 1 / 1 / 2 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.merchant-order-items {
+  grid-area: 1 / 2 / 2 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* ADMIN EDIT USER PROFILE */
+
+.admin-edit-user-profile .form {
+  margin-top: 5px;
+}
+
+.admin-edit-user-profile {
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://si.wsj.net/public/resources/images/AR-AN049_Televi_P_20160526135519.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+
+/* ADMIN VIEW USER PROFILE */
+
+.admin .info-page-buttons {
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.admin .user-profile-buttons {
+  height: 8vh;
 }
 
 /* PARTIALS */
