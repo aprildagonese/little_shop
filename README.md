@@ -6,8 +6,8 @@ Little Shop of Hors d'Oeuvres is a group project developed as part of Backend Mo
 ## Motivation
 Mod 2 of the backend program trains students to build out web applications in Ruby. Specific goals of the Little Shop project included: advanced Rails routing, including nested resources and namespacing; advanced ActiveRecord usage; practice with HTML and CSS; use of session management; as well as authentication, authorization, and separation of user roles and permissions.
 
-## Screenshots
-Include logo/demo screenshot etc.
+## Home Page
+![Little Shop Home Page](app/assets/images/homepage.png?raw=true "Little Shop Home Page")
 
 ## Tech/framework used
 <b>Built with</b>
@@ -22,12 +22,17 @@ Installation Steps:
 3. Run `rake db:{create,migrate,seed}`
 4. To run locally in development mode, run `rails s` in your terminal; then go to `localhost:3000` in your browser.
 
+##Features
+Little Shop of Hors d'Oeuvres is especially proud of the use of partials to keep its code DRY and its styling consistent. The app relies heavily on ActiveRecord for database queries of intermediate complexity, and it successfully implements Authorization.
+
 ## Tests
 All tests were built using RSpec and Capybara, with FactoryBot and Faker implemented for seed data.
 
 To run the tests, simply clone down the repository and run the command: `rspec`
 
 Tests are divided by models and features, with feature tests generally sub-divided by user view. Little Shop of Hors d'Oeuvres is proud to operate with 100% test coverage of all models, and we ask contributors to help us maintain this standard.
+
+![Little Shop Test Suite](app/assets/images/test-suite.png?raw=true "Test Suite")
 
 ## How to use?
 We provide demo accounts to help users explore the application. Please use the following accounts to log in. All accounts use the test password: `password`
