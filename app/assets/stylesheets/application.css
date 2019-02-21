@@ -232,6 +232,7 @@ li {
   grid-template: 100vh / 65vh 45vh;
   color: whitesmoke;
   height: 45vh;
+  line-height: 1.75;
 }
 
 .item-main-info .item-image {
