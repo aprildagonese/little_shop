@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates_presence_of :password, require: true
+  validates :slug, presence: true, uniqueness: true
 
   has_secure_password
 

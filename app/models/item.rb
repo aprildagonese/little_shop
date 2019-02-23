@@ -9,6 +9,7 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :quantity, presence: true
   validates :price, presence: true
+  validates :slug, presence: true, uniqueness: true
 
   def fulfillment_time
     time = Item.joins(:orders)
