@@ -33,7 +33,7 @@ end
 get '/dashboard', to: 'merchants#show'
 get '/dashboard/items', to: 'merchants/items#index'
 get '/dashboard/items/new', to: 'items#new'
-get '/dashboard/items/:id/edit', to: 'merchants/items#edit', as: 'dashboard_item_edit'
+get '/dashboard/items/:title/edit', to: 'merchants/items#edit', as: 'dashboard_item_edit'
 patch '/dashboard/items', to: 'merchants/items#update'
 get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
 patch '/dashboard/orderitems/:id', to: 'merchants/order_items#update', as: 'dashboard_order_item'

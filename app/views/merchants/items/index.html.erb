@@ -27,7 +27,7 @@
           <p>Price: <%= item.price %></p>
           <p>Inventory: <%= item.quantity %></p>
           <div class="buttons">
-            <%= button_to "Edit Item", dashboard_item_edit_path(item), method: :get %>
+            <%= button_to "Edit Item", dashboard_item_edit_path(title: item.title), method: :get %>
 
             <% if item.active %>
               <%= button_to "Disable", enable_item_path(item), method: :patch %>
