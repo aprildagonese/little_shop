@@ -16,6 +16,7 @@ RSpec.describe User, type: :model do
       it {should validate_presence_of(:email)}
       it {should validate_uniqueness_of(:email)}
       it {should validate_presence_of(:password)}
+      it {should validate_presence_of(:slug)}
     end
   end
 
@@ -180,10 +181,12 @@ RSpec.describe User, type: :model do
     end
 
     it "#change_status" do
-      user = User.create!(name: "April",
-                          email: "adag@email.com",
-                          password: "password",
-                          activation_status: 0)
+      user = create(:user,
+                    name: "April",
+                    email: "adag@email.com",
+                    password: "password",
+                    activation_status: 0)
+                    
       user.change_status
       expect(user.activation_status).to eq("inactive")
       user.change_status
