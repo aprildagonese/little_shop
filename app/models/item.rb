@@ -53,6 +53,13 @@ class Item < ApplicationRecord
         .order("total_quantity desc")
   end
 
+  def create_slug
+    slug = title.downcase
+    slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
+    slug.squeeze!('-')
+    self.slug = slug
+  end
+
   def units_sold
     order_items.sum("order_items.quantity")
   end
