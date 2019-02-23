@@ -178,6 +178,7 @@ RSpec.describe Item, type: :model do
         expect(Item.percent_sold(merch2)).to eq(expected2)
         expect(Item.percent_sold(merch3)).to eq(expected3)
       end
+
       it "should show 'N/A' if a percentage is not yet available" do
         user1 = create(:user)
         merch1, merch2, merch3 = create_list(:user, 3, role: 1)
@@ -201,6 +202,18 @@ RSpec.describe Item, type: :model do
   end
 
   describe "Instance Methods" do
+
+    it '#create_slug' do
+      merchant = create(:merchant)
+      item = merchant.items.new(title: 'food<glorious>#%{ }|\^~[_]`;/?:@=&food', description: 'desc', quantity: 12, price: 12)
+      item.create_slug
+      item.save
+
+      expected = Item.last
+      actual = Item.find_by slug: 'food-glorious-food'
+
+      expect(actual).to eq(expected)
+    end
 
     describe '#ordered?' do
       it 'should return true if that item has been ordered' do
@@ -291,12 +304,13 @@ RSpec.describe Item, type: :model do
 
     it "#change_status" do
       merchant = create(:merchant)
-      item = Item.create!(title: "Test",
-                          description: "dish",
-                          quantity: 5,
-                          price: 5,
-                          user: merchant,
-                          active: true)
+      item = create(:item,
+                    title: "Test",
+                    description: "dish",
+                    quantity: 5,
+                    price: 5,
+                    user: merchant,
+                    active: true)
       expect(item.active).to eq(true)
       item.change_status
       expect(item.active).to eq(false)
