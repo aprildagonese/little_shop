@@ -57,6 +57,13 @@ class User < ApplicationRecord
     .limit(3)
   end
 
+  def create_slug
+    slug = email.downcase
+    slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
+    slug.squeeze!('-')
+    self.slug = slug
+  end
+
   def change_status
     if activation_status == "active"
       update_attribute(:activation_status, 1)
