@@ -180,13 +180,24 @@ RSpec.describe User, type: :model do
       Faker::UniqueGenerator.clear
     end
 
+    it '#create_slug' do
+      user = User.new(name: 'user', email: 'slug<>#%{ }|\^~[_]`;/?:@=&user@test.com', password: 'password', street_address: '123 test st.', city: 'city', zip_code: 00000, state: 'state')
+      user.create_slug
+      user.save
+
+      expected = User.last
+      actual = User.find_by slug: 'slug-user-test.com'
+
+      expect(actual).to eq(expected)
+    end
+
     it "#change_status" do
       user = create(:user,
                     name: "April",
                     email: "adag@email.com",
                     password: "password",
                     activation_status: 0)
-                    
+
       user.change_status
       expect(user.activation_status).to eq("inactive")
       user.change_status
