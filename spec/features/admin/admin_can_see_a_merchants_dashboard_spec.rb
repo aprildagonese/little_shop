@@ -16,7 +16,7 @@ RSpec.describe "As an admin", type: :feature do
 
       click_link @merchant.name
 
-      expect(current_path).to eq(admin_merchant_path(@merchant))
+      expect(current_path).to eq(admin_merchant_path(@merchant.slug))
       expect(page).to have_content("Name: #{@merchant.name}")
       expect(page).to have_content("Address: #{@merchant.street_address}")
       expect(page).to have_content("City: #{@merchant.city}")
