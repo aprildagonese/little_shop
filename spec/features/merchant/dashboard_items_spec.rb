@@ -296,7 +296,7 @@ RSpec.describe 'as a merchant' do
         click_button "Edit Item"
       end
 
-      expect(current_path).to eq(dashboard_item_edit_path(@item_1))
+      expect(current_path).to eq(dashboard_item_edit_path(@item_1.slug))
       expect(page).to have_content(@item_1.title)
       expect(page).to have_content("Description")
       expect(page).to have_content("Image (optional)")
@@ -307,19 +307,19 @@ RSpec.describe 'as a merchant' do
 
     it 'is redirected to the edit form if item is entered in error' do
 
-      visit dashboard_item_edit_path(@item_1)
+      visit dashboard_item_edit_path(@item_1.slug)
 
       fill_in 'Dish', with: ''
 
       click_button "Update Item"
 
       expect(page).to have_content("Dish title is already taken.")
-      expect(current_path).to eq(dashboard_item_edit_path(@item_1))
+      expect(current_path).to eq(dashboard_item_edit_path(@item_1.slug))
     end
 
     it 'is redirected to the items index if form is filled correctly' do
 
-      visit dashboard_item_edit_path(@item_1)
+      visit dashboard_item_edit_path(@item_1.slug)
 
       fill_in 'Dish', with: 'Okonomiyaki'
 

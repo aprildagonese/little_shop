@@ -14,7 +14,6 @@ class CartsController < ApplicationController
     @view = "Cart"
   end
 
-
   def update
     item = Item.find(params[:item_id])
     if params[:qty].to_i <= item.quantity

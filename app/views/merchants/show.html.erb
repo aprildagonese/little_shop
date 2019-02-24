@@ -1,6 +1,8 @@
 <section class='dashboard'>
 
-  <%= render 'dashboardstats' %>
+  <% if @user.orders != [] %>
+    <%= render 'dashboardstats' %>
+  <% end %>
   <%= render 'infopage' %>
   <%= render 'orderslist' %>
 

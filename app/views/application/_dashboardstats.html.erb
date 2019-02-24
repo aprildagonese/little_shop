@@ -2,7 +2,7 @@
 
   <section class='percent-sold'>
     <h3>Total Quantity of Items Sold</h3>
-    <p>Sold <%= Item.total_sold_quantity(@user) %> items, which is <%= Item.percent_sold(@user) %>% of your total inventory</p>
+    <p>Sold <%= @user.items.total_sold_quantity(@user) %> items, which is <%= @user.items.percent_sold(@user) %>% of your total inventory</p>
   </section>
 
   <section id=top-items>

@@ -9,6 +9,7 @@ FactoryBot.define do
     password { Faker::Internet.password }
     role { 0 }
     activation_status { 0 }
+    slug { Faker::Internet.unique.slug }
   end
 
   factory :merchant, parent: :user do

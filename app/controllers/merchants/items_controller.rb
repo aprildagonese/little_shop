@@ -5,7 +5,8 @@ class Merchants::ItemsController < Merchants::BaseController
   end
 
   def edit
-    @item = Item.find(params[:id])
+    binding.pry
+    @item = Item.find_by(title: params[:title])
   end
 
   def update

@@ -1,10 +1,13 @@
 class User < ApplicationRecord
+  before_create :create_slug
+
   has_many :orders
   has_many :items
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates_presence_of :password, require: true
+  validates :slug, presence: true, uniqueness: true
 
   has_secure_password
 
@@ -54,6 +57,15 @@ class User < ApplicationRecord
     .group(:city, :state)
     .order('total_orders desc')
     .limit(3)
+  end
+
+  def create_slug
+    if email
+      slug = email.downcase
+      slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
+      slug.squeeze!('-')
+      self.slug = slug
+    end
   end
 
   def change_status
