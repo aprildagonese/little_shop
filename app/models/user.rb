@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  before_create :create_slug
+
   has_many :orders
   has_many :items
 
@@ -58,10 +60,12 @@ class User < ApplicationRecord
   end
 
   def create_slug
-    slug = email.downcase
-    slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
-    slug.squeeze!('-')
-    self.slug = slug
+    if email
+      slug = email.downcase
+      slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
+      slug.squeeze!('-')
+      self.slug = slug
+    end
   end
 
   def change_status

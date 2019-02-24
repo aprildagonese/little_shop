@@ -15,10 +15,13 @@ RSpec.describe Item, type: :model do
   describe 'Validations' do
     describe 'Required Field(s)' do
       it {should validate_presence_of(:title)}
+      it {should validate_uniqueness_of(:title)}
       it {should validate_presence_of(:description)}
       it {should validate_presence_of(:quantity)}
       it {should validate_presence_of(:price)}
       it {should validate_presence_of(:slug)}
+      it {should validate_uniqueness_of(:slug)}
+
     end
   end
 
@@ -206,7 +209,7 @@ RSpec.describe Item, type: :model do
     it '#create_slug' do
       merchant = create(:merchant)
       item = merchant.items.new(title: 'food<glorious>#%{ }|\^~[_]`;/?:@=&food', description: 'desc', quantity: 12, price: 12)
-      item.create_slug
+      # item.create_slug
       item.save
 
       expected = Item.last

@@ -1,6 +1,8 @@
 require 'uri'
 
 class Item < ApplicationRecord
+  before_create :create_slug
+
   belongs_to :user
   has_many :order_items
   has_many :orders, through: :order_items
@@ -54,10 +56,12 @@ class Item < ApplicationRecord
   end
 
   def create_slug
-    slug = title.downcase
-    slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
-    slug.squeeze!('-')
-    self.slug = slug
+    if title
+      slug = title.downcase
+      slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
+      slug.squeeze!('-')
+      self.slug = slug
+    end
   end
 
   def units_sold
