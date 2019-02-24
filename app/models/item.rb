@@ -1,7 +1,7 @@
 require 'uri'
 
 class Item < ApplicationRecord
-  before_create :create_slug
+  after_initialize :create_slug
 
   belongs_to :user
   has_many :order_items
@@ -51,7 +51,7 @@ class Item < ApplicationRecord
     Item.joins(:orders)
         .select("items.*, sum(order_items.quantity) as total_quantity")
         .where(items: {user: merchant})
-        .group(:id)
+        .group(:slug)
         .order("total_quantity desc")
   end
 
