@@ -5,11 +5,12 @@ class Merchants::ItemsController < Merchants::BaseController
   end
 
   def edit
-    @item = Item.find_by(params[:slug])
+    @item = Item.find_by(slug: params[:slug])
   end
 
   def update
-    @item = Item.find(params[:slug])
+    # binding.pry
+    @item = Item.find_by(slug: params[:item][:slug])
     new_params = item_params
     new_params[:image_url] = set_url(item_params[:image_url])
     if @item.update(new_params)

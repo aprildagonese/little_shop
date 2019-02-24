@@ -307,7 +307,7 @@ RSpec.describe 'as a merchant' do
 
     it 'is redirected to the edit form if item is entered in error' do
 
-      visit dashboard_item_edit_path(@item_1.slug)
+      visit dashboard_item_edit_path(slug: @item_1.slug)
 
       fill_in 'Dish', with: ''
 
