@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
     @item = @user.items.new(item_params)
     @item.image_url = set_url(params[:image_url])
     @item.active = true
+    @item.create_slug
 
     if @item.save
       redirect_to dashboard_items_path if current_user.merchant?

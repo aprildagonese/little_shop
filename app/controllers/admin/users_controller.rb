@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::BaseController
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:slug])
     if @user.merchant?
       redirect_to admin_merchant_path(@user)
     end
@@ -12,16 +12,16 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params[:slug])
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find(params[:slug])
     if @user.update(user_params)
-      redirect_to admin_user_path(@user)
+      redirect_to admin_user_path(slug: @user.slug)
     else
       flash[:error] = "That email has already been taken."
-      redirect_to edit_admin_user_path(@user)
+      redirect_to edit_admin_user_path(slug: @user.slug)
     end
   end
 

@@ -25,14 +25,14 @@ RSpec.describe 'when authenticating visitors' do
     end
 
     it "can't register with an existing email address" do
-      fae = User.create!(name: "Fae Dagonese",
-                           email: "april@email.com",
-                           street_address: "222 Street Dr.",
-                           city: "LA",
-                           state: "CA",
-                           zip_code: 90210,
-                           password: "faetest",
-                           password_confirmation: "faetest")
+      fae = create(:user, name: "Fae Dagonese",
+                          email: "april@email.com",
+                          street_address: "222 Street Dr.",
+                          city: "LA",
+                          state: "CA",
+                          zip_code: 90210,
+                          password: "faetest",
+                          password_confirmation: "faetest")
       expect(User.count).to eq(1)
       visit items_path
       click_on "Register"
@@ -55,7 +55,7 @@ RSpec.describe 'when authenticating visitors' do
     end
 
     it 'after registering with duplicate email, it will render form with all fields filled in except email and passwords' do
-      april = User.create(name: 'April', email: 'april@email.com', password: 'test')
+      april = create(:user, name: 'April', email: 'april@email.com', password: 'test')
 
       visit register_path
 

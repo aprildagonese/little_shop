@@ -22,7 +22,7 @@
 
             <div class="buttons">
 
-            <%= button_to "Edit Item", edit_admin_item_path(item), method: :get %>
+            <%= button_to "Edit Item", edit_admin_item_path(item.slug), method: :get %>
             <% if item.active %>
               <%= button_to "Disable", enable_item_path(item), method: :patch %>
             <% else %>

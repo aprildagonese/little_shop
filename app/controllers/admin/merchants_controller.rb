@@ -5,9 +5,9 @@ class Admin::MerchantsController < Admin::BaseController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(slug: params[:slug])
     if @user.registered?
-      redirect_to admin_user_path(@user)
+      redirect_to admin_user_path(@user.slug)
     end
 
     @orders = Order.find_orders(@user)
