@@ -23,7 +23,7 @@ put '/profile', to: 'users#update'
 get '/profile/orders', to: 'users/orders#index'
 patch '/profile/orders', to: 'users/orders#update'
 delete '/profile/orders', to: 'users/orders#destroy'
-get '/profile/orders/:id', to: 'users/orders#show', as: 'profile_order'
+get '/profile/orders/:slug', to: 'users/orders#show', as: 'profile_order'
 
 resources :users, only: [:index, :create, :update] do
   resources :orders, only: [:show, :create]
@@ -35,8 +35,8 @@ get '/dashboard/items', to: 'merchants/items#index'
 get '/dashboard/items/new', to: 'items#new'
 get '/dashboard/items/:slug/edit', to: 'merchants/items#edit', as: 'dashboard_item_edit'
 patch '/dashboard/items', to: 'merchants/items#update'
-get '/dashboard/orders/:id', to: 'merchants/orders#show', as: 'dashboard_order'
-patch '/dashboard/orderitems/:id', to: 'merchants/order_items#update', as: 'dashboard_order_item'
+get '/dashboard/orders/:slug', to: 'merchants/orders#show', as: 'dashboard_order'
+patch '/dashboard/orderitems/:slug', to: 'merchants/order_items#update', as: 'dashboard_order_item'
 resources :merchants, only: [:index]
 
 #--------------Admin---------------
