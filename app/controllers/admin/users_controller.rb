@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::BaseController
   def show
     @user = User.find_by(slug: params[:slug])
     if @user.merchant?
-      redirect_to admin_merchant_path(@user)
+      redirect_to admin_merchant_path(@user.slug)
     end
   end
 
