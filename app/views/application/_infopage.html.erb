@@ -15,7 +15,7 @@
         <% if @user.merchant? %>
           <%= button_to "Downgrade Merchant", admin_downgrade_path, method: :patch, params: {user_id: @user} %>
         <% elsif @user.registered? %>
-          <%= button_to "Upgrade User", admin_upgrade_path, method: :patch, params: {user_id: @user} %>
+          <%= button_to "Upgrade User", admin_upgrade_path, method: :patch, params: {slug: @user.slug} %>
         <% end %>
       <% elsif current_user && current_user.registered? %>
         <%= button_to "Edit Profile", profile_edit_path, method: :get %>

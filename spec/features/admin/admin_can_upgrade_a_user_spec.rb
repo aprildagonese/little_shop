@@ -11,18 +11,18 @@ RSpec.describe "As an admin", type: :feature do
 
   context "when it visits a user's profile" do
     it 'sees a button to downgrade a merchant to a user that redirects to the admin user show page' do
-      visit admin_user_path(@user)
+      visit admin_user_path(slug: @user.slug)
 
       expect(page).to have_button("Upgrade User")
     end
 
     context 'clicks the button to upgrade user' do
       it 'redirects to an admin merchant show path and user role is now a merchant' do
-        visit admin_user_path(@user)
+        visit admin_user_path(slug: @user.slug)
 
         click_button "Upgrade User"
 
-        expect(current_path).to eq(admin_merchant_path(@user))
+        expect(current_path).to eq(admin_merchant_path(@user.slug))
 
         expect(page).to have_content("User has been upgraded to a merchant")
         expect(page).to_not have_button("Upgrade")
@@ -36,7 +36,7 @@ RSpec.describe "As an admin", type: :feature do
       visit admin_merchants_path
       expect(page).to_not have_content(@user.name)
 
-      visit admin_user_path(@user)
+      visit admin_user_path(slug: @user.slug)
       click_button "Upgrade User"
 
       visit admin_users_path
@@ -47,7 +47,7 @@ RSpec.describe "As an admin", type: :feature do
     end
 
     it 'shows the newly upgraded user as a merchant when they log in the next time' do
-      visit admin_user_path(@user)
+      visit admin_user_path(slug: @user.slug)
       click_button "Upgrade User"
 
       click_link "Log Out"
