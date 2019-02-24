@@ -1,7 +1,7 @@
 class Admin::OrdersController < Admin::BaseController
 
   def show
-    @order = Order.find(params[:slug])
+    @order = Order.find(params[:id])
   end
 
   def index
@@ -10,7 +10,7 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def destroy
-    order = Order.find(params[:slug])
+    order = Order.find(params[:id])
     @user = order.user
     order.cancel
     order.save
