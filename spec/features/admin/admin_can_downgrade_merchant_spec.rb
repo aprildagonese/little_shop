@@ -15,18 +15,18 @@ RSpec.describe "As an admin", type: :feature do
 
   context "when it visits a merchant's dashboard" do
     it 'sees a button to downgrade a merchant to a user that redirects to the admin user show page' do
-      visit admin_merchant_path(slug: @merchant.slug)
+      visit admin_merchant_path(@merchant.slug)
 
       expect(page).to have_button("Downgrade Merchant")
     end
 
     context 'clicks the button to downgrade merchant' do
       it 'redirects to an admin user show path and merchant role is now a user' do
-        visit admin_merchant_path(slug: @merchant.slug)
+        visit admin_merchant_path(@merchant.slug)
 
         click_button "Downgrade Merchant"
 
-        expect(current_path).to eq(admin_user_path(@merchant))
+        expect(current_path).to eq(admin_user_path(@merchant.slug))
 
         expect(page).to have_content("Merchant has been downgraded to a user")
         expect(page).to_not have_button("Downgrade")
@@ -39,7 +39,7 @@ RSpec.describe "As an admin", type: :feature do
         visit admin_users_path
         expect(page).to_not have_content(@merchant.name)
 
-        visit admin_merchant_path(slug: @merchant.slug)
+        visit admin_merchant_path(@merchant.slug)
         click_button "Downgrade Merchant"
 
         visit admin_merchants_path
@@ -55,7 +55,7 @@ RSpec.describe "As an admin", type: :feature do
         expect(page).to have_content(@item_1.title)
         expect(page).to have_content(@item_2.title)
 
-        visit admin_merchant_path(slug: @merchant.slug)
+        visit admin_merchant_path(@merchant.slug)
         click_button "Downgrade Merchant"
 
         visit items_path

@@ -22,9 +22,9 @@ class Admin::MerchantsController < Admin::BaseController
   end
 
   def downgrade
-    @user = User.find(params[:user_id])
+    @user = User.find_by(slug: params[:slug])
     @user.downgrade
     flash[:downgraded] = "Merchant has been downgraded to a user"
-    redirect_to admin_user_path(@user)
+    redirect_to admin_user_path(@user.slug)
   end
 end
