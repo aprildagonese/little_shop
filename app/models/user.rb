@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  after_initialize :create_slug
+  before_create :create_slug
 
   has_many :orders
   has_many :items

@@ -1,7 +1,7 @@
 require 'uri'
 
 class Item < ApplicationRecord
-  after_initialize :create_slug
+  before_create :create_slug
 
   belongs_to :user
   has_many :order_items
