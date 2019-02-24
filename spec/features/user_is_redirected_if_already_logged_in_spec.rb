@@ -22,7 +22,7 @@ RSpec.describe "Once already logged in", type: :feature do
 
   context 'as a merchant user' do
     it 'will redirect to the merchant dashboard if we try to go to the login path' do
-      user = create(:user, email: 'user@email.com', password:'test', role: 1)
+      user = create(:merchant)
 
       visit login_path
 
