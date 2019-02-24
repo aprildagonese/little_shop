@@ -12,11 +12,11 @@ RSpec.describe "visitor cart page", type: :feature do
 
   context 'as a visitor with items in the cart' do
     it 'it requires a visitor register or log in before checking out' do
-      visit item_path(@item_1)
+      visit item_path(@item_1.slug)
       click_button "Add Item To Cart"
-      visit item_path(@item_2)
+      visit item_path(@item_2.slug)
       click_button "Add Item To Cart"
-      visit item_path(@item_3)
+      visit item_path(@item_3.slug)
       click_button "Add Item To Cart"
 
       visit cart_path
