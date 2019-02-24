@@ -25,7 +25,7 @@ patch '/profile/orders', to: 'users/orders#update'
 delete '/profile/orders', to: 'users/orders#destroy'
 get '/profile/orders/:slug', to: 'users/orders#show', as: 'profile_order'
 
-resources :users, only: [:index, :create, :update] do
+resources :users, only: [:create, :update] do
   resources :orders, only: [:show, :create]
 end
 
@@ -48,7 +48,7 @@ get '/admin/merchants/orders', to: 'merchants/orders#show', as: 'admin_merchant_
 patch '/admin/merchants/orderitems', to: 'merchants/order_items#update', as: 'admin_merchant_order_item'
 namespace :admin do
   resources :merchants, only: [:index, :show, :update], param: :slug
-  resources :items, except: [:show, :edit], param: :slug
+  resources :items, except: [:show], param: :slug
   resources :users, only: [:index, :show, :edit, :update], param: :slug
   resources :orders, only: [:index, :show, :destroy]
 end
