@@ -25,7 +25,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+    @item = Item.find_by(slug: params[:slug])
   end
 
   def index
@@ -35,7 +35,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    item = Item.find(params[:id])
+    item = Item.find(params[:slug])
     item.delete
     redirect_to dashboard_items_path if current_user.merchant?
     redirect_to admin_items_path(user_id: item.user) if current_user.admin?
@@ -43,7 +43,7 @@ class ItemsController < ApplicationController
   end
 
   def enable
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:slug])
     @item.change_status
     redirect_to dashboard_items_path if current_user.merchant?
     redirect_to admin_items_path(user_id: @item.user) if current_user.admin?
