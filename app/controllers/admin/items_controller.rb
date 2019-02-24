@@ -21,7 +21,7 @@ class Admin::ItemsController < Admin::BaseController
       flash[:success] = "'#{@item.title}' has been updated."
     else
       flash[:error] = "Dish title is already taken."
-      redirect_to edit_admin_item_path(@item)
+      redirect_to edit_admin_item_path(@item.slug)
     end
   end
 
