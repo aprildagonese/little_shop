@@ -122,7 +122,7 @@ RSpec.describe 'when authenticating visitors' do
 
       click_on "Create User"
 
-      expect(User.last.slug).to eq("april-email.com")
+      expect(User.last.slug).to eq("april-email-com")
     end
   end
 end
