@@ -105,5 +105,24 @@ RSpec.describe 'when authenticating visitors' do
       expect(page).to have_field(:user_password)
       expect(page).to have_field(:user_password_confirmation)
     end
+
+    it 'creates a slug on registration' do
+
+      visit welcome_path
+      click_link "Register"
+
+      fill_in :user_name, with: "April Dagonese"
+      fill_in :user_email, with: "april@email.com"
+      fill_in :user_street_address, with: "1111 Street Dr."
+      fill_in :user_city, with: "Denver"
+      fill_in :user_state, with: "CO"
+      fill_in :user_zip_code, with: 80202
+      fill_in :user_password, with: "test"
+      fill_in :user_password_confirmation, with: "test"
+
+      click_on "Create User"
+
+      expect(User.last.slug).to eq("april-email.com")
+    end
   end
 end
