@@ -329,5 +329,23 @@ RSpec.describe 'as a merchant' do
 
       expect(page).to have_content('Okonomiyaki')
     end
+
+    it 'creates a slug when an item is made' do
+
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      new_item = Item.last
+
+      expect(new_item.slug).to eq('delicious-treats')
+      
+    end
   end
 end
