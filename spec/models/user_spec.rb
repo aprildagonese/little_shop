@@ -187,7 +187,7 @@ RSpec.describe User, type: :model do
       user.save
 
       expected = User.last
-      actual = User.find_by slug: 'slug-user-test.com'
+      actual = User.find_by slug: 'slug-user-test-com'
 
       expect(actual).to eq(expected)
     end

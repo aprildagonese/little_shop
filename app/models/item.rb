@@ -58,7 +58,7 @@ class Item < ApplicationRecord
   def create_slug
     if title
       slug = title.downcase
-      slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
+      slug.gsub!(/[:@ _\&;~^`|%#?;.<>=\/\{\}\[\]\\]/, '-')
       slug.squeeze!('-')
       self.update(slug: slug)
     end
