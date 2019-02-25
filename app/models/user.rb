@@ -62,9 +62,9 @@ class User < ApplicationRecord
   def create_slug
     if email
       slug = email.downcase
-      slug.gsub!(/[:@ _\&;~^`|%#?;<>=\/\{\}\[\]\\]/, '-')
+      slug.gsub!(/[:@ _\&;~^`|%#?;.<>=\/\{\}\[\]\\]/, '-')
       slug.squeeze!('-')
-      self.slug = slug
+      self.update(slug: slug)
     end
   end
 

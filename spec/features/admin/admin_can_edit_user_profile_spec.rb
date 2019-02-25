@@ -7,7 +7,7 @@ RSpec.describe "As an admin", type: :feature do
     @admin = create(:user, role: 2)
     login_as(@admin)
 
-    @user = create(:user, id: 100)
+    @user = create(:user, id: 100, email: 'user@email.com', slug: 'user-email-com')
     @user2 = create(:user, id: 99, email: "taken_email")
   end
 
@@ -51,7 +51,7 @@ RSpec.describe "As an admin", type: :feature do
       updated_user = User.find(100)
       expect(updated_user.id).to eq(100)
 
-      expect(current_path).to eq(admin_user_path(@user.slug))
+      expect(current_path).to eq(admin_user_path(updated_user.slug))
 
       expect(updated_user.name).to eq("April Dagonese")
       expect(updated_user.street_address).to eq("1111 Street Dr.")
@@ -95,5 +95,29 @@ RSpec.describe "As an admin", type: :feature do
       expect(not_updated_user.name).to_not eq("April Dagonese")
       expect(not_updated_user.email).to_not eq("taken_email")
     end
+
+    it 'only updates user\'s slug when changing their email' do
+
+      visit edit_admin_user_path(@user.slug)
+
+      fill_in :user_name, with: "User Name"
+
+      click_button "Update Profile"
+
+      expect(@user.slug).to eq('user-email-com')
+
+      click_button "Edit Profile"
+
+      fill_in :user_email, with: 'new_user@email.com'
+
+      click_button "Update Profile"
+
+      updated_user = User.find(100)
+      expect(updated_user.id).to eq(100)
+
+      expect(updated_user.slug).to eq('new-user-email-com')
+      expect(current_path).to eq(admin_user_path(updated_user.slug))
+    end
+
   end
 end

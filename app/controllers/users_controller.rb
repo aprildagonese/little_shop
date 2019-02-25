@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(session[:user_id])
     if @user.update(user_params)
+      @user.create_slug
       redirect_to profile_path
     else
       flash[:error] = "That email has already been taken."

@@ -18,6 +18,7 @@ class Admin::UsersController < Admin::BaseController
   def update
     @user = User.find_by(slug: params[:slug])
     if @user.update(user_params)
+      @user.create_slug
       redirect_to admin_user_path(@user.slug)
     else
       flash[:error] = "That email has already been taken."

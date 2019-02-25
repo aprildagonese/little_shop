@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'as a registered user' do
 
   before :each do
-    @user_1 = create(:user, id: 1)
+    @user_1 = create(:user, id: 1, email: 'email@example.com', slug: 'email-example-com')
     @user_2 = create(:user, id: 2)
   end
 
@@ -108,6 +108,29 @@ RSpec.describe 'as a registered user' do
     expect(page).to have_content("Password confirmation")
 
     expect(page).to have_button("Update Profile")
+
+  end
+
+  it 'updates slug only when email updates' do
+    login_as(@user_1)
+
+    visit profile_path
+
+    click_button "Edit Profile"
+
+    fill_in :user_name, with: "April Dagonese"
+
+    click_button "Update Profile"
+
+    expect(User.first.slug).to eq('email-example-com')
+
+    click_button "Edit Profile"
+
+    fill_in :user_email, with: "new_email@email.com"
+
+    click_button "Update Profile"
+
+    expect(User.first.slug).to eq('new-email-email-com')
 
   end
 
