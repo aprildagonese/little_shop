@@ -5,7 +5,7 @@ RSpec.describe 'when it visits an items show page' do
   before :each do
     Faker::UniqueGenerator.clear
   end
-  
+
   context 'As a visitor' do
     it 'can see all enabled items' do
       merchant = create(:user, role: 1)
@@ -17,9 +17,9 @@ RSpec.describe 'when it visits an items show page' do
       create(:order_item, item: item, order: order_2, sale_price: 5, created_at: 20000.minutes.ago, updated_at: 1.day.ago)
       create(:order_item, item: item, order: order_3, sale_price: 5, created_at: 30000.minutes.ago, updated_at: 1.day.ago)
 
-      visit item_path(item)
+      visit item_path(item.slug)
 
-      expect(current_path).to eq(item_path(item))
+      expect(current_path).to eq(item_path(item.slug))
       expect(page).to have_content(item.title)
       expect(page).to have_content(item.description)
       expect(page).to have_css("img[src*='#{item.image_url}']")
@@ -33,7 +33,7 @@ RSpec.describe 'when it visits an items show page' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
 
-      visit item_path(item)
+      visit item_path(item.slug)
 
       expect(page).to have_button("Add Item To Cart")
     end
@@ -48,9 +48,9 @@ RSpec.describe 'when it visits an items show page' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
 
-      visit item_path(item)
+      visit item_path(item.slug)
 
-      expect(current_path).to eq(item_path(item))
+      expect(current_path).to eq(item_path(item.slug))
       expect(page).to have_content(item.title)
       expect(page).to have_content(item.description)
       expect(page).to have_css("img[src*='#{item.image_url}']")
@@ -67,7 +67,7 @@ RSpec.describe 'when it visits an items show page' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
 
-      visit item_path(item)
+      visit item_path(item.slug)
 
       expect(page).to have_button("Add Item To Cart")
     end
@@ -82,9 +82,9 @@ RSpec.describe 'when it visits an items show page' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
 
-      visit item_path(item)
+      visit item_path(item.slug)
 
-      expect(current_path).to eq(item_path(item))
+      expect(current_path).to eq(item_path(item.slug))
       expect(page).to have_content(item.title)
       expect(page).to have_content(item.description)
       expect(page).to have_css("img[src*='#{item.image_url}']")
@@ -101,7 +101,7 @@ RSpec.describe 'when it visits an items show page' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
 
-      visit item_path(item)
+      visit item_path(item.slug)
 
       expect(page).to_not have_link("Add Item To Cart")
     end
@@ -116,9 +116,9 @@ RSpec.describe 'when it visits an items show page' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
 
-      visit item_path(item)
+      visit item_path(item.slug)
 
-      expect(current_path).to eq(item_path(item))
+      expect(current_path).to eq(item_path(item.slug))
       expect(page).to have_content(item.title)
       expect(page).to have_content(item.description)
       expect(page).to have_css("img[src*='#{item.image_url}']")
@@ -135,7 +135,7 @@ RSpec.describe 'when it visits an items show page' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant)
 
-      visit item_path(item)
+      visit item_path(item.slug)
 
       expect(page).to_not have_link("Add Item To Cart")
     end

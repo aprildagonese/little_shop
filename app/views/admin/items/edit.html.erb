@@ -14,7 +14,6 @@
     <h1>Enter updated information for <%= @item.title %>:</h1>
 
     <%= form_for @item, url: url_for(controller: "admin/items", action: :update) do |f| %>
-      <%= hidden_field_tag :id, @item.id %>
 
       <div class="label-input">
         <%= f.label :title, "Dish" %>

@@ -75,7 +75,7 @@ RSpec.describe 'as an admin', type: :feature do
       end
 
       it "can cancel order" do
-        visit admin_user_path(@user)
+        visit admin_user_path(@user.slug)
 
         click_button 'User Orders'
 

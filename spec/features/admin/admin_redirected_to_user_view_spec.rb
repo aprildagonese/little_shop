@@ -13,9 +13,9 @@ RSpec.describe "As an admin", type: :feature do
 
   context 'if it visits a merchant dashboard, but that merchant is a regular user' do
     it 'redirects to a user profile page path' do
-      visit admin_merchant_path(@user)
+      visit admin_merchant_path(@user.slug)
 
-      expect(current_path).to eq(admin_user_path(@user))
+      expect(current_path).to eq(admin_user_path(@user.slug))
 
       within ".profile" do
         expect(page).to have_content("Name: #{@user.name}")
@@ -30,9 +30,9 @@ RSpec.describe "As an admin", type: :feature do
 
   context 'if it visits a user profile, but that user is a merchant' do
     it 'redirects to merchant dashboard' do
-      visit admin_user_path(@merchant)
+      visit admin_user_path(@merchant.slug)
 
-      expect(current_path).to eq(admin_merchant_path(@merchant))
+      expect(current_path).to eq(admin_merchant_path(@merchant.slug))
 
       within ".profile" do
         expect(page).to have_content("Name: #{@merchant.name}")

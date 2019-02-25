@@ -11,11 +11,11 @@
   <aside class="info-page-buttons">
     <aside class="user-profile-buttons">
       <% if current_user && current_user.admin? %>
-        <%= button_to "Edit Profile", edit_admin_user_path(@user), method: :get %>
+        <%= button_to "Edit Profile", edit_admin_user_path(@user.slug), method: :get %>
         <% if @user.merchant? %>
-          <%= button_to "Downgrade Merchant", admin_downgrade_path, method: :patch, params: {user_id: @user} %>
+          <%= button_to "Downgrade Merchant", admin_downgrade_path, method: :patch, params: {slug: @user.slug} %>
         <% elsif @user.registered? %>
-          <%= button_to "Upgrade User", admin_upgrade_path, method: :patch, params: {user_id: @user} %>
+          <%= button_to "Upgrade User", admin_upgrade_path, method: :patch, params: {slug: @user.slug} %>
         <% end %>
       <% elsif current_user && current_user.registered? %>
         <%= button_to "Edit Profile", profile_edit_path, method: :get %>
@@ -26,7 +26,7 @@
         <% if @user.registered? %>
           <%= button_to "User Orders", admin_orders_path, method: :get, params: {user_id: @user} %>
         <% elsif @user.merchant? %>
-          <%= button_to "Manage Merchant Items", admin_items_path, method: :get, params: {user_id: @user} %>
+          <%= button_to "Manage Merchant Items", admin_items_path(slug: @user.slug), method: :get, params: {user_id: @user} %>
         <% end %>
       <% end %>
     </aside>

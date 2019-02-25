@@ -79,8 +79,11 @@ all_merchants = []
   password = 'password'
   role = 1
   activation_status = 0
-  user = User.create(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+  user = User.new(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+  user.create_slug
+  user.save
   all_merchants << user
+
   6.times do
     title = Faker::Food.unique.dish
     description = Faker::Food.description
@@ -88,7 +91,9 @@ all_merchants = []
     price = Faker::Commerce.price
     active = true
     image_url = item_images.sample
-    user.items.create(title: title, description: description, quantity: quantity, price: price, image_url: image_url, active: active)
+    item = user.items.new(title: title, description: description, quantity: quantity, price: price, image_url: image_url, active: active)
+    item.create_slug
+    item.save
   end
 end
 
@@ -101,8 +106,11 @@ email = 'merchant@test.com'
 password = 'password'
 role = 1
 activation_status = 0
-user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+user = User.new(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+user.create_slug
+user.save
 all_merchants << user
+
 6.times do
   title = Faker::Food.unique.dish
   description = Faker::Food.description
@@ -110,7 +118,9 @@ all_merchants << user
   price = Faker::Commerce.price
   active = true
   image_url = item_images.sample
-  user.items.create(title: title, description: description, quantity: quantity, price: price, image_url: image_url, active: active)
+  item = user.items.new(title: title, description: description, quantity: quantity, price: price, image_url: image_url, active: active)
+  item.create_slug
+  item.save
 end
 
 10.times do
@@ -123,7 +133,10 @@ end
   password = 'password'
   role = 0
   status = 0
-  user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+  user = User.new(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+  user.create_slug
+  user.save
+
   rand(1..4).times do
     status = 0
     created_at = rand(500..600).days.ago
@@ -141,6 +154,7 @@ end
     updated_at = rand(300..399).days.ago
     OrderItem.create!(order: order, item: item, sale_price: item.price, created_at: created_at, updated_at: updated_at, quantity: rand(1..10), fulfillment_status: 0)
   end
+
   rand(1..4).times do
     status = 1
     created_at = rand(500..600).days.ago
@@ -165,7 +179,10 @@ email = 'user@test.com'
 password = 'password'
 role = 0
 activation_status = 0
-user = User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+user = User.new(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+user.create_slug
+user.save
+
 rand(1..4).times do
   status = 0
   created_at = rand(500..600).days.ago
@@ -206,7 +223,9 @@ email = 'admin@test.com'
 password = 'password'
 role = 2
 activation_status = 0
-User.create!(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+user = User.new(name: name, street_address: street_address, city: city, state: state, zip_code: zip_code, email: email, role: role, password: password, activation_status: activation_status)
+user.create_slug
+user.save
 
 user_names = "List of user logins\n\n"
 User.all.each do |any_user|

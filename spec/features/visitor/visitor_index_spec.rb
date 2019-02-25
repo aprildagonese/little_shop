@@ -108,7 +108,7 @@ RSpec.describe "visitor index page", type: :feature do
 
 
       it 'can log in' do
-        user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
+        user = create(:user, name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
 
         visit items_path
 

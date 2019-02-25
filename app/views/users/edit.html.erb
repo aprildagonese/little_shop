@@ -56,13 +56,13 @@
     <div class="label-input">
       <%= f.label :password %>
       <br>
-      <%= f.password_field :password, required: true %>
+      <%= f.password_field :password, value: @user.password_digest %>
     </div>
 
     <div class="label-input">
       <%= f.label :password_confirmation %>
       <br>
-      <%= f.password_field :password_confirmation, required: true %>
+      <%= f.password_field :password_confirmation, value: @user.password_digest %>
     </div>
     <br>
     <div class="label-input">

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'as a visitor' do
 
   it 'can log in as a merchant' do
-    user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
+    user = create(:user, name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
   end
 
   it 'errors and refreshes if log in attempt with no account' do
@@ -52,7 +52,7 @@ RSpec.describe 'as a visitor' do
   end
 
   it 'can log in as a merchant' do
-    user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
+    user = create(:user, name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 1)
 
     visit login_path
 
@@ -68,7 +68,7 @@ RSpec.describe 'as a visitor' do
   end
 
   it 'can log in as an admin' do
-    user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 2)
+    user = create(:user, name: "funbucket13", email: "funbucket13@gmail.com", password: "test", role: 2)
 
     visit login_path
 
@@ -84,7 +84,7 @@ RSpec.describe 'as a visitor' do
   end
 
   it 'can log in as a user' do
-    user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
+    user = create(:user, name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
 
     visit login_path
 
