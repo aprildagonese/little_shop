@@ -13,6 +13,7 @@ class Merchants::ItemsController < Merchants::BaseController
     new_params = item_params
     new_params[:image_url] = set_url(item_params[:image_url])
     if @item.update(new_params)
+      @item.create_slug
       redirect_to dashboard_items_path
     else
       flash[:error] = "Dish title is already taken."
