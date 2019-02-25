@@ -263,39 +263,82 @@ RSpec.describe User, type: :model do
         @oi16 = create(:fulfilled_order_item, order: @order6, item: @item1, quantity: 16, sale_price: 2)
       end
 
-    describe "#total_sold_quantity" do
-      it "should get merchant's sum of all quantities sold for all items" do
-        merch1, merch2 = create_list(:user, 2, role: 1)
-        user1, user2, user3 = create_list(:user, 3)
-        item1, item2 = create_list(:item, 2, user: merch1)
-        item3 = create(:item, user: merch2)
-        order1, order2 = create_list(:order, 2, user: user1)
-        order3, order4 = create_list(:order, 2, user: user2)
-        order5 = create(:order, user: user3)
-        oi1 = create(:order_item, order: order1, item: item1, quantity: 1, fulfillment_status: 0)
-        oi2 = create(:order_item, order: order1, item: item2, quantity: 2, fulfillment_status: 1)
-        oi3 = create(:order_item, order: order1, item: item3, quantity: 3, fulfillment_status: 1)
-        oi4 = create(:order_item, order: order2, item: item1, quantity: 4, fulfillment_status: 1)
-        oi5 = create(:order_item, order: order2, item: item2, quantity: 5, fulfillment_status: 1)
-        oi6 = create(:order_item, order: order2, item: item3, quantity: 6, fulfillment_status: 1)
-        oi7 = create(:order_item, order: order3, item: item1, quantity: 7, fulfillment_status: 1)
-        oi8 = create(:order_item, order: order3, item: item2, quantity: 8, fulfillment_status: 1)
-        oi9 = create(:order_item, order: order3, item: item3, quantity: 9, fulfillment_status: 0)
-        oi10 = create(:order_item, order: order4, item: item1, quantity: 10, fulfillment_status: 1)
-        oi11 = create(:order_item, order: order4, item: item2, quantity: 11, fulfillment_status: 1)
-        oi12 = create(:order_item, order: order4, item: item3, quantity: 12, fulfillment_status: 1)
-        oi13 = create(:order_item, order: order5, item: item1, quantity: 13, fulfillment_status: 1)
-        oi14 = create(:order_item, order: order5, item: item2, quantity: 14, fulfillment_status: 1)
-        oi15 = create(:order_item, order: order5, item: item3, quantity: 15, fulfillment_status: 1)
+      describe '#yearly_revenue' do
+        it 'returns revenue by month for the last 12 months' do
+          merchant = create(:merchant)
+          item_1, item_2, item_3, item_4 = create_list(:item, 4, user: merchant)
+          user_1, user_2, user_3, user_4 = create_list(:user, 4)
 
-        expected1 = (oi2.quantity + oi4.quantity + oi5.quantity + oi7.quantity + oi8.quantity + oi10.quantity + oi11.quantity + oi13.quantity + oi14.quantity)
-        expected2 = (oi3.quantity + oi6.quantity + oi12.quantity + oi15.quantity)
+          user_1_order_1 = user_1.orders.create(status: :fulfilled, created_at: 1.year.ago, updated_at: 1.year.ago)
+          user_1_order_2 = user_1.orders.create(status: :fulfilled, created_at: 11.months.ago, updated_at: 11.months.ago)
+          user_1_order_3 = user_1.orders.create(status: :fulfilled, created_at: 10.months.ago, updated_at: 10.months.ago)
+          create(:order_item, item: item_1, order: user_1_order_1)
+          create(:order_item, item: item_2, order: user_1_order_2)
+          create(:order_item, item: item_3, order: user_1_order_3)
 
-        expect(Item.total_sold_quantity(merch1)).to eq(expected1)
-        expect(Item.total_sold_quantity(merch2)).to eq(expected2)
+          user_2_order_1 = user_2.orders.create(status: :fulfilled, created_at: 9.months.ago, updated_at: 9.months.ago)
+          user_2_order_2 = user_2.orders.create(status: :fulfilled, created_at: 8.months.ago, updated_at: 8.months.ago)
+          user_2_order_3 = user_2.orders.create(status: :fulfilled, created_at: 7.months.ago, updated_at: 7.months.ago)
+          create(:order_item, item: item_4, order: user_2_order_1)
+          create(:order_item, item: item_1, order: user_2_order_2)
+          create(:order_item, item: item_2, order: user_2_order_3)
+
+          user_3_order_1 = user_3.orders.create(status: :fulfilled, created_at: 6.months.ago, updated_at: 6.months.ago)
+          user_3_order_2 = user_3.orders.create(status: :fulfilled, created_at: 5.months.ago, updated_at: 5.months.ago)
+          user_3_order_3 = user_3.orders.create(status: :fulfilled, created_at: 4.months.ago, updated_at: 4.months.ago)
+          create(:order_item, item: item_3, order: user_3_order_1)
+          create(:order_item, item: item_4, order: user_3_order_2)
+          create(:order_item, item: item_1, order: user_3_order_3)
+
+          user_4_order_1 = user_4.orders.create(status: :fulfilled, created_at: 3.months.ago, updated_at: 3.months.ago)
+          user_4_order_2 = user_4.orders.create(status: :fulfilled, created_at: 2.months.ago, updated_at: 2.months.ago)
+          user_4_order_3 = user_4.orders.create(status: :fulfilled, created_at: 1.month.ago, updated_at: 1.month.ago)
+          create(:order_item, item: item_2, order: user_4_order_1)
+          create(:order_item, item: item_3, order: user_4_order_2)
+          create(:order_item, item: item_4, order: user_4_order_3)
+
+          expected = [{12 => 0}, {11 => 0}, {10 => 0}, {9 => 0}, {8 => 0}, {7 => 0}, {6 => 0}, {5 => 0}, {4 => 0}, {3 => 0}, {2 => 0}, {1 => 0}, ]
+          actual = merchant.yearly_revenue
+
+          expect(actual).to eq(expected)
+        end
       end
 
-        it '#top_states - shows the top 3 states for that user and their quantities' do
+      describe "#total_sold_quantity" do
+        it "should get merchant's sum of all quantities sold for all items" do
+          merch1, merch2 = create_list(:user, 2, role: 1)
+          user1, user2, user3 = create_list(:user, 3)
+          item1, item2 = create_list(:item, 2, user: merch1)
+          item3 = create(:item, user: merch2)
+          order1, order2 = create_list(:order, 2, user: user1)
+          order3, order4 = create_list(:order, 2, user: user2)
+          order5 = create(:order, user: user3)
+          oi1 = create(:order_item, order: order1, item: item1, quantity: 1, fulfillment_status: 0)
+          oi2 = create(:order_item, order: order1, item: item2, quantity: 2, fulfillment_status: 1)
+          oi3 = create(:order_item, order: order1, item: item3, quantity: 3, fulfillment_status: 1)
+          oi4 = create(:order_item, order: order2, item: item1, quantity: 4, fulfillment_status: 1)
+          oi5 = create(:order_item, order: order2, item: item2, quantity: 5, fulfillment_status: 1)
+          oi6 = create(:order_item, order: order2, item: item3, quantity: 6, fulfillment_status: 1)
+          oi7 = create(:order_item, order: order3, item: item1, quantity: 7, fulfillment_status: 1)
+          oi8 = create(:order_item, order: order3, item: item2, quantity: 8, fulfillment_status: 1)
+          oi9 = create(:order_item, order: order3, item: item3, quantity: 9, fulfillment_status: 0)
+          oi10 = create(:order_item, order: order4, item: item1, quantity: 10, fulfillment_status: 1)
+          oi11 = create(:order_item, order: order4, item: item2, quantity: 11, fulfillment_status: 1)
+          oi12 = create(:order_item, order: order4, item: item3, quantity: 12, fulfillment_status: 1)
+          oi13 = create(:order_item, order: order5, item: item1, quantity: 13, fulfillment_status: 1)
+          oi14 = create(:order_item, order: order5, item: item2, quantity: 14, fulfillment_status: 1)
+          oi15 = create(:order_item, order: order5, item: item3, quantity: 15, fulfillment_status: 1)
+
+          expected1 = (oi2.quantity + oi4.quantity + oi5.quantity + oi7.quantity + oi8.quantity + oi10.quantity + oi11.quantity + oi13.quantity + oi14.quantity)
+          expected2 = (oi3.quantity + oi6.quantity + oi12.quantity + oi15.quantity)
+
+          expect(Item.total_sold_quantity(merch1)).to eq(expected1)
+          expect(Item.total_sold_quantity(merch2)).to eq(expected2)
+        end
+      end
+
+      describe '#top_states' do
+        it 'shows the top 3 states for that user and their quantities' do
           expected = @merch1.top_states(3)
 
           expect(expected[0].state).to eq(@user2.state)
@@ -304,8 +347,10 @@ RSpec.describe User, type: :model do
           expect(expected[1].state).to eq(@user1.state)
           expect(expected[1].total_items).to eq(21)
         end
+      end
 
-        it '#top_city_states - shows the top 3 city, states for that merchant and their quantities' do
+      describe '#top_city_states' do
+        it 'shows the top 3 city, states for that merchant and their quantities' do
           expected = @merch1.top_city_states(3)
 
           expect(expected[0].city).to eq(@user2.city)
@@ -316,8 +361,10 @@ RSpec.describe User, type: :model do
           expect(expected[1].total_items).to eq(16)
           expect(expected[2].total_items).to eq(5)
         end
+      end
 
-        it '#top_spending_patrons - shows the top 3 city, states for that merchant and their quantities' do
+      describe '#top_spending_patrons' do
+        it 'shows the top 3 city, states for that merchant and their quantities' do
           expected = @merch1.top_spending_patrons(3)
 
           expect(expected[0].name).to eq(@user2.name)
@@ -328,21 +375,26 @@ RSpec.describe User, type: :model do
           expect(expected[1].total_spent).to eq(50)
           expect(expected[2].total_spent).to eq(32)
         end
+      end
 
-        it '#most_items_patrons - shows the patron who has purchased the most total items and their quantity of items' do
+      describe '#most_items_patrons' do
+        it 'shows the patron who has purchased the most total items and their quantity of items' do
           expected = @merch1.most_items_patrons(1)
 
           expect(expected[0].name).to eq(@user2.name)
           expect(expected[0].total_items_qty).to eq(30)
         end
+      end
 
-        it '#most_orders_patrons - shows the patron who has purchased the most total items and their quantity of items' do
+      describe '#most_orders_patrons' do
+        it 'shows the patron who has purchased the most total items and their quantity of items' do
           expected = @merch1.most_orders_patrons(1)
 
           expect(expected[0].name).to eq(@user2.name)
           expect(expected[0].total_orders).to eq(3)
         end
       end
+
     end
   end
 end
