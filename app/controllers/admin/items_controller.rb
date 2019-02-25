@@ -15,8 +15,7 @@ class Admin::ItemsController < Admin::BaseController
     new_params = item_params
     new_params[:image_url] = set_url(item_params[:image_url])
     if @item.update(new_params)
-      item = Item.find_by(slug: params[:slug])
-      id = item.user.id
+      @item.create_slug
       redirect_to admin_items_path(slug: @item.user.slug)
       flash[:success] = "'#{@item.title}' has been updated."
     else
