@@ -7,13 +7,13 @@
 
     <div class="id-<%=item.id%>-row">
       <div class="left-column">
-        <%= link_to item_path(item) do%>
+        <%= link_to item_path(item.slug) do %>
           <%= image_tag(item.image_url, width: '100') if item.image_url %>
         <% end %>
       </div>
 
       <div class="middle-column">
-        <%= link_to item.title, item_path(item) %>
+        <%= link_to item.title, item_path(item.slug) %>
         <p>Current Price: <%= number_to_currency(item.price) %></p>
         <% if @view!="Cart" %>
           <p>Qty: <%= item.quantity %></p>

@@ -35,15 +35,14 @@ RSpec.describe 'As any user' do
 
       Faker::UniqueGenerator.clear
 
-      user = create(:user)
-      user.update(role: 1)
+      user = create(:merchant)
       i1, i2 = create_list(:item, 2, user: user)
 
       visit items_path
 
       click_link "#{i1.title}"
 
-      expect(current_path).to eq(item_path(i1))
+      expect(current_path).to eq(item_path(i1.slug))
       expect(page).to have_content(i1.title)
       expect(page).to_not have_content(i2.title)
     end

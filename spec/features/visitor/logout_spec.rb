@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'as a logged in user' do
 
   it 'can log out' do
-    user = User.create(name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
+    user = create(:user, name: "funbucket13", email: "funbucket13@gmail.com", password: "test")
 
     visit items_path
 

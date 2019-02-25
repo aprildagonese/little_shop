@@ -5,13 +5,13 @@ RSpec.describe "as a registered user with items in my cart" do
     @user = create(:user)
     login_as(@user)
     @item1 = create(:item)
-    visit item_path(@item1)
+    visit item_path(@item1.slug)
     click_button "Add Item To Cart"
     @item2 = create(:item)
-    visit item_path(@item2)
+    visit item_path(@item2.slug)
     click_button "Add Item To Cart"
     @item3 = create(:item)
-    visit item_path(@item3)
+    visit item_path(@item3.slug)
     click_button "Add Item To Cart"
   end
 
@@ -23,7 +23,7 @@ RSpec.describe "as a registered user with items in my cart" do
 
     expect(Order.count).to eq(1)
     expect(Order.last.status).to eq("pending")
-    expect(current_path).to eq(profile_orders_path(@user))
+    expect(current_path).to eq(profile_orders_path)
     expect(page).to have_content("Thank you! Your order has been placed.")
     expect(page).to have_content("Cart (0)")
   end
