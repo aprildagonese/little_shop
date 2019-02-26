@@ -20,7 +20,7 @@ RSpec.describe "items", type: :feature do
       @merchant = create(:merchant)
       @merchant_2 = create(:merchant)
 
-      @item_1 = create(:disabled_item, user: @merchant, quantity: 15, price: 5)
+      @item_1 = create(:disabled_item, user: @merchant, quantity: 15, price: 5, title: 'Bon Bons', slug: 'bon-bons')
       @item_2, @item_3, @item_17, @item_18 = create_list(:item, 4, user: @merchant, quantity: 15, price: 5)
       @order_items = [@item_2, @item_3]
       @item_19 = create(:item, user: @merchant_2, quantity: 15, price: 5)
@@ -34,7 +34,7 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'it can visit merchants profile page items index' do
-      visit admin_merchant_path(slug: @merchant.slug)
+      visit admin_merchant_path(@merchant.slug)
 
       expect(page).to have_button("Manage Merchant Items")
       click_button("Manage Merchant Items")
@@ -299,12 +299,8 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'is redirected to the edit form if item is entered in error' do
-      visit admin_items_path(slug: @merchant.slug)
 
-      within "#item-#{@item_1.id}" do
-        expect(page).to have_button("Edit Item")
-        click_button("Edit Item")
-      end
+      visit edit_admin_item_path(@item_1.slug)
 
       expect(current_path).to eq(edit_admin_item_path(@item_1.slug))
 
@@ -324,11 +320,7 @@ RSpec.describe "items", type: :feature do
     it 'can leave the image field blank' do
       default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
 
-      visit admin_items_path(slug: @merchant.slug)
-
-      within "#item-#{@item_1.id}" do
-        click_button("Edit Item")
-      end
+      visit edit_admin_item_path(@item_1.slug)
 
       fill_in 'Dish', with: "No image"
 
@@ -342,11 +334,7 @@ RSpec.describe "items", type: :feature do
     it 'can put a bad link in the image field' do
       default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
 
-      visit admin_items_path(slug: @merchant.slug)
-
-      within "#item-#{@item_1.id}" do
-        click_button("Edit Item")
-      end
+      visit edit_admin_item_path(@item_1.slug)
 
       fill_in 'Dish', with: "Bad image"
       fill_in "Image (optional)", with: "notagoodlink"
@@ -378,5 +366,44 @@ RSpec.describe "items", type: :feature do
       expect(page).to have_css("img[src*='#{good_url}']")
     end
 
+    it 'creates a slug when an item is made' do
+
+      visit new_item_path(user: @merchant)
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      new_item = Item.last
+
+      expect(new_item.slug).to eq('delicious-treats')
+
+    end
+
+    it 'slug only changes when title is changed' do
+
+      visit edit_admin_item_path(@item_1.slug)
+
+      fill_in 'Price', with: 25
+
+      click_button "Update Item"
+
+      expect(@item_1.slug).to eq('bon-bons')
+
+      within "#item-#{@item_1.id}" do
+        click_button "Edit Item"
+      end
+
+      fill_in 'Dish', with: 'Chocolate Bon Bons'
+
+      click_button "Update Item"
+
+      updated_item = Item.find_by(title: 'Chocolate Bon Bons')
+      expect(updated_item.slug).to eq('chocolate-bon-bons')
+    end
   end
 end

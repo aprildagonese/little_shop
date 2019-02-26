@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/stympy/faker.git
-  revision: 07290fe0f4fc6a305d08fd1e8ef265ea4127dca7
+  revision: b944a95247d8d16262dcd6615a11f9379ea5d8db
   branch: master
   specs:
     faker (1.9.3)
@@ -52,8 +52,8 @@ GEM
     bcrypt (3.1.12)
     bindex (0.5.0)
     builder (3.2.3)
-    byebug (10.0.2)
-    capybara (3.13.2)
+    byebug (11.0.0)
+    capybara (3.14.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -71,12 +71,14 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.4)
     crass (1.0.4)
+    d3-rails (5.7.0)
+      railties (>= 3.1)
     database_cleaner (1.7.0)
     diff-lcs (1.3)
     docile (1.3.1)
     erubi (1.8.0)
     execjs (2.7.0)
-    factory_bot (5.0.0)
+    factory_bot (5.0.2)
       activesupport (>= 4.2.0)
     factory_bot_rails (5.0.1)
       factory_bot (~> 5.0.0)
@@ -91,7 +93,7 @@ GEM
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
-    json (2.1.0)
+    json (2.2.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     listen (3.1.5)
@@ -177,8 +179,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    shoulda-matchers (3.1.3)
-      activesupport (>= 4.0.0)
+    shoulda-matchers (4.0.0)
+      activesupport (>= 4.2.0)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -217,6 +219,7 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.2)
+  d3-rails
   database_cleaner
   factory_bot_rails
   faker!

@@ -10,7 +10,7 @@ RSpec.describe 'as a merchant' do
     @merchant = create(:merchant)
     @merchant_2 = create(:merchant, name: "April")
 
-    @item_1 = create(:disabled_item, user: @merchant, quantity: 15, price: 5)
+    @item_1 = create(:disabled_item, title: 'Pork & Beans', user: @merchant, quantity: 15, price: 5, slug: 'pork-beans')
     @item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10, @item_11, @item_12, @item_13, @item_14, @item_15, @item_16, @item_17, @item_18 = create_list(:item, 17, user: @merchant, quantity: 15, price: 5)
 
     @order_items = [@item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10, @item_11, @item_12, @item_13, @item_14, @item_15, @item_16]
@@ -328,6 +328,46 @@ RSpec.describe 'as a merchant' do
       expect(current_path).to eq(dashboard_items_path)
 
       expect(page).to have_content('Okonomiyaki')
+    end
+
+    it 'creates a slug when an item is made' do
+
+      visit dashboard_items_new_path
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      new_item = Item.last
+
+      expect(new_item.slug).to eq('delicious-treats')
+
+    end
+
+    it 'slug only changes when title is changed' do
+
+      visit dashboard_item_edit_path(@item_1.slug)
+
+      fill_in 'Price', with: 25
+
+      click_button "Update Item"
+
+      expect(@item_1.slug).to eq('pork-beans')
+
+      within "#item-#{@item_1.id}" do
+        click_button "Edit Item"
+      end
+
+      fill_in 'Dish', with: 'Pork and Beans'
+
+      click_button "Update Item"
+
+      updated_item = Item.find_by(title: 'Pork and Beans')
+      expect(updated_item.slug).to eq('pork-and-beans')
     end
   end
 end
