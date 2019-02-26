@@ -272,11 +272,11 @@ RSpec.describe User, type: :model do
           user_1_order_0 = user_1.orders.create(status: :fulfilled, created_at: 2.years.ago, updated_at: 2.years.ago)
           create(:order_item, item: item_1, order: user_1_order_0, created_at: 2.years.ago, updated_at: 2.years.ago, fulfillment_status: :fulfilled, sale_price: 6, quantity: 10)
 
-          user_1_order_1 = user_1.orders.create(status: :fulfilled, created_at: 1.year.ago, updated_at: 1.year.ago)
+          user_1_order_1 = user_1.orders.create(status: :fulfilled, created_at: 12.months.ago.end_of_month, updated_at: 12.months.ago.end_of_month)
           user_1_order_2 = user_1.orders.create(status: :fulfilled, created_at: 11.months.ago, updated_at: 11.months.ago)
           user_1_order_3 = user_1.orders.create(status: :fulfilled, created_at: 10.months.ago, updated_at: 10.months.ago)
-          create(:order_item, item: item_1, order: user_1_order_1, created_at: 1.year.ago, updated_at: 1.year.ago, fulfillment_status: :fulfilled, sale_price: 10, quantity: 12)
-          create(:order_item, item: item_4, order: user_1_order_1, created_at: 1.year.ago, updated_at: 1.year.ago, fulfillment_status: :fulfilled, sale_price: 16, quantity: 18)
+          create(:order_item, item: item_1, order: user_1_order_1, created_at: 12.months.ago.end_of_month, updated_at: 12.months.ago.end_of_month, fulfillment_status: :fulfilled, sale_price: 10, quantity: 12)
+          create(:order_item, item: item_4, order: user_1_order_1, created_at: 12.months.ago.end_of_month, updated_at: 12.months.ago.end_of_month, fulfillment_status: :fulfilled, sale_price: 16, quantity: 18)
           create(:order_item, item: item_2, order: user_1_order_2, created_at: 11.months.ago, updated_at: 11.months.ago, fulfillment_status: :fulfilled, sale_price: 14, quantity: 19)
           create(:order_item, item: item_3, order: user_1_order_3, created_at: 10.months.ago, updated_at: 10.months.ago, fulfillment_status: :fulfilled, sale_price: 5, quantity: 18)
 
@@ -318,7 +318,7 @@ RSpec.describe User, type: :model do
                       "Year: 2018.0, Month: 11.0, Revenue: 360",
                       "Year: 2018.0, Month: 12.0, Revenue: 136",
                       "Year: 2019.0, Month: 1.0, Revenue: 982"]
-          actual = (merchant.yearly_revenue.map { |obj| "Year: #{obj.year}, Month: #{obj.month}, Revenue: #{obj.item_revenue}" unless obj.year < (1.year.ago).year }).compact
+          actual = merchant.yearly_revenue.map { |obj| "Year: #{obj.year}, Month: #{obj.month}, Revenue: #{obj.item_revenue}"}
 
           expect(actual).to eq(expected)
         end

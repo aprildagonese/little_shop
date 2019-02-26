@@ -90,9 +90,10 @@ class User < ApplicationRecord
   def yearly_revenue
     items.joins(:order_items)
          .select("EXTRACT(MONTH FROM order_items.created_at) AS month, EXTRACT(YEAR FROM order_items.created_at) AS year, SUM(order_items.sale_price * order_items.quantity) AS item_revenue")
+         .where("order_items.created_at > ?", 12.months.ago)
          .where(order_items: {fulfillment_status: :fulfilled})
          .group("month, year")
-         .order('year')
+         .order('year, month')
   end
 
   def top_states(limit)
