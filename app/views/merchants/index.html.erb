@@ -8,6 +8,10 @@
 
     <h3>Statistics</h3>
 
+    <section id='total-sales'>
+      <%= pie_chart @total_sales %>
+    </section>
+
     <section id='peoples-choice'>
       <h4>People's Choice</h4>
       <% @best_revenue_merchants.each do |merchant| %>
