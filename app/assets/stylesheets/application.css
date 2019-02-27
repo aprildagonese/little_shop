@@ -324,11 +324,12 @@ li {
   margin: 12px;
   border-radius: 5px;
   display: grid;
-  grid-template: 10vh 15vh 22vh 15vh 12vh / 50% 50% ;
+  grid-template: 10vh 320px 22vh 22vh 12vh / 50% 50% ;
   /* background: #D5B9B2;
   background: #232120; */
   background: #353230;
   color: #efe5e3;
+  overflow: scroll;
 }
 
 .merchant-stats h3 {
@@ -364,6 +365,7 @@ li {
   margin: 6px;
   padding-left: 24px;
   background: #ece2d0;
+  overflow: scroll;
 }
 
 .dashboard-stats h3 {
@@ -776,7 +778,7 @@ li {
 /* MERCHANT INDEX */
 
 #peoples-choice {
-  grid-area: 2 / 1 / 3 / 3;
+  /* grid-area: 2 / 1 / 3 / 3; */
   text-align: center;
   overflow: scroll;
 }
@@ -786,7 +788,7 @@ li {
 }
 
 #fast-food {
-  grid-area: 3 / 1 / 4 / 2;
+  /* grid-area: 3 / 1 / 4 / 2; */
   text-align: center;
   overflow: scroll;
 }
@@ -796,7 +798,7 @@ li {
 }
 
 #slow-food {
-  grid-area: 3 / 2 / 4 / 3;
+  /* grid-area: 3 / 2 / 4 / 3; */
   text-align: center;
   overflow: scroll;
 }
@@ -824,13 +826,17 @@ li {
 }
 
 #biggest-appetites {
-  grid-area: 5 / 1 / 6 / 3;
+  /* grid-area: 5 / 1 / 6 / 3; */
   text-align: center;
   overflow: scroll;
 }
 
 #biggest-appetites p {
   margin: 1px;
+}
+
+#total-sales {
+  grid-area: 2 / 1 / 3 / 3;
 }
 
 
