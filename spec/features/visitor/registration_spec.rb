@@ -25,14 +25,14 @@ RSpec.describe 'when authenticating visitors' do
     end
 
     it "can't register with an existing email address" do
-      fae = User.create!(name: "Fae Dagonese",
-                           email: "april@email.com",
-                           street_address: "222 Street Dr.",
-                           city: "LA",
-                           state: "CA",
-                           zip_code: 90210,
-                           password: "faetest",
-                           password_confirmation: "faetest")
+      fae = create(:user, name: "Fae Dagonese",
+                          email: "april@email.com",
+                          street_address: "222 Street Dr.",
+                          city: "LA",
+                          state: "CA",
+                          zip_code: 90210,
+                          password: "faetest",
+                          password_confirmation: "faetest")
       expect(User.count).to eq(1)
       visit items_path
       click_on "Register"
@@ -55,7 +55,7 @@ RSpec.describe 'when authenticating visitors' do
     end
 
     it 'after registering with duplicate email, it will render form with all fields filled in except email and passwords' do
-      april = User.create(name: 'April', email: 'april@email.com', password: 'test')
+      april = create(:user, name: 'April', email: 'april@email.com', password: 'test')
 
       visit register_path
 
@@ -104,6 +104,25 @@ RSpec.describe 'when authenticating visitors' do
       expect(page).to have_field(:user_zip_code)
       expect(page).to have_field(:user_password)
       expect(page).to have_field(:user_password_confirmation)
+    end
+
+    it 'creates a slug on registration' do
+
+      visit welcome_path
+      click_link "Register"
+
+      fill_in :user_name, with: "April Dagonese"
+      fill_in :user_email, with: "april@email.com"
+      fill_in :user_street_address, with: "1111 Street Dr."
+      fill_in :user_city, with: "Denver"
+      fill_in :user_state, with: "CO"
+      fill_in :user_zip_code, with: 80202
+      fill_in :user_password, with: "test"
+      fill_in :user_password_confirmation, with: "test"
+
+      click_on "Create User"
+
+      expect(User.last.slug).to eq("april-email-com")
     end
   end
 end

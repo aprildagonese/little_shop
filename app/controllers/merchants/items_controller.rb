@@ -5,18 +5,19 @@ class Merchants::ItemsController < Merchants::BaseController
   end
 
   def edit
-    @item = Item.find(params[:id])
+    @item = Item.find_by(slug: params[:slug])
   end
 
   def update
-    @item = Item.find(params[:id])
+    @item = Item.find_by(slug: params[:item][:slug])
     new_params = item_params
     new_params[:image_url] = set_url(item_params[:image_url])
     if @item.update(new_params)
+      @item.create_slug
       redirect_to dashboard_items_path
     else
       flash[:error] = "Dish title is already taken."
-      redirect_to dashboard_item_edit_path(@item)
+      redirect_to dashboard_item_edit_path(@item.slug)
     end
   end
 

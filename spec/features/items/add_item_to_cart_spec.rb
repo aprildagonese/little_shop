@@ -6,7 +6,7 @@ RSpec.describe 'From an items show page' do
   end
   context 'as a visitor' do
     it 'can add an item to their cart' do
-      visit item_path(@item)
+      visit item_path(@item.slug)
 
       click_button "Add Item To Cart"
 
@@ -24,7 +24,7 @@ RSpec.describe 'From an items show page' do
       fill_in :password, with: user.password
       click_button "Log In"
 
-      visit item_path(@item)
+      visit item_path(@item.slug)
 
       click_button "Add Item To Cart"
 

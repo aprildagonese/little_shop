@@ -24,7 +24,7 @@ RSpec.describe 'as an admin', type: :feature do
 
   it "admin can see users order index page" do
 
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
 
     click_button 'User Orders'
 
@@ -36,7 +36,7 @@ RSpec.describe 'as an admin', type: :feature do
 
   it "admin can go to users order show page" do
 
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
 
     click_button 'User Orders'
 

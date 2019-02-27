@@ -23,7 +23,7 @@ RSpec.describe 'as an admin', type: :feature do
 
   it 'can see a users profile with account info' do
 
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
 
     within ".profile" do
       expect(page).to have_content("Name: #{@user.name}")
@@ -40,17 +40,17 @@ RSpec.describe 'as an admin', type: :feature do
 
   it "clicking 'edit profile' brings admin to edit profile form" do
 
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
 
     click_button 'Edit Profile'
 
-    expect(current_path).to eq(edit_admin_user_path(@user))
+    expect(current_path).to eq(edit_admin_user_path(@user.slug))
     expect(page).to have_content("Edit Profile")
   end
 
   it "clicking 'user orders' brings admin to user orders index" do
 
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
 
     click_button 'User Orders'
 

@@ -32,6 +32,8 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 gem 'figaro'
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+gem 'chartkick'
+gem 'groupdate'
 
 
 group :development, :test do

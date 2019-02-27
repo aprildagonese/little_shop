@@ -14,10 +14,11 @@ class ItemsController < ApplicationController
     @item = @user.items.new(item_params)
     @item.image_url = set_url(params[:image_url])
     @item.active = true
+    @item.create_slug
 
     if @item.save
       redirect_to dashboard_items_path if current_user.merchant?
-      redirect_to admin_items_path(user_id: @user) if current_user.admin?
+      redirect_to admin_items_path(slug: @user.slug) if current_user.admin?
       flash[:alert] = "'#{@item.title}' has been saved and is available for sale."
     else
       render :new
@@ -25,7 +26,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+    @item = Item.find_by(slug: params[:slug])
   end
 
   def index
@@ -35,18 +36,18 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    item = Item.find(params[:id])
+    item = Item.find_by(slug: params[:slug])
     item.delete
     redirect_to dashboard_items_path if current_user.merchant?
-    redirect_to admin_items_path(user_id: item.user) if current_user.admin?
+    redirect_to admin_items_path(slug: item.user.slug) if current_user.admin?
     flash[:alert] = "#{item.title} has been deleted."
   end
 
   def enable
-    @item = Item.find(params[:id])
+    @item = Item.find_by(slug: params[:slug])
     @item.change_status
     redirect_to dashboard_items_path if current_user.merchant?
-    redirect_to admin_items_path(user_id: @item.user) if current_user.admin?
+    redirect_to admin_items_path(slug: @item.user.slug) if current_user.admin?
     if @item.active
       flash[:alert] = "#{@item.title} has been enabled and is now available for sale."
     else

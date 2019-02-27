@@ -22,15 +22,15 @@
 
             <div class="buttons">
 
-            <%= button_to "Edit Item", edit_admin_item_path(item), method: :get %>
+            <%= button_to "Edit Item", edit_admin_item_path(item.slug), method: :get %>
             <% if item.active %>
-              <%= button_to "Disable", enable_item_path(item), method: :patch %>
+              <%= button_to "Disable", enable_item_path(item.slug), method: :patch %>
             <% else %>
-              <%= button_to "Enable", enable_item_path(item), method: :patch %>
+              <%= button_to "Enable", enable_item_path(item.slug), method: :patch %>
             <% end %>
 
             <% unless item.ordered? %>
-              <%= button_to "Delete", item_path(item), method: :delete %>
+              <%= button_to "Delete", item_path(item.slug), method: :delete %>
             <% end %>
             </div>
 

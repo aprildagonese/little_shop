@@ -68,7 +68,7 @@ RSpec.describe "As an admin", type: :feature do
 
       click_link @user_1.name
 
-      expect(current_path).to eq(admin_user_path(@user_1))
+      expect(current_path).to eq(admin_user_path(@user_1.slug))
     end
 
     it "next to each user's name is the date they registered and a button to enable or disable based on current activation status" do

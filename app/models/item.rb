@@ -1,6 +1,8 @@
 require 'uri'
 
 class Item < ApplicationRecord
+  # after_initialize :create_slug
+
   belongs_to :user
   has_many :order_items
   has_many :orders, through: :order_items
@@ -9,6 +11,7 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :quantity, presence: true
   validates :price, presence: true
+  validates :slug, presence: true, uniqueness: true
 
   def fulfillment_time
     time = Item.joins(:orders)
@@ -50,6 +53,15 @@ class Item < ApplicationRecord
         .where(items: {user: merchant})
         .group(:id)
         .order("total_quantity desc")
+  end
+
+  def create_slug
+    if title
+      slug = title.downcase
+      slug.gsub!(/[:@ _\&;~^`|%#?;.<>=\/\{\}\[\]\\]/, '-')
+      slug.squeeze!('-')
+      self.update(slug: slug)
+    end
   end
 
   def units_sold

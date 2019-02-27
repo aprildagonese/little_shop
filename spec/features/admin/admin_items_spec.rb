@@ -20,7 +20,7 @@ RSpec.describe "items", type: :feature do
       @merchant = create(:merchant)
       @merchant_2 = create(:merchant)
 
-      @item_1 = create(:disabled_item, user: @merchant, quantity: 15, price: 5)
+      @item_1 = create(:disabled_item, user: @merchant, quantity: 15, price: 5, title: 'Bon Bons', slug: 'bon-bons')
       @item_2, @item_3, @item_17, @item_18 = create_list(:item, 4, user: @merchant, quantity: 15, price: 5)
       @order_items = [@item_2, @item_3]
       @item_19 = create(:item, user: @merchant_2, quantity: 15, price: 5)
@@ -34,7 +34,7 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'it can visit merchants profile page items index' do
-      visit admin_merchant_path(@merchant)
+      visit admin_merchant_path(@merchant.slug)
 
       expect(page).to have_button("Manage Merchant Items")
       click_button("Manage Merchant Items")
@@ -44,7 +44,7 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'sees all of their items' do
-      visit admin_items_path(user_id: @merchant)
+      visit admin_items_path(slug: @merchant.slug)
 
       @merchant.items.each do |item|
         within "#item-#{item.id}" do
@@ -62,7 +62,7 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'sees a button to enable/disable' do
-      visit admin_items_path(user_id: @merchant)
+      visit admin_items_path(slug: @merchant.slug)
 
       within "#item-#{@item_1.id}" do
         expect(page).to have_button("Enable")
@@ -92,7 +92,7 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'can disable an item' do
-      visit admin_items_path(user_id: @merchant)
+      visit admin_items_path(slug: @merchant.slug)
 
       within "#item-#{@item_2.id}" do
         expect(page).to have_button("Disable")
@@ -111,7 +111,7 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'can enable an item' do
-      visit admin_items_path(user_id: @merchant)
+      visit admin_items_path(slug: @merchant.slug)
 
       within "#item-#{@item_1.id}" do
         expect(page).to have_button("Enable")
@@ -130,7 +130,7 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'can delete an item' do
-      visit admin_items_path(user_id: @merchant)
+      visit admin_items_path(slug: @merchant.slug)
 
       within "#item-#{@item_17.id}" do
         expect(page).to have_button("Delete")
@@ -145,7 +145,7 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'can add an item' do
-      visit admin_items_path(user_id: @merchant)
+      visit admin_items_path(slug: @merchant.slug)
 
       expect(page).to have_button("Add a New Item")
       click_button("Add a New Item")
@@ -273,14 +273,14 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'can edit an item' do
-      visit admin_items_path(user_id: @merchant)
+      visit admin_items_path(slug: @merchant.slug)
 
       within "#item-#{@item_1.id}" do
         expect(page).to have_button("Edit Item")
         click_button("Edit Item")
       end
 
-      expect(current_path).to eq(edit_admin_item_path(@item_1))
+      expect(current_path).to eq(edit_admin_item_path(@item_1.slug))
 
       expect(page).to have_content("Dish")
       expect(page).to have_content("Description")
@@ -290,7 +290,6 @@ RSpec.describe "items", type: :feature do
       expect(page).to have_button("Update Item")
 
       fill_in 'Dish', with: 'Okonomiyaki'
-
       click_button "Update Item"
 
       expect(current_path).to eq(admin_items_path)
@@ -300,14 +299,10 @@ RSpec.describe "items", type: :feature do
     end
 
     it 'is redirected to the edit form if item is entered in error' do
-      visit admin_items_path(user_id: @merchant)
 
-      within "#item-#{@item_1.id}" do
-        expect(page).to have_button("Edit Item")
-        click_button("Edit Item")
-      end
+      visit edit_admin_item_path(@item_1.slug)
 
-      expect(current_path).to eq(edit_admin_item_path(@item_1))
+      expect(current_path).to eq(edit_admin_item_path(@item_1.slug))
 
       fill_in 'Dish', with: "#{@item_2.title}"
       fill_in 'Description', with: "good"
@@ -316,7 +311,7 @@ RSpec.describe "items", type: :feature do
 
       click_button "Update Item"
 
-      expect(current_path).to eq(edit_admin_item_path(@item_1))
+      expect(current_path).to eq(edit_admin_item_path(@item_1.slug))
 
       expect(page).to_not have_content("#{@item_2.title}")
       expect(page).to have_content("Dish title is already taken.")
@@ -325,11 +320,7 @@ RSpec.describe "items", type: :feature do
     it 'can leave the image field blank' do
       default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
 
-      visit admin_items_path(user_id: @merchant)
-
-      within "#item-#{@item_1.id}" do
-        click_button("Edit Item")
-      end
+      visit edit_admin_item_path(@item_1.slug)
 
       fill_in 'Dish', with: "No image"
 
@@ -343,11 +334,7 @@ RSpec.describe "items", type: :feature do
     it 'can put a bad link in the image field' do
       default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
 
-      visit admin_items_path(user_id: @merchant)
-
-      within "#item-#{@item_1.id}" do
-        click_button("Edit Item")
-      end
+      visit edit_admin_item_path(@item_1.slug)
 
       fill_in 'Dish', with: "Bad image"
       fill_in "Image (optional)", with: "notagoodlink"
@@ -363,7 +350,7 @@ RSpec.describe "items", type: :feature do
       default_url = "https://2static.fjcdn.com/pictures/Generic+food+image+if+anyones+old+or+watched+repo+man_47b808_5979251.jpg"
       good_url = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/socialmedia/apple/155/thumbs-up-sign_1f44d.png"
 
-      visit admin_items_path(user_id: @merchant)
+      visit admin_items_path(slug: @merchant.slug)
 
       within "#item-#{@item_1.id}" do
         click_button("Edit Item")
@@ -379,5 +366,44 @@ RSpec.describe "items", type: :feature do
       expect(page).to have_css("img[src*='#{good_url}']")
     end
 
+    it 'creates a slug when an item is made' do
+
+      visit new_item_path(user: @merchant)
+
+      fill_in "Dish", with: "Delicious Treats"
+      fill_in "Description", with: "They're ok"
+      fill_in "item[image_url]", with: "http://www.flygirrl.com/uploads/1/4/3/8/14383458/tastytreatsretreat-00_orig.jpg"
+      fill_in "Price", with: 20
+      fill_in "Current Inventory", with: 40
+
+      click_button("Save Item")
+
+      new_item = Item.last
+
+      expect(new_item.slug).to eq('delicious-treats')
+
+    end
+
+    it 'slug only changes when title is changed' do
+
+      visit edit_admin_item_path(@item_1.slug)
+
+      fill_in 'Price', with: 25
+
+      click_button "Update Item"
+
+      expect(@item_1.slug).to eq('bon-bons')
+
+      within "#item-#{@item_1.id}" do
+        click_button "Edit Item"
+      end
+
+      fill_in 'Dish', with: 'Chocolate Bon Bons'
+
+      click_button "Update Item"
+
+      updated_item = Item.find_by(title: 'Chocolate Bon Bons')
+      expect(updated_item.slug).to eq('chocolate-bon-bons')
+    end
   end
 end

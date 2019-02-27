@@ -5,8 +5,8 @@
     <div class="user-<%=user.id%>-row">
       <% if current_user && current_user.admin? %>
         <div class="user-name">
-          <%= link_to user.name, admin_merchant_path(user) if user.merchant? %>
-          <%= link_to user.name, admin_user_path(user) if user.registered? %>
+          <%= link_to user.name, admin_merchant_path(user.slug) if user.merchant? %>
+          <%= link_to user.name, admin_user_path(user.slug) if user.registered? %>
           <% if user.inactive? %>
             (Disabled)
           <% end %>

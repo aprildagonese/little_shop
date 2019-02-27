@@ -2,7 +2,7 @@ class Users::OrdersController < ApplicationController
   before_action :require_current_user
 
   def show
-    @order = Order.find(params[:id])
+    @order = Order.find(params[:slug])
   end
 
   def index

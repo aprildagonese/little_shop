@@ -14,9 +14,9 @@ RSpec.describe 'Cart show page' do
   context 'as a visitor' do
 
     before :each do
-      visit item_path(@item_1)
+      visit item_path(@item_1.slug)
       click_button "Add Item To Cart"
-      visit item_path(@item_2)
+      visit item_path(@item_2.slug)
       click_button "Add Item To Cart"
 
       visit cart_path
@@ -84,7 +84,7 @@ RSpec.describe 'Cart show page' do
     end
 
     it 'does not allow you to increase desired quantity to more than quantity of item' do
-      visit item_path(@item_4)
+      visit item_path(@item_4.slug)
       click_button "Add Item To Cart"
       visit cart_path
 
@@ -103,7 +103,7 @@ RSpec.describe 'Cart show page' do
       within ".id-#{@item_4.id}-row" do
         click_button('+')
       end
-  
+
       expect(page).to have_content("Not Enough Items In Stock")
 
       within ".id-#{@item_4.id}-row" do
@@ -158,9 +158,9 @@ RSpec.describe 'Cart show page' do
     before :each do
       @user = create(:user, role: 0)
       login_as(@user)
-      visit item_path(@item_1)
+      visit item_path(@item_1.slug)
       click_button "Add Item To Cart"
-      visit item_path(@item_2)
+      visit item_path(@item_2.slug)
       click_button "Add Item To Cart"
 
       visit cart_path
@@ -278,9 +278,9 @@ RSpec.describe 'Cart show page' do
 
   context "after adding items to my cart" do
     it "I can empty it" do
-      visit item_path(@item_1)
+      visit item_path(@item_1.slug)
       click_button "Add Item To Cart"
-      visit item_path(@item_2)
+      visit item_path(@item_2.slug)
       click_button "Add Item To Cart"
       expect(page).to have_link("Cart (2)")
       visit cart_path
