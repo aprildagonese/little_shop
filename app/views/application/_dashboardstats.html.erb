@@ -1,8 +1,14 @@
 <section class='dashboard-stats'>
 
+  <section class='yearly-revenue'>
+    <h3>Yearly Revenue</h3>
+    <%= bar_chart @yearly_revenue.group_by_month(:created_at, format: "%b %Y").count %>
+  </section>
+
   <section class='percent-sold'>
     <h3>Total Quantity of Items Sold</h3>
     <p>Sold <%= @user.items.total_sold_quantity(@user) %> items, which is <%= @user.items.percent_sold(@user) %>% of your total inventory</p>
+    <%= pie_chart @user.inventory_chart %>
   </section>
 
   <section id=top-items>
@@ -23,6 +29,7 @@
         </section>
       <% end %>
     </ol>
+    <%= pie_chart @user.state_chart %>
   </section>
 
   <section id='top-cities'>
@@ -34,6 +41,7 @@
         </section>
       <% end %>
     </ol>
+    <%= pie_chart @user.city_chart %>
   </section>
 
   <section id='top-spending-patrons'>

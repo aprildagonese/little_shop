@@ -3,7 +3,8 @@ class MerchantsController < ApplicationController
 
   def index
     @users = User.where(role: 1).where(activation_status: 0)
-  
+
+    @total_sales = User.total_sales_chart
     @best_revenue_merchants = User.highest_revenues
     @fastest_merchants = User.fastest_fulfillments
     @slowest_merchants = User.slowest_fulfillments
@@ -16,6 +17,8 @@ class MerchantsController < ApplicationController
     if current_user.merchant?
       @user = current_user
       @orders = Order.find_orders(@user)
+
+      @yearly_revenue = @user.years_revenue
       @top_five = Item.top_items_sold(@user).limit(5)
       @top_three_states = @user.top_states(3)
       @top_three_cities = @user.top_city_states(3)

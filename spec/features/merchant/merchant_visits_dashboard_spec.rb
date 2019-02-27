@@ -88,6 +88,30 @@ RSpec.describe "as a merchant" do
       visit dashboard_path(@merchant)
     end
 
+    it "stats as charts" do
+
+      within '.yearly-revenue' do
+        expect(page).to have_content("Yearly Revenue")
+        expect(page).to have_css('#chart-1')
+      end
+
+      within '.percent-sold' do
+        expect(page).to have_content("Total Quantity of Items Sold")
+        expect(page).to have_css('#chart-2')
+      end
+
+      within '#top-states' do
+        expect(page).to have_content("Top 3 States Where Items Were Shipped")
+        expect(page).to have_css('#chart-3')
+      end
+
+      within '#top-cities' do
+        expect(page).to have_content("Top 3 Cities Where Items Were Shipped")
+        expect(page).to have_css('#chart-4')
+      end
+
+    end
+
     it "top 5 items sold by quantity" do
        within '#top-items' do
         expect(page.all('.top-item')[0]).to have_content("#{@item7.title}: #{@item7.units_sold} units sold")
